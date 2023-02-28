@@ -1,0 +1,5 @@
+plugged/
+cache/
+autoload/
+.DS_Store
+.git/
