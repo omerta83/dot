@@ -76,11 +76,11 @@ return {
         fzf_opts = {
           -- ['--bind']         = 'ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,shift-up:preview-top,shift-down:preview-bottom,alt-up:half-page-up,alt-down:half-page-down',
           -- ['--no-separator'] = '',
-          ['--ansi']         = '',
-          ['--info']         = 'inline',
-          ['--height']       = '100%',
-          ['--layout']       = 'reverse',
-          ['--border']       = 'none',
+          ['--ansi']   = '',
+          ['--info']   = 'inline',
+          ['--height'] = '100%',
+          ['--layout'] = 'reverse',
+          ['--border'] = 'none',
         },
         fzf_colors = {
           ["fg"] = { "fg", "Normal" },
@@ -93,6 +93,24 @@ return {
           -- ["scrollbar"] = { "fg", "WarningMsg" },
         },
         file_icon_padding = '',
+        keymap = {
+          fzf = {
+            ["ctrl-z"]     = "abort",
+            -- ["ctrl-u"]     = "unix-line-discard",
+            ["ctrl-f"]     = "half-page-down",
+            ["ctrl-b"]     = "half-page-up",
+            ["ctrl-a"]     = "beginning-of-line",
+            ["ctrl-e"]     = "end-of-line",
+            ["alt-a"]      = "toggle-all",
+            -- Only valid with fzf previewers (bat/cat/git/etc)
+            ["ctrl-d"]     = "preview-half-page-down",
+            ["ctrl-u"]     = "preview-half-page-up",
+            ["f3"]         = "toggle-preview-wrap",
+            ["f4"]         = "toggle-preview",
+            ["shift-down"] = "preview-page-down",
+            ["shift-up"]   = "preview-page-up",
+          }
+        }
       }
     end
   },
