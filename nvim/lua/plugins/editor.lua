@@ -1,109 +1,130 @@
 return {
-  -- Fuzzy finder
+  -- Fuzzy finder with fzf
   {
-    'nvim-telescope/telescope.nvim',
-    cmd = { "Telescope" },
-    dependencies = {
-      'nvim-telescope/telescope-live-grep-args.nvim',
-      'barrett-ruth/telescope-http.nvim'
-    },
-    opts = function()
-      local lga_actions = require("telescope-live-grep-args.actions")
-      local actions = require('telescope.actions')
-
-      return {
-        defaults = {
-          vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--ignore",
-            "--line-number",
-            "--column",
-            "--smart-case"
-          },
-          mappings = {
-            n = {
-              ["q"] = actions.close
-            },
-          },
-          winblend = 0,
-        },
-        extensions = {
-          live_grep_args = {
-            auto_quoting = false,
-            mappings = {
-              i = {
-                ["<C-k>"] = lga_actions.quote_prompt(),
-                ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob" })
-              }
-            }
-          }
-        },
-      }
-    end,
+    'ibhagwan/fzf-lua',
+    cmd = { "FzfLua" },
     keys = function()
-      -- local status, telescope = pcall(require, "telescope")
-      -- if (not status) then return end
-      local builtin = require("telescope.builtin")
-      -- local function telescope_buffer_dir()
-      --   return vim.fn.expand('%:p:h')
-      -- end
-
       return {
-        {
-          "<Leader><space>",
-          function()
-            builtin.find_files({
-              no_ignore = false,
-              hidden = true
-            })
-          end,
-          desc = "Find files (root dir)"
-        },
-        { "<Leader>fb", "<cmd>Telescope buffers<CR>",                       desc = "Buffers (Telescope)" },
-        { "<Leader>fg", "<cmd>Telescope live_grep_args live_grep_args<CR>", desc = "Live Grep Args (Telescope)" },
-        { "<Leader>fs", "<cmd>Telescope grep_string<CR>",                   desc = "Grep String (Telescope)" },
-        { "<Leader>fv", "<cmd>Telescope git_commits<CR>",                   desc = "Git Commits (Telescope)" },
-        { "<leader>fh", "<cmd>Telescope command_history<cr>",               desc = "Command History (Telescope)" },
-        { "<leader>fc", "<cmd>Telescope commands<cr>",                      desc = "Commands (Telescope)" },
-        { "<leader>fr", "<cmd>Telescope http list<cr>",                     desc = "HTTP Status (Telescope)" },
-        {
-          "<Leader>fo",
-          function()
-            builtin.lsp_document_symbols({
-              symbols = {
-                "Class",
-                "Function",
-                "Method",
-                "Constructor",
-                "Interface",
-                "Module",
-                "Struct",
-                "Trait",
-                "Field",
-                "Property",
-              }
-            })
-          end,
-          desc = "Goto Symbol (Telescope)"
-        },
-        { '<Leader>ft', "<cmd>Telescope treesitter<CR>", desc = "Treesitter Symbols (Telescope)" },
-        { '<Leader>f;', "<cmd>Telescope resume<CR>", desc = "Resume (Telescope)" },
-        { '<Leader>fd', "<cmd>Telescope diagnostics<CR>", desc = "Show Diagnostics (Telescope)" },
+        { "<Leader><space>", "<cmd>FzfLua files<CR>",                 desc = "Find files (root dir)" },
+        { "<Leader>fb",      "<cmd>FzfLua buffers<CR>",               desc = "Buffers (FZF)" },
+        { "<Leader>fg",      "<cmd>FzfLua live_grep<CR>",             desc = "Live Grep Args (FZF)" },
+        { "<Leader>fs",      "<cmd>FzfLua grep<CR>",                  desc = "Grep String (FZF)" },
+        { "<Leader>fv",      "<cmd>FzfLua git_commits<CR>",           desc = "Git Commits (FZF)" },
+        { "<leader>fh",      "<cmd>FzfLua command_history<cr>",       desc = "Command History (FZF)" },
+        { "<leader>fc",      "<cmd>FzfLua commands<cr>",              desc = "Commands (FZF)" },
+        { "<Leader>fo",      "<cmd>FzfLua lsp_document_symbols<CR>",  desc = "Goto Symbol (FZF)" },
+        { '<Leader>f;',      "<cmd>FzfLua resume<CR>",                desc = "Resume (FZF)" },
+        { '<Leader>fd',      "<cmd>FzfLua diagnostics_document<CR>",  desc = "Show Document Diagnostics (FZF)" },
+        { '<Leader>fD',      "<cmd>FzfLua diagnostics_workspace<CR>", desc = "Show Workspace Diagnostics (FZF)" },
       }
     end,
-    config = function(_, opts)
-      local telescope = require("telescope")
-
-      telescope.setup(opts)
-
-      -- telescope.load_extension("file_browser")
-      telescope.load_extension('live_grep_args')
-      telescope.load_extension('http')
-    end
+    opts = {
+      fzf_colors = {
+        ["gutter"] = { "bg", "Normal"}
+      },
+    }
   },
+
+  -- Fuzzy finder
+  -- {
+  --   'nvim-telescope/telescope.nvim',
+  --   cmd = { "Telescope" },
+  --   dependencies = {
+  --     'nvim-telescope/telescope-live-grep-args.nvim',
+  --     'barrett-ruth/telescope-http.nvim'
+  --   },
+  --   opts = function()
+  --     local lga_actions = require("telescope-live-grep-args.actions")
+  --     local actions = require('telescope.actions')
+  --
+  --     return {
+  --       defaults = {
+  --         vimgrep_arguments = {
+  --           "rg",
+  --           "--color=never",
+  --           "--no-heading",
+  --           "--with-filename",
+  --           "--ignore",
+  --           "--line-number",
+  --           "--column",
+  --           "--smart-case"
+  --         },
+  --         mappings = {
+  --           n = {
+  --             ["q"] = actions.close
+  --           },
+  --         },
+  --         winblend = 0,
+  --       },
+  --       extensions = {
+  --         live_grep_args = {
+  --           auto_quoting = false,
+  --           mappings = {
+  --             i = {
+  --               ["<C-k>"] = lga_actions.quote_prompt(),
+  --               ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob" })
+  --             }
+  --           }
+  --         }
+  --       },
+  --     }
+  --   end,
+  --   keys = function()
+  --     local builtin = require("telescope.builtin")
+  --
+  --     return {
+  --       {
+  --         "<Leader><space>",
+  --         function()
+  --           builtin.find_files({
+  --             no_ignore = false,
+  --             hidden = true
+  --           })
+  --         end,
+  --         desc = "Find files (root dir)"
+  --       },
+  --       { "<Leader>fb", "<cmd>Telescope buffers<CR>",                       desc = "Buffers (Telescope)" },
+  --       { "<Leader>fg", "<cmd>Telescope live_grep_args live_grep_args<CR>", desc = "Live Grep Args (Telescope)" },
+  --       { "<Leader>fs", "<cmd>Telescope grep_string<CR>",                   desc = "Grep String (Telescope)" },
+  --       { "<Leader>fv", "<cmd>Telescope git_commits<CR>",                   desc = "Git Commits (Telescope)" },
+  --       { "<leader>fh", "<cmd>Telescope command_history<cr>",               desc = "Command History (Telescope)" },
+  --       { "<leader>fc", "<cmd>Telescope commands<cr>",                      desc = "Commands (Telescope)" },
+  --       { "<leader>fr", "<cmd>Telescope http list<cr>",                     desc = "HTTP Status (Telescope)" },
+  --       {
+  --         "<Leader>fo",
+  --         function()
+  --           builtin.lsp_document_symbols({
+  --             symbols = {
+  --               "Class",
+  --               "Function",
+  --               "Method",
+  --               "Constructor",
+  --               "Interface",
+  --               "Module",
+  --               "Struct",
+  --               "Trait",
+  --               "Field",
+  --               "Property",
+  --             }
+  --           })
+  --         end,
+  --         desc = "Goto Symbol (Telescope)"
+  --       },
+  --       { '<Leader>ft', "<cmd>Telescope treesitter<CR>", desc = "Treesitter Symbols (Telescope)" },
+  --       { '<Leader>f;', "<cmd>Telescope resume<CR>", desc = "Resume (Telescope)" },
+  --       { '<Leader>fd', "<cmd>Telescope diagnostics<CR>", desc = "Show Diagnostics (Telescope)" },
+  --     }
+  --   end,
+  --   config = function(_, opts)
+  --     local telescope = require("telescope")
+  --
+  --     telescope.setup(opts)
+  --
+  --     -- telescope.load_extension("file_browser")
+  --     telescope.load_extension('live_grep_args')
+  --     telescope.load_extension('http')
+  --   end
+  -- },
   -- which-key
   {
     "folke/which-key.nvim",
