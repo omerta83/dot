@@ -251,7 +251,7 @@ return {
         vim.lsp.handlers.hover,
         {
           border = 'rounded',
-          title = " " .. require('config.icons').misc.Bell .. "Hover "
+          title = " " .. require('config.icons').misc.Bell .. " Hover "
         }
       )
 

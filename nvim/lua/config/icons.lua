@@ -2,8 +2,7 @@ local M = {
   diagnostics = {
     Error = " ",
     Warn = " ",
-    Hint = " ",
-    -- Hint = " ",
+    Hint = "󰌵 ",
     Info = " ",
   },
   file = {
@@ -55,7 +54,14 @@ local M = {
     Variable = " ",
   },
   misc = {
-    Bell = " "
+    Bell = "",
+    Gear = " ",
+    Vim = "",
+    Emacs = "",
+    Apple = "",
+    Arch = "",
+    SeparatorLeft = "",
+    SeparatorRight = "",
   }
 }
 
