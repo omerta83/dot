@@ -16,7 +16,14 @@
 
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-export FZF_DEFAULT_OPTS='--color=gutter:#000000'
+# export FZF_DEFAULT_OPTS='--color=gutter:#000000'
+export FZF_DEFAULT_OPTS=" \
+--no-separator \
+--bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,shift-up:preview-top,shift-down:preview-bottom,alt-up:half-page-up,alt-down:half-page-down \
+--color=bg+:#313244,bg:#000000,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc,gutter:#000000 \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"

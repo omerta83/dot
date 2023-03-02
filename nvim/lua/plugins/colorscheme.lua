@@ -62,6 +62,8 @@ return {
           NeoTreeNormalNC = { bg = colors.base },
           -- NeoTreeVertSplit = { bg = colors.mantle, fg = colors.mantle },
           -- NeoTreeWinSeparator = { bg = colors.mantle, fg = colors.mantle }
+          -- Fzf
+          FzfLuaTitle = { fg = colors.mauve }
         }
       end,
     }

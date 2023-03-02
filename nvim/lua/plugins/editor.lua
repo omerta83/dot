@@ -5,126 +5,98 @@ return {
     cmd = { "FzfLua" },
     keys = function()
       return {
-        { "<Leader><space>", "<cmd>FzfLua files<CR>",                 desc = "Find files (root dir)" },
-        { "<Leader>fb",      "<cmd>FzfLua buffers<CR>",               desc = "Buffers (FZF)" },
-        { "<Leader>fg",      "<cmd>FzfLua live_grep<CR>",             desc = "Live Grep Args (FZF)" },
-        { "<Leader>fs",      "<cmd>FzfLua grep<CR>",                  desc = "Grep String (FZF)" },
-        { "<Leader>fv",      "<cmd>FzfLua git_commits<CR>",           desc = "Git Commits (FZF)" },
-        { "<leader>fh",      "<cmd>FzfLua command_history<cr>",       desc = "Command History (FZF)" },
-        { "<leader>fc",      "<cmd>FzfLua commands<cr>",              desc = "Commands (FZF)" },
-        { "<Leader>fo",      "<cmd>FzfLua lsp_document_symbols<CR>",  desc = "Goto Symbol (FZF)" },
-        { '<Leader>f;',      "<cmd>FzfLua resume<CR>",                desc = "Resume (FZF)" },
-        { '<Leader>fd',      "<cmd>FzfLua diagnostics_document<CR>",  desc = "Show Document Diagnostics (FZF)" },
-        { '<Leader>fD',      "<cmd>FzfLua diagnostics_workspace<CR>", desc = "Show Workspace Diagnostics (FZF)" },
+        {
+          "<Leader><space>",
+          function()
+            require('fzf-lua').files({
+              { cmd = vim.env.FZF_DEFAULT_COMMAND }
+            })
+          end,
+          desc = "Find files (root dir)",
+        },
+        { "<Leader>fb", "<cmd>FzfLua buffers<CR>",               desc = "Buffers (FZF)" },
+        { "<Leader>fg", "<cmd>FzfLua live_grep_native<CR>",      desc = "Live Grep Args (FZF)" },
+        { "<Leader>fs", "<cmd>FzfLua grep<CR>",                  desc = "Grep String (FZF)" },
+        { "<Leader>fv", "<cmd>FzfLua git_commits<CR>",           desc = "Git Commits (FZF)" },
+        { "<leader>fh", "<cmd>FzfLua command_history<cr>",       desc = "Command History (FZF)" },
+        { "<leader>fc", "<cmd>FzfLua commands<cr>",              desc = "Commands (FZF)" },
+        { "<Leader>fo", "<cmd>FzfLua lsp_document_symbols<CR>",  desc = "Goto Symbol (FZF)" },
+        { '<Leader>f;', "<cmd>FzfLua resume<CR>",                desc = "Resume (FZF)" },
+        { '<Leader>fd', "<cmd>FzfLua diagnostics_document<CR>",  desc = "Show Document Diagnostics (FZF)" },
+        { '<Leader>fD', "<cmd>FzfLua diagnostics_workspace<CR>", desc = "Show Workspace Diagnostics (FZF)" },
       }
     end,
-    opts = {
-      fzf_colors = {
-        ["gutter"] = { "bg", "Normal"}
-      },
-    }
+    opts = function()
+      local preview_pager = vim.fn.executable("delta") == 1 and "delta --width=$FZF_PREVIEW_COLUMNS"
+      -- local preview_pager = vim.fn.executable("delta") == 1 and "delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}"
+      local fzf_lua = require('fzf-lua')
+      return {
+        "fzf-native",
+        winopts = {
+          height  = 0.85,
+          width   = 0.80,
+          row     = 0.35,
+          col     = 0.55,
+          preview = {
+            layout = 'vertical'
+          },
+        },
+        previewers = {
+          git_diff = {
+            pager = preview_pager,
+          }
+        },
+        git = {
+          status = {
+            cmd = "git status -su",
+            winopts = {
+              preview = { vertical = "down:70%", horizontal = "right:70%" }
+            },
+            actions = { ["ctrl-x"] = { fzf_lua.actions.git_reset, fzf_lua.actions.resume } },
+            preview_pager = preview_pager,
+          },
+          commits = {
+            winopts = {
+              preview = { vertical = "down:60%", }
+            },
+            preview_pager = preview_pager
+          },
+          bcommits = {
+            winopts = {
+              preview = { vertical = "down:60%", }
+            },
+            preview_pager = preview_pager
+          },
+          branches = {
+            winopts = {
+              preview = { vertical = "down:75%", horizontal = "right:75%", }
+            }
+          }
+        },
+        fzf_opts = {
+          -- ['--bind']         = 'ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,shift-up:preview-top,shift-down:preview-bottom,alt-up:half-page-up,alt-down:half-page-down',
+          -- ['--no-separator'] = '',
+          ['--ansi']         = '',
+          ['--info']         = 'inline',
+          ['--height']       = '100%',
+          ['--layout']       = 'reverse',
+          ['--border']       = 'none',
+        },
+        fzf_colors = {
+          ["fg"] = { "fg", "Normal" },
+          ["fg+"] = { "fg", "Normal" },
+          ["bg+"] = { "bg", "CursorLine" },
+          ["info"] = { "fg", "FzfLuaTitle" },
+          ["prompt"] = { "fg", "FzfLuaTitle" },
+          ["header"] = { "fg", "Normal" },
+          ["gutter"] = { "bg", "Normal" },
+          -- ["scrollbar"] = { "fg", "WarningMsg" },
+        },
+        file_icon_padding = '',
+      }
+    end
   },
 
-  -- Fuzzy finder
-  -- {
-  --   'nvim-telescope/telescope.nvim',
-  --   cmd = { "Telescope" },
-  --   dependencies = {
-  --     'nvim-telescope/telescope-live-grep-args.nvim',
-  --     'barrett-ruth/telescope-http.nvim'
-  --   },
-  --   opts = function()
-  --     local lga_actions = require("telescope-live-grep-args.actions")
-  --     local actions = require('telescope.actions')
-  --
-  --     return {
-  --       defaults = {
-  --         vimgrep_arguments = {
-  --           "rg",
-  --           "--color=never",
-  --           "--no-heading",
-  --           "--with-filename",
-  --           "--ignore",
-  --           "--line-number",
-  --           "--column",
-  --           "--smart-case"
-  --         },
-  --         mappings = {
-  --           n = {
-  --             ["q"] = actions.close
-  --           },
-  --         },
-  --         winblend = 0,
-  --       },
-  --       extensions = {
-  --         live_grep_args = {
-  --           auto_quoting = false,
-  --           mappings = {
-  --             i = {
-  --               ["<C-k>"] = lga_actions.quote_prompt(),
-  --               ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob" })
-  --             }
-  --           }
-  --         }
-  --       },
-  --     }
-  --   end,
-  --   keys = function()
-  --     local builtin = require("telescope.builtin")
-  --
-  --     return {
-  --       {
-  --         "<Leader><space>",
-  --         function()
-  --           builtin.find_files({
-  --             no_ignore = false,
-  --             hidden = true
-  --           })
-  --         end,
-  --         desc = "Find files (root dir)"
-  --       },
-  --       { "<Leader>fb", "<cmd>Telescope buffers<CR>",                       desc = "Buffers (Telescope)" },
-  --       { "<Leader>fg", "<cmd>Telescope live_grep_args live_grep_args<CR>", desc = "Live Grep Args (Telescope)" },
-  --       { "<Leader>fs", "<cmd>Telescope grep_string<CR>",                   desc = "Grep String (Telescope)" },
-  --       { "<Leader>fv", "<cmd>Telescope git_commits<CR>",                   desc = "Git Commits (Telescope)" },
-  --       { "<leader>fh", "<cmd>Telescope command_history<cr>",               desc = "Command History (Telescope)" },
-  --       { "<leader>fc", "<cmd>Telescope commands<cr>",                      desc = "Commands (Telescope)" },
-  --       { "<leader>fr", "<cmd>Telescope http list<cr>",                     desc = "HTTP Status (Telescope)" },
-  --       {
-  --         "<Leader>fo",
-  --         function()
-  --           builtin.lsp_document_symbols({
-  --             symbols = {
-  --               "Class",
-  --               "Function",
-  --               "Method",
-  --               "Constructor",
-  --               "Interface",
-  --               "Module",
-  --               "Struct",
-  --               "Trait",
-  --               "Field",
-  --               "Property",
-  --             }
-  --           })
-  --         end,
-  --         desc = "Goto Symbol (Telescope)"
-  --       },
-  --       { '<Leader>ft', "<cmd>Telescope treesitter<CR>", desc = "Treesitter Symbols (Telescope)" },
-  --       { '<Leader>f;', "<cmd>Telescope resume<CR>", desc = "Resume (Telescope)" },
-  --       { '<Leader>fd', "<cmd>Telescope diagnostics<CR>", desc = "Show Diagnostics (Telescope)" },
-  --     }
-  --   end,
-  --   config = function(_, opts)
-  --     local telescope = require("telescope")
-  --
-  --     telescope.setup(opts)
-  --
-  --     -- telescope.load_extension("file_browser")
-  --     telescope.load_extension('live_grep_args')
-  --     telescope.load_extension('http')
-  --   end
-  -- },
   -- which-key
   {
     "folke/which-key.nvim",
