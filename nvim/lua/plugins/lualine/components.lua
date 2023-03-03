@@ -22,7 +22,7 @@ end
 local M = {
   vim_icon = {
     function()
-      return icons.misc.Vim
+      return icons.misc.Apple
     end,
     separator = separator,
     color = { bg = "#313244", fg = "#80A7EA" },

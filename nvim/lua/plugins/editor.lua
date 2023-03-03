@@ -24,6 +24,96 @@ return {
         { '<Leader>f;', "<cmd>FzfLua resume<CR>",                desc = "Resume (FZF)" },
         { '<Leader>fd', "<cmd>FzfLua diagnostics_document<CR>",  desc = "Show Document Diagnostics (FZF)" },
         { '<Leader>fD', "<cmd>FzfLua diagnostics_workspace<CR>", desc = "Show Workspace Diagnostics (FZF)" },
+        {
+          '<Leader>ft',
+          function()
+            require('fzf-lua').fzf_exec("tldr --list", {
+              prompt = "tldr> ",
+              fzf_opts = {
+                  ['--preview-window'] = 'right,50%'
+              },
+              preview = "tldr {1}",
+            })
+          end,
+          desc = "tldr"
+        },
+        {
+          '<Leader>st',
+          function()
+            local Config = require("todo-comments.config")
+            local Highlight = require("todo-comments.highlight")
+            local Search = require("todo-comments.search")
+
+            local builtin = require("fzf-lua.previewer.builtin")
+            local TodoPreviewer = builtin.buffer_or_file:extend()
+            function TodoPreviewer:new(o, opts, fzf_win)
+              TodoPreviewer.super.new(self, o, opts, fzf_win)
+              setmetatable(self, TodoPreviewer)
+              return self
+            end
+            function TodoPreviewer:parse_entry(entry_str)
+              -- minus the icon and the space in front
+              local path, line, col = entry_str:sub(6):match("([^:]+):?([0-9]*):?([0-9]*)")
+              return {
+                path = path,
+                line = tonumber(line),
+                col = tonumber(col),
+              }
+            end
+
+            local function todo(cb)
+              -- TODO: highlight entry
+              Search.search(function(results)
+                for _, item in ipairs(results) do
+                  local display = string.format("%s:%s:%s ", item.filename, item.lnum, item.col)
+                  local text = item.text
+                  local start, finish, kw = Highlight.match(text)
+
+                  local hl = {}
+
+                  if start then
+                    kw = Config.keywords[kw] or kw
+                    local icon = Config.options.keywords[kw].icon
+                    display = icon .. " " .. display
+                    table.insert(hl, { { 1, #icon + 1 }, "TodoFg" .. kw })
+                    text = vim.trim(text:sub(start))
+
+                    table.insert(hl, {
+                      { #display, #display + finish - start + 2 },
+                      "TodoBg" .. kw
+                    })
+                    table.insert(hl, {
+                      { #display + finish - start + 1, #display + finish + 1 + #text },
+                      "TodoFg" .. kw
+                    })
+                    display = display .. " " .. text
+                  end
+
+                  cb(display)
+                  -- return display, hl
+                end
+                cb(nil)
+              end)
+            end
+
+            coroutine.wrap(function()
+              require('fzf-lua').core.fzf_files({
+                prompt = "Todo> ",
+                previewer = TodoPreviewer
+              }, todo)
+            end)()
+            -- require('fzf-lua').fzf_exec(
+            --   function(fzf_cb)
+            --     todo(fzf_cb)
+            --   end,
+            --   {
+            --     prompt = "Todo> ",
+            --     previewer = TodoPreviewer
+            --   }
+            -- )
+          end,
+          desc = "Todo"
+        }
       }
     end,
     opts = function()
@@ -44,7 +134,7 @@ return {
         previewers = {
           git_diff = {
             pager = preview_pager,
-          }
+          },
         },
         git = {
           status = {
@@ -76,39 +166,39 @@ return {
         fzf_opts = {
           -- ['--bind']         = 'ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,shift-up:preview-top,shift-down:preview-bottom,alt-up:half-page-up,alt-down:half-page-down',
           -- ['--no-separator'] = '',
-          ['--ansi']   = '',
-          ['--info']   = 'inline',
-          ['--height'] = '100%',
-          ['--layout'] = 'reverse',
-          ['--border'] = 'none',
+            ['--ansi'] = '',
+            ['--info'] = 'inline',
+            ['--height'] = '100%',
+            ['--layout'] = 'reverse',
+            ['--border'] = 'none',
         },
         fzf_colors = {
-          ["fg"] = { "fg", "Normal" },
-          ["fg+"] = { "fg", "Normal" },
-          ["bg+"] = { "bg", "CursorLine" },
-          ["info"] = { "fg", "FzfLuaTitle" },
-          ["prompt"] = { "fg", "FzfLuaTitle" },
-          ["header"] = { "fg", "Normal" },
-          ["gutter"] = { "bg", "Normal" },
+            ["fg"] = { "fg", "Normal" },
+            ["fg+"] = { "fg", "Normal" },
+            ["bg+"] = { "bg", "CursorLine" },
+            ["info"] = { "fg", "FzfLuaTitle" },
+            ["prompt"] = { "fg", "FzfLuaTitle" },
+            ["header"] = { "fg", "Normal" },
+            ["gutter"] = { "bg", "Normal" },
           -- ["scrollbar"] = { "fg", "WarningMsg" },
         },
         file_icon_padding = '',
         keymap = {
           fzf = {
-            ["ctrl-z"]     = "abort",
+              ["ctrl-z"]   = "abort",
             -- ["ctrl-u"]     = "unix-line-discard",
-            ["ctrl-f"]     = "half-page-down",
-            ["ctrl-b"]     = "half-page-up",
-            ["ctrl-a"]     = "beginning-of-line",
-            ["ctrl-e"]     = "end-of-line",
-            ["alt-a"]      = "toggle-all",
+              ["ctrl-f"]   = "half-page-down",
+              ["ctrl-b"]   = "half-page-up",
+              ["ctrl-a"]   = "beginning-of-line",
+              ["ctrl-e"]   = "end-of-line",
+              ["alt-a"]    = "toggle-all",
             -- Only valid with fzf previewers (bat/cat/git/etc)
-            ["ctrl-d"]     = "preview-half-page-down",
-            ["ctrl-u"]     = "preview-half-page-up",
-            ["f3"]         = "toggle-preview-wrap",
-            ["f4"]         = "toggle-preview",
-            ["shift-down"] = "preview-page-down",
-            ["shift-up"]   = "preview-page-up",
+              ["ctrl-d"]   = "preview-half-page-down",
+              ["ctrl-u"]   = "preview-half-page-up",
+              ["f3"]       = "toggle-preview-wrap",
+              ["f4"]       = "toggle-preview",
+              ["shift-down"] = "preview-page-down",
+              ["shift-up"] = "preview-page-up",
           }
         }
       }
@@ -262,7 +352,7 @@ return {
   -- todo comments
   {
     "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoTelescope" },
+    cmd = { "TodoTrouble" },
     event = { "BufReadPost", "BufNewFile" },
     config = true,
     -- stylua: ignore
@@ -271,7 +361,7 @@ return {
       { "[t",         function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
       { "<leader>xt", "<cmd>TodoTrouble<cr>",                              desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>",      desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
+      -- { "<leader>st", "<cmd>TodoTelescope<cr>",                            desc = "Todo" },
     },
   },
 
@@ -306,7 +396,6 @@ return {
               bo = {
                 -- if the file type is one of following, the window will be ignored
                 filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-
                 -- if the buffer type is one of following, the window will be ignored
                 buftype = { 'terminal', "quickfix" },
               },
@@ -342,8 +431,8 @@ return {
         git_status = {
           symbols = {
             -- Change type
-            added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-            modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
+            added     = "",  -- or "✚", but this is redundant info if you use git_status_colors on the name
+            modified  = "",  -- or "", but this is redundant info if you use git_status_colors on the name
             deleted   = "✖", -- this can only be used in the git_status source
             renamed   = "", -- this can only be used in the git_status source
             -- Status type
@@ -370,7 +459,7 @@ return {
       },
       window = {
         mappings = {
-          ["<space>"] = "none",
+            ["<space>"] = "none",
         },
       },
     },
