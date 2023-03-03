@@ -96,21 +96,17 @@ return {
               end)
             end
 
-            coroutine.wrap(function()
-              require('fzf-lua').core.fzf_files({
+            require('fzf-lua').fzf_exec(
+              function(fzf_cb)
+                coroutine.wrap(function()
+                  todo(fzf_cb)
+                end)()
+              end,
+              {
                 prompt = "Todo> ",
                 previewer = TodoPreviewer
-              }, todo)
-            end)()
-            -- require('fzf-lua').fzf_exec(
-            --   function(fzf_cb)
-            --     todo(fzf_cb)
-            --   end,
-            --   {
-            --     prompt = "Todo> ",
-            --     previewer = TodoPreviewer
-            --   }
-            -- )
+              }
+            )
           end,
           desc = "Todo"
         }
