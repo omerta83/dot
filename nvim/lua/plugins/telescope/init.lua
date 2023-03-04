@@ -14,21 +14,24 @@ return {
 
     return {
       defaults = {
-        vimgrep_arguments = {
-          "rg",
-          "--color=never",
-          "--no-heading",
-          "--with-filename",
-          "--ignore",
-          "--line-number",
-          "--column",
-          "--smart-case"
-        },
+        -- vimgrep_arguments = {
+        --   "rg",
+        --   "--color=never",
+        --   "--no-heading",
+        --   "--with-filename",
+        --   "--ignore",
+        --   "--line-number",
+        --   "--column",
+        --   "--smart-case"
+        -- },
         mappings = {
           n = {
               ["q"] = actions.close
           },
         },
+        layout_strategy = "horizontal",
+        layout_config = { prompt_position = "top" },
+        sorting_strategy = "ascending",
         winblend = 0,
       },
       extensions = {

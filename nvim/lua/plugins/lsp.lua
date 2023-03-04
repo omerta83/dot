@@ -1,30 +1,6 @@
 local util = require('util')
 return {
   {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    config = true,
-  },
-  {
-    "williamboman/mason-lspconfig",
-    cmd = "Mason",
-    init = function()
-      require('mason-lspconfig').setup {
-        ensure_installed = {
-          -- "codelldb", -- for rust debug
-          "cssls",
-          "jsonls",
-          "gopls",
-          "lua_ls",
-          "rust_analyzer",
-          "tsserver",
-          "vuels",
-          "tailwindcss"
-        }
-      }
-    end
-  },
-  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
@@ -32,15 +8,45 @@ return {
       {
         "b0o/SchemaStore.nvim",
         version = false, -- last release is way too old
-      }
+      },
+      "mason.nvim",
+      {
+        "williamboman/mason-lspconfig.nvim",
+        opts = {
+          ensure_installed = {
+            -- "codelldb", -- for rust debug
+            "cssls",
+            "jsonls",
+            "gopls",
+            "lua_ls",
+            -- "rust_analyzer",
+            -- "tsserver",
+            "vuels",
+            "tailwindcss"
+          }
+        }
+      },
+      {
+        "hrsh7th/cmp-nvim-lsp",
+        cond = function()
+          return util.has("nvim-cmp")
+        end,
+      },
     },
     keys = {
-      { "gD",         vim.lsp.buf.declaration,    desc = "Go to declaration [LSP]",    noremap = true,      silent = true },
-      { "gd",         vim.lsp.buf.definition,     desc = "Go to definition [LSP]",     noremap = true,      silent = true },
-      { "gi",         vim.lsp.buf.implementation, desc = "Go to implementation [LSP]", noremap = true,      silent = true },
-      { "<c-s>",      vim.lsp.buf.signature_help, desc = "Signature help [LSP]",       mode = { "i", "n" }, noremap = true, silent = true },
-      { "K",          vim.lsp.buf.hover,          desc = "Hover" },
-      { "<leader>cd", vim.diagnostic.open_float,  desc = "Line Diagnostics" },
+      { "gD", vim.lsp.buf.declaration,    desc = "Go to declaration [LSP]",    noremap = true, silent = true },
+      { "gd", vim.lsp.buf.definition,     desc = "Go to definition [LSP]",     noremap = true, silent = true },
+      { "gi", vim.lsp.buf.implementation, desc = "Go to implementation [LSP]", noremap = true, silent = true },
+      {
+        "<c-s>",
+        vim.lsp.buf.signature_help,
+        desc = "Signature help [LSP]",
+        mode = { "i", "n" },
+        noremap = true,
+        silent = true
+      },
+      { "K",          vim.lsp.buf.hover,         desc = "Hover" },
+      { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       {
         "]d",
         function()
@@ -124,9 +130,8 @@ return {
             end
             on_attach(client, bufnr)
           end),
-          filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+          -- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
           capabilities = capabilities,
-          -- cmd = { "typescript-language-server", "--stdio" },
         }
       })
 
@@ -156,7 +161,6 @@ return {
               -- Get the language server to recognize the `vim` global
               globals = { 'vim' },
             },
-
             workspace = {
               -- Make the server aware of Neovim runtime files
               library = vim.api.nvim_get_runtime_file("", true),
@@ -221,8 +225,13 @@ return {
       lsp.tailwindcss.setup {
         on_attach = util.on_attach(on_attach),
         -- cmd = { "tailwindcss-language-server", "--stdio" },
-        filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascriptreact", "reason", "rescript", "typescriptreact", "vue", "svelte" },
-        root_dir = lsp.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js', 'postcss.config.ts'),
+        filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
+          "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex",
+          "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig",
+          "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascriptreact", "reason", "rescript",
+          "typescriptreact", "vue", "svelte" },
+        root_dir = lsp.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
+          'postcss.config.ts'),
         tailwindCSS = {
           emmetCompletions = true,
         }
@@ -285,7 +294,7 @@ return {
           end),
         },
         settings = {
-          ["rust-analyzer"] = {
+            ["rust-analyzer"] = {
             check = {
               command = "clippy",
               extraArgs = { "--no-deps" },
@@ -293,9 +302,32 @@ return {
           }
         },
         dap = {
-          adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb .. '/extension/adapter/codelldb', codelldb .. '/extension/lldb/lib/liblldb.dylib'),
+          adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb .. '/extension/adapter/codelldb',
+            codelldb .. '/extension/lldb/lib/liblldb.dylib'),
         },
       }
     end
+  },
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = { { "<leader>cm", "<cmd>Mason<CR>", desc = "Mason" } },
+    config = true
+  },
+  {
+    "williamboman/mason-lspconfig",
+    opts = {
+      ensure_installed = {
+        -- "codelldb", -- for rust debug
+        "cssls",
+        "jsonls",
+        "gopls",
+        "lua_ls",
+        "rust_analyzer",
+        "tsserver",
+        "vuels",
+        "tailwindcss"
+      },
+    },
   },
 }

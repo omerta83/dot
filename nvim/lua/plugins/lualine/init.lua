@@ -1,11 +1,10 @@
-local components = require('plugins/lualine/components')
 return {
   {
     "nvim-lualine/lualine.nvim",
     -- event = { "BufRead", "BufNewFile" },
     event = "VeryLazy",
     opts = function()
-
+      local components = require('plugins/lualine/components')
       return {
         options = {
           theme = 'catppuccin',

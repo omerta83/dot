@@ -47,6 +47,11 @@ function M.get_root()
   return root
 end
 
+---@param plugin string
+function M.has(plugin)
+  return require("lazy.core.config").plugins[plugin] ~= nil
+end
+
 function M.get_dap_adapter_path(name)
   return require('mason-registry').get_package(name):get_install_path()
 end

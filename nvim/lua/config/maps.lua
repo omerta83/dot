@@ -18,6 +18,9 @@ keymap.set("n", "N", "Nzz")
 keymap.set("n", "p", "]p")
 keymap.set("n", "P", "[p")
 
+-- lazy
+keymap.set("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+
 -- Moving between windows using their numbers
 for i = 1, 6 do
   local lhs = "<leader>" .. i
