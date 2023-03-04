@@ -5,6 +5,8 @@ vim.opt.wildoptions = 'pum'
 vim.opt.pumblend = 5
 vim.opt.background = 'dark'
 
+-- vim.api.nvim_command("colorscheme catppuccin")
+
 -- local onedark = require('onedark')
 -- onedark.setup {
 --   style = 'warmer',

@@ -10,11 +10,14 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+local home = os.getenv("HOME")
+local cache = home .. "/.cache/nvim"
+vim.opt.runtimepath:prepend(cache)
 
-require("lazy").setup({
-  spec = {
-    { import = "plugins" },
-  },
+require("lazy").setup("plugins", {
+  -- spec = {
+  --   { import = "plugins" },
+  -- },
   defaults = { lazy = true },
   install = {
     colorscheme = { "catppuccin" }
@@ -23,10 +26,14 @@ require("lazy").setup({
     enabled = true,
     notify = false,
   },
+  diff = {
+    cmd = "terminal_git",
+  },
   performance = {
     cache = {
       enabled = true,
-      -- disable_events = {},
+      path = cache .. "/lazy/cache",
+      disable_events = { "VimEnter", "BufReadPre" },
     },
     rtp = {
       disabled_plugins = {
