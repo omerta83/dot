@@ -18,7 +18,7 @@ return {
       sections = {
         lualine_a = {
           components.modes,
-          components.vim_icon,
+          components.logo,
           components.space,
         },
         lualine_b = {

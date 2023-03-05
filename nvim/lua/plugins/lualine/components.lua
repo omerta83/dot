@@ -22,7 +22,7 @@ end
 
 
 local M = {
-  vim_icon = {
+  logo = {
     function()
       return icons.misc.Apple
     end,
