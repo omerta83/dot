@@ -2,7 +2,7 @@ return {
   -- which-key
   {
     "folke/which-key.nvim",
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       plugins = { spelling = true },
     },

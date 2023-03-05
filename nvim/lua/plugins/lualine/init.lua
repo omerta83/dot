@@ -1,7 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim",
-  -- event = { "BufRead", "BufNewFile" },
-  event = "VeryLazy",
+  event = { "BufRead", "BufNewFile" },
+  -- event = "VeryLazy",
   opts = function()
     local components = require('plugins/lualine/components')
     return {

@@ -2,30 +2,16 @@ local util = require('util')
 return {
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPre" },
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",
+      { 'simrat39/rust-tools.nvim' },
       {
         "b0o/SchemaStore.nvim",
         version = false, -- last release is way too old
       },
       "mason.nvim",
-      {
-        "williamboman/mason-lspconfig.nvim",
-        opts = {
-          ensure_installed = {
-            -- "codelldb", -- for rust debug
-            "cssls",
-            "jsonls",
-            "gopls",
-            "lua_ls",
-            -- "rust_analyzer",
-            -- "tsserver",
-            "vuels",
-            "tailwindcss"
-          }
-        }
-      },
+      "williamboman/mason-lspconfig.nvim",
       {
         "hrsh7th/cmp-nvim-lsp",
         cond = function()
@@ -102,23 +88,131 @@ return {
       },
       { "<Leader>ca", vim.lsp.buf.code_action, desc = "Code Action [LSP]" },
     },
-    config = function()
-      local on_attach = function(_, bufnr)
-        --Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-      end
-
-      -- Set up completion using nvim_cmp with LSP source
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(
-        vim.lsp.protocol.make_client_capabilities()
-      )
-
-      -- Server setup
-      local lsp = require('lspconfig')
-
-      require("typescript").setup({
-        server = {
-          on_attach = util.on_attach(function(client, bufnr)
+    opts = {
+      diagnostics = {
+        underline = true,
+        severity_sort = true,
+        virtual_text = {
+          spacing = 4,
+          prefix = '●'
+        },
+        float = {
+          source = "always", -- Or "if_many"
+          border = 'rounded',
+          title = " " .. require('config.icons').diagnostics.Warn .. "Diagnostic "
+        },
+      },
+      servers = {
+        cssls = {},
+        gopls = {},
+        jsonls = {
+          -- lazy-load schemastore when needed
+          on_new_config = function(new_config)
+            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+          end,
+          settings = {
+            json = {
+              format = {
+                enable = true,
+              },
+              validate = { enable = true },
+            },
+          },
+        },
+        html = {
+          init_options = {
+            provideFormatter = true
+          }
+        },
+        vuels = {
+          settings = {
+            vetur = {
+              completion = {
+                autoImport = true,
+                useScaffoldSnippets = true
+              },
+              format = {
+                defaultFormatter = {
+                  js = "prettier",
+                  ts = "prettier",
+                }
+              },
+              validation = {
+                template = true,
+                script = true,
+                style = true,
+                templateProps = true,
+                interpolation = false
+              },
+              experimental = {
+                templateInterpolationService = true
+              }
+            }
+          },
+        },
+        lua_ls = {
+          settings = {
+            Lua = {
+              diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim' },
+              },
+              workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false
+              },
+              telemetry = {
+                enable = false
+              },
+              format = {
+                enable = true,
+                defaultConfig = {
+                  indent_style = "space",
+                  indent_size = "2",
+                  continuation_indent = "2"
+                }
+              }
+            },
+          },
+        },
+        tsserver = {
+          settings = {
+            completions = {
+              completeFunctionCalls = true,
+            },
+          },
+        },
+        rust_analyzer = {
+          server = {
+            settings = {
+                ["rust-analyzer"] = {
+                procMacro = { enable = true },
+                cargo = { allFeatures = true },
+                checkOnSave = {
+                  command = "clippy",
+                  extraArgs = { "--no-deps" },
+                },
+                -- check = {
+                --   command = "clippy",
+                --   extraArgs = { "--no-deps" },
+                -- }
+              }
+            },
+          },
+        },
+        tailwindcss = {
+          settings = {
+            tailwindCSS = {
+              emmetCompletions = true,
+            }
+          }
+        },
+      },
+      setup = {
+        tsserver = function(_, opts)
+          util.on_attach(function(client, bufnr)
             if client.name == "tsserver" then
               vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>",
                 { buffer = bufnr, desc = "Organize Imports" })
@@ -128,132 +222,61 @@ return {
               vim.keymap.set("n", "<leader>cu", "<cmd>TypescriptRemoveUnused<CR>",
                 { desc = "Remove Unused", buffer = bufnr })
             end
-            on_attach(client, bufnr)
-          end),
-          -- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-          capabilities = capabilities,
-        }
-      })
-
-      lsp.jsonls.setup {
-        -- lazy-load schemastore when needed
-        on_new_config = function(new_config)
-          new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-          vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+          end)
+          require("typescript").setup({ server = opts })
+          return true
         end,
-        settings = {
-          json = {
-            format = {
-              enable = true,
+        rust_analyzer = function(_, opts)
+          opts = vim.tbl_deep_extend("force", {
+            dap = {
+              adapter = require('rust-tools.dap').get_codelldb_adapter(
+                require('util').get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
+                require('util').get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
             },
-            validate = { enable = true },
-          },
-        },
-      }
-      -- lsp.sourcekip.setup {
-      --   on_attach = on_attach
-      -- }
-      lsp.lua_ls.setup {
-        on_attach = util.on_attach(on_attach),
-        settings = {
-          Lua = {
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { 'vim' },
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false
-            },
-            telemetry = {
-              enable = false
-            },
-            format = {
-              enable = true,
-              defaultConfig = {
-                indent_style = "space",
-                indent_size = "2",
-                continuation_indent = "2"
-              }
-            }
-          },
-        },
-      }
-      lsp.gopls.setup {
-        on_attach = util.on_attach(on_attach),
-      }
-      lsp.vuels.setup {
-        -- cmd = { 'vls' },
-        filetypes = { 'vue' },
-        on_attach = util.on_attach(function(client, bufnr)
-          -- Need this line for vetur document formatting
-          client.server_capabilities.documentFormattingProvider = true
-          on_attach(client, bufnr)
-        end),
-        capabilities = capabilities,
-        settings = {
-          vetur = {
-            completion = {
-              autoImport = true,
-              useScaffoldSnippets = true
-            },
-            format = {
-              defaultFormatter = {
-                js = "prettier",
-                ts = "prettier",
-              }
-            },
-            validation = {
-              template = true,
-              script = true,
-              style = true,
-              templateProps = true,
-              interpolation = false
-            },
-            experimental = {
-              templateInterpolationService = true
-            }
-          }
-        },
-      }
-      lsp.html.setup {
-        init_options = {
-          provideFormatter = true
-        }
-      }
-      lsp.tailwindcss.setup {
-        on_attach = util.on_attach(on_attach),
-        -- cmd = { "tailwindcss-language-server", "--stdio" },
-        filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
-          "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex",
-          "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig",
-          "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascriptreact", "reason", "rescript",
-          "typescriptreact", "vue", "svelte" },
-        root_dir = lsp.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
-          'postcss.config.ts'),
-        tailwindCSS = {
-          emmetCompletions = true,
-        }
-      }
+          }, opts)
+          require('rust-tools').setup(opts)
+          return true
+        end
+      },
+    },
+    config = function(_, opts)
+      -- Set up completion using nvim_cmp with LSP source
+      local capabilities = require('cmp_nvim_lsp').default_capabilities(
+        vim.lsp.protocol.make_client_capabilities()
+      )
+
+      -- Server setup
+      local servers = opts.servers
+      local function setup(server)
+        local server_opts = vim.tbl_deep_extend("force", {
+          capabilities = vim.deepcopy(capabilities),
+        }, servers[server] or {})
+
+        -- If a setup method is provided, use it instead
+        if opts.setup[server] then
+          if opts.setup[server](server, server_opts) then
+            return
+          end
+        end
+
+        require('lspconfig')[server].setup(server_opts)
+      end
+
+      local ensure_installed = {}
+      for server, _ in pairs(servers) do
+        ensure_installed[#ensure_installed + 1] = server
+      end
+
+      require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
+      require("mason-lspconfig").setup_handlers({ setup })
 
       -- Diagnostic symbols in the sign column (gutter)
-      -- local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
       local signs = require('config.icons').diagnostics
       for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
       end
-
-      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-        vim.lsp.diagnostic.on_publish_diagnostics,
-        {
-          underline = true,
-          update_in_insert = false,
-          virtual_text = { spacing = 4, prefix = "●" },
-          severity_sort = true,
-        }
-      )
+      vim.diagnostic.config(opts.diagnostics)
 
       -- Set border for hover popup
       vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
@@ -263,49 +286,6 @@ return {
           title = " " .. require('config.icons').misc.Bell .. " Hover "
         }
       )
-
-      -- Diagnostic config
-      vim.diagnostic.config({
-        virtual_text = {
-          prefix = '●'
-        },
-        update_in_insert = true,
-        float = {
-          source = "always", -- Or "if_many"
-          border = 'rounded',
-          title = " " .. require('config.icons').diagnostics.Warn .. "Diagnostic "
-        },
-      })
-    end
-  },
-  {
-    'simrat39/rust-tools.nvim',
-    ft = "rust",
-    config = function()
-      local rt = require('rust-tools')
-      local codelldb = require('util').get_dap_adapter_path('codelldb')
-      rt.setup {
-        server = {
-          on_attach = require('util').on_attach(function(_, bufnr)
-            -- Hover actions
-            -- vim.keymap.set("n", "gk", rt.hover_actions.hover_actions, { buffer = bufnr })
-            -- Code action groups
-            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-          end),
-        },
-        settings = {
-            ["rust-analyzer"] = {
-            check = {
-              command = "clippy",
-              extraArgs = { "--no-deps" },
-            }
-          }
-        },
-        dap = {
-          adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb .. '/extension/adapter/codelldb',
-            codelldb .. '/extension/lldb/lib/liblldb.dylib'),
-        },
-      }
     end
   },
   {
@@ -313,21 +293,5 @@ return {
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<CR>", desc = "Mason" } },
     config = true
-  },
-  {
-    "williamboman/mason-lspconfig",
-    opts = {
-      ensure_installed = {
-        -- "codelldb", -- for rust debug
-        "cssls",
-        "jsonls",
-        "gopls",
-        "lua_ls",
-        "rust_analyzer",
-        "tsserver",
-        "vuels",
-        "tailwindcss"
-      },
-    },
   },
 }

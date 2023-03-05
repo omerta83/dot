@@ -1,7 +1,6 @@
 return {
   {
     'akinsho/toggleterm.nvim',
-    -- event = "BufReadPost",
     cmd = "ToggleTerm",
     keys = {
       { "<leader>lg", ":lua LazyGit()<CR>",    desc = "Open LazyGit" },

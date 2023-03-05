@@ -2,7 +2,7 @@ return {
   -- comment
   {
     "echasnovski/mini.comment",
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring'
     },
@@ -25,7 +25,7 @@ return {
     --   { "a", mode = { "x", "o" } },
     --   { "i", mode = { "x", "o" } },
     -- },
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter-textobjects",

@@ -9,7 +9,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     -- lazy = false,
     dependencies = {
-      "windwp/nvim-ts-autotag",
+      -- "windwp/nvim-ts-autotag",
       -- "nvim-treesitter/nvim-treesitter-textobjects",
       -- "JoosepAlviste/nvim-ts-context-commentstring",
     },

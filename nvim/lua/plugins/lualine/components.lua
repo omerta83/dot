@@ -1,7 +1,7 @@
 local icons = require('config.icons')
 local separator = { left = icons.misc.SeparatorLeft, right = icons.misc.SeparatorRight }
 
-local function getLspName()
+local function getLspNames()
   local msg = "No Active Lsp"
   local icon = icons.misc.Gear .. " "
   local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
@@ -9,13 +9,15 @@ local function getLspName()
   if next(clients) == nil then
     return msg
   end
+  local clientNames = ''
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      return icon .. client.name
+      -- return icon .. client.name
+      clientNames = clientNames .. (clientNames == '' and '' or '') .. client.name
     end
   end
-  return icon .. msg
+  return icon .. (clientNames ~= '' and clientNames or msg)
 end
 
 
@@ -99,7 +101,7 @@ local M = {
   },
   lsp = {
     function()
-      return getLspName()
+      return getLspNames()
     end,
     separator = separator,
     color = { bg = "#f38ba8", fg = "#1e1e2e" },
