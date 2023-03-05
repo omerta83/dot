@@ -1,8 +1,8 @@
 local M = {}
 
----@type string documentFormatting | documentRangeFormatting
 -- TODO: check for client's formatting capabilities
-function M.format(type)
+---@param capability string ''
+function M.format(capability)
   local buf = vim.api.nvim_get_current_buf()
   local ft = vim.bo[buf].filetype
   local have_nls = #require('null-ls.sources').get_available(ft, "NULL_LS_FORMATTING") > 0
@@ -10,7 +10,7 @@ function M.format(type)
   vim.lsp.buf.format(vim.tbl_deep_extend("force", {
     bufnr = buf,
     filter = function(client)
-      if not client.server_capabilities[type .. "Provider"] then
+      if not client.server_capabilities[capability .. "Provider"] then
         return false
       end
 
