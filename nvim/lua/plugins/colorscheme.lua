@@ -19,7 +19,7 @@ return {
       },
       integrations = {
         treesitter_context = true,
-        illuminate = true,
+        -- illuminate = true,
         lsp_trouble = true,
         -- lsp_saga = true,
         neotree = true,
@@ -64,9 +64,9 @@ return {
           -- NeoTreeWinSeparator = { bg = colors.mantle, fg = colors.mantle }
           -- Fzf
           -- FzfLuaTitle = { fg = colors.mauve }
-          IlluminatedWordText = { bg = colors.surface2 },
-          IlluminatedWordRead = { bg = colors.surface2 },
-          IlluminatedWordWrite = { bg = colors.surface2 },
+          -- IlluminatedWordText = { bg = colors.surface2 },
+          -- IlluminatedWordRead = { bg = colors.surface2 },
+          -- IlluminatedWordWrite = { bg = colors.surface2 },
         }
       end,
     }

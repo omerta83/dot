@@ -5,7 +5,7 @@ return {
     event = { "BufReadPre" },
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",
-      { 'simrat39/rust-tools.nvim' },
+      -- { 'simrat39/rust-tools.nvim' },
       {
         "b0o/SchemaStore.nvim",
         version = false, -- last release is way too old
@@ -184,24 +184,20 @@ return {
             },
           },
         },
-        rust_analyzer = {
-          server = {
-            settings = {
-              ["rust-analyzer"] = {
-                procMacro = { enable = true },
-                cargo = { allFeatures = true },
-                checkOnSave = {
-                  command = "clippy",
-                  extraArgs = { "--no-deps" },
-                },
-                -- check = {
-                --   command = "clippy",
-                --   extraArgs = { "--no-deps" },
-                -- }
-              }
-            },
-          },
-        },
+        -- rust_analyzer = {
+        --   server = {
+        --     settings = {
+        --       ["rust-analyzer"] = {
+        --         procMacro = { enable = true },
+        --         cargo = { allFeatures = true },
+        --         checkOnSave = {
+        --           command = "clippy",
+        --           extraArgs = { "--no-deps" },
+        --         },
+        --       }
+        --     },
+        --   },
+        -- },
         tailwindcss = {},
       },
       setup = {
@@ -220,17 +216,17 @@ return {
           require("typescript").setup({ server = opts })
           return true
         end,
-        rust_analyzer = function(_, opts)
-          opts = vim.tbl_deep_extend("force", {
-            dap = {
-              adapter = require('rust-tools.dap').get_codelldb_adapter(
-                require('util').get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
-                require('util').get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
-            },
-          }, opts)
-          require('rust-tools').setup(opts)
-          return true
-        end
+        -- rust_analyzer = function(_, opts)
+        --   opts = vim.tbl_deep_extend("force", {
+        --     dap = {
+        --       adapter = require('rust-tools.dap').get_codelldb_adapter(
+        --         require('util').get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
+        --         require('util').get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
+        --     },
+        --   }, opts)
+        --   require('rust-tools').setup(opts)
+        --   return true
+        -- end
       },
     },
     config = function(_, opts)
@@ -295,13 +291,13 @@ return {
           nls.builtins.formatting.dart_format,
           -- nls.builtins.formatting.gofmt,
           nls.builtins.formatting.jq, -- json
-          nls.builtins.formatting.rome, -- typescript and javascript
+          nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
           -- nls.builtins.formatting.eslint,
           nls.builtins.formatting.prettier,
           nls.builtins.formatting.rustywind, -- tailwind css classes
-          nls.builtins.formatting.ruff, -- python
+          nls.builtins.formatting.ruff,      -- python
           -- nls.builtins.formatting.rustfmt, -- rust
-          nls.builtins.formatting.stylua,
+          -- nls.builtins.formatting.stylua,
 
           -- nls.builtins.diagnostics.flake8,
         },
@@ -314,4 +310,29 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<CR>", desc = "Mason" } },
     config = true
   },
+  {
+    'simrat39/rust-tools.nvim',
+    ft = "rust",
+    config = function()
+      require('rust-tools').setup {
+        server = {
+          settings = {
+              ["rust-analyzer"] = {
+              procMacro = { enable = true },
+              cargo = { allFeatures = true },
+              checkOnSave = {
+                command = "clippy",
+                extraArgs = { "--no-deps" },
+              },
+            }
+          },
+        },
+        dap = {
+          adapter = require('rust-tools.dap').get_codelldb_adapter(
+            require('util').get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
+            require('util').get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
+        },
+      }
+    end
+  }
 }

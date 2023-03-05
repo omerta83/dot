@@ -20,7 +20,7 @@ function M.format(capability)
       return client.name ~= "null-ls"
     end
   }, {
-    async = true,
+    -- async = true,
     formatting_options = nil,
     timeout_ms = nil,
   }))

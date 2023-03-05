@@ -9,6 +9,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     -- lazy = false,
     dependencies = {
+      "andymass/vim-matchup",
       -- "windwp/nvim-ts-autotag",
       -- "nvim-treesitter/nvim-treesitter-textobjects",
       -- "JoosepAlviste/nvim-ts-context-commentstring",
@@ -48,16 +49,19 @@ return {
         "vue",
         "yaml",
       },
-      query_linter = {
-        enable = true,
-        use_virtual_text = true,
-        lint_events = { "BufWrite", "CursorHold" },
-      },
+      -- query_linter = {
+      --   enable = true,
+      --   use_virtual_text = true,
+      --   lint_events = { "BufWrite", "CursorHold" },
+      -- },
       context_commentstring = {
         enable = true,
         enable_autocmd = false,
       },
       autotag = {
+        enable = true,
+      },
+      matchup = {
         enable = true,
       },
       incremental_selection = {
