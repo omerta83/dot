@@ -78,13 +78,17 @@ return {
       {
         "<leader>cf",
         function()
-          vim.lsp.buf.format {
-            async = true,
-          }
+          require('plugins.lsp.format').format("")
         end,
-        desc = "Format buffer [LSP]",
-        noremap = true,
-        silent = true
+        desc = "Format Document",
+      },
+      {
+        "<leader>cf",
+        function()
+          require('plugins.lsp.format').format("documentRangeFormatting")
+        end,
+        desc = "Format Range",
+        mode = "v"
       },
       { "<Leader>ca", vim.lsp.buf.code_action, desc = "Code Action [LSP]" },
     },
@@ -120,11 +124,7 @@ return {
             },
           },
         },
-        html = {
-          init_options = {
-            provideFormatter = true
-          }
-        },
+        html = {},
         vuels = {
           settings = {
             vetur = {
@@ -187,7 +187,7 @@ return {
         rust_analyzer = {
           server = {
             settings = {
-                ["rust-analyzer"] = {
+              ["rust-analyzer"] = {
                 procMacro = { enable = true },
                 cargo = { allFeatures = true },
                 checkOnSave = {
@@ -202,13 +202,7 @@ return {
             },
           },
         },
-        tailwindcss = {
-          settings = {
-            tailwindCSS = {
-              emmetCompletions = true,
-            }
-          }
-        },
+        tailwindcss = {},
       },
       setup = {
         tsserver = function(_, opts)
@@ -287,6 +281,28 @@ return {
         }
       )
     end
+  },
+
+  -- formatters
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        sources = {
+          nls.builtins.formatting.dart_format,
+          nls.builtins.formatting.gofmt,
+          nls.builtins.formatting.jq, -- json
+          nls.builtins.formatting.rome, -- typescript and javascript
+          nls.builtins.formatting.rustywind, -- tailwind css classes
+          nls.builtins.formatting.ruff, -- python
+          nls.builtins.formatting.stylua,
+          -- nls.builtins.diagnostics.flake8,
+        },
+      }
+    end,
   },
   {
     "williamboman/mason.nvim",
