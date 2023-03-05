@@ -78,7 +78,7 @@ return {
       {
         "<leader>cf",
         function()
-          require('plugins.lsp.format').format("")
+          require('plugins.lsp.format').format("documentFormatting")
         end,
         desc = "Format Document",
       },
@@ -293,12 +293,16 @@ return {
       return {
         sources = {
           nls.builtins.formatting.dart_format,
-          nls.builtins.formatting.gofmt,
+          -- nls.builtins.formatting.gofmt,
           nls.builtins.formatting.jq, -- json
           nls.builtins.formatting.rome, -- typescript and javascript
+          -- nls.builtins.formatting.eslint,
+          nls.builtins.formatting.prettier,
           nls.builtins.formatting.rustywind, -- tailwind css classes
           nls.builtins.formatting.ruff, -- python
+          -- nls.builtins.formatting.rustfmt, -- rust
           nls.builtins.formatting.stylua,
+
           -- nls.builtins.diagnostics.flake8,
         },
       }

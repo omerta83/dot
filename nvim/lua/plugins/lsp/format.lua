@@ -1,7 +1,7 @@
 local M = {}
 
 -- TODO: check for client's formatting capabilities
----@param capability string ''
+---@param capability string documentFormatting | documentRangeFormatting
 function M.format(capability)
   local buf = vim.api.nvim_get_current_buf()
   local ft = vim.bo[buf].filetype
@@ -20,7 +20,7 @@ function M.format(capability)
       return client.name ~= "null-ls"
     end
   }, {
-    -- async = true,
+    async = true,
     formatting_options = nil,
     timeout_ms = nil,
   }))
