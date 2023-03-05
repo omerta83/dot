@@ -63,7 +63,10 @@ return {
           -- NeoTreeVertSplit = { bg = colors.mantle, fg = colors.mantle },
           -- NeoTreeWinSeparator = { bg = colors.mantle, fg = colors.mantle }
           -- Fzf
-          FzfLuaTitle = { fg = colors.mauve }
+          -- FzfLuaTitle = { fg = colors.mauve }
+          IlluminatedWordText = { bg = colors.surface2 },
+          IlluminatedWordRead = { bg = colors.surface2 },
+          IlluminatedWordWrite = { bg = colors.surface2 },
         }
       end,
     }
