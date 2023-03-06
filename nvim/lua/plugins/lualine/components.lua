@@ -24,10 +24,10 @@ end
 local M = {
   logo = {
     function()
-      return icons.misc.Apple
+      return icons.misc.Devil
     end,
     separator = separator,
-    color = { bg = "#313244", fg = "#80A7EA" },
+    color = { bg = "#313244", fg = "#DA291C" },
   },
   space = {
     function()

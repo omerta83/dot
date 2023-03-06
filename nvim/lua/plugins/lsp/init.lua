@@ -198,7 +198,13 @@ return {
         --     },
         --   },
         -- },
-        tailwindcss = {},
+        tailwindcss = {
+          filetypes = { "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
+            "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex",
+            "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim",
+            "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascriptreact", "reason",
+            "rescript", "typescriptreact", "vue", "svelte" },
+        },
       },
       setup = {
         tsserver = function(_, opts)
@@ -290,7 +296,7 @@ return {
         sources = {
           nls.builtins.formatting.dart_format,
           -- nls.builtins.formatting.gofmt,
-          nls.builtins.formatting.jq, -- json
+          nls.builtins.formatting.jq,                                                                                    -- json
           nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
           -- nls.builtins.formatting.eslint,
           nls.builtins.formatting.prettier,

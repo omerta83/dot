@@ -60,6 +60,7 @@ local M = {
     Emacs = "",
     Apple = "",
     Arch = "",
+    Devil = "󰱯",
     SeparatorLeft = "",
     SeparatorRight = "",
   }
