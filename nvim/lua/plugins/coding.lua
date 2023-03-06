@@ -1,16 +1,21 @@
 return {
   -- comment
-  {
-    "numToStr/Comment.nvim",
+   {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring'
     },
-    event = { "BufReadPost", "BufNewFile" },
-    config = function()
-      require('Comment').setup {
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      }
-    end
+    opts = {
+      hooks = {
+        pre = function()
+          require("ts_context_commentstring.internal").update_commentstring({})
+        end,
+      },
+    },
+    config = function(_, opts)
+      require("mini.comment").setup(opts)
+    end,
   },
 
   -- better text-objects

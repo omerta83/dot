@@ -49,38 +49,39 @@ return {
   },
 
   -- references
-  -- {
-  --   "RRethy/vim-illuminate",
-  --   event = { "BufReadPost", "BufNewFile" },
-  --   opts = {
-  --     delay = 200,
-  --     filetypes_denylist = {
-  --       'dirvish',
-  --       'fugitive',
-  --       'NvimTree',
-  --       'toggleterm',
-  --       'TelescopePrompt',
-  --       'DiffviewFiles',
-  --       "lazy",
-  --       "mason",
-  --     }
-  --   },
-  --   config = function(_, opts)
-  --     require("illuminate").configure(opts)
-  --     vim.api.nvim_create_autocmd("FileType", {
-  --       -- reset ]] and [[
-  --       callback = function()
-  --         local buffer = vim.api.nvim_get_current_buf()
-  --         pcall(vim.keymap.del, "n", "]]", { buffer = buffer })
-  --         pcall(vim.keymap.del, "n", "[[", { buffer = buffer })
-  --       end,
-  --     })
-  --   end,
-  --   keys = {
-  --     { "]]", function() require("illuminate").goto_next_reference() end, desc = "Next Reference", },
-  --     { "[[", function() require("illuminate").goto_prev_reference() end, desc = "Prev Reference" },
-  --   },
-  -- },
+  {
+    "RRethy/vim-illuminate",
+    -- event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
+    opts = {
+      delay = 200,
+      filetypes_denylist = {
+        'dirvish',
+        'fugitive',
+        'NvimTree',
+        'toggleterm',
+        'TelescopePrompt',
+        'DiffviewFiles',
+        "lazy",
+        "mason",
+      }
+    },
+    config = function(_, opts)
+      require("illuminate").configure(opts)
+      vim.api.nvim_create_autocmd("FileType", {
+        -- reset ]] and [[
+        callback = function()
+          local buffer = vim.api.nvim_get_current_buf()
+          pcall(vim.keymap.del, "n", "]]", { buffer = buffer })
+          pcall(vim.keymap.del, "n", "[[", { buffer = buffer })
+        end,
+      })
+    end,
+    keys = {
+      { "]]", function() require("illuminate").goto_next_reference() end, desc = "Next Reference", },
+      { "[[", function() require("illuminate").goto_prev_reference() end, desc = "Prev Reference" },
+    },
+  },
 
   -- better diagnostics list and others
   {

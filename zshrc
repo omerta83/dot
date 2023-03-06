@@ -38,7 +38,8 @@ setopt noincappendhistory
 setopt nosharehistory
 
 export VOLTA_HOME="$HOME/.volta"
-export PATH="$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin"
+export PNPM_HOME="$HOME/.pnpm"
+export PATH="$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME"
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
