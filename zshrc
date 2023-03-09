@@ -24,7 +24,8 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+# export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -50,3 +51,4 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-vi-mode/zsh-vi-mode.zsh
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
+alias lzd='lazydocker'
