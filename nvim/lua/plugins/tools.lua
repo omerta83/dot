@@ -51,11 +51,12 @@ return {
   },
   {
     "andymass/vim-matchup",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    event = "BufReadPost",
     config = function()
       vim.g.matchup_matchparen_deferred = 1
       vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
-      vim.g.matchup_matchpref = { html = { nolists = 1 } }
+      -- vim.g.matchup_matchpref = { html = { nolists = 1 } }
     end,
   },
   {
