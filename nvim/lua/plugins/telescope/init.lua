@@ -15,12 +15,12 @@ return {
         defaults = {
           mappings = {
             n = {
-              ["q"] = function()
+                ["q"] = function()
                 return require('telescope.actions').close()
               end
             },
           },
-          layout_strategy = "vertical",
+          layout_strategy = "horizontal",
           layout_config = { prompt_position = "bottom" },
           sorting_strategy = "ascending",
           winblend = 0,
@@ -30,8 +30,8 @@ return {
             auto_quoting = false,
             mappings = {
               i = {
-                ["<C-k>"] = require('telescope-live-grep-args.actions').quote_prompt(),
-                ["<C-i>"] = require('telescope-live-grep-args.actions').quote_prompt({ postfix = " --iglob" })
+                  ["<C-k>"] = require('telescope-live-grep-args.actions').quote_prompt(),
+                  ["<C-i>"] = require('telescope-live-grep-args.actions').quote_prompt({ postfix = " --iglob" })
               }
             }
           },
