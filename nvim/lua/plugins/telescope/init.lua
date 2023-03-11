@@ -15,7 +15,7 @@ return {
         defaults = {
           mappings = {
             n = {
-                ["q"] = function()
+              ["q"] = function()
                 return require('telescope.actions').close()
               end
             },
@@ -30,8 +30,8 @@ return {
             auto_quoting = false,
             mappings = {
               i = {
-                  ["<C-k>"] = require('telescope-live-grep-args.actions').quote_prompt(),
-                  ["<C-i>"] = require('telescope-live-grep-args.actions').quote_prompt({ postfix = " --iglob" })
+                ["<C-k>"] = require('telescope-live-grep-args.actions').quote_prompt(),
+                ["<C-i>"] = require('telescope-live-grep-args.actions').quote_prompt({ postfix = " --iglob" })
               }
             }
           },
@@ -55,6 +55,7 @@ return {
       { "<leader>fh", "<cmd>Telescope command_history<cr>",               desc = "Command History (Telescope)" },
       { "<leader>fc", "<cmd>Telescope commands<cr>",                      desc = "Commands (Telescope)" },
       { "<leader>fr", "<cmd>Telescope http list<cr>",                     desc = "HTTP Status (Telescope)" },
+      { "<leader>ff", "<cmd>Telescope flutter commands<cr>",              desc = "Flutter Commands" },
       {
         "<Leader>fo",
         function()
@@ -110,6 +111,7 @@ return {
       telescope.load_extension('live_grep_args')
       telescope.load_extension('http')
       telescope.load_extension('tldr')
+      telescope.load_extension('flutter')
     end
   }
 }

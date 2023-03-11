@@ -1,10 +1,5 @@
 return {
   {
-    "akinsho/flutter-tools.nvim",
-    ft = "dart",
-    config = true
-  },
-  {
     "cshuaimin/ssr.nvim",
     keys = {
       {
