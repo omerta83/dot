@@ -4,13 +4,12 @@ return {
   -- event = "VeryLazy",
   opts = function()
     local components = require('plugins/lualine/components')
+
     return {
       options = {
         theme = 'catppuccin',
-        -- component_separators = '',
         component_separators = '',
         section_separators = '',
-        -- section_separators = { left = '', right = '' },
         globalstatus = true,
         disabled_filetypes = {
           statusline = { "dashboard", "lazy", "alpha", "TelescopePrompt", "mason", "lspinfo", "fzf" } },
@@ -53,7 +52,9 @@ return {
         lualine_z = { 'location' },
       },
       tabline = {},
-      extensions = {},
+      extensions = {
+        require('plugins.lualine.extensions').term,
+      },
     }
   end,
 }

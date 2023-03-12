@@ -20,7 +20,6 @@ local function getLspNames()
   return icon .. (clientNames ~= '' and clientNames or msg)
 end
 
-
 local M = {
   logo = {
     function()

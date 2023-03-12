@@ -1,11 +1,13 @@
 return {
   {
     'akinsho/toggleterm.nvim',
+    version = "*",
     cmd = "ToggleTerm",
     keys = {
-      { "<leader>lg", ":lua LazyGit()<CR>",    desc = "Open LazyGit" },
-      { "<leader>ld", ":lua LazyDocker()<CR>", desc = "Open LazyDocker" },
-      { "<c-\\>",     ":ToggleTerm<CR>",       desc = "Toggle terminal" }
+      { "<leader>lg", ":lua LazyGit()<CR>",                  desc = "Open LazyGit" },
+      { "<leader>ld", ":lua LazyDocker()<CR>",               desc = "Open LazyDocker" },
+      { "<leader>lf", "<cmd>ToggleTerm direction=float<CR>", desc = "Open Floating Term" },
+      { "<c-\\>",     ":ToggleTerm<CR>",                     desc = "Toggle terminal" }
     },
     config = function()
       local terminal = require("toggleterm")
@@ -18,7 +20,7 @@ return {
       local function create_float_term(cmd)
         local Terminal = require('toggleterm.terminal').Terminal
         local lazy = Terminal:new({
-          cmd = cmd,
+          cmd = cmd or '',
           direction = "float",
           on_open = function(term)
             vim.cmd("startinsert!")
@@ -41,15 +43,10 @@ return {
       function _G.LazyDocker()
         lazydocker:toggle()
       end
-
-      -- vim.api.nvim_exec([[
-      --    au BufEnter term://* setlocal nonumber
-      --    au TermOpen * setlocal listchars= nonumber nowrap winfixwidth laststatus=0 noruler signcolumn=no noshowmode
-      --    au TermOpen * startinsert
-      --    au TermClose * set laststatus=2 showmode ruler
-      -- ]], false)
     end
   },
+
+  -- Navigate between nvim and tmux
   {
     'numToStr/Navigator.nvim',
     cmd = { "NavigatorRight", "NavigatorLeft", "NavigatorUp", "NavigatorDown" },
