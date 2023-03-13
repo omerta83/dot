@@ -18,7 +18,7 @@ return {
         },
       },
       integrations = {
-        treesitter_context = true,
+        -- treesitter_context = true,
         illuminate = true,
         lsp_trouble = true,
         -- lsp_saga = true,

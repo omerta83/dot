@@ -207,7 +207,8 @@ return {
               "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim",
               "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascriptreact", "reason",
               "rescript", "typescriptreact", "vue", "svelte" },
-            root_dir = require('lspconfig').util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js', 'postcss.config.ts')
+            root_dir = require('lspconfig').util.root_pattern('tailwind.config.js', 'tailwind.config.ts',
+              'postcss.config.js', 'postcss.config.ts')
           },
         },
         setup = {
@@ -217,7 +218,7 @@ return {
                 vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>",
                   { buffer = bufnr, desc = "Organize Imports" })
                 vim.keymap.set("n", "<leader>cr", "<cmd>TypescriptRenameFile<CR>",
-                { desc = "Rename File", buffer = bufnr })
+                  { desc = "Rename File", buffer = bufnr })
                 vim.keymap.set("n", "<leader>ci", "<cmd>TypescriptAddMissingImports<CR>",
                   { desc = "Add Missing Imports", buffer = bufnr })
                 vim.keymap.set("n", "<leader>cu", "<cmd>TypescriptRemoveUnused<CR>",
@@ -264,9 +265,19 @@ return {
         require('lspconfig')[server].setup(server_opts)
       end
 
+      local mlsp = require("mason-lspconfig")
+      local available = mlsp.get_available_servers()
       local ensure_installed = {}
-      for server, _ in pairs(servers) do
-        ensure_installed[#ensure_installed + 1] = server
+      for server, server_opts in pairs(servers) do
+        if server_opts then
+          server_opts = server_opts == true and {} or server_opts
+          -- run manual setup if this is a server that cannot be installed with mason-lspconfig
+          if not vim.tbl_contains(available, server) then
+            setup(server)
+          else
+            ensure_installed[#ensure_installed + 1] = server
+          end
+        end
       end
 
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
@@ -329,7 +340,7 @@ return {
       require('rust-tools').setup {
         server = {
           settings = {
-              ["rust-analyzer"] = {
+            ["rust-analyzer"] = {
               procMacro = { enable = true },
               cargo = { allFeatures = true },
               checkOnSave = {
@@ -346,5 +357,10 @@ return {
         },
       }
     end
+  },
+  {
+    "akinsho/flutter-tools.nvim",
+    ft = "dart",
+    config = true
   }
 }

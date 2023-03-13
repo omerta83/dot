@@ -59,9 +59,9 @@ return {
         enable = true,
         enable_autocmd = false,
       },
-      autotag = {
-        enable = true,
-      },
+      -- autotag = {
+      --   enable = true,
+      -- },
       matchup = {
         enable = true,
       },
@@ -81,9 +81,11 @@ return {
   },
 
   -- html autotag for treesitter
-  -- {
-  --   'windwp/nvim-ts-autotag',
-  --   event = "VeryLazy",
-  --   -- config = true
-  -- }
+  {
+    'windwp/nvim-ts-autotag',
+    event = "BufReadPost",
+    config = function ()
+      require('nvim-ts-autotag').setup()
+    end
+  }
 }

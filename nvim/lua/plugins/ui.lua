@@ -33,16 +33,13 @@ return {
     opts = {
       char = "▏",
       filetype_exclude = { "lspinfo", "packer", "checkhealth", "man", "lazy", "help", "terminal", "mason", "Trouble" },
-      -- buftype_exclude = { "terminal", "nofile", "quickfix" },
       show_trailing_blankline_indent = false,
       show_first_indent_level = false,
       show_end_of_line = true,
-      -- use_treesitter = true,
-      show_current_context = false,
-      -- use_treesitter_scope = true,
-      -- show_current_context_start = true,
+      show_current_context = true,
       context_char = "▏",
       space_char_blankline = " ",
+      char_priority = 50, -- fix for nvim-ufo integration
     }
   },
 

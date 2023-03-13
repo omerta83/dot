@@ -1,7 +1,9 @@
 local M = {
   diagnostics = {
-    Error = " ",
-    Warn = " ",
+    -- Error = " ",
+    Error = " ",
+    -- Warn = " ",
+    Warn = "󰚽 ",
     Hint = "󰌵 ",
     Info = " ",
   },
@@ -61,8 +63,10 @@ local M = {
     Apple = "",
     Arch = "",
     Devil = "󰱯",
+    Term = "",
     SeparatorLeft = "",
     SeparatorRight = "",
+    VertSeparator = ""
   }
 }
 

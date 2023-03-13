@@ -49,39 +49,42 @@ return {
   },
 
   -- references
-  {
-    "RRethy/vim-illuminate",
-    -- event = { "BufReadPost", "BufNewFile" },
-    event = "VeryLazy",
-    opts = {
-      delay = 200,
-      filetypes_denylist = {
-        'dirvish',
-        'fugitive',
-        'NvimTree',
-        'toggleterm',
-        'TelescopePrompt',
-        'DiffviewFiles',
-        "lazy",
-        "mason",
-      }
-    },
-    config = function(_, opts)
-      require("illuminate").configure(opts)
-      vim.api.nvim_create_autocmd("FileType", {
-        -- reset ]] and [[
-        callback = function()
-          local buffer = vim.api.nvim_get_current_buf()
-          pcall(vim.keymap.del, "n", "]]", { buffer = buffer })
-          pcall(vim.keymap.del, "n", "[[", { buffer = buffer })
-        end,
-      })
-    end,
-    keys = {
-      { "]]", function() require("illuminate").goto_next_reference() end, desc = "Next Reference", },
-      { "[[", function() require("illuminate").goto_prev_reference() end, desc = "Prev Reference" },
-    },
-  },
+  -- {
+  --   "RRethy/vim-illuminate",
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   opts = {
+  --     providers = {
+  --       'lsp',
+  --       'treesitter'
+  --     },
+  --     delay = 200,
+  --     filetypes_denylist = {
+  --       'dirvish',
+  --       'fugitive',
+  --       'NvimTree',
+  --       'toggleterm',
+  --       'TelescopePrompt',
+  --       'DiffviewFiles',
+  --       "lazy",
+  --       "mason",
+  --     }
+  --   },
+  --   config = function(_, opts)
+  --     require("illuminate").configure(opts)
+  --     vim.api.nvim_create_autocmd("FileType", {
+  --       -- reset ]] and [[
+  --       callback = function()
+  --         local buffer = vim.api.nvim_get_current_buf()
+  --         pcall(vim.keymap.del, "n", "]]", { buffer = buffer })
+  --         pcall(vim.keymap.del, "n", "[[", { buffer = buffer })
+  --       end,
+  --     })
+  --   end,
+  --   keys = {
+  --     { "]]", function() require("illuminate").goto_next_reference() end, desc = "Next Reference", },
+  --     { "[[", function() require("illuminate").goto_prev_reference() end, desc = "Prev Reference" },
+  --   },
+  -- },
 
   -- better diagnostics list and others
   {
@@ -206,9 +209,63 @@ return {
       },
       window = {
         mappings = {
-            ["<space>"] = "none",
+          ["<space>"] = "none",
         },
       },
     },
+  },
+
+  -- add nvim-ufo
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    event = "BufReadPost",
+    opts = function()
+      local handler = function(virtText, lnum, endLnum, width, truncate)
+        local newVirtText = {}
+        local suffix = ('  %d '):format(endLnum - lnum)
+        local sufWidth = vim.fn.strdisplaywidth(suffix)
+        local targetWidth = width - sufWidth
+        local curWidth = 0
+        for _, chunk in ipairs(virtText) do
+          local chunkText = chunk[1]
+          local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+          if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+          else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, { chunkText, hlGroup })
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+              suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+          end
+          curWidth = curWidth + chunkWidth
+        end
+        table.insert(newVirtText, { suffix, 'MoreMsg' })
+        return newVirtText
+      end
+      return {
+        fold_virt_text_handler = handler,
+        provider_selector = function ()
+          return { "treesitter", "indent" }
+        end
+      }
+    end,
+    init = function()
+      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+      vim.keymap.set("n", "zR", function()
+        require("ufo").openAllFolds()
+      end)
+      vim.keymap.set("n", "zM", function()
+        require("ufo").closeAllFolds()
+      end)
+      vim.keymap.set("n", "zK", function()
+        require('ufo').peekFoldedLinesUnderCursor()
+      end)
+    end,
   },
 }
