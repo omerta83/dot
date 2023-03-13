@@ -126,6 +126,7 @@ return {
             },
           },
           html = {},
+          prismals = {},
           vuels = {
             settings = {
               vetur = {

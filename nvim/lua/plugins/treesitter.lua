@@ -27,6 +27,7 @@ return {
         "markdown",
         "markdown_inline",
         "php",
+        "prisma",
         "query",
         "rust",
         "scss",
