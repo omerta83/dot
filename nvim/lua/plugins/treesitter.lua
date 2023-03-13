@@ -1,22 +1,13 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    build = function()
-      pcall(require("nvim-treesitter.install").update({ with_sync = true }))
-    end,
     version = false,
-    -- build = ":TSUpdate",
+    build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
-    -- lazy = false,
-    dependencies = {
-      -- "andymass/vim-matchup",
-      -- "windwp/nvim-ts-autotag",
-      -- "nvim-treesitter/nvim-treesitter-textobjects",
-      -- "JoosepAlviste/nvim-ts-context-commentstring",
-    },
     opts = {
       highlight = {
         enable = true,
+        use_languagetree = true,
       },
       indent = {
         enable = true,
@@ -49,18 +40,10 @@ return {
         "vue",
         "yaml",
       },
-      -- query_linter = {
-      --   enable = true,
-      --   use_virtual_text = true,
-      --   lint_events = { "BufWrite", "CursorHold" },
-      -- },
       context_commentstring = {
         enable = true,
         enable_autocmd = false,
       },
-      -- autotag = {
-      --   enable = true,
-      -- },
       matchup = {
         enable = true,
       },
