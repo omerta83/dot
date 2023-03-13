@@ -19,10 +19,10 @@ require("lazy").setup({
   install = {
     colorscheme = { "catppuccin" }
   },
-  checker = {
-    enabled = true,
-    notify = false,
-  },
+  -- checker = {
+  --   enabled = true,
+  --   notify = false,
+  -- },
   diff = {
     cmd = "terminal_git",
   },
