@@ -48,6 +48,15 @@ return {
     },
   },
 
+  {
+    "TimUntersberger/neogit",
+    cmd = "Neogit",
+    opts = {
+      integrations = {
+        diffview = true
+      }
+    }
+  },
   -- references
   -- {
   --   "RRethy/vim-illuminate",
@@ -248,6 +257,7 @@ return {
         table.insert(newVirtText, { suffix, 'MoreMsg' })
         return newVirtText
       end
+
       return {
         fold_virt_text_handler = handler,
         provider_selector = function ()

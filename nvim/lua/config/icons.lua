@@ -57,7 +57,7 @@ local M = {
   },
   misc = {
     Bell = "",
-    Gear = " ",
+    Gear = "󰢻",
     Vim = "",
     Emacs = "",
     Apple = "",
