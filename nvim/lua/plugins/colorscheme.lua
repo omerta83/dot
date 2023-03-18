@@ -117,11 +117,16 @@ return {
 
         -- Set statusline hl to remove extra colors
         StatusLine = { bg = colors.bg0 },
+
+        CursorLineNr = { bg = colors.bg0, fg = colors.neutral_purple },
       }
 
       for hl, v in pairs(overrides) do
         vim.api.nvim_set_hl(0, hl, v)
       end
+
+      -- fix for toggleterm background, cannot use vim.api.nvim_set_hl
+      vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
     end
   }
 }

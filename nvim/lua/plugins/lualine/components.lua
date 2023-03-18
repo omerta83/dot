@@ -21,6 +21,17 @@ local function getLspNames()
   return icon .. (clientNames ~= '' and clientNames or msg)
 end
 
+local function term_str()
+  return string.format(
+    "%s %s %s Terminal %s %s",
+    vim.b.toggle_number,
+    icons.misc.VertSeparator,
+    icons.misc.Term,
+    icons.misc.VertSeparator,
+    vim.o.shell
+  )
+end
+
 local M = {
   logo = {
     function()
@@ -106,6 +117,11 @@ local M = {
     end,
     separator = separator,
     color = { bg = colors.neutral_purple, fg = colors.bg0 },
+  },
+  term = {
+    term_str,
+    separator = separator,
+    color = { fg = colors.green }
   }
 }
 
