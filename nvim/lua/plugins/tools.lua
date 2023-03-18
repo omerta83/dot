@@ -65,11 +65,21 @@ return {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
     opts = {
-      plugins = {
-        gitsigns = true,
-        tmux = false,
-        kitty = { enabled = false, font = "+2" },
+      window = {
+        backdrop = 1,
+        height = 0.95,
+        width = 0.6,
+        options = {
+          signcolumn = "no"
+        }
       },
+      -- fix to hide statusline
+      on_open = function ()
+        vim.o.cmdheight = 1
+      end,
+      on_close = function ()
+        vim.o.cmdheight = 0
+      end
     },
     keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
   }
