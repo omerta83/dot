@@ -32,7 +32,7 @@ return {
     event = "InsertEnter",
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- nvim-cmp source for neovim's built-in LSP
-      'hrsh7th/cmp-buffer', -- nvim-cmp source for buffer words
+      'hrsh7th/cmp-buffer',   -- nvim-cmp source for buffer words
       'hrsh7th/cmp-path',
       'saadparwaiz1/cmp_luasnip',
       {
@@ -65,19 +65,30 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
+        sorting = {
+          comparators = {
+            cmp.config.compare.score,
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          }
+        },
         mapping = cmp.mapping.preset.insert({
-            ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-            ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-            ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-            ['<C-f>'] = cmp.mapping.scroll_docs(4),
-            ['<C-x><C-o>'] = cmp.mapping.complete(),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-x><C-o>'] = cmp.mapping.complete(),
           -- ['<C-e>'] = cmp.mapping.close(),
-            ['<C-c>'] = cmp.mapping.abort(),
-            ['<CR>'] = cmp.mapping.confirm({
+          ['<C-c>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({
             -- behavior = cmp.ConfirmBehavior.Replace,
             select = true
           }),
-            ['<Tab>'] = cmp.mapping(function(fallback)
+          ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
             elseif luasnip.expand_or_locally_jumpable() then
@@ -88,7 +99,7 @@ return {
               fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
             end
           end, { "i", "s" }),
-            ['<S-Tab>'] = cmp.mapping(function(fallback)
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
@@ -117,12 +128,12 @@ return {
             vim_item.kind = string.format('%s %s', require('config.icons').kinds[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
             -- Source
             vim_item.menu = ({
-                buffer = "[Buffer]",
-                nvim_lsp = "[LSP]",
-                luasnip = "[LuaSnip]",
-                nvim_lua = "[Lua]",
-                latex_symbols = "[LaTeX]",
-              })[entry.source.name]
+              buffer = "[Buffer]",
+              nvim_lsp = "[LSP]",
+              luasnip = "[LuaSnip]",
+              nvim_lua = "[Lua]",
+              latex_symbols = "[LaTeX]",
+            })[entry.source.name]
             return vim_item
           end
         },

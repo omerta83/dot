@@ -1,4 +1,5 @@
 local icons = require('config.icons')
+local colors = require('util').theme_colors()
 local separator = { left = icons.misc.SeparatorLeft, right = icons.misc.SeparatorRight }
 
 local function getLspNames()
@@ -26,43 +27,43 @@ local M = {
       return icons.misc.Devil
     end,
     separator = separator,
-    color = { bg = "#313244", fg = "#DA291C" },
+    color = { bg = colors.bg1, fg = colors.red },
   },
   space = {
     function()
       return " "
     end,
-    color = { bg = "#11111f" },
+    color = { bg = colors.bg0 },
     padding = 0
   },
   filename = {
     'filename',
     path = 1,
     symbols = icons.file,
-    color = { bg = "#80A7EA", fg = "#242735" },
+    color = { bg = colors.neutral_blue, fg = colors.bg0 },
     separator = separator,
   },
   filetype = {
     "filetype",
     icon_only = true,
     colored = true,
-    color = { bg = "#313244" },
+    color = { bg = colors.bg1 },
     separator = separator,
   },
   fileformat = {
     "fileformat",
-    color = { bg = "#b4befe", fg = "#313244" },
+    color = { bg = colors.gray, fg = colors.bg0 },
     separator = separator,
   },
   encoding = {
     "encoding",
-    color = { bg = "#313244", fg = "#80A7EA" },
+    color = { bg = colors.bg1, fg = colors.blue },
     separator = separator,
   },
   branch = {
     "branch",
     icon = "",
-    color = { bg = "#a6e3a1", fg = "#313244" },
+    color = { bg = colors.neutral_aqua, fg = colors.bg0 },
     separator = separator,
   },
   diff = {
@@ -72,7 +73,7 @@ local M = {
       modified = icons.git.modified,
       removed = icons.git.removed,
     },
-    color = { bg = "#313244", fg = "#313244" },
+    color = { bg = colors.bg1 },
     separator = separator,
   },
   modes = {
@@ -80,16 +81,17 @@ local M = {
     fmt = function(str)
       return str:sub(1, 1)
     end,
-    color = { bg = "#fab387", fg = "#000000" },
+    color = { bg = colors.orange, fg = colors.bg0 },
     separator = separator,
   },
   lsp_symbols = {
     function() return require("nvim-navic").get_location() end,
     cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
+    -- color = { bg = colors.bg2 },
   },
   dia = {
     "diagnostics",
-    color = { bg = "#313244", fg = "#80A7EA" },
+    color = { bg = colors.bg1 },
     separator = separator,
     symbols = {
       error = icons.diagnostics.Error,
@@ -103,7 +105,7 @@ local M = {
       return getLspNames()
     end,
     separator = separator,
-    color = { bg = "#f38ba8", fg = "#1e1e2e" },
+    color = { bg = colors.neutral_purple, fg = colors.bg0 },
   }
 }
 

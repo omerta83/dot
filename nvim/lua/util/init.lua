@@ -62,4 +62,13 @@ function M.get_dap_adapter_path(name)
   return require('mason-registry').get_package(name):get_install_path()
 end
 
+function M.theme_colors()
+  if vim.g.colors_name == 'gruvbox' then
+    return require('gruvbox.palette').get_base_colors('dark', 'hard')
+  elseif vim.g.colors_name == 'catppuccin' then
+    return require('catppuccin.palettes').get_palette()
+  end
+  return {}
+end
+
 return M

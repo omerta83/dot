@@ -1,11 +1,11 @@
 local M = {
   diagnostics = {
     -- Error = " ",
-    Error = " ",
+    Error = " ",
     -- Warn = " ",
-    Warn = "󰚽 ",
-    Hint = "󰌵 ",
-    Info = " ",
+    Warn = "󰳥 ",
+    Hint = "󰛩 ",
+    Info = " ",
   },
   file = {
     modified = '',

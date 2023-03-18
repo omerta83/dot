@@ -1,9 +1,6 @@
 vim.cmd("autocmd!")
 
--- vim.opt.mapleader = " "
 vim.g.mapleader = " "
--- vim.wo.number = true
--- vim.wo.signcolumn = "yes"
 vim.wo.linebreak = true
 vim.wo.winbar = "" -- Turn off winbar
 
@@ -32,7 +29,7 @@ opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append { W = true, I = true, c = true }
 opt.showmode = false -- Dont show mode since we have a statusline
-opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.signcolumn = "yes:2" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartcase = true -- Don't ignore case with capitals
 opt.smartindent = true -- Insert indents automatically
 opt.splitbelow = true -- Put new windows below current

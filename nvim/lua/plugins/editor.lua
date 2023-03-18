@@ -17,12 +17,18 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       signs = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "契" },
-        topdelete = { text = "契" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
+        add = { text = '┃' },
+        change = { text = '┃' },
+        delete = { text = '┃' },
+        topdelete = { text = '┃' },
+        changedelete = { text = '┃' },
+        -- untracked = { text = '┆' },
+        -- add = { text = "▎" },
+        -- change = { text = "▎" },
+        -- delete = { text = "契" },
+        -- topdelete = { text = "契" },
+        -- changedelete = { text = "▎" },
+        -- untracked = { text = "▎" },
       },
       on_attach = function(buffer)
         local gs = package.loaded.gitsigns
@@ -260,7 +266,7 @@ return {
 
       return {
         fold_virt_text_handler = handler,
-        provider_selector = function ()
+        provider_selector = function()
           return { "treesitter", "indent" }
         end
       }

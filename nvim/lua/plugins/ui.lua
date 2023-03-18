@@ -5,14 +5,7 @@ return {
     "b0o/incline.nvim",
     event = "BufReadPre",
     config = function()
-      -- local colors = require("tokyonight.colors").setup()
-      local colors = require('catppuccin.palettes').get_palette()
       require("incline").setup({
-        highlight = {
-          groups = {
-            InclineNormalNC = { guifg = colors.surface0 },
-          },
-        },
         hide = {
           only_win = true,
         },

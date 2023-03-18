@@ -1,18 +1,26 @@
 return {
   "nvim-lualine/lualine.nvim",
   event = { "BufRead", "BufNewFile" },
-  -- event = "VeryLazy",
   opts = function()
     local components = require('plugins/lualine/components')
+    local colors = require('util').theme_colors()
+
+    -- Custom theme
+    local custom_gruvbox = require('lualine.themes.gruvbox_dark')
+    custom_gruvbox.normal.a.bg = colors.bg0
+    custom_gruvbox.normal.c.bg = colors.bg0
+    custom_gruvbox.visual.c.bg = colors.bg0
 
     return {
       options = {
-        theme = 'catppuccin',
+        -- theme = 'catppuccin',
+        theme = custom_gruvbox,
         component_separators = '',
         section_separators = '',
         globalstatus = true,
         disabled_filetypes = {
-          statusline = { "dashboard", "lazy", "alpha", "TelescopePrompt", "mason", "lspinfo", "fzf" } },
+          statusline = { "dashboard", "lazy", "alpha", "TelescopePrompt", "mason", "lspinfo", "fzf" }
+        },
       },
       sections = {
         lualine_a = {
