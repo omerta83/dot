@@ -114,20 +114,21 @@ return {
         -- Neotree
         NeoTreeNormal = { bg = colors.bg0 },
         NeoTreeNormalNC = { bg = colors.bg0 },
+        -- Telescope
+        TelescopePromptCounter = { fg = colors.orange, italic = true },
         -- incline
         InclineNormalNC = { fg = colors.bg1 },
         InclineNormal = { bg = colors.bg0 },
         -- Set statusline hl to remove extra colors
         StatusLine = { bg = colors.bg0 },
         CursorLineNr = { bg = colors.bg0, fg = colors.neutral_purple },
+        -- terminal background
+        Normal = { ctermbg = "None" },
       }
 
-      for hl, v in pairs(overrides) do
-        vim.api.nvim_set_hl(0, hl, v)
+      for group, hl in pairs(overrides) do
+        vim.api.nvim_set_hl(0, group, hl)
       end
-
-      -- fix for toggleterm background, cannot use vim.api.nvim_set_hl
-      vim.cmd [[highlight Normal guibg=NONE ctermbg=NONE]]
     end
   }
 }

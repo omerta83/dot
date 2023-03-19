@@ -44,7 +44,9 @@ opt.winminwidth = 5 -- Minimum window width
 opt.foldlevel = 99
 opt.foldlevelstart = -1
 opt.foldenable = true
--- opt.wrap = false -- Disable line wrap
+opt.winblend = 0
+opt.wildoptions = 'pum' -- cmdline autocomplete menu
+opt.background = 'dark'
 
 opt.hidden = true
 -- vim.opt.numberwidth = 2

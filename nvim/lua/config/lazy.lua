@@ -20,6 +20,9 @@ require("lazy").setup({
     missing = true,
     colorscheme = { "catppuccin" }
   },
+  ui = {
+    border = "single"
+  },
   -- checker = {
   --   enabled = true,
   --   notify = false,

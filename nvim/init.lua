@@ -1,5 +1,3 @@
-require('config.base')
+require('config.options')
 require('config.maps')
-require('config.highlights')
 require('config.lazy')
--- require('plugins')

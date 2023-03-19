@@ -331,7 +331,20 @@ return {
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<CR>", desc = "Mason" } },
-    config = true
+    opts = {
+      ui = {
+        border = "single",
+      },
+    },
+    config = function (_, opts)
+      require('mason').setup(opts)
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "mason",
+        callback = function ()
+          vim.cmd([[setlocal nocursorline]])
+        end
+      })
+    end
   },
   {
     'simrat39/rust-tools.nvim',
