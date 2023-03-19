@@ -107,10 +107,10 @@ return {
         NormalFloat = { bg = colors.bg0 },
         FloatBorder = { bg = colors.bg0, fg = colors.bg1 },
         -- Diagnostic virtual text
-        DiagnosticVirtualTextHint = { fg = colors.bg1 },
-        DiagnosticVirtualTextInfo = { fg = colors.bg1 },
-        DiagnosticVirtualTextWarn = { fg = colors.bg1 },
-        DiagnosticVirtualTextError = { fg = colors.bg1 },
+        DiagnosticVirtualTextHint = { fg = colors.bg2 },
+        DiagnosticVirtualTextInfo = { fg = colors.bg2 },
+        DiagnosticVirtualTextWarn = { fg = colors.bg2 },
+        DiagnosticVirtualTextError = { fg = colors.bg2 },
         -- Neotree
         NeoTreeNormal = { bg = colors.bg0 },
         NeoTreeNormalNC = { bg = colors.bg0 },

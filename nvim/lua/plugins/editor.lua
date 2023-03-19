@@ -4,7 +4,10 @@ return {
     "folke/which-key.nvim",
     event = { "BufReadPost", "BufNewFile" },
     opts = {
-      plugins = { spelling = true },
+      plugins = { spelling = false },
+      window = {
+        border = "single",
+      },
     },
     config = function(_, opts)
       local wk = require("which-key")
