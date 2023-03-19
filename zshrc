@@ -75,3 +75,7 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-vi-mode/zsh-vi-mode.zsh
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 alias lzd='lazydocker'
+
+# Use tab for autocomplete
+bindkey '^I' autosuggest-accept # tab
+bindkey '^[[Z' complete-word # shift + tab
