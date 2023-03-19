@@ -91,7 +91,7 @@ return {
           GitSignsChange = { bg = "None" },
           GitSignsDelete = { bg = "None" },
           GitSignsTopdelete = { bg = "None" },
-          -- Diagnostic
+          -- Diagnostic signs
           DiagnosticSignHint = { bg = "None" },
           DiagnosticSignInfo = { bg = "None" },
           DiagnosticSignWarn = { bg = "None" },
@@ -103,7 +103,10 @@ return {
 
       local colors = require('util').theme_colors()
       local overrides = {
-        -- Diagnostic
+        -- floating window
+        NormalFloat = { bg = colors.bg0 },
+        FloatBorder = { bg = colors.bg0, fg = colors.bg1 },
+        -- Diagnostic virtual text
         DiagnosticVirtualTextHint = { fg = colors.bg1 },
         DiagnosticVirtualTextInfo = { fg = colors.bg1 },
         DiagnosticVirtualTextWarn = { fg = colors.bg1 },
@@ -114,10 +117,8 @@ return {
         -- incline
         InclineNormalNC = { fg = colors.bg1 },
         InclineNormal = { bg = colors.bg0 },
-
         -- Set statusline hl to remove extra colors
         StatusLine = { bg = colors.bg0 },
-
         CursorLineNr = { bg = colors.bg0, fg = colors.neutral_purple },
       }
 
