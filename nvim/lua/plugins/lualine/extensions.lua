@@ -1,4 +1,4 @@
-local components = require(('plugins/lualine/components'))
+local components = require('plugins/lualine/components')
 local M = {}
 
 M.term = {
