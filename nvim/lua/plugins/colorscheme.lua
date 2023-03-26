@@ -78,59 +78,6 @@ return {
       -- vim.api.nvim_command("colorscheme catppuccin")
     end
   },
-  {
-    "ellisonleao/gruvbox.nvim",
-    lazy = true,
-    -- priority = 1000,
-    config = function()
-      require('gruvbox').setup {
-        contrast = "hard",
-        overrides = {
-          SignColumn = { bg = "None" },
-          GitSignsAdd = { bg = "None" },
-          GitSignsChange = { bg = "None" },
-          GitSignsDelete = { bg = "None" },
-          GitSignsTopdelete = { bg = "None" },
-          -- Diagnostic signs
-          DiagnosticSignHint = { bg = "None" },
-          DiagnosticSignInfo = { bg = "None" },
-          DiagnosticSignWarn = { bg = "None" },
-          DiagnosticSignError = { bg = "None" },
-        }
-      }
-
-      vim.api.nvim_command("colorscheme gruvbox")
-
-      local colors = require('util').theme_colors()
-      local overrides = {
-        -- floating window
-        NormalFloat = { bg = colors.bg0 },
-        FloatBorder = { bg = colors.bg0, fg = colors.bg1 },
-        -- Diagnostic virtual text
-        DiagnosticVirtualTextHint = { fg = colors.bg2 },
-        DiagnosticVirtualTextInfo = { fg = colors.bg2 },
-        DiagnosticVirtualTextWarn = { fg = colors.bg2 },
-        DiagnosticVirtualTextError = { fg = colors.bg2 },
-        -- Neotree
-        NeoTreeNormal = { bg = colors.bg0 },
-        NeoTreeNormalNC = { bg = colors.bg0 },
-        -- Telescope
-        TelescopePromptCounter = { fg = colors.orange, italic = true },
-        -- incline
-        InclineNormalNC = { fg = colors.bg1 },
-        InclineNormal = { bg = colors.bg0 },
-        -- Set statusline hl to remove extra colors
-        StatusLine = { bg = colors.bg0 },
-        CursorLineNr = { bg = colors.bg0, fg = colors.neutral_purple },
-        -- terminal background
-        Normal = { ctermbg = "None" },
-      }
-
-      for group, hl in pairs(overrides) do
-        vim.api.nvim_set_hl(0, group, hl)
-      end
-    end
-  },
 
   {
     'folke/tokyonight.nvim',
@@ -139,16 +86,16 @@ return {
     opts = {
       style = 'night',
       on_highlights = function (hl, c)
-        hl.Normal = { ctermbg = "None" }
+        hl.Normal = { ctermbg = c.none }
         hl.StatusLine = { bg = c.bg }
 
         hl.InclineNormal = { bg = c.bg }
         hl.InclineNormalNC = { fg = c.bg_highlight }
 
-        hl.DiagnosticVirtualTextHint = { bg = "None", fg = c.hint }
-        hl.DiagnosticVirtualTextInfo = { bg = "None", fg = c.info }
-        hl.DiagnosticVirtualTextWarn = { bg = "None", fg = c.warning }
-        hl.DiagnosticVirtualTextError = { bg = "None", fg = c.error }
+        hl.DiagnosticVirtualTextHint = { bg = c.none, fg = c.hint }
+        hl.DiagnosticVirtualTextInfo = { bg = c.none, fg = c.info }
+        hl.DiagnosticVirtualTextWarn = { bg = c.none, fg = c.warning }
+        hl.DiagnosticVirtualTextError = { bg = c.none, fg = c.error }
 
         hl.NeoTreeNormal = { bg = c.bg }
         hl.NeoTreeNormalNC = { bg = c.bg }

@@ -6,14 +6,14 @@ return {
     local colors = require('util').theme_colors()
 
     -- Custom theme
-    local custom_night = require('lualine.themes.tokyonight')
-    custom_night.normal.a.bg = colors.bg0
-    custom_night.normal.c.bg = colors.bg0
+    local wonderful_night = require('lualine.themes.tokyonight')
+    wonderful_night.normal.a.bg = colors.bg
+    wonderful_night.normal.c.bg = colors.bg
 
     return {
       options = {
         -- theme = 'catppuccin',
-        theme = custom_night,
+        theme = wonderful_night,
         -- theme = 'tokyonight',
         component_separators = '',
         section_separators = '',
