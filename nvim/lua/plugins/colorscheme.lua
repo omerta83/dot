@@ -146,6 +146,8 @@ return {
         hl.DiagnosticVirtualTextInfo = { bg = "None", fg = c.info }
         hl.DiagnosticVirtualTextWarn = { bg = "None", fg = c.warning }
         hl.DiagnosticVirtualTextError = { bg = "None", fg = c.error }
+        hl.NeoTreeNormal = { bg = c.bg }
+        hl.NeoTreeNormalNC = { bg = c.bg }
       end
     },
     config = function (_, opts)
