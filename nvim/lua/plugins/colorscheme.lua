@@ -88,6 +88,12 @@ return {
       on_highlights = function (hl, c)
         hl.Normal = { ctermbg = c.none }
         hl.StatusLine = { bg = c.bg }
+        hl.NormalFloat = { bg = c.bg }
+        hl.FloatBorder = { bg = c.none, fg = c.border_highlight }
+
+        hl.TelescopeBorder = { bg = c.none, fg = c.border_highlight }
+        hl.TelescopeNormal = { bg = c.none, fg = c.fg }
+        hl.TelescopeSelection = { bg = c.none }
 
         hl.InclineNormal = { bg = c.bg }
         hl.InclineNormalNC = { fg = c.bg_highlight }
