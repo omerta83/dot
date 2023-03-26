@@ -80,8 +80,8 @@ return {
   },
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
+    -- priority = 1000,
     config = function()
       require('gruvbox').setup {
         contrast = "hard",
@@ -129,6 +129,29 @@ return {
       for group, hl in pairs(overrides) do
         vim.api.nvim_set_hl(0, group, hl)
       end
+    end
+  },
+
+  {
+    'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
+    opts = {
+      style = 'night',
+      on_highlights = function (hl, c)
+        hl.Normal = { ctermbg = "None" }
+        hl.InclineNormal = { bg = c.bg }
+        hl.InclineNormalNC = { fg = c.bg_highlight }
+        hl.DiagnosticVirtualTextHint = { bg = "None", fg = c.hint }
+        hl.DiagnosticVirtualTextInfo = { bg = "None", fg = c.info }
+        hl.DiagnosticVirtualTextWarn = { bg = "None", fg = c.warning }
+        hl.DiagnosticVirtualTextError = { bg = "None", fg = c.error }
+      end
+    },
+    config = function (_, opts)
+      require('tokyonight').setup(opts)
+
+      vim.api.nvim_command("colorscheme tokyonight")
     end
   }
 }

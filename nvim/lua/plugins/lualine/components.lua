@@ -38,43 +38,43 @@ local M = {
       return icons.misc.Devil
     end,
     separator = separator,
-    color = { bg = colors.bg1, fg = colors.red },
+    color = { bg = colors.bg_highlight, fg = colors.red1 },
   },
   space = {
     function()
       return " "
     end,
-    color = { bg = colors.bg0 },
+    color = { bg = colors.bg_dark },
     padding = 0
   },
   filename = {
     'filename',
     path = 1,
     symbols = icons.file,
-    color = { bg = colors.neutral_blue, fg = colors.bg0 },
+    color = { bg = colors.blue, fg = colors.bg_dark },
     separator = separator,
   },
   filetype = {
     "filetype",
     icon_only = true,
     colored = true,
-    color = { bg = colors.bg1 },
+    color = { bg = colors.bg_highlight },
     separator = separator,
   },
   fileformat = {
     "fileformat",
-    color = { bg = colors.gray, fg = colors.bg0 },
+    color = { bg = colors.dark5, fg = colors.bg_dark },
     separator = separator,
   },
   encoding = {
     "encoding",
-    color = { bg = colors.bg1, fg = colors.blue },
+    color = { bg = colors.bg_highlight, fg = colors.blue1 },
     separator = separator,
   },
   branch = {
     "branch",
     icon = "",
-    color = { bg = colors.neutral_aqua, fg = colors.bg0 },
+    color = { bg = colors.cyan, fg = colors.bg_dark },
     separator = separator,
   },
   diff = {
@@ -84,7 +84,7 @@ local M = {
       modified = icons.git.modified,
       removed = icons.git.removed,
     },
-    color = { bg = colors.bg1 },
+    color = { bg = colors.bg_highlight },
     separator = separator,
   },
   modes = {
@@ -92,7 +92,7 @@ local M = {
     fmt = function(str)
       return str:sub(1, 1)
     end,
-    color = { bg = colors.orange, fg = colors.bg0 },
+    color = { bg = colors.orange, fg = colors.bg_dark },
     separator = separator,
   },
   lsp_symbols = {
@@ -102,7 +102,7 @@ local M = {
   },
   dia = {
     "diagnostics",
-    color = { bg = colors.bg1 },
+    color = { bg = colors.bg_highlight },
     separator = separator,
     symbols = {
       error = icons.diagnostics.Error,
@@ -116,7 +116,7 @@ local M = {
       return getLspNames()
     end,
     separator = separator,
-    color = { bg = colors.neutral_purple, fg = colors.bg0 },
+    color = { bg = colors.purple, fg = colors.bg_dark },
   },
   term = {
     term_str,

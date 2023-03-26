@@ -67,6 +67,8 @@ function M.theme_colors()
     return require('gruvbox.palette').get_base_colors('dark', 'hard')
   elseif vim.g.colors_name == 'catppuccin' then
     return require('catppuccin.palettes').get_palette()
+  elseif vim.g.colors_name == 'tokyonight' then
+    return require('tokyonight.colors').setup({ style = 'night' })
   end
   return {}
 end
