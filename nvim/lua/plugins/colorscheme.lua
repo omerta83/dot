@@ -140,12 +140,16 @@ return {
       style = 'night',
       on_highlights = function (hl, c)
         hl.Normal = { ctermbg = "None" }
+        hl.StatusLine = { bg = c.bg }
+
         hl.InclineNormal = { bg = c.bg }
         hl.InclineNormalNC = { fg = c.bg_highlight }
+
         hl.DiagnosticVirtualTextHint = { bg = "None", fg = c.hint }
         hl.DiagnosticVirtualTextInfo = { bg = "None", fg = c.info }
         hl.DiagnosticVirtualTextWarn = { bg = "None", fg = c.warning }
         hl.DiagnosticVirtualTextError = { bg = "None", fg = c.error }
+
         hl.NeoTreeNormal = { bg = c.bg }
         hl.NeoTreeNormalNC = { bg = c.bg }
       end

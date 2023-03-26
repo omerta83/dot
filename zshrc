@@ -63,5 +63,5 @@ export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 alias lzd='lazydocker'
 
 # Use tab for autocomplete
-bindkey '^I' autosuggest-accept # tab
-bindkey '^[[Z' complete-word # shift + tab
+# bindkey '^I' autosuggest-accept # tab
+# bindkey '^[[Z' complete-word # shift + tab

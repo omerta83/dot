@@ -44,7 +44,7 @@ local M = {
     function()
       return " "
     end,
-    color = { bg = colors.bg_dark },
+    color = { bg = colors.bg },
     padding = 0
   },
   filename = {

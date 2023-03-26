@@ -3,19 +3,18 @@ return {
   event = { "BufRead", "BufNewFile" },
   opts = function()
     local components = require('plugins/lualine/components')
-    -- local colors = require('util').theme_colors()
+    local colors = require('util').theme_colors()
 
     -- Custom theme
-    -- local custom_gruvbox = require('lualine.themes.gruvbox_dark')
-    -- custom_gruvbox.normal.a.bg = colors.bg0
-    -- custom_gruvbox.normal.c.bg = colors.bg0
-    -- custom_gruvbox.visual.c.bg = colors.bg0
+    local custom_night = require('lualine.themes.tokyonight')
+    custom_night.normal.a.bg = colors.bg0
+    custom_night.normal.c.bg = colors.bg0
 
     return {
       options = {
         -- theme = 'catppuccin',
-        -- theme = custom_gruvbox,
-        theme = 'tokyonight',
+        theme = custom_night,
+        -- theme = 'tokyonight',
         component_separators = '',
         section_separators = '',
         globalstatus = true,
