@@ -1,5 +1,5 @@
 local wezterm = require("wezterm")
-local colors, _ = wezterm.color.load_scheme("/Users/omerta/.config/wezterm/tokyonight_night.toml")
+local colors, _ = wezterm.color.load_scheme("/Users/omerta/.config/wezterm/colors/tokyonight_night.toml")
 
 local function is_vi_process(pane)
 	return pane:get_foreground_process_name():find("n?vim") ~= nil
@@ -157,7 +157,7 @@ return {
 		left = 10,
 		right = 10,
 		top = 10,
-		bottom = 2,
+		bottom = 0,
 	},
 	initial_cols = 1100,
 	initial_rows = 250,
