@@ -39,7 +39,15 @@ return {
         'windwp/nvim-autopairs',
         opts = {
           disable_filetype = { "TelescopePrompt", "vim" }
-        }
+        },
+        config = function(_, opts)
+          local Rule = require('nvim-autopairs.rule')
+          local npairs = require('nvim-autopairs')
+          npairs.setup(opts)
+          npairs.add_rules({
+            Rule("|", "|", { "rust" })
+          })
+        end
       }
     },
     config = function()

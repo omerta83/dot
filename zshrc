@@ -49,7 +49,7 @@ setopt nosharehistory
 
 export VOLTA_HOME="$HOME/.volta"
 export PNPM_HOME="$HOME/.pnpm"
-export PATH="$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME"
+export PATH="$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME:/Applications/WezTerm.app/Contents/MacOS"
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"

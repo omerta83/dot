@@ -281,4 +281,16 @@ return {
       end)
     end,
   },
+
+  {
+    "j-hui/fidget.nvim",
+    event = "BufReadPre",
+    config = function ()
+      require("fidget").setup({
+        window = {
+          blend = 0,
+        }
+      })
+    end
+  }
 }
