@@ -90,6 +90,8 @@ return {
         hl.StatusLine = { bg = c.bg }
         hl.NormalFloat = { bg = c.bg }
         hl.FloatBorder = { bg = c.none, fg = c.border_highlight }
+        hl.CursorLineNr = { fg = c.magenta }
+        hl.CursorLine = { bg = c.none }
 
         hl.TelescopeBorder = { bg = c.none, fg = c.border_highlight }
         hl.TelescopeNormal = { bg = c.none, fg = c.fg }
