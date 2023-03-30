@@ -185,6 +185,13 @@ return {
 				SplitHorizontal = { domain = "CurrentPaneDomain" },
 			}),
 		},
+    {
+      mods = "CTRL|SHIFT",
+      key = [["]],
+      action = wezterm.action({
+        SplitHorizontal = { domain = "CurrentPaneDomain" },
+      }),
+    },
 		{
 			mods = "CMD|SHIFT",
 			key = [[|]],
@@ -201,6 +208,13 @@ return {
 				SplitVertical = { domain = "CurrentPaneDomain" },
 			}),
 		},
+    {
+      mods = "CTRL|SHIFT",
+      key = [[%]],
+      action = wezterm.action({
+        SplitVertical = { domain = "CurrentPaneDomain" },
+      }),
+    },
 		{
 			mods = "CMD|SHIFT",
 			key = [[_]],
@@ -210,6 +224,11 @@ return {
 				size = { Percent = 50 },
 			}),
 		},
+    {
+      mods = "CTRL",
+      key = [[Space]],
+      action = wezterm.action.QuickSelect
+    },
 		{
 			key = "t",
 			mods = "CMD",
