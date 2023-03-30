@@ -142,14 +142,14 @@ return {
 		"Apple Color Emoji",
 	}),
 	font_size = 16,
-	max_fps = 120,
+	-- max_fps = 120,
 	enable_wayland = false,
   term = 'wezterm',
 	pane_focus_follows_mouse = false,
 	warn_about_missing_glyphs = false,
 	show_update_window = false,
 	check_for_updates = false,
-  cell_width = 1.1,
+  cell_width = 1.05,
 	line_height = 1.1,
 	window_decorations = "RESIZE",
 	window_close_confirmation = "NeverPrompt",
@@ -187,7 +187,7 @@ return {
 		},
     {
       mods = "CTRL|SHIFT",
-      key = [["]],
+      key = [[%]],
       action = wezterm.action({
         SplitHorizontal = { domain = "CurrentPaneDomain" },
       }),
@@ -210,7 +210,7 @@ return {
 		},
     {
       mods = "CTRL|SHIFT",
-      key = [[%]],
+      key = [["]],
       action = wezterm.action({
         SplitVertical = { domain = "CurrentPaneDomain" },
       }),
