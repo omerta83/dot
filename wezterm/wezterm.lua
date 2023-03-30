@@ -149,7 +149,7 @@ return {
 	show_update_window = false,
 	check_for_updates = false,
   cell_width = 1.1,
-	line_height = 1.0,
+	line_height = 1.1,
 	window_decorations = "RESIZE",
 	window_close_confirmation = "NeverPrompt",
 	audible_bell = "Disabled",
