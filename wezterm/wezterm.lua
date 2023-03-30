@@ -144,6 +144,7 @@ return {
 	font_size = 16,
 	max_fps = 120,
 	enable_wayland = false,
+  term = 'wezterm',
 	pane_focus_follows_mouse = false,
 	warn_about_missing_glyphs = false,
 	show_update_window = false,

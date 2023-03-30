@@ -37,7 +37,6 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-ran
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 export XDG_CONFIG_HOME="$HOME/.config"
-export TERM="xterm-kitty"
 
 # Use nvim as manpager
 export MANPAGER='nvim +Man!'
