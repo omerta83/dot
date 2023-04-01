@@ -138,11 +138,10 @@ end)
 return {
 	font = wezterm.font_with_fallback({
     "JetBrainsMono Nerd Font",
-		"IBM Plex Mono",
-		"Apple Color Emoji",
 	}),
 	font_size = 16,
   freetype_load_flags = 'NO_HINTING',
+  -- freetype_interpreter_version = 40,
 	-- max_fps = 120,
 	enable_wayland = false,
   term = 'wezterm',
@@ -150,7 +149,7 @@ return {
 	warn_about_missing_glyphs = false,
 	show_update_window = false,
 	check_for_updates = false,
-  cell_width = 1.07,
+  cell_width = 1.0,
 	line_height = 1.0,
 	window_decorations = "RESIZE",
 	window_close_confirmation = "NeverPrompt",
@@ -176,7 +175,7 @@ return {
 	tab_max_width = 50,
 	hide_tab_bar_if_only_one_tab = true,
 	disable_default_key_bindings = false,
-	front_end = "WebGpu",
+	-- front_end = "WebGpu",
 	colors = colors,
 	keys = {
 		{
