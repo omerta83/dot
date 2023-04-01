@@ -28,6 +28,10 @@ end)
 
 local function getProcess(tab)
   local process_icons = {
+    ["colima"] = {
+      { Foreground = { Color = colors.ansi[5] } },
+      { Text = wezterm.nerdfonts.dev_docker },
+    },
     ["docker"] = {
       { Foreground = { Color = colors.ansi[5] } },
       { Text = wezterm.nerdfonts.dev_docker },

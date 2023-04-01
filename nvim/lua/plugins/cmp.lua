@@ -28,6 +28,15 @@ return {
     },
   },
   {
+    "roobert/tailwindcss-colorizer-cmp.nvim",
+    -- optionally, override the default options:
+    config = function()
+      require("tailwindcss-colorizer-cmp").setup({
+        color_square_width = 2,
+      })
+    end
+  },
+  {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
@@ -132,8 +141,14 @@ return {
         }),
         formatting = {
           format = function(entry, vim_item)
+            local width = 2
+            vim_item = require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
             -- Kind icons
-            vim_item.kind = string.format('%s %s', require('config.icons').kinds[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+            vim_item.kind = string.format(
+              '%s %s',
+              vim_item.kind ~= string.rep('X', width) and require('config.icons').kinds[vim_item.kind] or '',
+              vim_item.kind ~= string.rep('X', width) and vim_item.kind or string.rep(' ', width)
+            ) -- This concatonates the icons with the name of the item kind
             -- Source
             vim_item.menu = ({
               buffer = "[Buffer]",
@@ -143,7 +158,8 @@ return {
               latex_symbols = "[LaTeX]",
             })[entry.source.name]
             return vim_item
-          end
+          end,
+          -- format = require("tailwindcss-colorizer-cmp").formatter
         },
         experimental = {
           ghost_text = true

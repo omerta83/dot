@@ -7,12 +7,12 @@ return {
       { "<leader>lg", "<cmd>lua LazyGit()<CR>",              desc = "Open LazyGit" },
       { "<leader>ld", "<cmd>lua LazyDocker()<CR>",           desc = "Open LazyDocker" },
       { "<leader>lf", "<cmd>ToggleTerm direction=float<CR>", desc = "Open Floating Term" },
-      { "<leader>lt", "<cmd>ToggleTerm<CR>",                 desc = "Toggle terminal" }
+      { "<C-\\>",     "<cmd>ToggleTerm<CR>",                 desc = "Toggle terminal" }
     },
     config = function()
       local terminal = require("toggleterm")
       terminal.setup {
-        open_mapping = [[<leader>lt]],
+        open_mapping = [[<C-\>]],
         hide_numbers = true,
       }
 
