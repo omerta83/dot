@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local colors, _ = wezterm.color.load_scheme("/Users/omerta/.config/wezterm/colors/tokyonight_night.toml")
 
 local function isViProcess(pane)
-	return pane:getForegroundProcessName():find("n?vim") ~= nil
+	return pane:get_foreground_process_name():find("n?vim") ~= nil
 end
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)

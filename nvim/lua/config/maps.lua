@@ -34,27 +34,8 @@ end
 -- keymap.set("n", "<Leader>kn", ":leftabove  new<CR>", {noremap = true, silent = true})
 -- keymap.set("n", "<Leader>jn", ":rightbelow new<CR>", {noremap = true, silent = true})
 
-------------- Plugins ---------------
--- local opts = { noremap = true, silent = true }
-
--- Fugitive
--- keymap.set("n", "<leader>gs", ":Git status<CR>", opts)
--- keymap.set("n", "<leader>gc", ":Git commit<CR>", opts)
--- keymap.set("n", "<leader>gb", ":Git blame<CR>", opts)
--- keymap.set("n", "<leader>ge", ":Gedit<CR>", opts)
--- keymap.set("n", "<leader>gE", ":Gedit<space>", opts)
--- keymap.set("n", "<leader>gw", ":Gwrite<CR>", opts)
--- keymap.set("n", "<leader>gW", ":Gwrite!<CR>", opts)
--- keymap.set("n", "<leader>gq", ":Gwq<CR>", opts)
--- keymap.set("n", "<leader>gQ", ":Gwq!<CR>", opts)
-
--- LSP
--- keymap.set("n", "<leader>ff", ":lua vim.lsp.buf.format()<CR>", opts)
--- keymap.set('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
--- keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-
 -- Terminal / ToggleTerm
-function set_terminal_keymaps()
+function _G.set_terminal_keymaps()
   local lopts = { buffer = 0 }
   vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], lopts)
   vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], lopts)
@@ -63,12 +44,4 @@ function set_terminal_keymaps()
   vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], lopts)
 end
 
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
-
--- Lazygit
--- keymap.set("n", "<leader>lg", ":lua LazyGit()<CR>", opts)
--- Lazydocker
--- keymap.set("n", "<leader>ld", ":lua LazyDocker()<CR>", opts)
-
--- nvim tree
--- vim.keymap.set("n", "ge", ":NvimTreeToggle<CR>", opts)
+vim.cmd('autocmd! TermOpen term://*toggleterm* lua set_terminal_keymaps()')
