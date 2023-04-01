@@ -67,7 +67,7 @@ local M = {
     SeparatorLeft = "",
     SeparatorRight = "",
     VertSeparator = "",
-    Check = "",
+    Check = "",
   }
 }
 
