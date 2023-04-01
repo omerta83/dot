@@ -88,6 +88,14 @@ local function getProcess(tab)
       { Foreground = { Color = colors.ansi[5] } },
       { Text = wezterm.nerdfonts.seti_lua },
     },
+    ["ruby"] = {
+      { Foreground = { Color = colors.ansi[2] } },
+      { Text = wezterm.nerdfonts.oct_ruby },
+    },
+    ["python"] = {
+      { Foreground = { Color = colors.ansi[4] } },
+      { Text = wezterm.nerdfonts.dev_python },
+    },
     ["wget"] = {
       { Foreground = { Color = colors.ansi[4] } },
       { Text = wezterm.nerdfonts.mdi_arrow_down_bold_box_outline },
