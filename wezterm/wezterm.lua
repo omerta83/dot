@@ -142,6 +142,7 @@ return {
 		"Apple Color Emoji",
 	}),
 	font_size = 16,
+  freetype_load_flags = 'NO_HINTING',
 	-- max_fps = 120,
 	enable_wayland = false,
   term = 'wezterm',
