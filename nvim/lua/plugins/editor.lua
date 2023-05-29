@@ -155,6 +155,15 @@ return {
           update_cwd = true,
           ignore_list = { ".git", "node_modules", ".cache" },
         },
+        diagnostics = {
+          enable = true,
+          show_on_dirs = true,
+        },
+        filters = {
+          custom = {
+            "^.git$",
+          },
+        },
 
         view = {
           float = {
@@ -186,15 +195,11 @@ return {
         renderer = {
           indent_markers = {
             enable = true,
-            -- icons = {
-            --   corner = "└ ",
-            --   edge = "│ ",
-            --   none = "  ",
-            -- },
           },
           highlight_git = true,
           root_folder_modifier = ":~",
           icons = {
+            git_placement = "signcolumn",
             show = {
               git = true,
               folder = true,
@@ -204,15 +209,20 @@ return {
               default = " ",
               symlink = " ",
               git = {
-                unstaged = "✗",
+                -- unstaged = "✗",
+                -- unstaged = '●',
+                unstaged = '',
                 staged = "✓",
                 unmerged = "",
                 renamed = "➜",
-                untracked = "★"
+                untracked = ''
+                -- untracked = "★"
               },
               folder = {
-                default = "",
-                open = "",
+                -- default = "",
+                -- open = "",
+                default = "",
+                open = "",
                 symlink = ""
               }
             }
@@ -229,13 +239,6 @@ return {
             quit_on_open = false
           }
         },
-
-        -- filters = {
-        --   custom = { "^.git$" },
-        -- },
-        -- renderer = {
-        --   indent_width = 1,
-        -- },
       })
     end
   },
