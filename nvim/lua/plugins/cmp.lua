@@ -162,7 +162,9 @@ return {
           -- format = require("tailwindcss-colorizer-cmp").formatter
         },
         experimental = {
-          ghost_text = true
+          -- ghost_text = {
+          --   enabled = true
+          -- }
         },
         preselect = cmp.PreselectMode.None,
         completion = {

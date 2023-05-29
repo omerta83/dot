@@ -129,102 +129,115 @@ return {
 
   -- file explorer
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    cmd = "Neotree",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      {
-        -- only needed if you want to use the commands with "_with_window_picker" suffix
-        's1n7ax/nvim-window-picker',
-        tag = "v1.5",
-        keys = {
-          {
-            "<Leader>ww",
-            function()
-              local picked_window_id = require('window-picker').pick_window() or vim.api.nvim_get_current_win()
-              vim.api.nvim_set_current_win(picked_window_id)
-            end,
-            desc = "Pick a window"
-          }
-        },
-        config = function()
-          require 'window-picker'.setup({
-            autoselect_one = true,
-            include_current_win = false,
-            selection_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-            show_prompt = false,
-            filter_rules = {
-              -- filter using buffer options
-              bo = {
-                -- if the file type is one of following, the window will be ignored
-                filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-                -- if the buffer type is one of following, the window will be ignored
-                buftype = { 'terminal', "quickfix" },
-              },
-            },
-            -- other_win_hl_color = '#e35e4f',
-          })
-        end,
-      }
-    },
+    'nvim-tree/nvim-tree.lua',
+    cmd = 'NvimTreeToggle',
     keys = {
-      {
-        "<leader>fe",
-        function()
-          require("neo-tree.command").execute({ toggle = true })
-        end,
-        desc = "Explorer NeoTree (root dir)",
-      },
+      { "<leader>fe", "<cmd>NvimTreeToggle<cr>", desc = "Toggle File Explorer" }
     },
-    deactivate = function()
-      vim.cmd([[Neotree close]])
-    end,
-    init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
-      if vim.fn.argc() == 1 then
-        local stat = vim.loop.fs_stat(vim.fn.argv(0))
-        if stat and stat.type == "directory" then
-          require("neo-tree")
-        end
-      end
-    end,
-    opts = {
-      default_component_configs = {
-        git_status = {
-          symbols = {
-            -- Change type
-            added     = "",  -- or "✚", but this is redundant info if you use git_status_colors on the name
-            modified  = "",  -- or "", but this is redundant info if you use git_status_colors on the name
-            deleted   = "✖", -- this can only be used in the git_status source
-            renamed   = "", -- this can only be used in the git_status source
-            -- Status type
-            untracked = "",
-            ignored   = "",
-            unstaged  = "",
-            staged    = "",
-            conflict  = "",
+    config = function()
+      -- disable netrw at the very start of your init.lua
+      vim.g.loaded_netrw = 1
+      vim.g.loaded_netrwPlugin = 1
+      local HEIGHT_RATIO = 0.8 -- You can change this
+      local WIDTH_RATIO = 0.5  -- You can change this too
+
+      require('nvim-tree').setup({
+        auto_reload_on_write = true,
+        open_on_tab = false,
+        update_cwd = true,
+        disable_netrw = true,
+        hijack_netrw = true,
+        respect_buf_cwd = true,
+        sync_root_with_cwd = true,
+        reload_on_bufenter = true,
+        update_focused_file = {
+          enable = true,
+          update_cwd = true,
+          ignore_list = { ".git", "node_modules", ".cache" },
+        },
+
+        view = {
+          float = {
+            enable = true,
+            open_win_config = function()
+              local screen_w = vim.opt.columns:get()
+              local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+              local window_w = screen_w * WIDTH_RATIO
+              local window_h = screen_h * HEIGHT_RATIO
+              local window_w_int = math.floor(window_w)
+              local window_h_int = math.floor(window_h)
+              local center_x = (screen_w - window_w) / 2
+              local center_y = ((vim.opt.lines:get() - window_h) / 2)
+                - vim.opt.cmdheight:get()
+              return {
+                border = "rounded",
+                relative = "editor",
+                row = center_y,
+                col = center_x,
+                width = window_w_int,
+                height = window_h_int,
+              }
+            end,
+          },
+          width = function()
+            return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+          end,
+        },
+        renderer = {
+          indent_markers = {
+            enable = true,
+            -- icons = {
+            --   corner = "└ ",
+            --   edge = "│ ",
+            --   none = "  ",
+            -- },
+          },
+          highlight_git = true,
+          root_folder_modifier = ":~",
+          icons = {
+            show = {
+              git = true,
+              folder = true,
+              file = true,
+            },
+            glyphs = {
+              default = " ",
+              symlink = " ",
+              git = {
+                unstaged = "✗",
+                staged = "✓",
+                unmerged = "",
+                renamed = "➜",
+                untracked = "★"
+              },
+              folder = {
+                default = "",
+                open = "",
+                symlink = ""
+              }
+            }
+          },
+        },
+        git = {
+          enable = true,
+          ignore = true,
+          timeout = 400,
+        },
+        actions = {
+          use_system_clipboard = true,
+          open_file = {
+            quit_on_open = false
           }
         },
-        icon = {
-          folder_empty = ""
-        }
-      },
-      filesystem = {
-        visible = true,
-        bind_to_cwd = false,
-        follow_current_file = true,
-        filtered_items = {
-          never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
-            ".DS_Store",
-          },
-        }
-      },
-      window = {
-        mappings = {
-          ["<space>"] = "none",
-        },
-      },
-    },
+
+        -- filters = {
+        --   custom = { "^.git$" },
+        -- },
+        -- renderer = {
+        --   indent_width = 1,
+        -- },
+      })
+    end
   },
 
   -- add nvim-ufo
@@ -285,7 +298,7 @@ return {
   {
     "j-hui/fidget.nvim",
     event = "BufReadPre",
-    config = function ()
+    config = function()
       require("fidget").setup({
         window = {
           blend = 0,

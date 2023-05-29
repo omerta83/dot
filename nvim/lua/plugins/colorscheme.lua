@@ -107,6 +107,9 @@ return {
 
         hl.NeoTreeNormal = { bg = c.bg }
         hl.NeoTreeNormalNC = { bg = c.bg }
+
+        hl.NvimTreeNormal = { bg = c.bg }
+        hl.NvimTreeNormalNC = { bg = c.bg }
       end
     },
     config = function (_, opts)
