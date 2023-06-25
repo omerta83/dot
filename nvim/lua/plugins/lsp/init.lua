@@ -91,9 +91,11 @@ return {
         mode = "v"
       },
       { "<Leader>ca", vim.lsp.buf.code_action, desc = "Code Action [LSP]" },
+      { "<Leader>cl", "<CMD>LspRestart<CR>", desc = "Restart LSP" },
     },
     opts = function()
       return {
+        inlay_hints = { enabled = true },
         diagnostics = {
           underline = true,
           severity_sort = true,
@@ -125,8 +127,22 @@ return {
               },
             },
           },
-          html = {},
+          html = {
+            filetypes = {
+              'html'
+            }
+          },
           prismals = {},
+          -- volar = {
+          --   filetypes = {
+          --     'vue',
+          --   },
+          --   init_options = {
+          --     typescript = {
+          --       tsdk = "~/.pnpm/global/5/node_modules/typescript/lib"
+          --     }
+          --   }
+          -- },
           vuels = {
             settings = {
               vetur = {
@@ -180,9 +196,32 @@ return {
             },
           },
           tsserver = {
+            single_file_support = false,
             settings = {
               completions = {
                 completeFunctionCalls = true,
+              },
+              typescript = {
+                inlayHints = {
+                  includeInlayParameterNameHints = "all",
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayVariableTypeHints = false,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayEnumMemberValueHints = true,
+                },
+              },
+              javascript = {
+                inlayHints = {
+                  includeInlayParameterNameHints = "all",
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayVariableTypeHints = true,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayEnumMemberValueHints = true,
+                },
               },
             },
           },
@@ -336,11 +375,11 @@ return {
         border = "single",
       },
     },
-    config = function (_, opts)
+    config = function(_, opts)
       require('mason').setup(opts)
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "mason",
-        callback = function ()
+        callback = function()
           vim.cmd([[setlocal nocursorline]])
         end
       })

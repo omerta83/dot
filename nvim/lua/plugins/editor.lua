@@ -141,6 +141,8 @@ return {
       local HEIGHT_RATIO = 0.8 -- You can change this
       local WIDTH_RATIO = 0.5  -- You can change this too
 
+      local icons = require('config.icons').diagnostics
+
       require('nvim-tree').setup({
         auto_reload_on_write = true,
         open_on_tab = false,
@@ -158,6 +160,12 @@ return {
         diagnostics = {
           enable = true,
           show_on_dirs = true,
+          icons = {
+            hint = icons.Hint,
+            info = icons.Info,
+            warning = icons.Warn,
+            error = icons.Error
+          }
         },
         filters = {
           custom = {
@@ -242,6 +250,17 @@ return {
       })
     end
   },
+  {
+    'stevearc/oil.nvim',
+    cmd = "Oil",
+    keys = {
+      { "-", "<cmd>Oil --float<cr>", desc = "Open parent directory in float" },
+      { "q", function() require("oil").close() end, desc = "Close Oil" },
+    },
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 
   -- add nvim-ufo
   {
@@ -300,6 +319,7 @@ return {
 
   {
     "j-hui/fidget.nvim",
+    tag = "legacy",
     event = "BufReadPre",
     config = function()
       require("fidget").setup({
