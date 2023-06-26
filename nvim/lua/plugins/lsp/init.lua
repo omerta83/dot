@@ -133,17 +133,19 @@ return {
             }
           },
           prismals = {},
-          -- volar = {
-          --   filetypes = {
-          --     'vue',
-          --   },
-          --   init_options = {
-          --     typescript = {
-          --       tsdk = "~/.pnpm/global/5/node_modules/typescript/lib"
-          --     }
-          --   }
-          -- },
+          volar = {
+            root_dir = require('lspconfig').util.root_pattern('tsconfig.json'),
+            filetypes = {
+              'vue',
+            },
+            init_options = {
+              typescript = {
+                tsdk = "~/.pnpm/global/5/node_modules/typescript/lib"
+              }
+            }
+          },
           vuels = {
+            root_dir = require('lspconfig').util.root_pattern('jsconfig.json'),
             settings = {
               vetur = {
                 completion = {
@@ -267,17 +269,6 @@ return {
             require("typescript").setup({ server = opts })
             return true
           end,
-          -- rust_analyzer = function(_, opts)
-          --   opts = vim.tbl_deep_extend("force", {
-          --     dap = {
-          --       adapter = require('rust-tools.dap').get_codelldb_adapter(
-          --         require('util').get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
-          --         require('util').get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
-          --     },
-          --   }, opts)
-          --   require('rust-tools').setup(opts)
-          --   return true
-          -- end
         },
       }
     end,

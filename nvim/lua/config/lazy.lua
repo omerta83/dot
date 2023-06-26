@@ -18,7 +18,7 @@ require("lazy").setup({
   defaults = { lazy = true },
   install = {
     missing = true,
-    colorscheme = { "catppuccin" }
+    colorscheme = { "tokyonight" }
   },
   ui = {
     border = "single"
