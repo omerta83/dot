@@ -254,13 +254,33 @@ return {
     'stevearc/oil.nvim',
     cmd = "Oil",
     keys = {
-      { "-", "<cmd>Oil --float<cr>", desc = "Open parent directory in float" },
+      { "-", function() require('oil').open_float() end,  desc = "Open parent directory in float" },
       { "q", function() require("oil").close() end, desc = "Close Oil" },
     },
-    opts = {},
+    opts = {
+      float = {
+        max_width = 100,
+        max_height = 80
+      }
+    },
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+  -- {
+  --   'echasnovski/mini.files',
+  --   version = false,
+  --   keys = {
+  --     {
+  --       "_",
+  --       function()
+  --         require('mini.files').open()
+  --       end
+  --     }
+  --   },
+  --   config = function(_, opts)
+  --     require('mini.files').setup(opts)
+  --   end
+  -- },
 
   -- add nvim-ufo
   {
