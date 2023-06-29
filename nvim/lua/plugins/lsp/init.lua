@@ -278,6 +278,15 @@ return {
         vim.lsp.protocol.make_client_capabilities()
       )
 
+      -- inlay hints
+      if opts.inlay_hints.enabled and vim.lsp.buf.inlay_hint then
+        util.on_attach(function(client, buffer)
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.buf.inlay_hint(buffer, true)
+          end
+        end)
+      end
+
       -- Server setup
       local servers = opts.servers
       local function setup(server)
