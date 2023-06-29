@@ -205,7 +205,7 @@ return {
               },
               typescript = {
                 inlayHints = {
-                  includeInlayParameterNameHints = "all",
+                  includeInlayParameterNameHints = "literal",
                   includeInlayParameterNameHintsWhenArgumentMatchesName = true,
                   includeInlayFunctionParameterTypeHints = true,
                   includeInlayVariableTypeHints = false,
