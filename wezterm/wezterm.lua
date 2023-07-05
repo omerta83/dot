@@ -6,11 +6,11 @@ local function isViProcess(pane)
 end
 
 local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
-  if isViProcess(pane) then
-    window:perform_action(wezterm.action.SendKey({ key = vim_direction, mods = "CTRL" }), pane)
-  else
+  -- if isViProcess(pane) then
+  --   window:perform_action(wezterm.action.SendKey({ key = vim_direction, mods = "CTRL" }), pane)
+  -- else
     window:perform_action(wezterm.action.ActivatePaneDirection(pane_direction), pane)
-  end
+  -- end
 end
 
 wezterm.on("ActivatePaneDirection-right", function(window, pane)
@@ -153,7 +153,7 @@ return {
   warn_about_missing_glyphs = false,
   show_update_window = false,
   check_for_updates = false,
-  cell_width = 1.0,
+  cell_width = 1.1,
   line_height = 1.0,
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
@@ -184,7 +184,7 @@ return {
   keys = {
     { mods = "SUPER|SHIFT", key = [[\]],          action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
     { mods = "SUPER|SHIFT", key = [[-]],          action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
-    { mods = "CTRL",        key = [[Space]],      action = wezterm.action.QuickSelect },
+    -- { mods = "CTRL",        key = [[Space]],      action = wezterm.action.QuickSelect },
     { key = "t",            mods = "SUPER",       action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
     { key = "w",            mods = "SUPER",       action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
     { key = "q",            mods = "SUPER|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = false }) },
@@ -196,10 +196,10 @@ return {
     { key = "f",            mods = "SUPER|SHIFT", action = wezterm.action.ToggleFullScreen },
 
     -- compatible with vim's panel movement
-    { key = "h",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-left") },
-    { key = "j",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-down") },
-    { key = "k",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-up") },
-    { key = "l",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-right") },
+    -- { key = "h",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-left") },
+    -- { key = "j",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-down") },
+    -- { key = "k",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-up") },
+    -- { key = "l",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-right") },
     { key = "[",            mods = "SUPER",       action = wezterm.action({ ActivateTabRelative = -1 }) },
     { key = "]",            mods = "SUPER",       action = wezterm.action({ ActivateTabRelative = 1 }) },
     { key = "<",            mods = "SUPER|SHIFT", action = wezterm.action.MoveTabRelative(-1) },
