@@ -67,8 +67,13 @@ return {
   {
     'windwp/nvim-ts-autotag',
     event = "BufReadPost",
-    config = function ()
-      require('nvim-ts-autotag').setup()
+    config = function()
+      require('nvim-ts-autotag').setup({
+        skip_tags = {
+          'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'slot', 'input', 'keygen', 'link', 'meta',
+          'param', 'source', 'track', 'wbr', 'menuitem', 'template'
+        }
+      })
     end
   }
 }
