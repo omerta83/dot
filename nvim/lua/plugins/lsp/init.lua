@@ -4,8 +4,7 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre" },
     dependencies = {
-      "jose-elias-alvarez/typescript.nvim",
-      -- { 'simrat39/rust-tools.nvim' },
+      "pmizio/typescript-tools.nvim",
       {
         "b0o/SchemaStore.nvim",
         version = false, -- last release is way too old
@@ -254,19 +253,27 @@ return {
         },
         setup = {
           tsserver = function(_, opts)
+            local client_name = "typescript-tools"
             util.on_attach(function(client, bufnr)
-              if client.name == "tsserver" then
-                vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>",
+              if client.name == client_name then
+                vim.keymap.set("n", "<leader>to", "<cmd>TSToolsOrganizeImports<CR>",
                   { buffer = bufnr, desc = "Organize Imports" })
-                vim.keymap.set("n", "<leader>cr", "<cmd>TypescriptRenameFile<CR>",
-                  { desc = "Rename File", buffer = bufnr })
-                vim.keymap.set("n", "<leader>ci", "<cmd>TypescriptAddMissingImports<CR>",
+                -- vim.keymap.set("n", "<leader>cr", "<cmd>TSToolsRenameFile<CR>",
+                  -- { desc = "Rename File", buffer = bufnr })
+                vim.keymap.set("n", "<leader>td", "<cmd>TSToolsGoToSourceDefinition<CR>",
                   { desc = "Add Missing Imports", buffer = bufnr })
-                vim.keymap.set("n", "<leader>cu", "<cmd>TypescriptRemoveUnused<CR>",
+                vim.keymap.set("n", "<leader>ti", "<cmd>TSToolsAddMissingImports<CR>",
+                  { desc = "Add Missing Imports", buffer = bufnr })
+                vim.keymap.set("n", "<leader>tu", "<cmd>TSToolsRemoveUnused<CR>",
+                  { desc = "Remove Unused", buffer = bufnr })
+                vim.keymap.set("n", "<leader>tr", "<cmd>TSToolsRemoveUnusedImports<CR>",
+                  { desc = "Remove Unused", buffer = bufnr })
+                vim.keymap.set("n", "<leader>tf", "<cmd>TSToolsFixAll<CR>",
                   { desc = "Remove Unused", buffer = bufnr })
               end
             end)
-            require("typescript").setup({ server = opts })
+            -- require("typescript").setup({ server = opts })
+            require(client_name).setup(opts)
             return true
           end,
         },
