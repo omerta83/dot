@@ -108,6 +108,10 @@ local function getProcess(tab)
       { Foreground = { Color = colors.ansi[4] } },
       { Text = wezterm.nerdfonts.mdi_flattr },
     },
+    ["volta-shim"] = {
+      { Foreground = { Color = colors.ansi[4] } },
+      { Text = wezterm.nerdfonts.md_lightning_bolt_outline },
+    },
   }
 
   local process_name = string.gsub(tab.active_pane.foreground_process_name, "(.*[/\\])(.*)", "%2")
@@ -145,9 +149,7 @@ wezterm.on("format-tab-title", function(tab)
 end)
 
 return {
-  font = wezterm.font_with_fallback({
-    "JetBrainsMono Nerd Font",
-  }),
+  font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" }),
   font_size = 16,
   freetype_load_flags = 'NO_HINTING',
   -- freetype_interpreter_version = 40,
@@ -189,7 +191,7 @@ return {
   keys = {
     { key = [[\]],          mods = "SUPER|SHIFT", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
     { key = [[-]],          mods = "SUPER|SHIFT", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
-    -- { mods = "CTRL",        key = [[Space]],      action = wezterm.action.QuickSelect },
+    { key = [[Space]],      mods = "CTRL",        action = wezterm.action.QuickSelect },
     -- Rename tab
     {
       key = "t",
@@ -205,7 +207,7 @@ return {
         end),
       }
     },
-    { key = "t",            mods = "SUPER",       action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
+    { key = "t",            mods = "SUPER",       action = wezterm.action({ SpawnTab = "DefaultDomain" }) },
     { key = "w",            mods = "SUPER",       action = wezterm.action({ CloseCurrentTab = { confirm = false } }) },
     { key = "q",            mods = "SUPER|SHIFT", action = wezterm.action.CloseCurrentPane({ confirm = false }) },
     { key = "z",            mods = "SUPER|SHIFT", action = wezterm.action.TogglePaneZoomState },
