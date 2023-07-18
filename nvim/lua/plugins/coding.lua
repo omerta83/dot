@@ -198,7 +198,13 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     ---@type Flash.config
-    opts = {},
+    opts = {
+      modes = {
+        char = {
+          jump_labels = true
+        }
+      }
+    },
     keys = {
       {
         "s",

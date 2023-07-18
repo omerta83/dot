@@ -52,7 +52,8 @@ return {
   },
 
   {
-    "TimUntersberger/neogit",
+    -- "TimUntersberger/neogit",
+    'NeogitOrg/neogit',
     cmd = "Neogit",
     opts = {
       integrations = {

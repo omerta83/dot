@@ -4,7 +4,8 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre" },
     dependencies = {
-      "pmizio/typescript-tools.nvim",
+      "jose-elias-alvarez/typescript.nvim",
+      -- "pmizio/typescript-tools.nvim",
       {
         "b0o/SchemaStore.nvim",
         version = false, -- last release is way too old
@@ -90,7 +91,7 @@ return {
         mode = "v"
       },
       { "<Leader>ca", vim.lsp.buf.code_action, desc = "Code Action [LSP]" },
-      { "<Leader>cl", "<CMD>LspRestart<CR>", desc = "Restart LSP" },
+      { "<Leader>cl", "<CMD>LspRestart<CR>",   desc = "Restart LSP" },
     },
     opts = function()
       return {
@@ -202,6 +203,15 @@ return {
               completions = {
                 completeFunctionCalls = true,
               },
+              -- tsserver_file_preferences = {
+              --   includeInlayParameterNameHints = "literal",
+              --   includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              --   includeInlayFunctionParameterTypeHints = true,
+              --   includeInlayVariableTypeHints = false,
+              --   includeInlayPropertyDeclarationTypeHints = true,
+              --   includeInlayFunctionLikeReturnTypeHints = true,
+              --   includeInlayEnumMemberValueHints = true,
+              -- },
               typescript = {
                 inlayHints = {
                   includeInlayParameterNameHints = "literal",
@@ -253,27 +263,28 @@ return {
         },
         setup = {
           tsserver = function(_, opts)
-            local client_name = "typescript-tools"
+            -- local client_name = "typescript-tools"
+            -- local client_name = "tsserver"
             util.on_attach(function(client, bufnr)
-              if client.name == client_name then
-                vim.keymap.set("n", "<leader>to", "<cmd>TSToolsOrganizeImports<CR>",
-                  { buffer = bufnr, desc = "Organize Imports" })
-                -- vim.keymap.set("n", "<leader>cr", "<cmd>TSToolsRenameFile<CR>",
-                  -- { desc = "Rename File", buffer = bufnr })
-                vim.keymap.set("n", "<leader>td", "<cmd>TSToolsGoToSourceDefinition<CR>",
-                  { desc = "Add Missing Imports", buffer = bufnr })
-                vim.keymap.set("n", "<leader>ti", "<cmd>TSToolsAddMissingImports<CR>",
-                  { desc = "Add Missing Imports", buffer = bufnr })
-                vim.keymap.set("n", "<leader>tu", "<cmd>TSToolsRemoveUnused<CR>",
-                  { desc = "Remove Unused", buffer = bufnr })
-                vim.keymap.set("n", "<leader>tr", "<cmd>TSToolsRemoveUnusedImports<CR>",
-                  { desc = "Remove Unused", buffer = bufnr })
-                vim.keymap.set("n", "<leader>tf", "<cmd>TSToolsFixAll<CR>",
-                  { desc = "Remove Unused", buffer = bufnr })
-              end
+              -- if client.name == client_name then
+              vim.keymap.set("n", "<leader>to", "<cmd>TypescriptOrganizeImports<CR>",
+                { buffer = bufnr, desc = "Organize Imports" })
+              vim.keymap.set("n", "<leader>cr", "<cmd>TypescriptRenameFile<CR>",
+                { desc = "Rename File", buffer = bufnr })
+              vim.keymap.set("n", "<leader>td", "<cmd>TypescriptGoToSourceDefinition<CR>",
+                { desc = "Add Missing Imports", buffer = bufnr })
+              vim.keymap.set("n", "<leader>ti", "<cmd>TypescriptAddMissingImports<CR>",
+                { desc = "Add Missing Imports", buffer = bufnr })
+              vim.keymap.set("n", "<leader>tu", "<cmd>TypescriptRemoveUnused<CR>",
+                { desc = "Remove Unused", buffer = bufnr })
+              vim.keymap.set("n", "<leader>tr", "<cmd>TypescriptRemoveUnusedImports<CR>",
+                { desc = "Remove Unused Imports", buffer = bufnr })
+              vim.keymap.set("n", "<leader>tf", "<cmd>TypescriptFixAll<CR>",
+                { desc = "Fix All Errors", buffer = bufnr })
+              -- end
             end)
-            -- require("typescript").setup({ server = opts })
-            require(client_name).setup(opts)
+            require("typescript").setup({ server = opts })
+            -- require("typescript-tools").setup(opts)
             return true
           end,
         },
@@ -349,30 +360,30 @@ return {
   },
 
   -- formatters
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   dependencies = { "mason.nvim" },
-  --   opts = function()
-  --     local nls = require("null-ls")
-  --     return {
-  --       sources = {
-  --         nls.builtins.formatting.dart_format,
-  --         -- nls.builtins.formatting.gofmt,
-  --         nls.builtins.formatting.jq,                                                                                    -- json
-  --         nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
-  --         -- nls.builtins.formatting.eslint,
-  --         nls.builtins.formatting.prettier,
-  --         nls.builtins.formatting.rustywind, -- tailwind css classes
-  --         nls.builtins.formatting.ruff,      -- python
-  --         -- nls.builtins.formatting.rustfmt, -- rust
-  --         -- nls.builtins.formatting.stylua,
-  --
-  --         -- nls.builtins.diagnostics.flake8,
-  --       },
-  --     }
-  --   end,
-  -- },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        sources = {
+          nls.builtins.formatting.dart_format,
+          -- nls.builtins.formatting.gofmt,
+          nls.builtins.formatting.jq,                                                                                    -- json
+          nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
+          -- nls.builtins.formatting.eslint,
+          nls.builtins.formatting.prettier,
+          nls.builtins.formatting.rustywind, -- tailwind css classes
+          nls.builtins.formatting.ruff,      -- python
+          -- nls.builtins.formatting.rustfmt, -- rust
+          -- nls.builtins.formatting.stylua,
+
+          -- nls.builtins.diagnostics.flake8,
+        },
+      }
+    end,
+  },
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
