@@ -267,21 +267,6 @@ return {
     -- Optional dependencies
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
-  -- {
-  --   'echasnovski/mini.files',
-  --   version = false,
-  --   keys = {
-  --     {
-  --       "_",
-  --       function()
-  --         require('mini.files').open()
-  --       end
-  --     }
-  --   },
-  --   config = function(_, opts)
-  --     require('mini.files').setup(opts)
-  --   end
-  -- },
 
   -- add nvim-ufo
   {

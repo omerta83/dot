@@ -149,7 +149,10 @@ wezterm.on("format-tab-title", function(tab)
 end)
 
 return {
-  font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" }),
+  -- font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" }),
+  font = wezterm.font_with_fallback({
+    'JetBrainsMono Nerd Font'
+  }),
   font_size = 16,
   freetype_load_flags = 'NO_HINTING',
   -- freetype_interpreter_version = 40,
@@ -177,6 +180,7 @@ return {
   inactive_pane_hsb = {
     saturation = 1.0,
     brightness = 0.85,
+    -- brightness = 1.0,
   },
   enable_scroll_bar = false,
   tab_bar_at_bottom = true,
@@ -191,7 +195,7 @@ return {
   keys = {
     { key = [[\]],          mods = "SUPER|SHIFT", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
     { key = [[-]],          mods = "SUPER|SHIFT", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
-    { key = [[Space]],      mods = "CTRL",        action = wezterm.action.QuickSelect },
+    { key = [[Space]],      mods = "SUPER|SHIFT", action = wezterm.action.QuickSelect },
     -- Rename tab
     {
       key = "t",
@@ -226,7 +230,7 @@ return {
     { key = "]",            mods = "SUPER",       action = wezterm.action({ ActivateTabRelative = 1 }) },
     { key = "<",            mods = "SUPER|SHIFT", action = wezterm.action.MoveTabRelative(-1) },
     { key = ">",            mods = "SUPER|SHIFT", action = wezterm.action.MoveTabRelative(1) },
-    { key = "v",            mods = "SUPER|SHIFT", action = wezterm.action.ActivateCopyMode },
+    { key = "x",            mods = "SUPER|SHIFT", action = wezterm.action.ActivateCopyMode },
     { key = "1",            mods = "SUPER",       action = wezterm.action({ ActivateTab = 0 }) },
     { key = "2",            mods = "SUPER",       action = wezterm.action({ ActivateTab = 1 }) },
     { key = "3",            mods = "SUPER",       action = wezterm.action({ ActivateTab = 2 }) },
