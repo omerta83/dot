@@ -218,13 +218,13 @@ return {
               default = " ",
               symlink = " ",
               git = {
-                -- unstaged = "✗",
-                -- unstaged = '●',
                 unstaged = '',
+                -- unstaged = '+',
                 staged = "✓",
                 unmerged = "",
                 renamed = "➜",
-                untracked = ''
+                untracked = '',
+                deleted = '󰍴'
                 -- untracked = "★"
               },
               folder = {
@@ -232,6 +232,8 @@ return {
                 -- open = "",
                 default = "",
                 open = "",
+                empty = "",
+                empty_open = "",
                 symlink = ""
               }
             }

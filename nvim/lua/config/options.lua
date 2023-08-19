@@ -47,6 +47,7 @@ opt.foldenable = true
 opt.winblend = 0
 opt.wildoptions = 'pum' -- cmdline autocomplete menu
 opt.background = 'dark'
+opt.swapfile = false
 
 opt.hidden = true
 -- vim.opt.numberwidth = 2

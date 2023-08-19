@@ -72,10 +72,7 @@ return {
     event = "BufReadPost",
     config = function()
       require('nvim-ts-autotag').setup({
-        skip_tags = {
-          'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'slot', 'input', 'keygen', 'link', 'meta',
-          'param', 'source', 'track', 'wbr', 'menuitem', 'template'
-        }
+        enable_close_on_slash = false,
       })
     end
   }

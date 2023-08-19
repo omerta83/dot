@@ -4,8 +4,8 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre" },
     dependencies = {
-      "jose-elias-alvarez/typescript.nvim",
-      -- "pmizio/typescript-tools.nvim",
+      -- "jose-elias-alvarez/typescript.nvim",
+      "pmizio/typescript-tools.nvim",
       {
         "b0o/SchemaStore.nvim",
         version = false, -- last release is way too old
@@ -171,6 +171,15 @@ return {
               }
             },
           },
+          emmet_ls = {
+            init_options = {
+              jsx = {
+                options = {
+                  ["output.selfClosingStyle"] = 'xhtml'
+                }
+              }
+            }
+          },
           lua_ls = {
             settings = {
               Lua = {
@@ -198,42 +207,43 @@ return {
             },
           },
           tsserver = {
-            single_file_support = false,
             settings = {
-              completions = {
-                completeFunctionCalls = true,
+              tsserver_file_preferences = {
+                includeInlayParameterNameHints = "literal",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = false,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
               },
-              -- tsserver_file_preferences = {
-              --   includeInlayParameterNameHints = "literal",
-              --   includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              --   includeInlayFunctionParameterTypeHints = true,
-              --   includeInlayVariableTypeHints = false,
-              --   includeInlayPropertyDeclarationTypeHints = true,
-              --   includeInlayFunctionLikeReturnTypeHints = true,
-              --   includeInlayEnumMemberValueHints = true,
+              complete_function_calls = true,
+              -- single_file_support = false,
+              -- completions = {
+              --   completeFunctionCalls = true,
               -- },
-              typescript = {
-                inlayHints = {
-                  includeInlayParameterNameHints = "literal",
-                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                  includeInlayFunctionParameterTypeHints = true,
-                  includeInlayVariableTypeHints = false,
-                  includeInlayPropertyDeclarationTypeHints = true,
-                  includeInlayFunctionLikeReturnTypeHints = true,
-                  includeInlayEnumMemberValueHints = true,
-                },
-              },
-              javascript = {
-                inlayHints = {
-                  includeInlayParameterNameHints = "all",
-                  includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                  includeInlayFunctionParameterTypeHints = true,
-                  includeInlayVariableTypeHints = true,
-                  includeInlayPropertyDeclarationTypeHints = true,
-                  includeInlayFunctionLikeReturnTypeHints = true,
-                  includeInlayEnumMemberValueHints = true,
-                },
-              },
+              -- typescript = {
+              --   inlayHints = {
+              --     includeInlayParameterNameHints = "literal",
+              --     includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              --     includeInlayFunctionParameterTypeHints = true,
+              --     includeInlayVariableTypeHints = false,
+              --     includeInlayPropertyDeclarationTypeHints = true,
+              --     includeInlayFunctionLikeReturnTypeHints = true,
+              --     includeInlayEnumMemberValueHints = true,
+              --   },
+              -- },
+              -- javascript = {
+              --   inlayHints = {
+              --     includeInlayParameterNameHints = "all",
+              --     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              --     includeInlayFunctionParameterTypeHints = true,
+              --     includeInlayVariableTypeHints = true,
+              --     includeInlayPropertyDeclarationTypeHints = true,
+              --     includeInlayFunctionLikeReturnTypeHints = true,
+              --     includeInlayEnumMemberValueHints = true,
+              --   },
+              -- },
             },
           },
           rust_analyzer = {},
@@ -267,24 +277,24 @@ return {
             -- local client_name = "tsserver"
             util.on_attach(function(client, bufnr)
               -- if client.name == client_name then
-              vim.keymap.set("n", "<leader>to", "<cmd>TypescriptOrganizeImports<CR>",
+              vim.keymap.set("n", "<leader>to", "<cmd>TSToolsOrganizeImports<CR>",
                 { buffer = bufnr, desc = "Organize Imports" })
-              vim.keymap.set("n", "<leader>cr", "<cmd>TypescriptRenameFile<CR>",
+              vim.keymap.set("n", "<leader>cr", "<cmd>TSToolsRenameFile<CR>",
                 { desc = "Rename File", buffer = bufnr })
-              vim.keymap.set("n", "<leader>td", "<cmd>TypescriptGoToSourceDefinition<CR>",
+              vim.keymap.set("n", "<leader>td", "<cmd>TSToolsGoToSourceDefinition<CR>",
+                { desc = "Go To Source Definition", buffer = bufnr })
+              vim.keymap.set("n", "<leader>ti", "<cmd>TSToolsAddMissingImports<CR>",
                 { desc = "Add Missing Imports", buffer = bufnr })
-              vim.keymap.set("n", "<leader>ti", "<cmd>TypescriptAddMissingImports<CR>",
-                { desc = "Add Missing Imports", buffer = bufnr })
-              vim.keymap.set("n", "<leader>tu", "<cmd>TypescriptRemoveUnused<CR>",
+              vim.keymap.set("n", "<leader>tu", "<cmd>TSToolsRemoveUnused<CR>",
                 { desc = "Remove Unused", buffer = bufnr })
-              vim.keymap.set("n", "<leader>tr", "<cmd>TypescriptRemoveUnusedImports<CR>",
+              vim.keymap.set("n", "<leader>tr", "<cmd>TSToolsRemoveUnusedImports<CR>",
                 { desc = "Remove Unused Imports", buffer = bufnr })
-              vim.keymap.set("n", "<leader>tf", "<cmd>TypescriptFixAll<CR>",
+              vim.keymap.set("n", "<leader>tf", "<cmd>TSToolsFixAll<CR>",
                 { desc = "Fix All Errors", buffer = bufnr })
               -- end
             end)
-            require("typescript").setup({ server = opts })
-            -- require("typescript-tools").setup(opts)
+            -- require("typescript").setup({ server = opts })
+            require("typescript-tools").setup(opts)
             return true
           end,
         },
