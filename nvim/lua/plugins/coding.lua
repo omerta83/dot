@@ -179,8 +179,12 @@ return {
     "smjonas/inc-rename.nvim",
     cmd = "IncRename",
     keys = {
-      { "<leader>rn", ":IncRename ", desc = "Rename" }
+      -- { "<leader>rn", ":IncRename ", desc = "Rename" }
+      { "<leader>rn", function ()
+        return ":IncRename " .. vim.fn.expand('<cword>')
+      end, expr = true, desc = "Rename identifier under cursor" }
     },
+    -- config = true
     config = function()
       require("inc_rename").setup {
         input_buffer_type = "dressing",
