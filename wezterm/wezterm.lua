@@ -151,12 +151,13 @@ end)
 return {
   -- font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" }),
   font = wezterm.font_with_fallback({
-    'JetBrainsMono Nerd Font'
+    {
+      family = 'JetBrainsMono Nerd Font',
+      weight = 'Light'
+    }
   }),
   font_size = 16,
-  freetype_load_flags = 'NO_HINTING',
-  -- freetype_interpreter_version = 40,
-  -- max_fps = 120,
+  -- freetype_load_flags = 'NO_HINTING',
   enable_wayland = false,
   term = 'wezterm',
   pane_focus_follows_mouse = false,
@@ -164,7 +165,6 @@ return {
   show_update_window = false,
   check_for_updates = false,
   cell_width = 1.1,
-  line_height = 1.0,
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
   audible_bell = "Disabled",
@@ -190,7 +190,7 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   window_background_opacity = 1.0,
   disable_default_key_bindings = false,
-  front_end = "WebGpu",
+  -- front_end = "WebGpu",
   colors = colors,
   keys = {
     { key = [[\]],          mods = "SUPER|SHIFT", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
