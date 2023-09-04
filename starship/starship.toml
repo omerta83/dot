@@ -24,7 +24,7 @@ disabled = true
 [directory]
 truncation_length = 8
 truncate_to_repo = false
-style = "bold cyan"
+style = "cyan"
 
 # [docker_context]
 
