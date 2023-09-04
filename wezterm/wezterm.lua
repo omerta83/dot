@@ -13,6 +13,11 @@ local function conditionalActivatePane(window, pane, pane_direction, vim_directi
   end
 end
 
+wezterm.on('gui-startup', function (cmd)
+  local _, _, window = wezterm.mux.spawn_window(cmd or {})
+  window:gui_window():maximize()
+end)
+
 wezterm.on("ActivatePaneDirection-right", function(window, pane)
   conditionalActivatePane(window, pane, "Right", "l")
 end)
@@ -127,7 +132,7 @@ local function getCWD(tab)
   local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
 
   -- return current_dir == HOME_DIR and "  ~" or string.format("  %s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
-  return current_dir == HOME_DIR and "~" or string.format("%s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
+  return current_dir == HOME_DIR and "~" or string.format("%s", string.gsub(current_dir.file_path, "(.*[/\\])(.*)", "%2"))
 end
 
 wezterm.on("format-tab-title", function(tab)
@@ -157,15 +162,15 @@ return {
     }
   }),
   font_size = 16,
-  -- freetype_load_flags = 'NO_HINTING',
+  freetype_load_flags = 'NO_HINTING',
   enable_wayland = false,
   term = 'wezterm',
   pane_focus_follows_mouse = false,
   warn_about_missing_glyphs = false,
   show_update_window = false,
   check_for_updates = false,
-  cell_width = 1.105,
-  line_height = 1.05,
+  cell_width = 1.1,
+  line_height = 1.04,
   window_decorations = "RESIZE",
   window_close_confirmation = "NeverPrompt",
   audible_bell = "Disabled",
@@ -175,8 +180,8 @@ return {
     top = 10,
     bottom = 0,
   },
-  initial_cols = 1100,
-  initial_rows = 250,
+  -- initial_cols = 200,
+  -- initial_rows = 60,
   -- native_macos_fullscreen_mode = true,
   inactive_pane_hsb = {
     saturation = 1.0,
