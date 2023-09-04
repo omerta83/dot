@@ -247,20 +247,6 @@ return {
             },
           },
           rust_analyzer = {},
-          -- rust_analyzer = {
-          --   server = {
-          --     settings = {
-          --       ["rust-analyzer"] = {
-          --         procMacro = { enable = true },
-          --         cargo = { allFeatures = true },
-          --         checkOnSave = {
-          --           command = "clippy",
-          --           extraArgs = { "--no-deps" },
-          --         },
-          --       }
-          --     },
-          --   },
-          -- },
           tailwindcss = {
             filetypes = { "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
               "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex",
@@ -370,30 +356,30 @@ return {
   },
 
   -- formatters
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason.nvim" },
-    opts = function()
-      local nls = require("null-ls")
-      return {
-        sources = {
-          nls.builtins.formatting.dart_format,
-          -- nls.builtins.formatting.gofmt,
-          nls.builtins.formatting.jq,                                                                                    -- json
-          nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
-          -- nls.builtins.formatting.eslint,
-          nls.builtins.formatting.prettier,
-          nls.builtins.formatting.rustywind, -- tailwind css classes
-          nls.builtins.formatting.ruff,      -- python
-          -- nls.builtins.formatting.rustfmt, -- rust
-          -- nls.builtins.formatting.stylua,
-
-          -- nls.builtins.diagnostics.flake8,
-        },
-      }
-    end,
-  },
+  -- {
+  --   "jose-elias-alvarez/null-ls.nvim",
+  --   event = { "BufReadPre", "BufNewFile" },
+  --   dependencies = { "mason.nvim" },
+  --   opts = function()
+  --     local nls = require("null-ls")
+  --     return {
+  --       sources = {
+  --         nls.builtins.formatting.dart_format,
+  --         -- nls.builtins.formatting.gofmt,
+  --         nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
+  --         nls.builtins.formatting.jq,                                                                                    -- json
+  --         -- nls.builtins.formatting.eslint,
+  --         -- nls.builtins.formatting.prettier,
+  --         -- nls.builtins.formatting.rustywind, -- tailwind css classes
+  --         -- nls.builtins.formatting.ruff,      -- python
+  --         -- nls.builtins.formatting.rustfmt, -- rust
+  --         -- nls.builtins.formatting.stylua,
+  --
+  --         -- nls.builtins.diagnostics.flake8,
+  --       },
+  --     }
+  --   end,
+  -- },
   {
     "williamboman/mason.nvim",
     cmd = "Mason",

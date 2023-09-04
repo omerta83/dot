@@ -110,6 +110,10 @@ return {
 
         hl.NvimTreeNormal = { bg = c.bg }
         hl.NvimTreeNormalNC = { bg = c.bg }
+
+        hl.Folded = {
+          bg = '#15161e'
+        }
       end
     },
     config = function (_, opts)

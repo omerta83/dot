@@ -41,9 +41,6 @@ opt.undofile = true
 opt.undolevels = 10000
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
-opt.foldlevel = 99
-opt.foldlevelstart = -1
-opt.foldenable = true
 opt.winblend = 0
 opt.wildoptions = 'pum' -- cmdline autocomplete menu
 opt.background = 'dark'
@@ -56,15 +53,23 @@ opt.hlsearch = false
 opt.undolevels = 1500
 opt.softtabstop = 2
 opt.autoindent = true
-opt.fillchars = {
-  foldopen = "",
-  foldclose = "",
-  fold = " ",
-  foldsep = " ",
-  diff = "╱",
-  eob = " ",
-}
-opt.ch = 0
+-- opt.foldlevel = 99
+-- opt.foldlevelstart = -1
+-- opt.foldenable = true
+-- opt.fillchars = {
+--   foldopen = "",
+--   foldclose = "",
+--   fold = " ",
+--   foldsep = " ",
+--   diff = "╱",
+--   eob = " ",
+-- }
+opt.fillchars:append { diff = "╱" }
+opt.ch = 0 -- cmdheight
+
+-- Word wrap
+opt.textwidth = 99
+opt.wrapmargin = 0
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0

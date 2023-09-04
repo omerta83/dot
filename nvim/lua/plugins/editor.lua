@@ -257,8 +257,8 @@ return {
     'stevearc/oil.nvim',
     cmd = "Oil",
     keys = {
-      { "-", function() require('oil').open_float() end,  desc = "Open parent directory in float" },
-      { "q", function() require("oil").close() end, desc = "Close Oil" },
+      { "-", function() require('oil').open_float() end, desc = "Open parent directory in float" },
+      { "q", function() require("oil").close() end,      desc = "Close Oil" },
     },
     opts = {
       float = {
@@ -273,12 +273,33 @@ return {
   -- add nvim-ufo
   {
     "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
+    dependencies = {
+      "kevinhwang91/promise-async",
+      {
+        "luukvbaal/statuscol.nvim",
+        -- event = "VeryLazy",
+        config = function()
+          if vim.fn.has "nvim-0.9" == 1 then
+            local builtin = require "statuscol.builtin"
+            require("statuscol").setup {
+              relculright = true,
+              segments = {
+                { text = { "%s" },                       click = "v:lua.ScSa" },
+                { text = { builtin.lnumfunc },           click = "v:lua.ScLa" },
+                { text = { " ", builtin.foldfunc, " " }, click = "v:lua.ScFa" },
+              },
+            }
+          end
+        end,
+      }
+    },
     event = "BufReadPost",
     opts = function()
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
-        local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+        local totalLines = vim.api.nvim_buf_line_count(0)
+        local foldedLines = endLnum - lnum
+        local suffix = (' 󰁂 %d %d%%'):format(foldedLines, foldedLines / totalLines * 100)
         local sufWidth = vim.fn.strdisplaywidth(suffix)
         local targetWidth = width - sufWidth
         local curWidth = 0
@@ -300,18 +321,27 @@ return {
           end
           curWidth = curWidth + chunkWidth
         end
+        local rAlignAppndx =
+          math.max(math.min(vim.opt.textwidth["_value"], width - 1) - curWidth - sufWidth, 0)
+        suffix = (" "):rep(rAlignAppndx) .. suffix
         table.insert(newVirtText, { suffix, 'MoreMsg' })
         return newVirtText
       end
 
       return {
         fold_virt_text_handler = handler,
+        close_fold_kinds = { "imports", "comment" },
         provider_selector = function()
           return { "treesitter", "indent" }
         end
       }
     end,
     init = function()
+      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      vim.o.foldcolumn = "1" -- '0' is not bad
+      vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
       -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
       vim.keymap.set("n", "zR", function()
         require("ufo").openAllFolds()
@@ -339,5 +369,21 @@ return {
         }
       })
     end
-  }
+  },
+
+  -- {
+  --   "DNLHC/glance.nvim",
+  --   cmd = "Glance",
+  --   keys = {
+  --     { "<leader>gld", "<CMD>Glance definitions<CR>", desc = "Glance definitions" },
+  --     { "<leader>glr", "<CMD>Glance references<CR>", desc = "Glance references" },
+  --     { "<leader>gly", "<CMD>Glance type_definitions<CR>", desc = "Glance type definitions" },
+  --     { "<leader>glm", "<CMD>Glance implementations<CR>", desc=" Glance implementations" }
+  --   },
+  --   opts = {
+  --     border = {
+  --       enable = true
+  --     }
+  --   }
+  -- }
 }

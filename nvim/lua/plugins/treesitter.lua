@@ -73,6 +73,7 @@ return {
     config = function()
       require('nvim-ts-autotag').setup({
         enable_close_on_slash = false,
+        enable_rename = false,
       })
     end
   }
