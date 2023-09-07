@@ -7,13 +7,12 @@ return {
     opts = {
       highlight = {
         enable = true,
-        use_languagetree = true,
       },
       indent = {
         enable = true,
 
         -- NOTE: enabling indentation significantly slows down editing in Dart files
-        disable = {'dart'},
+        disable = { 'dart' },
       },
       ensure_installed = {
         "css",
@@ -54,8 +53,8 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<CR>",
-          node_incremental = "<CR>",
+          init_selection = "<C-space>",
+          node_incremental = "<C-space>",
           scope_incremental = "<TAB>",
           node_decremental = "<bs>"
         }
@@ -74,6 +73,15 @@ return {
       require('nvim-ts-autotag').setup({
         enable_close_on_slash = false,
         enable_rename = false,
+        filetypes = {
+          "html",
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "vue",
+          "xml",
+        },
       })
     end
   }

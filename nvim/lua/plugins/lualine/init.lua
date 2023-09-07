@@ -3,7 +3,7 @@ return {
   event = { "BufRead", "BufNewFile" },
   opts = function()
     local components = require('plugins/lualine/components')
-    local colors = require('util').theme_colors()
+    local colors = require('util.init').theme_colors()
 
     -- Custom theme
     local wonderful_night = require('lualine.themes.tokyonight')

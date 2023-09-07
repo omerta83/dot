@@ -85,7 +85,7 @@ return {
     priority = 1000,
     opts = {
       style = 'night',
-      on_highlights = function (hl, c)
+      on_highlights = function(hl, c)
         hl.Normal = { ctermbg = c.none }
         hl.StatusLine = { bg = c.bg }
         hl.NormalFloat = { bg = c.bg }
@@ -111,12 +111,25 @@ return {
         hl.NvimTreeNormal = { bg = c.bg }
         hl.NvimTreeNormalNC = { bg = c.bg }
 
+        -- cmp
+        hl.CmpItemAbbrDeprecated = { bg = 'NONE', strikethrough = true, fg = '#808080' }
+        hl.CmpItemAbbrMatch = { bg = 'NONE', fg = '#569CD6' }
+        hl.CmpItemAbbrMatchFuzzy = { link = 'CmpIntemAbbrMatch' }
+        hl.CmpItemKindVariable = { bg = 'NONE', fg = '#9CDCFE' }
+        hl.CmpItemKindInterface = { link = 'CmpItemKindVariable' }
+        hl.CmpItemKindText = { link = 'CmpItemKindVariable' }
+        hl.CmpItemKindFunction = { bg = 'NONE', fg = '#C586C0' }
+        hl.CmpItemKindMethod = { link = 'CmpItemKindFunction' }
+        hl.CmpItemKindKeyword = { bg = 'NONE', fg = '#D4D4D4' }
+        hl.CmpItemKindProperty = { link = 'CmpItemKindKeyword' }
+        hl.CmpItemKindUnit = { link = 'CmpItemKindKeyword' }
+
         hl.Folded = {
           bg = '#15161e'
         }
       end
     },
-    config = function (_, opts)
+    config = function(_, opts)
       require('tokyonight').setup(opts)
 
       vim.api.nvim_command("colorscheme tokyonight")

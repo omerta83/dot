@@ -1,10 +1,9 @@
-local util = require('util')
+local util = require('util.init')
 return {
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre" },
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      -- "jose-elias-alvarez/typescript.nvim",
       "pmizio/typescript-tools.nvim",
       {
         "b0o/SchemaStore.nvim",
@@ -31,7 +30,7 @@ return {
         noremap = true,
         silent = true
       },
-      { "K",          vim.lsp.buf.hover,         desc = "Hover" },
+      -- { "K",          vim.lsp.buf.hover,         desc = "Hover" },
       { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       {
         "]d",
@@ -90,17 +89,19 @@ return {
         desc = "Format Range",
         mode = "v"
       },
-      { "<Leader>ca", vim.lsp.buf.code_action, desc = "Code Action [LSP]" },
-      { "<Leader>cl", "<CMD>LspRestart<CR>",   desc = "Restart LSP" },
+      { "<Leader>ca", vim.lsp.buf.code_action,   desc = "Code Action [LSP]" },
+      { "<Leader>cl", "<CMD>LspRestart<CR>",     desc = "Restart LSP" },
     },
     opts = function()
       return {
-        inlay_hints = { enabled = true },
+        inlay_hints = { enabled = false },
         diagnostics = {
           underline = true,
           severity_sort = true,
+          update_in_insert = false,
           virtual_text = {
             spacing = 4,
+            source = "if_many",
             prefix = '●'
           },
           float = {
@@ -181,15 +182,21 @@ return {
             }
           },
           lua_ls = {
+            single_file_support = true,
             settings = {
               Lua = {
+                completion = {
+                  workspaceWord = true,
+                  callSnippet = "Both",
+                },
                 diagnostics = {
-                  -- Get the language server to recognize the `vim` global
-                  globals = { 'vim' },
+                  disable = { "incomplete-signature-doc", "trailing-space" },
+                  groupSeverity = {
+                    strong = "Warning",
+                    strict = "Warning",
+                  },
                 },
                 workspace = {
-                  -- Make the server aware of Neovim runtime files
-                  library = vim.api.nvim_get_runtime_file("", true),
                   checkThirdParty = false
                 },
                 telemetry = {
@@ -206,8 +213,12 @@ return {
               },
             },
           },
+          denols = {
+            root_dir = require('lspconfig').util.root_pattern("deno.json", "deno.jsonc"),
+          },
           tsserver = {
             settings = {
+              expose_as_code_action = { "all" },
               tsserver_file_preferences = {
                 includeInlayParameterNameHints = "literal",
                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -218,32 +229,6 @@ return {
                 includeInlayEnumMemberValueHints = true,
               },
               complete_function_calls = true,
-              -- single_file_support = false,
-              -- completions = {
-              --   completeFunctionCalls = true,
-              -- },
-              -- typescript = {
-              --   inlayHints = {
-              --     includeInlayParameterNameHints = "literal",
-              --     includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-              --     includeInlayFunctionParameterTypeHints = true,
-              --     includeInlayVariableTypeHints = false,
-              --     includeInlayPropertyDeclarationTypeHints = true,
-              --     includeInlayFunctionLikeReturnTypeHints = true,
-              --     includeInlayEnumMemberValueHints = true,
-              --   },
-              -- },
-              -- javascript = {
-              --   inlayHints = {
-              --     includeInlayParameterNameHints = "all",
-              --     includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              --     includeInlayFunctionParameterTypeHints = true,
-              --     includeInlayVariableTypeHints = true,
-              --     includeInlayPropertyDeclarationTypeHints = true,
-              --     includeInlayFunctionLikeReturnTypeHints = true,
-              --     includeInlayEnumMemberValueHints = true,
-              --   },
-              -- },
             },
           },
           rust_analyzer = {},
@@ -293,10 +278,11 @@ return {
       )
 
       -- inlay hints
-      if opts.inlay_hints.enabled and vim.lsp.inlay_hint then
+      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+      if opts.inlay_hints.enabled and inlay_hint then
         util.on_attach(function(client, buffer)
           if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint(buffer, true)
+            inlay_hint(buffer, true)
           end
         end)
       end
@@ -318,14 +304,18 @@ return {
         require('lspconfig')[server].setup(server_opts)
       end
 
-      local mlsp = require("mason-lspconfig")
-      local available = mlsp.get_available_servers()
+      local have_mason, mlsp = pcall(require, "mason-lspconfig")
+      local all_mslp_servers = {}
+      if have_mason then
+        all_mslp_servers = vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
+      end
+      -- local available = mlsp.get_available_servers()
       local ensure_installed = {}
       for server, server_opts in pairs(servers) do
         if server_opts then
           server_opts = server_opts == true and {} or server_opts
           -- run manual setup if this is a server that cannot be installed with mason-lspconfig
-          if not vim.tbl_contains(available, server) then
+          if not vim.tbl_contains(all_mslp_servers, server) then
             setup(server)
           else
             ensure_installed[#ensure_installed + 1] = server
@@ -333,8 +323,11 @@ return {
         end
       end
 
-      require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
-      require("mason-lspconfig").setup_handlers({ setup })
+      if have_mason then
+        mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
+      end
+      -- require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
+      -- require("mason-lspconfig").setup_handlers({ setup })
 
       -- Diagnostic symbols in the sign column (gutter)
       local signs = require('config.icons').diagnostics
@@ -384,6 +377,7 @@ return {
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<CR>", desc = "Mason" } },
+    build = ":MasonUpdate",
     opts = {
       ui = {
         border = "single",
@@ -418,8 +412,8 @@ return {
         },
         dap = {
           adapter = require('rust-tools.dap').get_codelldb_adapter(
-            require('util').get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
-            require('util').get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
+            util.get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
+            util.get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
         },
       }
     end
