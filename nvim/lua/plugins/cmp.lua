@@ -6,7 +6,7 @@ return {
     event = "InsertEnter",
     opts = {
       suggestion = {
-        auto_trigger = true
+        auto_trigger = false
       }
     }
   },
@@ -69,7 +69,12 @@ return {
           })
         end
       },
-      "zbirenbaum/copilot-cmp",
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end
+      },
     },
     config = function()
       local cmp = require('cmp')
