@@ -103,7 +103,7 @@ return {
   {
     "folke/trouble.nvim",
     cmd = { "TroubleToggle", "Trouble" },
-    opts = { use_diagnostic_signs = true },
+    opts = { use_diagnostic_signs = false },
     keys = {
       { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Document Diagnostics (Trouble)" },
       { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
@@ -204,6 +204,7 @@ return {
         renderer = {
           indent_markers = {
             enable = true,
+            inline_arrows = false,
           },
           highlight_git = true,
           root_folder_modifier = ":~",
@@ -230,11 +231,13 @@ return {
               folder = {
                 -- default = "",
                 -- open = "",
+                symlink = "",
                 default = "",
-                open = "",
+                open = "󰪟",
                 empty = "",
                 empty_open = "",
-                symlink = ""
+                arrow_closed = '+',
+                arrow_open = '-'
               }
             }
           },
