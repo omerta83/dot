@@ -68,8 +68,8 @@ opt.fillchars:append { diff = "╱" }
 opt.ch = 0 -- cmdheight
 
 -- Word wrap
-opt.textwidth = 99
-opt.wrapmargin = 0
+-- opt.textwidth = 120
+-- opt.wrapmargin = 0
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
