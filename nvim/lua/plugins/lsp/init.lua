@@ -89,7 +89,7 @@ return {
         desc = "Format Range",
         mode = "v"
       },
-      { "<Leader>ca", vim.lsp.buf.code_action,   desc = "Code Action [LSP]" },
+      { "<Leader>ca", vim.lsp.buf.code_action,   desc = "Code Action [LSP]", mode = { "n", "v" } },
       { "<Leader>cl", "<CMD>LspRestart<CR>",     desc = "Restart LSP" },
     },
     opts = function()
@@ -135,9 +135,10 @@ return {
           },
           prismals = {},
           volar = {
-            root_dir = require('lspconfig').util.root_pattern('tsconfig.json'),
+            root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'quasar.config.js', 'nuxt.config.js'),
             filetypes = {
               'vue',
+              'typescript'
             },
             init_options = {
               typescript = {
@@ -213,12 +214,9 @@ return {
               },
             },
           },
-          denols = {
-            root_dir = require('lspconfig').util.root_pattern("deno.json", "deno.jsonc"),
-          },
           tsserver = {
             settings = {
-              expose_as_code_action = { "all" },
+              separate_diagnostic_server = true,
               tsserver_file_preferences = {
                 includeInlayParameterNameHints = "literal",
                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,
@@ -239,7 +237,7 @@ return {
               "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascriptreact", "reason",
               "rescript", "typescriptreact", "vue", "svelte" },
             root_dir = require('lspconfig').util.root_pattern('tailwind.config.js', 'tailwind.config.ts',
-              'postcss.config.js', 'postcss.config.ts')
+              'postcss.config.js', 'postcss.config.ts', 'postcss.config.cjs')
           },
         },
         setup = {
@@ -349,30 +347,30 @@ return {
   },
 
   -- formatters
-  -- {
-  --   "jose-elias-alvarez/null-ls.nvim",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   dependencies = { "mason.nvim" },
-  --   opts = function()
-  --     local nls = require("null-ls")
-  --     return {
-  --       sources = {
-  --         nls.builtins.formatting.dart_format,
-  --         -- nls.builtins.formatting.gofmt,
-  --         nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
-  --         nls.builtins.formatting.jq,                                                                                    -- json
-  --         -- nls.builtins.formatting.eslint,
-  --         -- nls.builtins.formatting.prettier,
-  --         -- nls.builtins.formatting.rustywind, -- tailwind css classes
-  --         -- nls.builtins.formatting.ruff,      -- python
-  --         -- nls.builtins.formatting.rustfmt, -- rust
-  --         -- nls.builtins.formatting.stylua,
-  --
-  --         -- nls.builtins.diagnostics.flake8,
-  --       },
-  --     }
-  --   end,
-  -- },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local nls = require("null-ls")
+      return {
+        sources = {
+          nls.builtins.formatting.dart_format,
+          -- nls.builtins.formatting.gofmt,
+          nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
+          nls.builtins.formatting.jq,                                                                                    -- json
+          -- nls.builtins.formatting.eslint,
+          nls.builtins.formatting.prettier.with({ filetypes = { 'vue' }}), -- vue
+          -- nls.builtins.formatting.rustywind, -- tailwind css classes
+          -- nls.builtins.formatting.ruff,      -- python
+          -- nls.builtins.formatting.rustfmt, -- rust
+          -- nls.builtins.formatting.stylua,
+
+          -- nls.builtins.diagnostics.flake8,
+        },
+      }
+    end,
+  },
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
