@@ -1,4 +1,15 @@
 return {
+  -- Copilot
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+      suggestion = {
+        auto_trigger = true
+      }
+    }
+  },
   -- Snippets
   {
     "L3MON4D3/LuaSnip",
@@ -19,7 +30,7 @@ return {
     --     -- function()
     --     --   return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
     --     -- end,
-    --     -- expr = true, silent = true, 
+    --     -- expr = true, silent = true,
     --     mode = {"i", "s"},
     --   },
     --   -- { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
@@ -57,11 +68,11 @@ return {
             Rule("|", "|", { "rust" })
           })
         end
-      }
+      },
+      "zbirenbaum/copilot-cmp",
     },
     config = function()
       local cmp = require('cmp')
-      local defaults = require("cmp.config.default")()
       local luasnip = require('luasnip')
 
       -- If you want insert `(` after select function or method item
@@ -83,7 +94,38 @@ return {
             require("luasnip").lsp_expand(args.body)
           end,
         },
-        sorting = defaults.sorting,
+        sorting = {
+          priority_weight = 2,
+          comparators = {
+            require("copilot_cmp.comparators").prioritize,
+
+            -- Extract from TJ's config: https://github.com/tjdevries/config_manager/blob/78608334a7803a0de1a08a9a4bd1b03ad2a5eb11/xdg_config/nvim/after/plugin/completion.lua#L129
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+
+            -- copied from cmp-under, but I don't think I need the plugin for this.
+            -- I might add some more of my own.
+            function(entry1, entry2)
+              local _, entry1_under = entry1.completion_item.label:find "^_+"
+              local _, entry2_under = entry2.completion_item.label:find "^_+"
+              entry1_under = entry1_under or 0
+              entry2_under = entry2_under or 0
+              if entry1_under > entry2_under then
+                return false
+              elseif entry1_under < entry2_under then
+                return true
+              end
+            end,
+
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
+        -- sorting = defaults.sorting,
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -118,8 +160,10 @@ return {
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-          { name = 'nvim_lsp', group_index = 1 },
-          { name = 'path', group_index = 5 },
+          -- Copilot Source
+          { name = "copilot",  group_index = 2 },
+          { name = 'nvim_lsp', group_index = 2 },
+          { name = 'path',     group_index = 5 },
           {
             name = 'buffer',
             option = {
