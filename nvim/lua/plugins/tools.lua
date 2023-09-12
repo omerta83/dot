@@ -61,26 +61,26 @@ return {
     },
     opts = { use_default_keymaps = false, max_join_length = 150 },
   },
-  {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    opts = {
-      window = {
-        backdrop = 1,
-        height = 0.95,
-        width = 0.6,
-        options = {
-          signcolumn = "no"
-        }
-      },
-      -- fix to hide statusline
-      on_open = function ()
-        vim.o.cmdheight = 1
-      end,
-      on_close = function ()
-        vim.o.cmdheight = 0
-      end
-    },
-    keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
-  }
+  -- {
+  --   "folke/zen-mode.nvim",
+  --   cmd = "ZenMode",
+  --   opts = {
+  --     window = {
+  --       backdrop = 1,
+  --       height = 0.95,
+  --       width = 0.6,
+  --       options = {
+  --         signcolumn = "no"
+  --       }
+  --     },
+  --     -- fix to hide statusline
+  --     on_open = function ()
+  --       vim.o.cmdheight = 1
+  --     end,
+  --     on_close = function ()
+  --       vim.o.cmdheight = 0
+  --     end
+  --   },
+  --   keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
+  -- }
 }

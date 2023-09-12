@@ -8,7 +8,7 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim',    build = 'make' },
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
       { 'barrett-ruth/telescope-http.nvim' },
-      { 'mrjones2014/tldr.nvim' },
+      -- { 'mrjones2014/tldr.nvim' },
     },
     opts = function()
       local function flash(prompt_bufnr)
@@ -77,7 +77,7 @@ return {
       { "<leader>fh", "<cmd>Telescope command_history<cr>",               desc = "Command History (Telescope)" },
       { "<leader>fc", "<cmd>Telescope commands<cr>",                      desc = "Commands (Telescope)" },
       { "<leader>fr", "<cmd>Telescope http list<cr>",                     desc = "HTTP Status (Telescope)" },
-      { "<leader>ff", "<cmd>Telescope flutter commands<cr>",              desc = "Flutter Commands" },
+      -- { "<leader>ff", "<cmd>Telescope flutter commands<cr>",              desc = "Flutter Commands" },
       {
         "<Leader>fo",
         function()
@@ -98,7 +98,7 @@ return {
         end,
         desc = "Goto Symbol (Telescope)"
       },
-      { '<Leader>ft', "<cmd>Telescope tldr<CR>",        desc = "tldr (Telescope)" },
+      -- { '<Leader>ft', "<cmd>Telescope tldr<CR>",        desc = "tldr (Telescope)" },
       { '<Leader>f;', "<cmd>Telescope resume<CR>",      desc = "Resume (Telescope)" },
       { '<Leader>fd', "<cmd>Telescope diagnostics<CR>", desc = "Show Diagnostics (Telescope)" },
       -- Git
@@ -132,8 +132,8 @@ return {
       telescope.load_extension('fzf')
       telescope.load_extension('live_grep_args')
       telescope.load_extension('http')
-      telescope.load_extension('tldr')
-      telescope.load_extension('flutter')
+      -- telescope.load_extension('tldr')
+      -- telescope.load_extension('flutter')
     end
   }
 }
