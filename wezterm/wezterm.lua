@@ -158,7 +158,7 @@ return {
   font = wezterm.font_with_fallback({
     {
       family = 'JetBrainsMono Nerd Font',
-      weight = 'Light'
+      weight = 'ExtraLight'
     }
   }),
   font_size = 16,
