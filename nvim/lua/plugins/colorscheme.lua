@@ -85,6 +85,9 @@ return {
     priority = 1000,
     opts = {
       style = 'night',
+      styles = {
+        sidebars = "transparent"
+      },
       on_highlights = function(hl, c)
         hl.Normal = { ctermbg = c.none }
         hl.StatusLine = { bg = c.bg }
@@ -92,6 +95,7 @@ return {
         hl.FloatBorder = { bg = c.none, fg = c.border_highlight }
         hl.CursorLineNr = { fg = c.magenta }
         hl.CursorLine = { bg = c.none }
+        hl.VertSplit = { fg = c.magenta }
 
         hl.TelescopeBorder = { bg = c.none, fg = c.border_highlight }
         hl.TelescopeNormal = { bg = c.none, fg = c.fg }

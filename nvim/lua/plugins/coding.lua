@@ -223,21 +223,21 @@ return {
   },
 
   -- multiple cursors
-  {
-    'mg979/vim-visual-multi',
-    event = "BufReadPost",
-    config = function()
-      vim.g.VM_highlight_matches = 'underline'
-      vim.g.VM_theme = 'codedark'
-      vim.g.VM_leader = '<space>'
-      vim.g.VM_maps = {
-        ['Find Under'] = '<C-e>',
-        ['Find Subword Under'] = '<C-e>',
-        ['Select Cursor Down'] = '<space>j',
-        ['Select Cursor Up'] = '<space>k',
-      }
-    end
-  },
+  -- {
+  --   'mg979/vim-visual-multi',
+  --   event = "BufReadPost",
+  --   config = function()
+  --     vim.g.VM_highlight_matches = 'underline'
+  --     vim.g.VM_theme = 'codedark'
+  --     vim.g.VM_leader = '<space>'
+  --     vim.g.VM_maps = {
+  --       ['Find Under'] = '<C-e>',
+  --       ['Find Subword Under'] = '<C-e>',
+  --       ['Select Cursor Down'] = '<space>j',
+  --       ['Select Cursor Up'] = '<space>k',
+  --     }
+  --   end
+  -- },
 
   -- Navigating
   {
@@ -247,9 +247,10 @@ return {
     opts = {
       modes = {
         char = {
-          jump_labels = true
+          enabled = false,
+          jump_labels = true,
         }
-      }
+      },
     },
     keys = {
       {
@@ -259,7 +260,7 @@ return {
         desc = "Flash",
       },
       {
-        "S",
+        "<leader>S",
         mode = { "n", "o", "x" },
         function() require("flash").treesitter() end,
         desc = "Flash Treesitter",
@@ -303,12 +304,12 @@ return {
   {
     "MaximilianLloyd/tw-values.nvim",
     keys = {
-      { "<leader>sv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
+      { "<leader>kv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
     },
     opts = {
       border = "rounded",          -- Valid window border style,
       show_unknown_classes = true, -- Shows the unknown classes popup
-      focus_preview = false,        -- Sets the preview as the current window
+      focus_preview = false,       -- Sets the preview as the current window
       copy_register = "",          -- The register to copy values to,
       -- keymaps = {
       --   copy = "<C-y>"               -- Normal mode keymap to copy the CSS values between {}

@@ -7,7 +7,7 @@ return {
     dependencies = {
       { 'nvim-telescope/telescope-fzf-native.nvim',    build = 'make' },
       { 'nvim-telescope/telescope-live-grep-args.nvim' },
-      { 'barrett-ruth/telescope-http.nvim' },
+      -- { 'barrett-ruth/telescope-http.nvim' },
       -- { 'mrjones2014/tldr.nvim' },
     },
     opts = function()
@@ -131,7 +131,7 @@ return {
 
       telescope.load_extension('fzf')
       telescope.load_extension('live_grep_args')
-      telescope.load_extension('http')
+      -- telescope.load_extension('http')
       -- telescope.load_extension('tldr')
       -- telescope.load_extension('flutter')
     end

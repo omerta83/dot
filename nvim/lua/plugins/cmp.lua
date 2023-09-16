@@ -26,22 +26,10 @@ return {
       history = true,
       delete_check_events = "TextChanged",
     },
-    -- stylua: ignore
-    -- keys = {
-    --   {
-    --     "<tab>",
-    --     -- function()
-    --     --   return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-    --     -- end,
-    --     -- expr = true, silent = true,
-    --     mode = {"i", "s"},
-    --   },
-    --   -- { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
-    --   -- { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
-    -- },
   },
   {
     "roobert/tailwindcss-colorizer-cmp.nvim",
+    ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
     -- optionally, override the default options:
     config = function()
       require("tailwindcss-colorizer-cmp").setup({

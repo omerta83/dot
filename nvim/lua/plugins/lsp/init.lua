@@ -6,10 +6,10 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "pmizio/typescript-tools.nvim",
-      {
-        "b0o/SchemaStore.nvim",
-        version = false, -- last release is way too old
-      },
+      -- {
+      --   "b0o/SchemaStore.nvim",
+      --   version = false, -- last release is way too old
+      -- },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       {
@@ -216,6 +216,7 @@ return {
             },
           },
           tsserver = {
+            filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
             settings = {
               separate_diagnostic_server = true,
               tsserver_file_preferences = {
@@ -240,6 +241,7 @@ return {
             root_dir = require('lspconfig').util.root_pattern('tailwind.config.js', 'tailwind.config.ts',
               'postcss.config.js', 'postcss.config.ts', 'postcss.config.cjs')
           },
+          dockerls = {},
           -- formatters and linters
           biome = {},
         },
