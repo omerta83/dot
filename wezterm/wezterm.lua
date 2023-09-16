@@ -117,6 +117,10 @@ local function getProcess(tab)
       { Foreground = { Color = colors.ansi[4] } },
       { Text = wezterm.nerdfonts.md_lightning_bolt_outline },
     },
+    ["bun"] = {
+      { Foreground = { Color = colors.ansi[4] } },
+      { Text = wezterm.nerdfonts.fae_bread },
+    }
   }
 
   local process_name = string.gsub(tab.active_pane.foreground_process_name, "(.*[/\\])(.*)", "%2")
@@ -162,7 +166,7 @@ return {
     }
   }),
   font_size = 16,
-  freetype_load_flags = 'NO_HINTING',
+  -- freetype_load_flags = 'NO_HINTING',
   enable_wayland = false,
   term = 'wezterm',
   pane_focus_follows_mouse = false,
