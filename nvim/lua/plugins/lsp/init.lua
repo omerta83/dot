@@ -1,4 +1,5 @@
 local util = require('util.init')
+local icons = require('config.icons')
 return {
   {
     "neovim/nvim-lspconfig",
@@ -107,7 +108,7 @@ return {
           float = {
             source = "always", -- Or "if_many"
             border = 'rounded',
-            title = " " .. require('config.icons').diagnostics.Warn .. "Diagnostic "
+            title = " " .. icons.diagnostics.Warn .. "Diagnostic "
           },
         },
         servers = {
@@ -229,7 +230,7 @@ return {
               complete_function_calls = true,
             },
           },
-          rust_analyzer = {},
+          -- rust_analyzer = {},
           tailwindcss = {
             filetypes = { "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
               "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex",
@@ -328,7 +329,7 @@ return {
       -- require("mason-lspconfig").setup_handlers({ setup })
 
       -- Diagnostic symbols in the sign column (gutter)
-      local signs = require('config.icons').diagnostics
+      local signs = icons.diagnostics
       for type, icon in pairs(signs) do
         local hl = "DiagnosticSign" .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
@@ -340,7 +341,7 @@ return {
         vim.lsp.handlers.hover,
         {
           border = 'rounded',
-          title = " " .. require('config.icons').misc.Bell .. " Hover "
+          title = " " .. icons.misc.Bell .. " Hover "
         }
       )
     end
@@ -348,29 +349,19 @@ return {
 
   -- formatters
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason.nvim" },
-    opts = function()
-      local nls = require("null-ls")
-      return {
-        sources = {
-          nls.builtins.formatting.dart_format,
-          -- nls.builtins.formatting.gofmt,
-          nls.builtins.formatting.rome.with({ args = { "format", "--indent-style", "space", "--write", "$FILENAME" } }), -- typescript and javascript
-          nls.builtins.formatting.jq,                                                                                    -- json
-          -- nls.builtins.formatting.eslint,
-          nls.builtins.formatting.prettier.with({ filetypes = { 'vue' }}), -- vue
-          -- nls.builtins.formatting.rustywind, -- tailwind css classes
-          -- nls.builtins.formatting.ruff,      -- python
-          -- nls.builtins.formatting.rustfmt, -- rust
-          -- nls.builtins.formatting.stylua,
-
-          -- nls.builtins.diagnostics.flake8,
-        },
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier', 'rustywind' },
+        vue = { 'prettier', 'rustywind' },
+        lua = { 'stylua' },
+        python = { 'ruff' },
+        go = { 'gofmt' },
       }
-    end,
+    },
   },
+
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
@@ -379,6 +370,11 @@ return {
     opts = {
       ui = {
         border = "single",
+        icons = {
+          package_installed = icons.folder.default,
+          package_pending = icons.folder.open,
+          package_uninstalled = icons.folder.empty,
+        },
       },
     },
     config = function(_, opts)
@@ -391,31 +387,31 @@ return {
       })
     end
   },
-  {
-    'simrat39/rust-tools.nvim',
-    ft = "rust",
-    config = function()
-      require('rust-tools').setup {
-        server = {
-          settings = {
-            ["rust-analyzer"] = {
-              procMacro = { enable = true },
-              cargo = { allFeatures = true },
-              checkOnSave = {
-                command = "clippy",
-                extraArgs = { "--no-deps" },
-              },
-            }
-          },
-        },
-        dap = {
-          adapter = require('rust-tools.dap').get_codelldb_adapter(
-            util.get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
-            util.get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
-        },
-      }
-    end
-  },
+  -- {
+  --   'simrat39/rust-tools.nvim',
+  --   ft = "rust",
+  --   config = function()
+  --     require('rust-tools').setup {
+  --       server = {
+  --         settings = {
+  --           ["rust-analyzer"] = {
+  --             procMacro = { enable = true },
+  --             cargo = { allFeatures = true },
+  --             checkOnSave = {
+  --               command = "clippy",
+  --               extraArgs = { "--no-deps" },
+  --             },
+  --           }
+  --         },
+  --       },
+  --       dap = {
+  --         adapter = require('rust-tools.dap').get_codelldb_adapter(
+  --           util.get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
+  --           util.get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
+  --       },
+  --     }
+  --   end
+  -- },
   {
     "akinsho/flutter-tools.nvim",
     ft = "dart",

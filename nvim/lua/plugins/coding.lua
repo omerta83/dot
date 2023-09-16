@@ -254,29 +254,35 @@ return {
     keys = {
       {
         "s",
-        mode = { "n", "x", "o" },
-        function()
-          -- default options: exact mode, multi window, all directions, with a backdrop
-          require("flash").jump()
-        end,
+        mode = { "n", "o", "x" },
+        function() require("flash").jump() end,
         desc = "Flash",
       },
       {
-        "<leader>S",
+        "S",
         mode = { "n", "o", "x" },
-        function()
-          require("flash").treesitter()
-        end,
+        function() require("flash").treesitter() end,
         desc = "Flash Treesitter",
       },
       {
         "r",
         mode = "o",
-        function()
-          require("flash").remote()
-        end,
+        function() require("flash").remote() end,
         desc = "Remote Flash",
       },
+      {
+        "R",
+        mode = { "o", "x" },
+        function() require("flash").treesitter_search() end,
+        desc = "Treesitter Search",
+      },
+      -- {
+      --   "<c-s>",
+      --   mode = { "c" },
+      --   function() require("flash").toggle() end,
+      --   desc = "Toggle Flash Search",
+      -- },
+
     }
   },
 
@@ -292,5 +298,21 @@ return {
         },
       })
     end
-  }
+  },
+
+  {
+    "MaximilianLloyd/tw-values.nvim",
+    keys = {
+      { "<leader>sv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
+    },
+    opts = {
+      border = "rounded",          -- Valid window border style,
+      show_unknown_classes = true, -- Shows the unknown classes popup
+      focus_preview = false,        -- Sets the preview as the current window
+      copy_register = "",          -- The register to copy values to,
+      -- keymaps = {
+      --   copy = "<C-y>"               -- Normal mode keymap to copy the CSS values between {}
+      -- }
+    }
+  },
 }

@@ -1,3 +1,4 @@
+local icons = require('config.icons')
 return {
   -- which-key
   {
@@ -142,8 +143,6 @@ return {
       local HEIGHT_RATIO = 0.8 -- You can change this
       local WIDTH_RATIO = 0.5  -- You can change this too
 
-      local icons = require('config.icons').diagnostics
-
       require('nvim-tree').setup({
         auto_reload_on_write = true,
         open_on_tab = false,
@@ -162,10 +161,10 @@ return {
           enable = true,
           show_on_dirs = true,
           icons = {
-            hint = icons.Hint,
-            info = icons.Info,
-            warning = icons.Warn,
-            error = icons.Error
+            hint = icons.diagnostics.Hint,
+            info = icons.diagnostics.Info,
+            warning = icons.diagnostics.Warn,
+            error = icons.diagnostics.Error
           }
         },
         filters = {
@@ -216,29 +215,19 @@ return {
               file = true,
             },
             glyphs = {
-              default = " ",
-              symlink = " ",
+              default = icons.file.default .. " ",
+              symlink = icons.file.symlink .. " ",
               git = {
-                unstaged = '',
+                unstaged = icons.git.unstaged,
                 -- unstaged = '+',
-                staged = "✓",
-                unmerged = "",
-                renamed = "➜",
-                untracked = '',
-                deleted = '󰍴'
+                staged = icons.git.staged,
+                unmerged = icons.git.unmerged,
+                renamed = icons.git.renamed,
+                untracked = icons.git.untracked,
+                deleted = icons.git.deleted,
                 -- untracked = "★"
               },
-              folder = {
-                -- default = "",
-                -- open = "",
-                symlink = "",
-                default = "",
-                open = "󰪟",
-                empty = "",
-                empty_open = "",
-                arrow_closed = '+',
-                arrow_open = '-'
-              }
+              folder = icons.folder,
             }
           },
         },

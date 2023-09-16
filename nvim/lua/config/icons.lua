@@ -8,15 +8,37 @@ local M = {
     Info = " ",
   },
   file = {
+    default = "",
+    symlink = "",
     modified = '',
     readonly = '',
     unnamed = '',
     newfile = ''
   },
+  folder = {
+    symlink = "",
+    default = "󰪥",
+    open = "󰪟",
+    empty = "󰝦",
+    empty_open = "󰝦",
+    -- pending = "󰪡",
+    arrow_closed = '+',
+    arrow_open = '-',
+  },
   git = {
     added = " ",
     modified = " ",
     removed = " ",
+
+    -- nvim-tree
+    unstaged = '',
+    -- unstaged = '+',
+    staged = "✓",
+    unmerged = "",
+    renamed = "➜",
+    untracked = '',
+    deleted = '󰍴'
+    -- untracked = "★"
   },
   kinds = {
     Array = " ",

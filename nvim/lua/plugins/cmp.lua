@@ -6,7 +6,10 @@ return {
     event = "InsertEnter",
     opts = {
       suggestion = {
-        auto_trigger = false
+        enabled = false
+      },
+      panel = {
+        enabled = false
       }
     }
   },
@@ -72,7 +75,10 @@ return {
       {
         "zbirenbaum/copilot-cmp",
         config = function()
-          require("copilot_cmp").setup()
+          require("copilot_cmp").setup({
+            event = { "InsertEnter", "LspAttach" },
+            fix_pairs = true,
+          })
         end
       },
     },
@@ -81,11 +87,11 @@ return {
       local luasnip = require('luasnip')
 
       -- If you want insert `(` after select function or method item
-      local autopairs = require('nvim-autopairs.completion.cmp')
-      cmp.event:on(
-        'confirm_done',
-        autopairs.on_confirm_done()
-      )
+      -- local autopairs = require('nvim-autopairs.completion.cmp')
+      -- cmp.event:on(
+      --   'confirm_done',
+      --   autopairs.on_confirm_done()
+      -- )
 
       local has_words_before = function()
         unpack = unpack or table.unpack
@@ -102,11 +108,12 @@ return {
         sorting = {
           priority_weight = 2,
           comparators = {
+            cmp.config.compare.exact,
             require("copilot_cmp.comparators").prioritize,
 
             -- Extract from TJ's config: https://github.com/tjdevries/config_manager/blob/78608334a7803a0de1a08a9a4bd1b03ad2a5eb11/xdg_config/nvim/after/plugin/completion.lua#L129
             cmp.config.compare.offset,
-            cmp.config.compare.exact,
+            -- cmp.config.compare.exact,
             cmp.config.compare.score,
             cmp.config.compare.recently_used,
 
