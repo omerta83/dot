@@ -240,6 +240,8 @@ return {
             root_dir = require('lspconfig').util.root_pattern('tailwind.config.js', 'tailwind.config.ts',
               'postcss.config.js', 'postcss.config.ts', 'postcss.config.cjs')
           },
+          -- formatters and linters
+          biome = {},
         },
         setup = {
           tsserver = function(_, opts)
@@ -352,8 +354,9 @@ return {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
-        typescript = { 'prettier' },
-        typescriptreact = { 'prettier', 'rustywind' },
+        javascript = { 'biome' },
+        typescript = { 'biome' },
+        typescriptreact = { 'biome', 'rustywind' },
         vue = { 'prettier', 'rustywind' },
         lua = { 'stylua' },
         python = { 'ruff' },
