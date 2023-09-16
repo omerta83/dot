@@ -95,7 +95,7 @@ return {
     },
     opts = function()
       return {
-        inlay_hints = { enabled = false },
+        inlay_hints = { enabled = true },
         diagnostics = {
           underline = true,
           severity_sort = true,
