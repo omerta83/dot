@@ -136,7 +136,7 @@ return {
           },
           prismals = {},
           volar = {
-            root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'quasar.config.js', 'nuxt.config.js'),
+            root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'quasar.config.js'),
             filetypes = {
               'vue',
               'typescript'
@@ -358,6 +358,9 @@ return {
       formatters_by_ft = {
         javascript = { 'biome' },
         typescript = { 'biome' },
+        ["javascript.jsx"] = { "biome", "rustywind" },
+        javascriptreact = { "biome", "rustywind" },
+        ["typescript.tsx"] = { 'biome', 'rustywind' },
         typescriptreact = { 'biome', 'rustywind' },
         vue = { 'prettier', 'rustywind' },
         lua = { 'stylua' },

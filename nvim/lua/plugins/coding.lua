@@ -47,6 +47,7 @@ return {
           }, {}),
           f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
           c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+          C = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.inner" }, {}),
         },
       }
     end,
@@ -73,6 +74,7 @@ return {
           a = "Argument",
           b = "Balanced ), ], }",
           c = "Class",
+          C = "Comment",
           f = "Function",
           o = "Block, conditional, loop",
           q = "Quote `, \", '",
@@ -110,7 +112,7 @@ return {
         desc = "Neogen Comment",
       },
     },
-    opts = { snippet_engine = "snippy" },
+    opts = { snippet_engine = "luasnip" },
   },
 
   -- refactoring
@@ -131,48 +133,48 @@ return {
     },
     opts = {},
   },
-  {
-    "simrat39/symbols-outline.nvim",
-    keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-    opts = function()
-      local icons = require('config.icons').kinds
-      return {
-        auto_close = true,
-        preview_bg_highlight = "None",
-        symbols = {
-          File = { icon = icons.File, hl = "@text.uri" },
-          Module = { icon = icons.Module, hl = "@namespace" },
-          Namespace = { icon = icons.Namespace, hl = "@namespace" },
-          Package = { icon = icons.Package, hl = "@namespace" },
-          Class = { icon = icons.Class, hl = "@type" },
-          Method = { icon = icons.Method, hl = "@method" },
-          Property = { icon = icons.Property, hl = "@method" },
-          Field = { icon = icons.Field, hl = "@field" },
-          Constructor = { icon = icons.Constructor, hl = "@constructor" },
-          Enum = { icon = icons.Enum, hl = "@type" },
-          Interface = { icon = icons.Interface, hl = "@type" },
-          Function = { icon = icons.Function, hl = "@function" },
-          Variable = { icon = icons.Variable, hl = "@constant" },
-          Constant = { icon = icons.Constant, hl = "@constant" },
-          String = { icon = icons.String, hl = "@string" },
-          Number = { icon = icons.Number, hl = "@number" },
-          Boolean = { icon = icons.Boolean, hl = "@boolean" },
-          Array = { icon = icons.Array, hl = "@constant" },
-          Object = { icon = icons.Object, hl = "@type" },
-          Key = { icon = icons.Key, hl = "@type" },
-          Null = { icon = icons.Null, hl = "@type" },
-          EnumMember = { icon = icons.EnumMember, hl = "@field" },
-          Struct = { icon = icons.Struct, hl = "@type" },
-          Event = { icon = icons.Event, hl = "@type" },
-          Operator = { icon = icons.Operator, hl = "@operator" },
-          TypeParameter = { icon = icons.TypeParameter, hl = "@parameter" },
-          Component = { icon = icons.Constructor, hl = "@function" },
-          Fragment = { icon = icons.Fragment, hl = "@constant" },
-        }
-      }
-    end
-    -- config = true,
-  },
+  -- {
+  --   "simrat39/symbols-outline.nvim",
+  --   keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
+  --   opts = function()
+  --     local icons = require('config.icons').kinds
+  --     return {
+  --       auto_close = true,
+  --       preview_bg_highlight = "None",
+  --       symbols = {
+  --         File = { icon = icons.File, hl = "@text.uri" },
+  --         Module = { icon = icons.Module, hl = "@namespace" },
+  --         Namespace = { icon = icons.Namespace, hl = "@namespace" },
+  --         Package = { icon = icons.Package, hl = "@namespace" },
+  --         Class = { icon = icons.Class, hl = "@type" },
+  --         Method = { icon = icons.Method, hl = "@method" },
+  --         Property = { icon = icons.Property, hl = "@method" },
+  --         Field = { icon = icons.Field, hl = "@field" },
+  --         Constructor = { icon = icons.Constructor, hl = "@constructor" },
+  --         Enum = { icon = icons.Enum, hl = "@type" },
+  --         Interface = { icon = icons.Interface, hl = "@type" },
+  --         Function = { icon = icons.Function, hl = "@function" },
+  --         Variable = { icon = icons.Variable, hl = "@constant" },
+  --         Constant = { icon = icons.Constant, hl = "@constant" },
+  --         String = { icon = icons.String, hl = "@string" },
+  --         Number = { icon = icons.Number, hl = "@number" },
+  --         Boolean = { icon = icons.Boolean, hl = "@boolean" },
+  --         Array = { icon = icons.Array, hl = "@constant" },
+  --         Object = { icon = icons.Object, hl = "@type" },
+  --         Key = { icon = icons.Key, hl = "@type" },
+  --         Null = { icon = icons.Null, hl = "@type" },
+  --         EnumMember = { icon = icons.EnumMember, hl = "@field" },
+  --         Struct = { icon = icons.Struct, hl = "@type" },
+  --         Event = { icon = icons.Event, hl = "@type" },
+  --         Operator = { icon = icons.Operator, hl = "@operator" },
+  --         TypeParameter = { icon = icons.TypeParameter, hl = "@parameter" },
+  --         Component = { icon = icons.Constructor, hl = "@function" },
+  --         Fragment = { icon = icons.Fragment, hl = "@constant" },
+  --       }
+  --     }
+  --   end
+  --   -- config = true,
+  -- },
 
   -- Better rename symbols
   {
@@ -240,52 +242,45 @@ return {
   -- },
 
   -- Navigating
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    ---@type Flash.config
-    opts = {
-      modes = {
-        char = {
-          enabled = false,
-          jump_labels = true,
-        }
-      },
-    },
-    keys = {
-      {
-        "s",
-        mode = { "n", "o", "x" },
-        function() require("flash").jump() end,
-        desc = "Flash",
-      },
-      {
-        "<leader>S",
-        mode = { "n", "o", "x" },
-        function() require("flash").treesitter() end,
-        desc = "Flash Treesitter",
-      },
-      {
-        "r",
-        mode = "o",
-        function() require("flash").remote() end,
-        desc = "Remote Flash",
-      },
-      {
-        "R",
-        mode = { "o", "x" },
-        function() require("flash").treesitter_search() end,
-        desc = "Treesitter Search",
-      },
-      -- {
-      --   "<c-s>",
-      --   mode = { "c" },
-      --   function() require("flash").toggle() end,
-      --   desc = "Toggle Flash Search",
-      -- },
-
-    }
-  },
+  -- {
+  --   "folke/flash.nvim",
+  --   event = "VeryLazy",
+  --   ---@type Flash.config
+  --   opts = {
+  --     modes = {
+  --       char = {
+  --         enabled = false,
+  --         -- jump_labels = true,
+  --       }
+  --     },
+  --   },
+  --   keys = {
+  --     {
+  --       "s",
+  --       mode = { "n", "o", "x" },
+  --       function() require("flash").jump() end,
+  --       desc = "Flash",
+  --     },
+  --     {
+  --       "<leader>S",
+  --       mode = { "n", "o", "x" },
+  --       function() require("flash").treesitter() end,
+  --       desc = "Flash Treesitter",
+  --     },
+  --     {
+  --       "r",
+  --       mode = "o",
+  --       function() require("flash").remote() end,
+  --       desc = "Remote Flash",
+  --     },
+  --     {
+  --       "R",
+  --       mode = { "o", "x" },
+  --       function() require("flash").treesitter_search() end,
+  --       desc = "Treesitter Search",
+  --     },
+  --   }
+  -- },
 
   -- surround
   {
