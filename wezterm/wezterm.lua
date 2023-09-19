@@ -1,34 +1,48 @@
 local wezterm = require("wezterm")
 local colors, _ = wezterm.color.load_scheme("/Users/omerta/.config/wezterm/colors/tokyonight_night.toml")
 
-local function isViProcess(pane)
-  return pane:get_foreground_process_name():find("n?vim") ~= nil
+-- if you are *NOT* lazy-loading smart-splits.nvim (recommended)
+local function is_vim(pane)
+  -- this is set by the plugin, and unset on ExitPre in Neovim
+  return pane:get_user_vars().IS_NVIM == 'true'
 end
 
-local function conditionalActivatePane(window, pane, pane_direction, vim_direction)
-  if isViProcess(pane) then
-    window:perform_action(wezterm.action.SendKey({ key = vim_direction, mods = "CTRL" }), pane)
-  else
-    window:perform_action(wezterm.action.ActivatePaneDirection(pane_direction), pane)
-  end
+local direction_keys = {
+  Left = 'h',
+  Down = 'j',
+  Up = 'k',
+  Right = 'l',
+  -- reverse lookup
+  h = 'Left',
+  j = 'Down',
+  k = 'Up',
+  l = 'Right',
+}
+
+local function split_nav(resize_or_move, key)
+  return {
+    key = key,
+    mods = resize_or_move == 'resize' and 'META' or 'CTRL',
+    action = wezterm.action_callback(function(win, pane)
+      if is_vim(pane) then
+        -- pass the keys through to vim/nvim
+        win:perform_action({
+          SendKey = { key = key, mods = resize_or_move == 'resize' and 'META' or 'CTRL' },
+        }, pane)
+      else
+        if resize_or_move == 'resize' then
+          win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
+        else
+          win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+        end
+      end
+    end),
+  }
 end
 
 wezterm.on('gui-startup', function (cmd)
   local _, _, window = wezterm.mux.spawn_window(cmd or {})
   window:gui_window():maximize()
-end)
-
-wezterm.on("ActivatePaneDirection-right", function(window, pane)
-  conditionalActivatePane(window, pane, "Right", "l")
-end)
-wezterm.on("ActivatePaneDirection-left", function(window, pane)
-  conditionalActivatePane(window, pane, "Left", "h")
-end)
-wezterm.on("ActivatePaneDirection-up", function(window, pane)
-  conditionalActivatePane(window, pane, "Up", "k")
-end)
-wezterm.on("ActivatePaneDirection-down", function(window, pane)
-  conditionalActivatePane(window, pane, "Down", "j")
 end)
 
 local function getProcess(tab)
@@ -133,9 +147,11 @@ end
 
 local function getCWD(tab)
   local current_dir = tab.active_pane.current_working_dir
-  local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
+  if current_dir == nil then
+    return ""
+  end
 
-  -- return current_dir == HOME_DIR and "  ~" or string.format("  %s", string.gsub(current_dir, "(.*[/\\])(.*)", "%2"))
+  local HOME_DIR = string.format("file://%s", os.getenv("HOME"))
   return current_dir == HOME_DIR and "~" or string.format("%s", string.gsub(current_dir.file_path, "(.*[/\\])(.*)", "%2"))
 end
 
@@ -211,7 +227,7 @@ return {
       key = "t",
       mods = "SUPER|SHIFT", action = wezterm.action.PromptInputLine {
       description = 'Enter new name for tab',
-        action = wezterm.action_callback(function(window, pane, line)
+        action = wezterm.action_callback(function(window, _, line)
           -- line will be `nil` if they hit escape without entering anything
           -- An empty string if they just hit enter
           -- Or the actual line of text they wrote
@@ -231,11 +247,17 @@ return {
     { key = "l",            mods = "SUPER|SHIFT", action = wezterm.action.AdjustPaneSize({ "Right", 1 }) },
     { key = "f",            mods = "SUPER|SHIFT", action = wezterm.action.ToggleFullScreen },
 
-    -- compatible with vim's panel movement
-    { key = "h",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-left") },
-    { key = "j",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-down") },
-    { key = "k",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-up") },
-    { key = "l",            mods = "CTRL",        action = wezterm.action.EmitEvent("ActivatePaneDirection-right") },
+    -- move between split panes
+    split_nav('move', 'h'),
+    split_nav('move', 'j'),
+    split_nav('move', 'k'),
+    split_nav('move', 'l'),
+    -- resize panes
+    split_nav('resize', 'h'),
+    split_nav('resize', 'j'),
+    split_nav('resize', 'k'),
+    split_nav('resize', 'l'),
+
     { key = "[",            mods = "SUPER",       action = wezterm.action({ ActivateTabRelative = -1 }) },
     { key = "]",            mods = "SUPER",       action = wezterm.action({ ActivateTabRelative = 1 }) },
     { key = "<",            mods = "SUPER|SHIFT", action = wezterm.action.MoveTabRelative(-1) },
