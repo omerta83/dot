@@ -2,17 +2,17 @@ return {
   -- comment
   {
     "echasnovski/mini.comment",
-    -- event = "VeryLazy",
     event = "BufReadPost",
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring'
     },
     opts = {
-      hooks = {
-        pre = function()
-          require("ts_context_commentstring.internal").update_commentstring({})
+      options = {
+        custom_commentstring = function()
+          return require('ts_context_commentstring.internal').calculate_commentstring() or vim.bo.commentstring
         end,
-      },
+        ignore_blank_line = true,
+      }
     },
     config = function(_, opts)
       require("mini.comment").setup(opts)

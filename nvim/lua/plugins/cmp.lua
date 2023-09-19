@@ -6,7 +6,11 @@ return {
     event = "InsertEnter",
     opts = {
       suggestion = {
-        enabled = false
+        enabled = false,
+        -- auto_trigger = true,
+        -- keymap = {
+        --   accept = false
+        -- }
       },
       panel = {
         enabled = false
@@ -49,7 +53,7 @@ return {
       {
         'windwp/nvim-autopairs',
         opts = {
-          disable_filetype = { "TelescopePrompt", "vim" }
+          disable_filetype = { "TelescopePrompt", "vim" },
         },
         config = function(_, opts)
           local Rule = require('nvim-autopairs.rule')
@@ -96,12 +100,12 @@ return {
         sorting = {
           priority_weight = 2,
           comparators = {
-            cmp.config.compare.exact,
+            -- cmp.config.compare.exact,
             require("copilot_cmp.comparators").prioritize,
 
             -- Extract from TJ's config: https://github.com/tjdevries/config_manager/blob/78608334a7803a0de1a08a9a4bd1b03ad2a5eb11/xdg_config/nvim/after/plugin/completion.lua#L129
             cmp.config.compare.offset,
-            -- cmp.config.compare.exact,
+            cmp.config.compare.exact,
             cmp.config.compare.score,
             cmp.config.compare.recently_used,
 
@@ -163,7 +167,7 @@ return {
           -- Copilot Source
           { name = "copilot",  group_index = 2 },
           { name = 'nvim_lsp', group_index = 2 },
-          { name = 'path',     group_index = 5 },
+          { name = 'path',     group_index = 2 },
           {
             name = 'buffer',
             option = {
@@ -173,7 +177,7 @@ return {
             },
             group_index = 2
           },
-          { name = "luasnip" },
+          { name = "luasnip", group_index = 2 },
         }),
         formatting = {
           format = function(entry, vim_item)

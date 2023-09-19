@@ -127,9 +127,16 @@ return {
         hl.CmpItemKindKeyword = { bg = 'NONE', fg = '#D4D4D4' }
         hl.CmpItemKindProperty = { link = 'CmpItemKindKeyword' }
         hl.CmpItemKindUnit = { link = 'CmpItemKindKeyword' }
+        hl.CmpItemKindCopilot = { fg = "#6CC644" }
 
         hl.Folded = {
-          bg = '#15161e'
+          -- bg = '#15161e'
+          bg = c.bg_dark
+        }
+
+        hl.LspInlayHint = {
+          fg = c.comment,
+          italic = true
         }
       end
     },

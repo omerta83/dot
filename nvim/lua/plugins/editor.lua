@@ -68,8 +68,8 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {
       providers = {
-        'lsp',
-        'treesitter'
+        'treesitter',
+        -- 'lsp'
       },
       delay = 200,
       filetypes_denylist = {
@@ -315,7 +315,7 @@ return {
 
       return {
         fold_virt_text_handler = handler,
-        close_fold_kinds = { "imports", "comment" },
+        -- close_fold_kinds = { "imports", "comment" },
         preview = {
           mappings = {
             scrollU = '<C-u>',
