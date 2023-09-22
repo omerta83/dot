@@ -68,6 +68,23 @@ return {
   { key = "k", mods = "SUPER|SHIFT", action = wezterm.action.AdjustPaneSize({ "Up", 1 }) },
   { key = "l", mods = "SUPER|SHIFT", action = wezterm.action.AdjustPaneSize({ "Right", 1 }) },
   { key = "f", mods = "SUPER|SHIFT", action = wezterm.action.ToggleFullScreen },
+  -- activate pane selection mode with numeric labels
+  {
+    key = '9',
+    mods = 'CTRL',
+    action = wezterm.action.PaneSelect {
+      alphabet = '1234567890',
+    },
+  },
+  -- show the pane selection mode, but have it swap the active and selected panes
+  {
+    key = '0',
+    mods = 'CTRL',
+    action = wezterm.action.PaneSelect {
+      mode = 'SwapWithActive',
+      alphabet = '1234567890',
+    },
+  },
 
   -- move between split panes
   split_nav('move', 'h'),
@@ -79,6 +96,7 @@ return {
   split_nav('resize', 'j'),
   split_nav('resize', 'k'),
   split_nav('resize', 'l'),
+
   { key = "[", mods = "SUPER",       action = wezterm.action({ ActivateTabRelative = -1 }) },
   { key = "]", mods = "SUPER",       action = wezterm.action({ ActivateTabRelative = 1 }) },
   { key = "<", mods = "SUPER|SHIFT", action = wezterm.action.MoveTabRelative(-1) },

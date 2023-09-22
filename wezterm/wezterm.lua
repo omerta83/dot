@@ -165,9 +165,6 @@ return {
     top = 10,
     bottom = 0,
   },
-  -- initial_cols = 200,
-  -- initial_rows = 60,
-  -- native_macos_fullscreen_mode = true,
   inactive_pane_hsb = {
     saturation = 1.0,
     brightness = 0.85,
