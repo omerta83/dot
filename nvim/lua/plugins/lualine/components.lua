@@ -33,6 +33,13 @@ local function term_str()
 end
 
 local M = {
+  logo = {
+    function()
+      return icons.misc.Robot
+    end,
+    separator = separator,
+    color = { bg = colors.bg_highlight, fg = colors.teal },
+  },
   space = {
     function()
       return " "

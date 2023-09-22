@@ -86,6 +86,7 @@ local M = {
     Apple = "",
     Arch = "",
     Devil = "󰱯",
+    Robot = "󱚤",
     Term = "",
     SeparatorLeft = "",
     SeparatorRight = "",
