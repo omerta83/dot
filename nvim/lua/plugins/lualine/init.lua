@@ -25,7 +25,6 @@ return {
       sections = {
         lualine_a = {
           components.modes,
-          components.logo,
           components.space,
         },
         lualine_b = {
