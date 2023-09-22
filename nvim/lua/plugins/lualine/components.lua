@@ -15,7 +15,7 @@ local function getLspNames()
     local filetypes = client.config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
       -- return icon .. client.name
-      clientNames = clientNames .. (clientNames == '' and '' or '') .. client.name:gsub("[-_].*", "") -- remove any characters after - or _
+      clientNames = clientNames .. (clientNames == '' and '' or '') .. client.name:gsub("[-_].*$", "") -- remove any characters after - or _
     end
   end
   return icon .. (clientNames ~= '' and clientNames or msg)
@@ -33,13 +33,6 @@ local function term_str()
 end
 
 local M = {
-  logo = {
-    function()
-      return icons.misc.Devil
-    end,
-    separator = separator,
-    color = { bg = colors.bg_highlight, fg = colors.red1 },
-  },
   space = {
     function()
       return " "

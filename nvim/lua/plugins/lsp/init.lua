@@ -95,7 +95,7 @@ return {
     },
     opts = function()
       return {
-        inlay_hints = { enabled = true },
+        inlay_hints = { enabled = false },
         diagnostics = {
           underline = true,
           severity_sort = true,
@@ -136,7 +136,7 @@ return {
           },
           prismals = {},
           volar = {
-            root_dir = require('lspconfig').util.root_pattern('tsconfig.json', 'quasar.config.js'),
+            root_dir = require('lspconfig').util.root_pattern('nuxt.config.ts', 'quasar.config.js'),
             filetypes = {
               'vue',
               'typescript'
