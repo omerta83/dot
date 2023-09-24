@@ -1,49 +1,49 @@
-local utils = require('util')
+local map = require('util').map
 local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 
 -- COPY EVERYTHING --
-utils.map("n", "<A-a>", [[ <Cmd> %y+<CR>]], { silent = true })
+map("n", "<A-a>", [[ <Cmd> %y+<CR>]], { silent = true })
 
 -- Keep search results at the center of screen
-utils.map("n", "n", "nzz", { silent = true })
-utils.map("n", "N", "Nzz", { silent = true })
+map("n", "n", "nzz", { silent = true })
+map("n", "N", "Nzz", { silent = true })
 
 -- Remap paste with indentation
-utils.map("n", "p", "]p", { silent = true })
-utils.map("n", "P", "[p", { silent = true })
+map("n", "p", "]p", { silent = true })
+map("n", "P", "[p", { silent = true })
 
 -- lazy
-utils.map("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
 -- Moving between windows using their numbers
 for i = 1, 6 do
   local lhs = "<leader>" .. i
   local rhs = i .. "<c-w>w"
-  utils.map("n", lhs, rhs, { desc = "Move to window " .. i })
+  map("n", lhs, rhs, { desc = "Move to window " .. i })
 end
 
 -- Terminal / ToggleTerm
 function _G.set_terminal_keymaps()
   local lopts = { buffer = 0 }
-  utils.map('t', '<esc>', [[<C-\><C-n>]], lopts)
-  utils.map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], lopts)
-  utils.map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], lopts)
-  utils.map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], lopts)
-  utils.map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], lopts)
+  map('t', '<esc>', [[<C-\><C-n>]], lopts)
+  map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], lopts)
+  map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], lopts)
+  map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], lopts)
+  map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], lopts)
 end
 
 vim.cmd('autocmd! TermOpen term://*toggleterm* lua set_terminal_keymaps()')
 
 -- Treesitter textobjects
 -- vim way: ; goes to the direction you were moving.
-utils.map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-utils.map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
 
 -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-utils.map({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-utils.map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-utils.map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-utils.map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+map({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 
 -- LSP
 -- local next_diagnostic, prev_diagnostic = ts_repeat_move.make_repeatable_move_pair(vim.diagnostic.goto_next,
