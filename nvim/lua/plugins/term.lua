@@ -6,7 +6,8 @@ return {
     keys = {
       { "<leader>lg", "<cmd>lua LazyGit()<CR>",              desc = "Open LazyGit" },
       { "<leader>ld", "<cmd>lua LazyDocker()<CR>",           desc = "Open LazyDocker" },
-      { "<leader>lf", "<cmd>ToggleTerm direction=float<CR>", desc = "Open Floating Term" },
+      { "<leader>lt", "<cmd>ToggleTerm direction=float<CR>", desc = "Open Floating Term" },
+      { "<leader>lf", "<cmd>lua LfPicker()<CR>", desc = "Open LF" },
       { "<C-\\>",     "<cmd>ToggleTerm<CR>",                 desc = "Toggle terminal" }
     },
     config = function()
@@ -17,7 +18,7 @@ return {
       }
 
       -- Lazygit and lazydocker
-      local function create_float_term(cmd)
+      local function create_float_term(cmd, on_close)
         local Terminal = require('toggleterm.terminal').Terminal
         local lazy = Terminal:new({
           cmd = cmd or '',
@@ -29,9 +30,10 @@ return {
             pcall(vim.keymap.del, 't', '<esc>', { buffer = term.bufnr })
           end,
           -- function to run on closing the terminal
-          on_close = function()
-            vim.cmd("startinsert!")
-          end,
+          on_close = on_close,
+          -- on_close = function()
+          --   vim.cmd("startinsert!")
+          -- end,
         })
         return lazy
       end
@@ -45,13 +47,37 @@ return {
       function _G.LazyDocker()
         lazydocker:toggle()
       end
+
+      -- https://github.com/akinsho/toggleterm.nvim/issues/66
+      function _G.LfPicker()
+        local lf_temp_path = "/tmp/lfpickerpath"
+        local lfpicker = create_float_term("lf -selection-path " .. lf_temp_path, function ()
+          local file = io.open(lf_temp_path, "r")
+          if file == nil then
+            return
+          end
+          local name = file:read("*a")
+          file:close()
+          os.remove(lf_temp_path)
+          local timer = vim.loop.new_timer()
+          timer:start(
+            0,
+            0,
+            vim.schedule_wrap(function()
+              vim.cmd("edit " .. name)
+            end)
+          )
+        end)
+
+        lfpicker:toggle()
+      end
     end
   },
 
   -- Navigate between nvim and tmux/kitty/wezterm
   {
     'mrjones2014/smart-splits.nvim',
-    lazy = false,  -- disable lazy when using with wezterm
+    lazy = false, -- disable lazy when using with wezterm
     opts = {},
     config = function(_, opts)
       require('smart-splits').setup(opts)

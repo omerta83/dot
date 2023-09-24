@@ -20,7 +20,7 @@ return {
       },
     },
     keys = {
-      -- { "gD", vim.lsp.buf.declaration,    desc = "Go to declaration [LSP]",    noremap = true, silent = true },
+      { "gD", vim.lsp.buf.declaration,    desc = "Go to declaration [LSP]",    noremap = true, silent = true },
       { "gd", vim.lsp.buf.definition,     desc = "Go to definition [LSP]",     noremap = true, silent = true },
       { "gr", vim.lsp.buf.references,     desc = "Go to references [LSP]",     noremap = true, silent = true },
       { "gi", vim.lsp.buf.implementation, desc = "Go to implementation [LSP]", noremap = true, silent = true },
