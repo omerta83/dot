@@ -13,7 +13,7 @@ return {
         }
       },
       panel = {
-        enabled = true,
+        enabled = false,
       }
     }
   },
@@ -151,6 +151,14 @@ return {
         },
         completion = {
           completeopt = "menu,menuone,noselect",
+        },
+        window = {
+          documentation = cmp.config.window.bordered({
+            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
+          }),
+          completion = cmp.config.window.bordered({
+            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
+          }),
         },
       })
     end
