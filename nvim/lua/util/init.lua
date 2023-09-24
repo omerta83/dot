@@ -73,4 +73,8 @@ function M.theme_colors()
   return {}
 end
 
+function M.map(mode, l, r, opts)
+  vim.keymap.set(mode, l, r, opts)
+end
+
 return M

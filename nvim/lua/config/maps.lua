@@ -1,47 +1,84 @@
-local keymap = vim.keymap
-
--- vim.g.mapleader = " "
-
--- keymap.set("", "<leader>c", '"+y')
--- keymap.set("n", "<leader>l<Enter>", [[<Cmd>vnew<CR> term://zsh <CR>]])
--- keymap.set("n", "<leader>j<Enter>", [[<Cmd> split term://zsh | resize 10 <CR>]]) -- open term bottom
--- keymap.set("t", "<C-\\><C-\\>", "<C-\\><C-n>:bd!<CR>") -- Close terminal
+local utils = require('util')
+local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 
 -- COPY EVERYTHING --
-keymap.set("n", "<A-a>", [[ <Cmd> %y+<CR>]])
+utils.map("n", "<A-a>", [[ <Cmd> %y+<CR>]], { silent = true })
 
 -- Keep search results at the center of screen
-keymap.set("n", "n", "nzz")
-keymap.set("n", "N", "Nzz")
+utils.map("n", "n", "nzz", { silent = true })
+utils.map("n", "N", "Nzz", { silent = true })
 
 -- Remap paste with indentation
-keymap.set("n", "p", "]p")
-keymap.set("n", "P", "[p")
+utils.map("n", "p", "]p", { silent = true })
+utils.map("n", "P", "[p", { silent = true })
 
 -- lazy
-keymap.set("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+utils.map("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
 -- Moving between windows using their numbers
 for i = 1, 6 do
   local lhs = "<leader>" .. i
   local rhs = i .. "<c-w>w"
-  keymap.set("n", lhs, rhs, { desc = "Move to window " .. i })
+  utils.map("n", lhs, rhs, { desc = "Move to window " .. i })
 end
-
--- Splits
--- keymap.set("n", "<leader>hn", ":leftabove vnew<CR>", {noremap = true, silent = true})
--- keymap.set("n", "<Leader>ln", ":rightbelow vnew<CR>", {noremap = true, silent = true})
--- keymap.set("n", "<Leader>kn", ":leftabove  new<CR>", {noremap = true, silent = true})
--- keymap.set("n", "<Leader>jn", ":rightbelow new<CR>", {noremap = true, silent = true})
 
 -- Terminal / ToggleTerm
 function _G.set_terminal_keymaps()
   local lopts = { buffer = 0 }
-  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], lopts)
-  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], lopts)
-  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], lopts)
-  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], lopts)
-  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], lopts)
+  utils.map('t', '<esc>', [[<C-\><C-n>]], lopts)
+  utils.map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], lopts)
+  utils.map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], lopts)
+  utils.map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], lopts)
+  utils.map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], lopts)
 end
 
 vim.cmd('autocmd! TermOpen term://*toggleterm* lua set_terminal_keymaps()')
+
+-- Treesitter textobjects
+-- vim way: ; goes to the direction you were moving.
+utils.map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+utils.map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+
+-- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+utils.map({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+utils.map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+utils.map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+utils.map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+
+-- LSP
+-- local next_diagnostic, prev_diagnostic = ts_repeat_move.make_repeatable_move_pair(vim.diagnostic.goto_next,
+--   vim.diagnostic.goto_prev)
+-- local next_error, prev_error = ts_repeat_move.make_repeatable_move_pair(
+--   function()
+--     vim.diagnostic.goto_next({ wrap = true, severity = vim.diagnostic.severity.ERROR })
+--   end,
+--   function()
+--     vim.diagnostic.goto_prev({ wrap = true, severity = vim.diagnostic.severity.ERROR })
+--   end
+-- )
+-- local next_warning, prev_warning = ts_repeat_move.make_repeatable_move_pair(
+--   function()
+--     vim.diagnostic.goto_next({ wrap = true, severity = vim.diagnostic.severity.WARN })
+--   end,
+--   function()
+--     vim.diagnostic.goto_prev({ wrap = true, severity = vim.diagnostic.severity.WARN })
+--   end
+-- )
+-- utils.map("n", "]d", next_diagnostic, { desc = "Next diagnostic" })
+-- utils.map("n", "[d", prev_diagnostic, { desc = "Previous diagnostic" })
+-- utils.map("n", "]e", next_error, { desc = "Next error" })
+-- utils.map("n", "[e", prev_error, { desc = "Previous error" })
+-- utils.map("n", "]w", next_warning, { desc = "Next warning" })
+-- utils.map("n", "[w", prev_warning, { desc = "Previous warning" })
+-- utils.map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration [LSP]", noremap = true, silent = true })
+-- utils.map("n", "gr", vim.lsp.buf.references, { desc = "Go to references [LSP]", noremap = true, silent = true })
+-- utils.map("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation [LSP]", noremap = true, silent = true })
+-- utils.map({ "i", "n" },
+--   "<c-s>",
+--   vim.lsp.buf.signature_help,
+--   {
+--     desc = "Signature help [LSP]",
+--     noremap = true,
+--     silent = true
+--   })
+-- utils.map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })

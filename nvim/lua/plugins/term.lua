@@ -48,7 +48,7 @@ return {
     end
   },
 
-  -- Navigate between nvim and tmux
+  -- Navigate between nvim and tmux/kitty/wezterm
   {
     'mrjones2014/smart-splits.nvim',
     lazy = false,  -- disable lazy when using with wezterm

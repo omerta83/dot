@@ -20,85 +20,85 @@ return {
   },
 
   -- better text-objects
-  {
-    "echasnovski/mini.ai",
-    -- keys = {
-    --   { "a", mode = { "x", "o" } },
-    --   { "i", mode = { "x", "o" } },
-    -- },
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        init = function()
-          -- no need to load the plugin, since we only need its queries
-          require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
-        end,
-      },
-    },
-    opts = function()
-      local ai = require("mini.ai")
-      return {
-        n_lines = 500,
-        custom_textobjects = {
-          o = ai.gen_spec.treesitter({
-            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-            i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-          }, {}),
-          f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
-          c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
-          C = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.inner" }, {}),
-        },
-      }
-    end,
-    config = function(_, opts)
-      require("mini.ai").setup(opts)
-      -- register all text objects with which-key
-      if require("util.init").has("which-key.nvim") then
-        ---@type table<string, string|table>
-        local i = {
-          [" "] = "Whitespace",
-          ['"'] = 'Balanced "',
-          ["'"] = "Balanced '",
-          ["`"] = "Balanced `",
-          ["("] = "Balanced (",
-          [")"] = "Balanced ) including white-space",
-          [">"] = "Balanced > including white-space",
-          ["<lt>"] = "Balanced <",
-          ["]"] = "Balanced ] including white-space",
-          ["["] = "Balanced [",
-          ["}"] = "Balanced } including white-space",
-          ["{"] = "Balanced {",
-          ["?"] = "User Prompt",
-          _ = "Underscore",
-          a = "Argument",
-          b = "Balanced ), ], }",
-          c = "Class",
-          C = "Comment",
-          f = "Function",
-          o = "Block, conditional, loop",
-          q = "Quote `, \", '",
-          t = "Tag",
-        }
-        local a = vim.deepcopy(i)
-        for k, v in pairs(a) do
-          a[k] = v:gsub(" including.*", "")
-        end
+  -- {
+  --   "echasnovski/mini.ai",
+  --   -- keys = {
+  --   --   { "a", mode = { "x", "o" } },
+  --   --   { "i", mode = { "x", "o" } },
+  --   -- },
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   dependencies = {
+  --     {
+  --       "nvim-treesitter/nvim-treesitter-textobjects",
+  --       init = function()
+  --         -- no need to load the plugin, since we only need its queries
+  --         require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
+  --       end,
+  --     },
+  --   },
+  --   opts = function()
+  --     local ai = require("mini.ai")
+  --     return {
+  --       n_lines = 500,
+  --       custom_textobjects = {
+  --         o = ai.gen_spec.treesitter({
+  --           a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+  --           i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+  --         }, {}),
+  --         f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
+  --         c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+  --         C = ai.gen_spec.treesitter({ a = "@comment.outer", i = "@comment.inner" }, {}),
+  --       },
+  --     }
+  --   end,
+  --   config = function(_, opts)
+  --     require("mini.ai").setup(opts)
+  --     -- register all text objects with which-key
+  --     if require("util.init").has("which-key.nvim") then
+  --       ---@type table<string, string|table>
+  --       local i = {
+  --         [" "] = "Whitespace",
+  --         ['"'] = 'Balanced "',
+  --         ["'"] = "Balanced '",
+  --         ["`"] = "Balanced `",
+  --         ["("] = "Balanced (",
+  --         [")"] = "Balanced ) including white-space",
+  --         [">"] = "Balanced > including white-space",
+  --         ["<lt>"] = "Balanced <",
+  --         ["]"] = "Balanced ] including white-space",
+  --         ["["] = "Balanced [",
+  --         ["}"] = "Balanced } including white-space",
+  --         ["{"] = "Balanced {",
+  --         ["?"] = "User Prompt",
+  --         _ = "Underscore",
+  --         a = "Argument",
+  --         b = "Balanced ), ], }",
+  --         c = "Class",
+  --         C = "Comment",
+  --         f = "Function",
+  --         o = "Block, conditional, loop",
+  --         q = "Quote `, \", '",
+  --         t = "Tag",
+  --       }
+  --       local a = vim.deepcopy(i)
+  --       for k, v in pairs(a) do
+  --         a[k] = v:gsub(" including.*", "")
+  --       end
 
-        local ic = vim.deepcopy(i)
-        local ac = vim.deepcopy(a)
-        for key, name in pairs({ n = "Next", l = "Last" }) do
-          i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
-          a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
-        end
-        require("which-key").register({
-          mode = { "o", "x" },
-          i = i,
-          a = a,
-        })
-      end
-    end,
-  },
+  --       local ic = vim.deepcopy(i)
+  --       local ac = vim.deepcopy(a)
+  --       for key, name in pairs({ n = "Next", l = "Last" }) do
+  --         i[key] = vim.tbl_extend("force", { name = "Inside " .. name .. " textobject" }, ic)
+  --         a[key] = vim.tbl_extend("force", { name = "Around " .. name .. " textobject" }, ac)
+  --       end
+  --       require("which-key").register({
+  --         mode = { "o", "x" },
+  --         i = i,
+  --         a = a,
+  --       })
+  --     end
+  --   end,
+  -- },
 
   -- Generate docs
   {
@@ -242,45 +242,44 @@ return {
   -- },
 
   -- Navigating
-  -- {
-  --   "folke/flash.nvim",
-  --   event = "VeryLazy",
-  --   ---@type Flash.config
-  --   opts = {
-  --     modes = {
-  --       char = {
-  --         enabled = false,
-  --         -- jump_labels = true,
-  --       }
-  --     },
-  --   },
-  --   keys = {
-  --     {
-  --       "s",
-  --       mode = { "n", "o", "x" },
-  --       function() require("flash").jump() end,
-  --       desc = "Flash",
-  --     },
-  --     {
-  --       "<leader>S",
-  --       mode = { "n", "o", "x" },
-  --       function() require("flash").treesitter() end,
-  --       desc = "Flash Treesitter",
-  --     },
-  --     {
-  --       "r",
-  --       mode = "o",
-  --       function() require("flash").remote() end,
-  --       desc = "Remote Flash",
-  --     },
-  --     {
-  --       "R",
-  --       mode = { "o", "x" },
-  --       function() require("flash").treesitter_search() end,
-  --       desc = "Treesitter Search",
-  --     },
-  --   }
-  -- },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {
+      modes = {
+        char = {
+          jump_labels = true,
+          label = { exclude = "hjkliardcx" },
+        }
+      },
+    },
+    keys = {
+      {
+        "s",
+        mode = { "n", "o", "x" },
+        function() require("flash").jump() end,
+        desc = "Flash",
+      },
+      {
+        "<leader>S",
+        mode = { "n", "o", "x" },
+        function() require("flash").treesitter() end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function() require("flash").remote() end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function() require("flash").treesitter_search() end,
+        desc = "Treesitter Search",
+      },
+    }
+  },
 
   -- surround
   {

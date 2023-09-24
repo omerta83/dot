@@ -1,4 +1,4 @@
-local util = require('util.init')
+local util = require('util')
 local icons = require('config.icons')
 return {
   {
@@ -20,8 +20,9 @@ return {
       },
     },
     keys = {
-      { "gD", vim.lsp.buf.declaration,    desc = "Go to declaration [LSP]",    noremap = true, silent = true },
+      -- { "gD", vim.lsp.buf.declaration,    desc = "Go to declaration [LSP]",    noremap = true, silent = true },
       { "gd", vim.lsp.buf.definition,     desc = "Go to definition [LSP]",     noremap = true, silent = true },
+      { "gr", vim.lsp.buf.references,     desc = "Go to references [LSP]",     noremap = true, silent = true },
       { "gi", vim.lsp.buf.implementation, desc = "Go to implementation [LSP]", noremap = true, silent = true },
       {
         "<c-s>",
@@ -95,7 +96,7 @@ return {
     },
     opts = function()
       return {
-        inlay_hints = { enabled = false },
+        inlay_hints = { enabled = true },
         diagnostics = {
           underline = true,
           severity_sort = true,
@@ -223,6 +224,7 @@ return {
             filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
             settings = {
               separate_diagnostic_server = true,
+              tsserver_path = "~/.pnpm/global/5/node_modules/typescript/lib",
               tsserver_file_preferences = {
                 includeInlayParameterNameHints = "literal",
                 includeInlayParameterNameHintsWhenArgumentMatchesName = true,

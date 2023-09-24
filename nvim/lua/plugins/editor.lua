@@ -30,24 +30,24 @@ return {
       trouble = false,
       on_attach = function(buffer)
         local gs = package.loaded.gitsigns
+        local utils = require("util")
 
-        local function map(mode, l, r, desc)
-          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-        end
-
+        -- make sure forward function comes first
+        local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+        local next_hunk_repeat, prev_hunk_repeat = ts_repeat_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
         -- stylua: ignore start
-        map("n", "]h", gs.next_hunk, "Next Hunk")
-        map("n", "[h", gs.prev_hunk, "Prev Hunk")
-        map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-        map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-        map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-        map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-        map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-        map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk")
-        map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, "Blame Line")
-        map("n", "<leader>ghd", gs.diffthis, "Diff This")
-        map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
-        map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+        utils.map({ "n", "x", "o" }, "]h", next_hunk_repeat, { desc = "Next Hunk" })
+        utils.map({ "n", "x", "o" }, "[h", prev_hunk_repeat, { desc = "Prev Hunk" })
+        utils.map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", { desc = "Stage Hunk" })
+        utils.map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", { desc = "Reset Hunk" })
+        utils.map("n", "<leader>ghS", gs.stage_buffer, { desc = "Stage Buffer" })
+        utils.map("n", "<leader>ghu", gs.undo_stage_hunk, { desc = "Undo Stage Hunk" })
+        utils.map("n", "<leader>ghR", gs.reset_buffer, { desc = "Reset Buffer" })
+        utils.map("n", "<leader>ghp", gs.preview_hunk, { desc = "Preview Hunk" })
+        utils.map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, { desc = "Blame Line" })
+        utils.map("n", "<leader>ghd", gs.diffthis, { desc = "Diff This" })
+        utils.map("n", "<leader>ghD", function() gs.diffthis("~") end, { desc = "Diff This ~" })
+        utils.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "GitSigns Select Hunk" })
       end,
     },
   },
@@ -347,7 +347,7 @@ return {
           vim.lsp.buf.hover()
         end
       end, { desc = "Preview fold" })
-      vim.keymap.set('n', '<CR>', 'za', { desc = "Toggle fold under cursor" })
+      -- vim.keymap.set('n', '<CR>', 'za', { desc = "Toggle fold under cursor" })
       vim.keymap.set('n', 'zj', ufo.goNextClosedFold, { desc = "Go to next closed fold" })
       vim.keymap.set('n', 'zk', ufo.goPreviousClosedFold, { desc = "Go to previous closed fold" })
     end,

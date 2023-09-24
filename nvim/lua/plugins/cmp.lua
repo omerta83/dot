@@ -24,6 +24,7 @@ return {
       "rafamadriz/friendly-snippets",
       config = function()
         require("luasnip.loaders.from_vscode").lazy_load()
+        require("luasnip.loaders.from_snipmate").lazy_load()
       end,
     },
     opts = {
@@ -165,8 +166,8 @@ return {
         }),
         sources = cmp.config.sources({
           -- Copilot Source
+          { name = 'nvim_lsp', group_index = 1 },
           { name = "copilot",  group_index = 2 },
-          { name = 'nvim_lsp', group_index = 2 },
           { name = 'path',     group_index = 2 },
           {
             name = 'buffer',
