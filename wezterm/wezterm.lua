@@ -147,7 +147,7 @@ return {
     }
   }),
   font_size = 16,
-  -- freetype_load_flags = 'NO_HINTING',
+  freetype_load_flags = 'NO_HINTING',
   enable_wayland = false,
   term = 'wezterm',
   pane_focus_follows_mouse = false,
