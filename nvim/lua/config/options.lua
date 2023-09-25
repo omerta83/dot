@@ -7,7 +7,7 @@ vim.wo.winbar = "" -- Turn off winbar
 local opt = vim.opt
 opt.autowrite = true -- Enable auto write
 opt.clipboard = "unnamedplus" -- Sync with system clipboard + and *
-opt.completeopt = "menu,menuone,noselect"
+-- opt.completeopt = "menu,menuone,noselect"
 -- opt.conceallevel = 3 -- Hide * markup for bold and italic
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
@@ -85,6 +85,11 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 })
 
 vim.bo.swapfile = false
+
+-- load vim plugins
+vim.cmd([[
+  packadd cfilter
+]])
 
 local M = {}
 

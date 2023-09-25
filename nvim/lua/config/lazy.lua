@@ -23,10 +23,6 @@ require("lazy").setup({
   ui = {
     border = "single"
   },
-  -- checker = {
-  --   enabled = true,
-  --   notify = false,
-  -- },
   diff = {
     cmd = "terminal_git",
   },
@@ -35,6 +31,9 @@ require("lazy").setup({
       enabled = true,
     },
     rtp = {
+      paths = {
+        "/usr/local/opt/fzf" -- homebrew version of fzf
+      },
       disabled_plugins = {
         "2html_plugin",
         "tohtml",

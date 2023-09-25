@@ -1,4 +1,3 @@
-local icons = require('config.icons')
 return {
   -- which-key
   {
@@ -218,60 +217,25 @@ return {
           blend = 0,
         },
         text = {
-          -- done = require('config.icons').misc.Check
+          done = require('config.icons').misc.Check
         }
       })
     end
   },
 
-  -- search/replace in multiple files
+  -- better quickfix
   {
-    "nvim-pack/nvim-spectre",
-    cmd = "Spectre",
-    opts = { open_cmd = "noswapfile vnew" },
-    -- stylua: ignore
-    keys = {
-      {
-        "<leader>sr",
-        function() require("spectre").open() end,
-        desc =
-        "Search and Replace in files (Spectre)"
-      },
-      {
-        "<leader>sw",
-        function() require("spectre").open_visual({ select_word = true }) end,
-        desc =
-        "Search and Replace in files using current word (Spectre)"
-      },
-      {
-        "<leader>sw",
-        function() require("spectre").open_visual() end,
-        mode = "v",
-        desc =
-        "Search and Replace in files using current word (Spectre)"
-      },
-      {
-        "<leader>sp",
-        function() require("spectre").open_file_search({ select_word = true }) end,
-        desc =
-        "Search and Replace in current file (Spectre)"
-      },
+    "kevinhwang91/nvim-bqf",
+    ft = { "qf" },
+    dependencies = {
+      -- { "junegunn/fzf" },
     },
+    opts = {
+      func_map = {
+        fzffilter = '<leader>qf',
+        stoggledown = '<leader>qj',
+        stoggleup = '<leader>qk',
+      }
+    }
   },
-
-  -- {
-  --   "DNLHC/glance.nvim",
-  --   cmd = "Glance",
-  --   keys = {
-  --     { "<leader>gld", "<CMD>Glance definitions<CR>", desc = "Glance definitions" },
-  --     { "<leader>glr", "<CMD>Glance references<CR>", desc = "Glance references" },
-  --     { "<leader>gly", "<CMD>Glance type_definitions<CR>", desc = "Glance type definitions" },
-  --     { "<leader>glm", "<CMD>Glance implementations<CR>", desc=" Glance implementations" }
-  --   },
-  --   opts = {
-  --     border = {
-  --       enable = true
-  --     }
-  --   }
-  -- }
 }
