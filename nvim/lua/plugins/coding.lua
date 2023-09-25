@@ -148,6 +148,7 @@ return {
     "folke/flash.nvim",
     event = "VeryLazy",
     opts = {
+      labels = "0123456789", -- prevent messing with inserting characters
       modes = {
         char = {
           jump_labels = true,
@@ -197,10 +198,17 @@ return {
     end
   },
 
+  -- autopairs
+  {
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+    opts = {},
+  },
+
   {
     "MaximilianLloyd/tw-values.nvim",
     keys = {
-      { "<leader>kv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
+      { "<leader>tv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
     },
     opts = {
       border = "rounded",          -- Valid window border style,

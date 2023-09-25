@@ -48,7 +48,7 @@ return {
         lazydocker:toggle()
       end
 
-      -- https://github.com/akinsho/toggleterm.nvim/issues/66
+      -- https://github.com/akinsho/toggleterm.nvim/issues/66#issuecomment-1557373409
       function _G.LfPicker()
         local lf_temp_path = "/tmp/lfpickerpath"
         local lfpicker = create_float_term("lf -selection-path " .. lf_temp_path, function ()

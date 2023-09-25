@@ -39,7 +39,8 @@ return {
               ["s"] = flash
             },
             i = {
-              ["<c-s>"] = flash
+              ["<c-s>"] = flash,
+              ["<c-q>"] = require('telescope.actions').smart_send_to_qflist + require('telescope.actions').open_qflist,
             }
           },
           layout_strategy = "horizontal",

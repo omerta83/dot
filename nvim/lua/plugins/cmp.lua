@@ -32,6 +32,8 @@ return {
       delete_check_events = "TextChanged",
     },
   },
+
+  -- autocomplete and its sources
   {
     "roobert/tailwindcss-colorizer-cmp.nvim",
     ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
@@ -43,40 +45,19 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     version = false,
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- nvim-cmp source for neovim's built-in LSP
       'hrsh7th/cmp-buffer',   -- nvim-cmp source for buffer words
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
       "saadparwaiz1/cmp_luasnip",
-      {
-        'windwp/nvim-autopairs',
-        opts = {
-          check_ts = true,
-          disable_filetype = { "TelescopePrompt", "vim" },
-        },
-        config = function(_, opts)
-          local Rule = require('nvim-autopairs.rule')
-          local npairs = require('nvim-autopairs')
-          npairs.setup(opts)
-          npairs.add_rules({
-            Rule("|", "|", { "rust" })
-          })
-        end
-      },
     },
     config = function()
       local cmp = require('cmp')
       local defaults = require("cmp.config.default")()
       local luasnip = require('luasnip')
-
-      -- If you want insert `(` after select function or method item
-      local autopairs = require('nvim-autopairs.completion.cmp')
-      cmp.event:on(
-        'confirm_done',
-        autopairs.on_confirm_done()
-      )
 
       cmp.setup({
         snippet = {
@@ -94,7 +75,6 @@ return {
           -- ['<C-e>'] = cmp.mapping.close(),
           ['<C-c>'] = cmp.mapping.abort(),
           ['<CR>'] = cmp.mapping.confirm({
-            -- behavior = cmp.ConfirmBehavior.Replace,
             select = true
           }),
           ['<Tab>'] = cmp.mapping(function(fallback)
@@ -160,6 +140,23 @@ return {
             winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
           }),
         },
+      })
+      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        })
       })
     end
   },
