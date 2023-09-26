@@ -77,7 +77,8 @@ return {
   -- Navigate between nvim and tmux/kitty/wezterm
   {
     'mrjones2014/smart-splits.nvim',
-    lazy = false, -- disable lazy when using with wezterm
+    -- lazy = false, -- disable lazy when using with wezterm
+    event = "VeryLazy",
     opts = {},
     config = function(_, opts)
       require('smart-splits').setup(opts)
