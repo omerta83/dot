@@ -15,7 +15,8 @@
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+# export FZF_DEFAULT_COMMAND='rg --files --ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='fd --type file --hidden --ignore'
 export FZF_DEFAULT_OPTS=" \
 --no-separator \
 --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,shift-up:preview-top,shift-down:preview-bottom,alt-up:half-page-up,alt-down:half-page-down"
@@ -48,7 +49,7 @@ setopt nosharehistory
 
 export VOLTA_HOME="$HOME/.volta"
 export PNPM_HOME="$HOME/.pnpm"
-export PATH="$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME:/Applications/WezTerm.app/Contents/MacOS"
+export PATH="$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME:/Applications/WezTerm.app/Contents/MacOS:$HOME/.local/bin"
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
