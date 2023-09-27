@@ -12,6 +12,55 @@ map("n", "N", "Nzz", { silent = true })
 map("n", "p", "]p", { silent = true })
 map("n", "P", "[p", { silent = true })
 
+-- https://github.dev/MariaSolOs/dotfiles/blob/main/.config/nvim/lua/settings.lua
+-- Indent while remaining in visual mode.
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+
+local silent_mods = { mods = { silent = true, emsg_silent = true } }
+vim.keymap.set('n', '<leader>xq', function()
+  if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
+    vim.cmd.cclose(silent_mods)
+  elseif #vim.fn.getqflist() > 0 then
+    local win = vim.api.nvim_get_current_win()
+    vim.cmd.copen(silent_mods)
+    if win ~= vim.api.nvim_get_current_win() then
+      vim.cmd.wincmd 'p'
+    end
+  end
+end, { desc = 'Toggle quickfix list' })
+vim.keymap.set('n', '<leader>xl', function()
+  if vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 then
+    vim.cmd.lclose(silent_mods)
+  elseif #vim.fn.getloclist(0) > 0 then
+    local win = vim.api.nvim_get_current_win()
+    vim.cmd.lopen(silent_mods)
+    if win ~= vim.api.nvim_get_current_win() then
+      vim.cmd.wincmd 'p'
+    end
+  end
+end, { desc = 'Toggle location list' })
+-- ...and navigating through the items.
+vim.keymap.set('n', '[q', '<cmd>cprev<cr>zvzz', { desc = 'Previous quickfix item' })
+vim.keymap.set('n', ']q', '<cmd>cnext<cr>zvzz', { desc = 'Next quickfix item' })
+vim.keymap.set('n', '[l', '<cmd>lprev<cr>zvzz', { desc = 'Previous loclist item' })
+vim.keymap.set('n', ']l', '<cmd>lnext<cr>zvzz', { desc = 'Next loclist item' })
+
+-- close with q
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('close_with_q', { clear = true }),
+  desc = 'Close with <q>',
+  pattern = {
+    'help',
+    'man',
+    'qf',
+    'query',
+  },
+  callback = function(event)
+    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf })
+  end,
+})
+
 -- lazy
 map("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
