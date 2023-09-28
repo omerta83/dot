@@ -4,6 +4,8 @@ export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/.ripgreprc"
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow'
 export FZF_DEFAULT_OPTS=" \
+--jump-labels=abcdefghijklmnopqrstuvwxyz \
+--multi \
 --no-separator \
 --bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,shift-up:preview-top,shift-down:preview-bottom,alt-up:half-page-up,alt-down:half-page-down"
 # catppuccin
@@ -20,7 +22,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range :500 {}'"
-export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
+export FZF_ALT_C_OPTS="--preview 'eza -l --tree --color=always --icons {} | head -200'"
 
 # Use nvim as manpager
 export MANPAGER='nvim +Man!'
