@@ -94,7 +94,7 @@ return {
         hl.NormalFloat = { bg = c.bg }
         hl.FloatBorder = { bg = c.none, fg = c.border_highlight }
         hl.CursorLineNr = { fg = c.magenta }
-        hl.CursorLine = { bg = c.none }
+        hl.CursorLine = { bg = c.none, bold = false }
         hl.VertSplit = { fg = c.magenta }
 
         hl.TelescopeBorder = { bg = c.none, fg = c.border_highlight }
@@ -138,6 +138,10 @@ return {
           fg = c.comment,
           italic = true
         }
+
+        -- Statusline
+        hl.StatusLineModeNormal = { fg = c.orange }
+        hl.StatusLineLSPNames = { bg = c.bg, fg = c.purple }
       end
     },
     config = function(_, opts)

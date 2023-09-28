@@ -65,15 +65,24 @@ local M = {
     "fileformat",
     color = { bg = colors.dark5, fg = colors.bg_dark },
     separator = separator,
+    cond = function()
+      -- only show when not unix
+      return vim.bo.fileformat ~= "unix"
+    end,
   },
   encoding = {
     "encoding",
     color = { bg = colors.bg_highlight, fg = colors.blue1 },
     separator = separator,
+    cond = function()
+      -- only show when not utf-8
+      return vim.bo.fileencoding ~= "utf-8"
+    end,
   },
   branch = {
     "branch",
-    icon = "",
+    -- icon = "",
+    icon = icons.git.head,
     color = { bg = colors.cyan, fg = colors.bg_dark },
     separator = separator,
   },
@@ -98,7 +107,6 @@ local M = {
   lsp_symbols = {
     function() return require("nvim-navic").get_location() end,
     cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
-    -- color = { bg = colors.bg2 },
   },
   dia = {
     "diagnostics",

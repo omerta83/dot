@@ -200,9 +200,19 @@ return {
 
   -- autopairs
   {
-    "echasnovski/mini.pairs",
-    event = "VeryLazy",
-    opts = {},
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {
+      check_ts = true,
+    },
+    config = function(_, opts)
+      local Rule = require('nvim-autopairs.rule')
+      local npairs = require('nvim-autopairs')
+      npairs.setup(opts)
+      npairs.add_rules({
+        Rule("|", "|", { "rust" })
+      })
+    end
   },
 
   {

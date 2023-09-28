@@ -29,6 +29,7 @@ local M = {
     added = " ",
     modified = " ",
     removed = " ",
+    head = "",
 
     -- nvim-tree
     unstaged = '',

@@ -12,11 +12,6 @@ map("n", "N", "Nzz", { silent = true })
 map("n", "p", "]p", { silent = true })
 map("n", "P", "[p", { silent = true })
 
--- https://github.dev/MariaSolOs/dotfiles/blob/main/.config/nvim/lua/settings.lua
--- Indent while remaining in visual mode.
-vim.keymap.set('v', '<', '<gv')
-vim.keymap.set('v', '>', '>gv')
-
 local silent_mods = { mods = { silent = true, emsg_silent = true } }
 vim.keymap.set('n', '<leader>xq', function()
   if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
@@ -72,7 +67,7 @@ for i = 1, 6 do
 end
 
 -- Terminal / ToggleTerm
-function _G.set_terminal_keymaps()
+function Set_terminal_keymaps()
   local lopts = { buffer = 0 }
   map('t', '<esc>', [[<C-\><C-n>]], lopts)
   map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], lopts)
@@ -81,7 +76,7 @@ function _G.set_terminal_keymaps()
   map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], lopts)
 end
 
-vim.cmd('autocmd! TermOpen term://*toggleterm* lua set_terminal_keymaps()')
+vim.cmd('autocmd! TermOpen term://*toggleterm* lua Set_terminal_keymaps()')
 
 -- Treesitter textobjects
 -- vim way: ; goes to the direction you were moving.

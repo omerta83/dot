@@ -26,7 +26,7 @@ return {
       sections = {
         lualine_a = {
           components.modes,
-          components.logo,
+          -- components.logo,
           components.space,
         },
         lualine_b = {
@@ -34,7 +34,7 @@ return {
           components.filetype,
           components.space,
           components.branch,
-          components.diff,
+          -- components.diff,
         },
         lualine_c = {
           components.lsp_symbols,
@@ -48,7 +48,7 @@ return {
           components.space,
         },
         lualine_z = {
-          components.dia,
+          -- components.dia,
           components.lsp,
         },
       },

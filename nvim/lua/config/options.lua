@@ -16,7 +16,7 @@ opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
-opt.laststatus = 0
+opt.laststatus = 3
 opt.list = true -- Show some invisible characters
 opt.listchars = "tab:󰄾 ,trail:·,eol:¬"
 opt.mouse = "a" -- Enable mouse mode
@@ -65,7 +65,7 @@ opt.autoindent = true
 --   eob = " ",
 -- }
 opt.fillchars:append { diff = "╱" }
-opt.ch = 0 -- cmdheight
+opt.cmdheight = 0
 
 -- Word wrap
 -- opt.textwidth = 120
@@ -74,16 +74,6 @@ opt.ch = 0 -- cmdheight
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
 
--- Undercurl
--- vim.cmd([[let &t_Cs = "\e[4:3m"]])
--- vim.cmd([[let &t_Ce = "\e[4:0m"]])
-
--- Turn off paste mode when leaving insert
-vim.api.nvim_create_autocmd("InsertLeave", {
-  pattern = '*',
-  command = "set nopaste"
-})
-
 vim.bo.swapfile = false
 
 -- load vim plugins
@@ -91,16 +81,16 @@ vim.cmd([[
   packadd cfilter
 ]])
 
-local M = {}
+-- local M = {}
 
-function M.is_buffer_empty()
-  -- Check whether the current buffer is empty
-  return vim.fn.empty(vim.fn.expand("%:t")) == 1
-end
+-- function M.is_buffer_empty()
+--   -- Check whether the current buffer is empty
+--   return vim.fn.empty(vim.fn.expand("%:t")) == 1
+-- end
 
-function M.has_width_gt(cols)
-  -- Check if the windows width is greater than a given number of columns
-  return vim.fn.winwidth(0) / 2 > cols
-end
+-- function M.has_width_gt(cols)
+--   -- Check if the windows width is greater than a given number of columns
+--   return vim.fn.winwidth(0) / 2 > cols
+-- end
 
-return M
+-- return M
