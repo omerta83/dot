@@ -1,24 +1,21 @@
+# dot config
 export XDG_CONFIG_HOME="$HOME/.config"
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/.ripgreprc"
+export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow'
 export FZF_DEFAULT_OPTS=" \
---jump-labels=abcdefghijklmnopqrstuvwxyz \
---multi \
---no-separator \
---bind ctrl-y:preview-up,ctrl-e:preview-down,ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,shift-up:preview-top,shift-down:preview-bottom,alt-up:half-page-up,alt-down:half-page-down"
-# catppuccin
-# export FZF_DEFAULT_OPTS = "$FZF_DEFAULT_OPTS"\
-# "--color=bg+:#313244,bg:#000000,spinner:#f5e0dc,hl:#f38ba8 \
-# --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc,gutter:#000000 \
-# --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
-# tokyonight
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' 
-  --color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7
-  --color=fg+:#c0caf5,bg+:#1a1b26,hl+:#7dcfff
-  --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff 
-  --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a'
+  --prompt '❯ ' \
+  --pointer '➜' \
+  --marker '✓' \
+  --multi \
+  --no-separator \
+  --bind ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-s:jump-accept,ctrl-l:clear-selection \
+  --color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7 \
+  --color=fg+:#c0caf5,bg+:#1a1b26,hl+:#7dcfff \
+  --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+  --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range :500 {}'"
@@ -32,5 +29,4 @@ export VOLTA_HOME="$HOME/.volta"
 export PNPM_HOME="$HOME/.pnpm"
 export PATH="$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME:/Applications/WezTerm.app/Contents/MacOS:$HOME/.local/bin"
 
-export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export PATH="/opt/homebrew/opt/curl/bin:$PATH"

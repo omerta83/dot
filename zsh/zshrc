@@ -15,15 +15,11 @@ source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
 alias lzd='lazydocker'
 
+# fzf-tab config
 autoload -Uz compinit && compinit
-
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -l --tree --icons --color=always $realpath'
 # Bindings
 zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down,shift-tab:toggle+up'
-
-# Use tab for autocomplete
-# bindkey '^I' autosuggest-accept # tab
-# bindkey '^[[Z' complete-word # shift + tab
