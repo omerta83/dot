@@ -10,6 +10,7 @@ return {
         auto_trigger = true,
         keymap = {
           accept = false,
+          dismiss = "<C-c>",
         }
       },
       panel = {
@@ -24,7 +25,6 @@ return {
       "rafamadriz/friendly-snippets",
       config = function()
         require("luasnip.loaders.from_vscode").lazy_load()
-        require("luasnip.loaders.from_snipmate").lazy_load()
       end,
     },
     opts = {
@@ -124,11 +124,11 @@ return {
             return vim_item
           end,
         },
-        experimental = {
-          ghost_text = {
-            hl_group = "CmpGhostText",
-          },
-        },
+        -- experimental = {
+        --   ghost_text = {
+        --     hl_group = "CmpGhostText",
+        --   },
+        -- },
         completion = {
           completeopt = "menu,menuone,noselect",
         },

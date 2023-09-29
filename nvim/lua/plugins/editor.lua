@@ -227,15 +227,24 @@ return {
   {
     "kevinhwang91/nvim-bqf",
     ft = { "qf" },
-    dependencies = {
-      -- { "junegunn/fzf" },
-    },
-    opts = {
-      func_map = {
-        fzffilter = '<leader>qf',
-        stoggledown = '<leader>qj',
-        stoggleup = '<leader>qk',
+    opts = function()
+      return {
+        func_map = {
+          fzffilter = '<leader>qf',
+          stoggledown = '<leader>qj',
+          stoggleup = '<leader>qk',
+        },
+        preview = {
+          should_preview_cb = function(bufnr)
+            local ret = true
+            -- disable preview when on Manpage
+            if vim.bo[bufnr].filetype == 'man' then
+              ret = false
+            end
+            return ret
+          end
+        }
       }
-    }
+    end
   },
 }
