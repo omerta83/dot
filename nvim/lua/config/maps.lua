@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Close with <q>',
   pattern = {
     'help',
-    'man',
+    -- 'man', -- disable man as it will mess up with q to close outside vim
     'qf',
     'query',
   },

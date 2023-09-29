@@ -94,7 +94,8 @@ local M = {
     VertSeparator = "",
     Check = "",
     Search = '',
-    VerticalBar = '│',
+    VerticalBar = "▏",
+    Arrow = "➜",
   }
 }
 
