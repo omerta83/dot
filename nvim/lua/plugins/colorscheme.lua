@@ -93,6 +93,7 @@ return {
         hl.StatusLine = { bg = c.bg }
         hl.NormalFloat = { bg = c.bg }
         hl.FloatBorder = { bg = c.none, fg = c.border_highlight }
+        -- hl.FloatBorder = { bg = c.none, fg = c.bg_highlight }
         hl.CursorLineNr = { fg = c.magenta }
         hl.CursorLine = { bg = c.none, bold = false }
         hl.VertSplit = { fg = c.magenta }
@@ -100,6 +101,9 @@ return {
         hl.TelescopeBorder = { bg = c.none, fg = c.border_highlight }
         hl.TelescopeNormal = { bg = c.none, fg = c.fg }
         hl.TelescopeSelection = { bg = c.none }
+
+        -- FzfLua
+        hl.FzfLuaBorder = { link = "FloatBorder" }
 
         hl.InclineNormal = { bg = c.bg }
         hl.InclineNormalNC = { fg = c.bg_highlight }

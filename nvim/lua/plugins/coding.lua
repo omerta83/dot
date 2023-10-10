@@ -241,7 +241,7 @@ return {
     },
     keys = {
       {
-        "s",
+        "<leader>s",
         mode = { "n", "o", "x" },
         function() require("flash").jump() end,
         desc = "Flash",
@@ -268,19 +268,19 @@ return {
   },
 
   -- surround
-  -- {
-  --   "kylechui/nvim-surround",
-  --   version = "*", -- Use for stability; omit to use `main` branch for the latest features
-  --   -- event = "VeryLazy",
-  --   event = { "BufReadPost", "BufNewFile" },
-  --   config = function()
-  --     require("nvim-surround").setup({
-  --       aliases = {
-  --         ["<"] = "t",
-  --       },
-  --     })
-  --   end
-  -- },
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    -- event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
+    config = function()
+      require("nvim-surround").setup({
+        aliases = {
+          ["<"] = "t",
+        },
+      })
+    end
+  },
 
   -- autopairs
   {

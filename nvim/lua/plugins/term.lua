@@ -7,7 +7,7 @@ return {
       { "<leader>lg", "<cmd>lua LazyGit()<CR>",              desc = "Open LazyGit" },
       { "<leader>ld", "<cmd>lua LazyDocker()<CR>",           desc = "Open LazyDocker" },
       { "<leader>lt", "<cmd>ToggleTerm direction=float<CR>", desc = "Open Floating Term" },
-      { "<leader>lf", "<cmd>lua LfPicker()<CR>", desc = "Open LF" },
+      { "<leader>lf", "<cmd>lua LfPicker()<CR>",             desc = "Open LF" },
       { "<C-\\>",     "<cmd>ToggleTerm<CR>",                 desc = "Toggle terminal" }
     },
     config = function()
@@ -15,6 +15,19 @@ return {
       terminal.setup {
         open_mapping = [[<C-\>]],
         hide_numbers = true,
+        highlights = {
+          -- highlights which map to a highlight group name and a table of it's values
+          -- NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
+          Normal = {
+            link = "Normal"
+          },
+          NormalFloat = {
+            link = 'NormalFloat'
+          },
+          FloatBorder = {
+            link = "FloatBorder"
+          },
+        },
       }
 
       -- Lazygit and lazydocker
@@ -23,9 +36,11 @@ return {
         local lazy = Terminal:new({
           cmd = cmd or '',
           direction = "float",
+          float_opts = {
+            border = 'rounded'
+          },
           on_open = function(term)
-            vim.cmd("startinsert!")
-            vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+            -- vim.cmd("startinsert!")
             -- Disable esc when in lazygit or lazydocker
             pcall(vim.keymap.del, 't', '<esc>', { buffer = term.bufnr })
           end,
@@ -51,7 +66,7 @@ return {
       -- https://github.com/akinsho/toggleterm.nvim/issues/66#issuecomment-1557373409
       function _G.LfPicker()
         local lf_temp_path = "/tmp/lfpickerpath"
-        local lfpicker = create_float_term("lf -selection-path " .. lf_temp_path, function ()
+        local lfpicker = create_float_term("lf -selection-path " .. lf_temp_path, function()
           local file = io.open(lf_temp_path, "r")
           if file == nil then
             return

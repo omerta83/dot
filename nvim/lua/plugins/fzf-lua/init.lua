@@ -18,13 +18,13 @@ FilesPicker.pick = function(opts)
   local behavior = ''
   if FilesPicker.ignoring then
     behavior = 'respecting'
-    opts.cmd = 'fd --color=never --type f --hidden --follow --exclude .git'
+    opts.cmd = 'fd --color=never --no-require-git --type f --hidden --follow --exclude .git' -- always respect .gitignore even if no .git folder exists
   else
     behavior = 'ignoring'
     opts.cmd = 'fd --color=never --type f --hidden --follow --no-ignore'
   end
   opts.winopts = {
-    title = 'Files (' .. behavior .. ' .gitignore)',
+    title = ' Files (' .. behavior .. ' .gitignore) ',
     title_pos = 'center',
   }
   FilesPicker.ignoring = not FilesPicker.ignoring
@@ -63,6 +63,7 @@ return {
     local icons = require('config.icons')
 
     return {
+      "fzf-native",
       -- for performance
       global_git_icons  = false,
       -- global_file_icons = false,
@@ -130,7 +131,7 @@ return {
         width = 0.5,
         preview = {
           -- defer the execution of bat to fzf
-          default = 'bat_native',
+          -- default = 'bat_native',
           scrollbar = false,
           delay = 100,
           hidden = 'hidden',
@@ -203,11 +204,11 @@ return {
       manpages          = {
         cmd = "man -k -S 1 -M /usr/local/share/man .",
         prompt = 'Man❯ ',
-        previewer = "man_native",
+        -- previewer = "man_native",
       },
       helptags          = {
         prompt = 'Help❯ ',
-        previewer = "help_native",
+        -- previewer = "help_native",
       },
     }
   end,

@@ -227,6 +227,7 @@ return {
                 includeInlayEnumMemberValueHints = true,
               },
               complete_function_calls = true,
+              include_completions_with_insert_text = true,
             },
           },
           -- rust_analyzer = {},

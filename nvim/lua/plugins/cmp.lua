@@ -71,8 +71,6 @@ return {
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-x><C-o>'] = cmp.mapping.complete(),
-          -- ['<C-e>'] = cmp.mapping.close(),
           ['<C-c>'] = cmp.mapping.abort(),
           ['<CR>'] = cmp.mapping.confirm({
             select = true
@@ -132,15 +130,20 @@ return {
         completion = {
           completeopt = "menu,menuone,noselect",
         },
-        window = {
-          documentation = cmp.config.window.bordered({
-            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
-          }),
-          completion = cmp.config.window.bordered({
-            winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
-          }),
-        },
+        -- window = {
+        --   documentation = cmp.config.window.bordered({
+        --     winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
+        --   }),
+        --   completion = cmp.config.window.bordered({
+        --     winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
+        --   }),
+        -- },
       })
+
+      vim.keymap.set("i", vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true), function()
+        require("cmp").complete()
+      end)
+
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
       -- cmp.setup.cmdline({ '/', '?' }, {
       --   mapping = cmp.mapping.preset.cmdline(),
