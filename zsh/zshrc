@@ -23,3 +23,13 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -l --tree --icons --color=always $realpath'
 # Bindings
 zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down,shift-tab:toggle+up'
+
+export VOLTA_HOME="$HOME/.volta"
+export PNPM_HOME="$HOME/.pnpm"
+export GEM_HOME=$HOME/.gem
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME:/Applications/WezTerm.app/Contents/MacOS:$HOME/.local/bin"
+# export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools

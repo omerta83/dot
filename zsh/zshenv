@@ -19,6 +19,7 @@ export FZF_DEFAULT_OPTS=" \
   --color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7 \
   --color=fg+:#c0caf5,bg+:#1a1b26,hl+:#7dcfff \
   --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+  --color=border:#292e42 \
   --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
@@ -29,11 +30,11 @@ export FZF_ALT_C_OPTS="--preview 'eza -l --tree --color=always --icons {} | head
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
 
-export VOLTA_HOME="$HOME/.volta"
-export PNPM_HOME="$HOME/.pnpm"
-export GEM_HOME=$HOME/.gem
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
-export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME:/Applications/WezTerm.app/Contents/MacOS:$HOME/.local/bin"
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+# export VOLTA_HOME="$HOME/.volta"
+# export PNPM_HOME="$HOME/.pnpm"
+# export GEM_HOME=$HOME/.gem
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+# export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$VOLTA_HOME/bin:$PNPM_HOME:/Applications/WezTerm.app/Contents/MacOS:$HOME/.local/bin"
+# export ANDROID_HOME=$HOME/Library/Android/sdk
+# export PATH=$PATH:$ANDROID_HOME/emulator
+# export PATH=$PATH:$ANDROID_HOME/platform-tools
