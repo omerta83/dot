@@ -124,11 +124,6 @@ return {
         git_diff = {
           pager = preview_pager
         },
-        man = {
-          -- NOTE: remove the `-c` flag when using man-db
-          -- replace with `man -P cat %s | col -bx` on OSX
-          cmd = "man -P bat %s | col -bx",
-        },
       },
       winopts           = {
         height = 0.75,
@@ -205,8 +200,15 @@ return {
           ["ctrl-d"] = { fn = actions.buf_del, reload = true },
         }
       },
-      manpages          = { previewer = "man_native" },
-      helptags          = { previewer = "help_native" },
+      manpages          = {
+        cmd = "man -k -S 1 -M /usr/local/share/man .",
+        prompt = 'Man❯ ',
+        previewer = "man_native",
+      },
+      helptags          = {
+        prompt = 'Help❯ ',
+        previewer = "help_native",
+      },
     }
   end,
   config = function(_, opts)

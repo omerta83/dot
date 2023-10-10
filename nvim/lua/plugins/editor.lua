@@ -2,7 +2,12 @@ return {
   -- which-key
   {
     "folke/which-key.nvim",
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
+    -- event = { "BufReadPost", "BufNewFile" },
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 500
+    end,
     opts = {
       plugins = { spelling = false },
       window = {
@@ -31,12 +36,9 @@ return {
         local gs = package.loaded.gitsigns
         local utils = require("util")
 
-        -- make sure forward function comes first
-        local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
-        local next_hunk_repeat, prev_hunk_repeat = ts_repeat_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
         -- stylua: ignore start
-        utils.map({ "n", "x", "o" }, "]h", next_hunk_repeat, { desc = "Next Hunk" })
-        utils.map({ "n", "x", "o" }, "[h", prev_hunk_repeat, { desc = "Prev Hunk" })
+        utils.map({ "n", "x", "o" }, "]h", gs.next_hunk, { desc = "Next Hunk" })
+        utils.map({ "n", "x", "o" }, "[h", gs.prev_hunk, { desc = "Prev Hunk" })
         utils.map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", { desc = "Stage Hunk" })
         utils.map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", { desc = "Reset Hunk" })
         utils.map("n", "<leader>ghS", gs.stage_buffer, { desc = "Stage Buffer" })
@@ -51,16 +53,6 @@ return {
     },
   },
 
-  -- {
-  --   -- "TimUntersberger/neogit",
-  --   'NeogitOrg/neogit',
-  --   cmd = "Neogit",
-  --   opts = {
-  --     integrations = {
-  --       diffview = true
-  --     }
-  --   }
-  -- },
   -- references
   {
     "RRethy/vim-illuminate",
@@ -238,7 +230,7 @@ return {
           should_preview_cb = function(bufnr)
             local ret = true
             -- disable preview when on Manpage
-            if vim.bo[bufnr].filetype == 'man' then
+            if vim.bo[bufnr].filetype == 'man' or vim.bo[bufnr].filetype == 'help' then
               ret = false
             end
             return ret

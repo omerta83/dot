@@ -4,6 +4,7 @@ return {
     version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
+    dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
     opts = {
       highlight = {
         enable = true,
@@ -53,24 +54,13 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<CR>",
-          node_incremental = "<CR>",
-          node_decremental = "<bs>"
+          node_incremental = "v",
+          node_decremental = "V"
         }
       },
       textobjects = {
         select = {
-          enable = true,
-          lookahead = true,
-          keymaps = {
-            ["af"] = { query = "@function.outer", desc = "Select a function" },
-            ["if"] = { query = "@function.inner", desc = "Select inner part of a function" },
-            ["ac"] = { query = "@class.outer", desc = "Select a class" },
-            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-            ["aa"] = { query = "@parameter.outer", desc = "Select a parameter" },
-            ["ia"] = { query = "@parameter.inner", desc = "Select inner parameter" },
-          },
-          include_surrounding_whitespace = false,
+          enable = false, -- use mini.ai for selection
         },
         swap = {
           enable = true,
@@ -89,7 +79,7 @@ return {
             ["]]"] = { query = "@class.outer", desc = "Next class start" },
             --
             -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-            ["]o"] = "@loop.*",
+            ["]o"] = { query = { "@loop.*", "@block.*", "@conditional.*" } },
             -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
             ["]a"] = "@parameter.inner",
           },
@@ -100,34 +90,19 @@ return {
           goto_previous_start = {
             ["[f"] = "@function.outer",
             ["[["] = "@class.outer",
-            ["[a"] = "@parameter.inner"
+            ["[a"] = "@parameter.inner",
+            ["[o"] = { query = { "@loop.*", "@block.*", "@conditional.*" } },
           },
           goto_previous_end = {
             ["[F"] = "@function.outer",
             ["[]"] = "@class.outer",
           },
-          -- Below will go to either the start or the end, whichever is closer.
-          -- Use if you want more granular movements
-          -- Make it even more gradual by adding multiple queries and regex.
-          goto_next = {
-            ["]c"] = "@conditional.outer",
-          },
-          goto_previous = {
-            ["[c"] = "@conditional.outer",
-          }
         },
       },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end
-  },
-
-  -- text objects
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = "nvim-treesitter/nvim-treesitter",
   },
 
   -- html autotag for treesitter

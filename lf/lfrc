@@ -1,5 +1,11 @@
+# single column on small panes
+$[ $lf_width -le 80 ] && lf -remote "send $id :set nopreview; set ratios 1" || exit 0
 # interpreter for shell commands (needs to be POSIX compatible)
 set shell zsh
+set sortby time
+set icons true
+set incsearch
+set incfilter
 
 # set '-eu' options for shell commands
 # These options are used to have safer shell commands. Option '-e' is used to
@@ -16,21 +22,57 @@ set shellopts '-eu'
 # is newline. You need to consider the values of these options and create your
 # commands accordingly.
 set ifs "\n"
-set icons true
+# Use the `dim` attribute instead of underline for the cursor in the preview pane
+set cursorpreviewfmt "\033[7;2m"
 
 # leave some space at the top and the bottom of the screen
-set scrolloff 10
+# set scrolloff 10
+
+# Image previewer
+set previewer ~/.config/lf/scripts/preview
+set cleaner ~/.config/lf/scripts/clean
+
+map R :reload; recol; cfg_reload
 
 # use enter for shell commands
 map <enter> shell
+map <tab> :toggle; down
+map <space> quicklook
+
+# Go to folders
+map gh cd ~
+map gd cd ~/Downloads
+map gs cd ~/Documents
+map gw cd ~/Sites
+map ga cd /Applications
+map gv cd /Volumes
+map gc cd ~/.config
+
+map xz zip
+map xt tar
+map xx extract
 
 # execute current file (must be executable)
-map x $$f
-map X !$f
+# map x $$f
+# map X !$f
+
+map F fzf_jump
+map f
+map fa fzf_search
+map fg push :fzf_grep<space>
+map f<space> filter
+map ff filter
+map fc setfilter
+map fz fzf_jump
+map <c-p> fzf_jump
 
 # dedicated keys for file opener actions
 map o &mimeopen $f
 map O $mimeopen --ask $f
+
+# Move to next/previous sibling directory
+map J :updir; set dironly true; down; set dironly false; open
+map K :updir; set dironly true; up; set dironly false; open
 
 # define a custom 'open' command
 # This command is called when current file is not a directory. You may want to
@@ -64,9 +106,12 @@ cmd trash %set -f; mv $fx ~/.trash
 # }}
 
 # use '<delete>' key for either 'trash' or 'delete' command
-map <delete> trash
+map <backspace2> trash
 # map <delete> delete
 
+cmd quicklook &{{
+    qlmanage -p $f &>/dev/null
+}}
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)
 cmd extract ${{
@@ -97,4 +142,64 @@ cmd zip ${{
     cp -r $fx $1
     zip -r $1.zip $1
     rm -rf $1
+}}
+
+# extract the current file with the right command
+# (xkcd link: https://xkcd.com/1168/)
+cmd extract ${{
+    set -f
+    case $f in
+        *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+        *.tar.gz|*.tgz) tar xzvf $f;;
+        *.tar.xz|*.txz) tar xJvf $f;;
+        *.zip) unzip $f;;
+        *.rar) unrar x $f;;
+        *.7z) 7z x $f;;
+    esac
+}}
+
+# Zoxide integration
+cmd z %{{
+  result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  lf -remote "send $id cd \"$result\""
+}}
+cmd zi ${{
+  result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  lf -remote "send $id cd \"$result\""
+}}
+
+cmd on-select &{{
+    lf -remote "send $id set statfmt \"$(eza -ld --color=always "$f")\""
+}}
+
+cmd fzf_jump ${{
+    res="$(fd . -H -I -d 6 -E .git -E node_modules | fzf +m | sed 's/\\/\\\\/g;s/"/\\"/g')"
+    if [ -d "$res" ] ; then
+        cmd="cd"
+    elif [ -f "$res" ] ; then
+        cmd="select"
+    else
+        exit 0
+    fi
+    lf -remote "send $id $cmd \"$res\""
+}}
+
+# Search file content under current directory using fzf and rg
+cmd fzf_search ${{
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    res="$(
+        FZF_DEFAULT_COMMAND="$RG_PREFIX ''" \
+            fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+            --ansi --layout=reverse --header 'Search in files' \
+            | cut -d':' -f1 | sed 's/\\/\\\\/g;s/"/\\"/g'
+    )"
+    [ -n "$res" ] && lf -remote "send $id select \"$res\""
+}}
+
+cmd fzf_grep ${{
+    res="$( \
+        rg --column --line-number --no-heading --color=always --smart-case -e "$*"| \
+        fzf --ansi | cut -d':' -f1
+    )"
+    [ ! -z "$res" ] && lf -remote "send $id select \"$res\""
 }}

@@ -1,7 +1,8 @@
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     main = 'ibl',
     opts = {
       indent = {
@@ -45,7 +46,8 @@ return {
   {
     "stevearc/dressing.nvim",
     -- lazy = true,
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    event = { "BufReadPost" },
     opts = {
       input = {
         win_options = {
