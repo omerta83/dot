@@ -45,7 +45,7 @@ return {
     { "<leader>f;",      "<cmd>FzfLua resume<CR>",                    desc = "Resume (FzfLua)" },
     { "<leader>fc",      "<cmd>FzfLua commands<CR>",                  desc = "Commands (FzfLua)" },
     { "<leader>fh",      "<cmd>FzfLua command_history<CR>",           desc = "Command history (FzfLua)" },
-    { "<leader>fm",      "<cmd>FzfLua man_pages<CR>",                 desc = "Man page (FzfLua)" },
+    { "<leader>fM",      "<cmd>FzfLua man_pages<CR>",                 desc = "Man page (FzfLua)" },
     { "<leader>f?",      "<cmd>FzfLua help_tags<CR>",                 desc = "Help tags (FzfLua)" },
     { "<leader>fo",      "<cmd>FzfLua lsp_document_symbols<CR>",      desc = "Document symbols (FzfLua)" },
     { "<leader>fO",      "<cmd>FzfLua lsp_workspace_symbols<CR>",     desc = "Workspace symbols (FzfLua)" },
@@ -159,7 +159,6 @@ return {
         },
         commits = {
           prompt = 'Git Commits❯ ',
-
           preview_pager = preview_pager,
         },
         bcommits = {
@@ -204,11 +203,9 @@ return {
       manpages          = {
         cmd = "man -k -S 1 -M /usr/local/share/man .",
         prompt = 'Man❯ ',
-        -- previewer = "man_native",
       },
       helptags          = {
         prompt = 'Help❯ ',
-        -- previewer = "help_native",
       },
     }
   end,

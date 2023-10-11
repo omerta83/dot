@@ -375,31 +375,33 @@ return {
       })
     end
   },
-  -- {
-  --   'simrat39/rust-tools.nvim',
-  --   ft = "rust",
-  --   config = function()
-  --     require('rust-tools').setup {
-  --       server = {
-  --         settings = {
-  --           ["rust-analyzer"] = {
-  --             procMacro = { enable = true },
-  --             cargo = { allFeatures = true },
-  --             checkOnSave = {
-  --               command = "clippy",
-  --               extraArgs = { "--no-deps" },
-  --             },
-  --           }
-  --         },
-  --       },
-  --       dap = {
-  --         adapter = require('rust-tools.dap').get_codelldb_adapter(
-  --           util.get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
-  --           util.get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
-  --       },
-  --     }
-  --   end
-  -- },
+
+  {
+    'simrat39/rust-tools.nvim',
+    ft = "rust",
+    config = function()
+      require('rust-tools').setup {
+        server = {
+          settings = {
+            ["rust-analyzer"] = {
+              procMacro = { enable = true },
+              cargo = { allFeatures = true },
+              checkOnSave = {
+                command = "clippy",
+                extraArgs = { "--no-deps" },
+              },
+            }
+          },
+        },
+        -- dap = {
+        --   adapter = require('rust-tools.dap').get_codelldb_adapter(
+        --     util.get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
+        --     util.get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
+        -- },
+      }
+    end
+  },
+
   {
     "akinsho/flutter-tools.nvim",
     ft = "dart",
