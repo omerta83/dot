@@ -5,7 +5,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "pmizio/typescript-tools.nvim",
       -- {
       --   "b0o/SchemaStore.nvim",
       --   version = false, -- last release is way too old
@@ -32,7 +31,7 @@ return {
         noremap = true,
         silent = true
       },
-      -- { "K",          vim.lsp.buf.hover,         desc = "Hover" },
+      { "K",          vim.lsp.buf.hover,         desc = "Hover" },
       { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       {
         "]d",
@@ -115,6 +114,15 @@ return {
         servers = {
           cssls = {},
           gopls = {},
+          pyright = {
+            disableOrganizeImports = false, -- use keymap instead
+            analysis = {
+              useLibraryCodeForTypes = true,
+              autoSearchPaths = true,
+              diagnosticMode = "workspace",
+              autoImportCompletions = true,
+            },
+          },
           jsonls = {
             -- lazy-load schemastore when needed
             -- on_new_config = function(new_config)
@@ -212,24 +220,6 @@ return {
               },
             },
           },
-          tsserver = {
-            filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
-            settings = {
-              separate_diagnostic_server = true,
-              tsserver_path = "~/.pnpm/global/5/node_modules/typescript/lib",
-              tsserver_file_preferences = {
-                includeInlayParameterNameHints = "literal",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = false,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-              complete_function_calls = true,
-              include_completions_with_insert_text = true,
-            },
-          },
           -- rust_analyzer = {},
           tailwindcss = {
             filetypes = { "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
@@ -241,35 +231,6 @@ return {
               'postcss.config.js', 'postcss.config.ts', 'postcss.config.cjs')
           },
           dockerls = {},
-          -- formatters and linters
-          -- biome = {},
-        },
-        setup = {
-          tsserver = function(_, opts)
-            -- local client_name = "typescript-tools"
-            -- local client_name = "tsserver"
-            util.on_attach(function(client, bufnr)
-              -- if client.name == client_name then
-              vim.keymap.set("n", "<leader>to", "<cmd>TSToolsOrganizeImports<CR>",
-                { buffer = bufnr, desc = "Organize Imports" })
-              vim.keymap.set("n", "<leader>cr", "<cmd>TSToolsRenameFile<CR>",
-                { desc = "Rename File", buffer = bufnr })
-              vim.keymap.set("n", "<leader>td", "<cmd>TSToolsGoToSourceDefinition<CR>",
-                { desc = "Go To Source Definition", buffer = bufnr })
-              vim.keymap.set("n", "<leader>ti", "<cmd>TSToolsAddMissingImports<CR>",
-                { desc = "Add Missing Imports", buffer = bufnr })
-              vim.keymap.set("n", "<leader>tu", "<cmd>TSToolsRemoveUnused<CR>",
-                { desc = "Remove Unused", buffer = bufnr })
-              vim.keymap.set("n", "<leader>tr", "<cmd>TSToolsRemoveUnusedImports<CR>",
-                { desc = "Remove Unused Imports", buffer = bufnr })
-              vim.keymap.set("n", "<leader>tf", "<cmd>TSToolsFixAll<CR>",
-                { desc = "Fix All Errors", buffer = bufnr })
-              -- end
-            end)
-            -- require("typescript").setup({ server = opts })
-            require("typescript-tools").setup(opts)
-            return true
-          end,
         },
       }
     end,
@@ -297,7 +258,7 @@ return {
         }, servers[server] or {})
 
         -- If a setup method is provided, use it instead
-        if opts.setup[server] then
+        if opts.setup and opts.setup[server] then
           if opts.setup[server](server, server_opts) then
             return
           end
@@ -374,6 +335,23 @@ return {
         end
       })
     end
+  },
+
+  {
+    "pmizio/typescript-tools.nvim",
+    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    opts = {
+      settings = {
+        -- tsserver_path = "~/.pnpm/global/5/node_modules/typescript/lib",
+        tsserver_file_preferences = {
+          includeInlayParameterNameHints = 'literals',
+          includeInlayVariableTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+        },
+        complete_function_calls = true,
+        include_completions_with_insert_text = true,
+      },
+    },
   },
 
   {
