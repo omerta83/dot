@@ -37,21 +37,6 @@ vim.keymap.set('n', ']q', '<cmd>cnext<cr>zvzz', { desc = 'Next quickfix item' })
 vim.keymap.set('n', '[l', '<cmd>lprev<cr>zvzz', { desc = 'Previous loclist item' })
 vim.keymap.set('n', ']l', '<cmd>lnext<cr>zvzz', { desc = 'Next loclist item' })
 
--- close with q
-vim.api.nvim_create_autocmd('FileType', {
-  group = vim.api.nvim_create_augroup('close_with_q', { clear = true }),
-  desc = 'Close with <q>',
-  pattern = {
-    'help',
-    -- 'man', -- disable man as it will mess up with q to close outside vim
-    'qf',
-    'query',
-  },
-  callback = function(event)
-    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf })
-  end,
-})
-
 -- lazy
 map("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
