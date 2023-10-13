@@ -116,23 +116,24 @@ return {
   },
 
   -- refactoring
-  {
-    "ThePrimeagen/refactoring.nvim",
-    keys = {
-      {
-        "<leader>rf",
-        function()
-          require("refactoring").select_refactor()
-        end,
-        mode = "v",
-        noremap = true,
-        silent = true,
-        expr = false,
-        desc = "Refactor"
-      },
-    },
-    opts = {},
-  },
+  -- {
+  --   "ThePrimeagen/refactoring.nvim",
+  --   keys = {
+  --     {
+  --       "<leader>rf",
+  --       function()
+  --         require("refactoring").select_refactor()
+  --       end,
+  --       mode = "v",
+  --       noremap = true,
+  --       silent = true,
+  --       expr = false,
+  --       desc = "Refactor"
+  --     },
+  --   },
+  --   opts = {},
+  -- },
+
   -- {
   --   "simrat39/symbols-outline.nvim",
   --   keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
