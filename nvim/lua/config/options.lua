@@ -1,17 +1,18 @@
 -- vim.cmd("autocmd!")
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = ' '
+
 vim.wo.linebreak = true
 vim.wo.winbar = "" -- Turn off winbar
 
 local opt = vim.opt
 opt.autowrite = true -- Enable auto write
 opt.clipboard = "unnamedplus" -- Sync with system clipboard + and *
--- opt.completeopt = "menu,menuone,noselect"
--- opt.conceallevel = 3 -- Hide * markup for bold and italic
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
-opt.formatoptions = "jcroqlnt" -- tcqj
+-- opt.formatoptions = "jcroqlnt" -- tcqj
+opt.formatoptions = "jcqln" -- do not wrap when format
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep --no-heading --smart-case"
 opt.ignorecase = true -- Ignore case
