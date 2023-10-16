@@ -2,8 +2,8 @@ return {
   -- which-key
   {
     "folke/which-key.nvim",
-    event = "VeryLazy",
-    -- event = { "BufReadPost", "BufNewFile" },
+    -- event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     init = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 500
@@ -14,10 +14,6 @@ return {
         border = "single",
       },
     },
-    config = function(_, opts)
-      local wk = require("which-key")
-      wk.setup(opts)
-    end,
   },
 
   {
@@ -202,7 +198,7 @@ return {
   {
     "j-hui/fidget.nvim",
     tag = "legacy",
-    event = "BufReadPre",
+    event = "LspAttach",
     config = function()
       require("fidget").setup({
         window = {

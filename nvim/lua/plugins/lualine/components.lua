@@ -104,10 +104,10 @@ local M = {
     color = { bg = colors.orange, fg = colors.bg_dark },
     separator = separator,
   },
-  lsp_symbols = {
-    function() return require("nvim-navic").get_location() end,
-    cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
-  },
+  -- lsp_symbols = {
+  --   function() return require("nvim-navic").get_location() end,
+  --   cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
+  -- },
   dia = {
     "diagnostics",
     color = { bg = colors.bg_highlight },

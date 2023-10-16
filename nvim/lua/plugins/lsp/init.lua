@@ -18,84 +18,9 @@ return {
         end,
       },
     },
-    keys = {
-      { "gD", vim.lsp.buf.declaration,    desc = "Go to declaration [LSP]",    noremap = true, silent = true },
-      { "gd", vim.lsp.buf.definition,     desc = "Go to definition [LSP]",     noremap = true, silent = true },
-      { "gr", vim.lsp.buf.references,     desc = "Go to references [LSP]",     noremap = true, silent = true },
-      { "gi", vim.lsp.buf.implementation, desc = "Go to implementation [LSP]", noremap = true, silent = true },
-      {
-        "<c-s>",
-        vim.lsp.buf.signature_help,
-        desc = "Signature help [LSP]",
-        mode = { "i", "n" },
-        noremap = true,
-        silent = true
-      },
-      { "K",          vim.lsp.buf.hover,         desc = "Hover" },
-      { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
-      {
-        "]d",
-        function()
-          vim.diagnostic.goto_next()
-        end,
-        desc = "Next Diagnostic"
-      },
-      {
-        "[d",
-        function()
-          vim.diagnostic.goto_prev()
-        end,
-        desc = "Prev Diagnostic"
-      },
-      {
-        "]e",
-        function()
-          vim.diagnostic.goto_next({ wrap = true, severity = vim.diagnostic.severity.ERROR })
-        end,
-        desc = "Next Error"
-      },
-      {
-        "[e",
-        function()
-          vim.diagnostic.goto_prev({ wrap = true, severity = vim.diagnostic.severity.ERROR })
-        end,
-        desc = "Prev Error"
-      },
-      {
-        "]w",
-        function()
-          vim.diagnostic.goto_next({ wrap = true, severity = vim.diagnostic.severity.WARN })
-        end,
-        desc = "Next Warning"
-      },
-      {
-        "[w",
-        function()
-          vim.diagnostic.goto_prev({ wrap = true, severity = vim.diagnostic.severity.WARN })
-        end,
-        desc = "Prev Warning"
-      },
-      {
-        "<leader>cf",
-        function()
-          require('plugins.lsp.format').format("documentFormatting")
-        end,
-        desc = "Format Document",
-      },
-      {
-        "<leader>cf",
-        function()
-          require('plugins.lsp.format').format("documentRangeFormatting")
-        end,
-        desc = "Format Range",
-        mode = "v"
-      },
-      { "<Leader>ca", vim.lsp.buf.code_action,   desc = "Code Action [LSP]", mode = { "n", "v" } },
-      { "<Leader>cl", "<CMD>LspRestart<CR>",     desc = "Restart LSP" },
-    },
     opts = function()
       return {
-        inlay_hints = { enabled = false },
+        inlay_hints = { enabled = true },
         diagnostics = {
           underline = true,
           severity_sort = true,
@@ -220,7 +145,21 @@ return {
               },
             },
           },
-          -- rust_analyzer = {},
+          rust_analyzer = {
+            settings = {
+              ["rust-analyzer"] = {
+                inlayHints = {
+                  chainingHints = { enable = true },
+                },
+                procMacro = { enable = true },
+                cargo = { allFeatures = true },
+                checkOnSave = {
+                  command = "clippy",
+                  extraArgs = { "--no-deps" },
+                },
+              }
+            },
+          },
           tailwindcss = {
             filetypes = { "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
               "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex",
@@ -236,16 +175,34 @@ return {
     end,
     config = function(_, opts)
       -- Set up completion using nvim_cmp with LSP source
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(
-        vim.lsp.protocol.make_client_capabilities()
+      local capabilities = vim.tbl_deep_extend(
+        "force",
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        require('cmp_nvim_lsp').default_capabilities() or {}
       )
+
+      -- setup keymaps
+      require('util.lsp').on_attach(function(client, buffer)
+        require('plugins.lsp.keymaps').on_attach(client, buffer)
+      end)
+
+      -- setup vetur document formatting
+      require('util.lsp').on_attach(function(client, buffer)
+        if client.name == 'vuels' then
+          -- Need this line for vetur document formatting
+          client.server_capabilities.documentFormattingProvider = true
+        end
+      end)
 
       -- inlay hints
       local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
       if opts.inlay_hints.enabled and inlay_hint then
-        util.on_attach(function(client, buffer)
+        require('util.lsp').on_attach(function(client, buffer)
           if client.server_capabilities.inlayHintProvider then
-            inlay_hint(buffer, true)
+            vim.defer_fn(function()
+              inlay_hint(buffer, true)
+            end, 500)
           end
         end)
       end
@@ -339,7 +296,8 @@ return {
 
   {
     "pmizio/typescript-tools.nvim",
-    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
     opts = {
       settings = {
         -- tsserver_path = "~/.pnpm/global/5/node_modules/typescript/lib",
@@ -355,34 +313,8 @@ return {
   },
 
   {
-    'simrat39/rust-tools.nvim',
-    ft = "rust",
-    config = function()
-      require('rust-tools').setup {
-        server = {
-          settings = {
-            ["rust-analyzer"] = {
-              procMacro = { enable = true },
-              cargo = { allFeatures = true },
-              checkOnSave = {
-                command = "clippy",
-                extraArgs = { "--no-deps" },
-              },
-            }
-          },
-        },
-        -- dap = {
-        --   adapter = require('rust-tools.dap').get_codelldb_adapter(
-        --     util.get_dap_adapter_path('codelldb') .. '/extension/adapter/codelldb',
-        --     util.get_dap_adapter_path('codelldb') .. '/extension/lldb/lib/liblldb.dylib'),
-        -- },
-      }
-    end
-  },
-
-  {
     "akinsho/flutter-tools.nvim",
-    ft = "dart",
+    event = { 'BufReadPre *.dart', 'BufNewFile *.dart' },
     config = true
   }
 }

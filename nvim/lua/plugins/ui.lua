@@ -45,9 +45,8 @@ return {
   -- better vim.ui
   {
     "stevearc/dressing.nvim",
-    -- lazy = true,
-    -- event = "VeryLazy",
-    event = { "BufReadPost" },
+    lazy = true,
+    -- event = { "BufReadPost" },
     opts = {
       input = {
         win_options = {
@@ -102,31 +101,32 @@ return {
   },
 
   -- lsp symbol navigation for lualine
-  {
-    "SmiteshP/nvim-navic",
-    init = function()
-      vim.g.navic_silence = true
-      require("util.init").on_attach(function(client, buffer)
-        if client.server_capabilities.documentSymbolProvider then
-          require("nvim-navic").attach(client, buffer)
-        end
-      end)
-      vim.api.nvim_create_autocmd("BufEnter", {
-        callback = function()
-          if vim.api.nvim_buf_line_count(0) > 1000 then
-            vim.b.navic_lazy_update_context = true
-          end
-        end,
-      })
-    end,
-    opts = function()
-      return {
-        separator = "  ",
-        highlight = true,
-        depth_limit = 5,
-        icons = require('config.icons').kinds
-      }
-    end,
-  },
+  -- {
+  --   "SmiteshP/nvim-navic",
+  --   init = function()
+  --     vim.g.navic_silence = true
+  --     require("util.init").on_attach(function(client, buffer)
+  --       if client.server_capabilities.documentSymbolProvider then
+  --         require("nvim-navic").attach(client, buffer)
+  --       end
+  --     end)
+  --     vim.api.nvim_create_autocmd("BufEnter", {
+  --       callback = function()
+  --         if vim.api.nvim_buf_line_count(0) > 1000 then
+  --           vim.b.navic_lazy_update_context = true
+  --         end
+  --       end,
+  --     })
+  --   end,
+  --   opts = function()
+  --     return {
+  --       separator = "  ",
+  --       highlight = true,
+  --       depth_limit = 5,
+  --       icons = require('config.icons').kinds
+  --     }
+  --   end,
+  -- },
+
   { 'nvim-tree/nvim-web-devicons', lazy = true },
 }

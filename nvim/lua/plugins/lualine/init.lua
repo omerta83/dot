@@ -37,7 +37,7 @@ return {
           -- components.diff,
         },
         lualine_c = {
-          components.lsp_symbols,
+        --   components.lsp_symbols,
         },
         lualine_x = {
           components.space,

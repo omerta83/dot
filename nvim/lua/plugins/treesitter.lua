@@ -3,7 +3,8 @@ return {
     'nvim-treesitter/nvim-treesitter',
     version = false,
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
+    -- event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
     dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
     opts = {
       highlight = {
@@ -16,6 +17,7 @@ return {
         disable = { 'dart' },
       },
       ensure_installed = {
+        "comment",
         "css",
         "dart",
         "diff",
@@ -105,6 +107,24 @@ return {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end
+  },
+
+    {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      max_lines = 2,
+      mode = "cursor",
+    },
+    keys = {
+      {
+        "<leader>ut",
+        function()
+          require("treesitter-context").toggle()
+        end,
+        desc = "Toggle Treesitter Context",
+      },
+    },
   },
 
   -- html autotag for treesitter

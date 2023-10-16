@@ -4,10 +4,6 @@ local map = require('util').map
 map("n", "n", "nzz", { silent = true })
 map("n", "N", "Nzz", { silent = true })
 
--- Remap paste with indentation
-map("n", "p", "]p", { silent = true })
-map("n", "P", "[p", { silent = true })
-
 local silent_mods = { mods = { silent = true, emsg_silent = true } }
 vim.keymap.set('n', '<leader>xq', function()
   if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then

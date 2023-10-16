@@ -1,23 +1,4 @@
 return {
-  -- Copilot
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    opts = {
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        keymap = {
-          accept = false,
-          dismiss = "<C-c>",
-        }
-      },
-      panel = {
-        enabled = false,
-      }
-    }
-  },
   -- Snippets
   {
     "L3MON4D3/LuaSnip",
@@ -76,7 +57,8 @@ return {
             select = true
           }),
           ['<Tab>'] = cmp.mapping(function(fallback)
-            if require("copilot.suggestion").is_visible() then
+            local is_copilot, copilot_suggestion = pcall(require, "copilot_suggestion")
+            if is_copilot and copilot_suggestion.is_visible() then
               require("copilot.suggestion").accept()
             elseif luasnip.jumpable(1) then
               luasnip.jump(1)
