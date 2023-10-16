@@ -2,22 +2,6 @@ local M = {}
 
 M.root_patterns = { ".git", "lua" }
 
-function M.on_attach(on_attach)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-      if client.name == 'vuels' then
-        -- Need this line for vetur document formatting
-        client.server_capabilities.documentFormattingProvider = true
-      end
-
-      on_attach(client, buffer)
-    end,
-  })
-end
-
 function M.get_root()
   ---@type string?
   local path = vim.api.nvim_buf_get_name(0)
