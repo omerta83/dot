@@ -123,6 +123,13 @@ return {
         end,
         desc = "Toggle Treesitter Context",
       },
+      {
+        "<leader>uc",
+        function ()
+          require("treesitter-context").go_to_context()
+        end,
+        desc = "Jumping to context (upwards)"
+      }
     },
   },
 

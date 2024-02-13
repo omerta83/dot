@@ -20,7 +20,7 @@ return {
     },
     opts = function()
       return {
-        inlay_hints = { enabled = true },
+        inlay_hints = { enabled = false },
         diagnostics = {
           underline = true,
           severity_sort = true,
@@ -39,15 +39,40 @@ return {
         servers = {
           cssls = {},
           gopls = {},
-          pyright = {
-            disableOrganizeImports = false, -- use keymap instead
-            analysis = {
-              useLibraryCodeForTypes = true,
-              autoSearchPaths = true,
-              diagnosticMode = "workspace",
-              autoImportCompletions = true,
-            },
+          pylsp = {
+            settings = {
+              pylsp = {
+                plugins = {
+                  pycodestyle = { enabled = false },
+                  pyflakes = { enabled = false },
+                  pylint = { enabled = false },
+                  flake8 = { enabled = false },
+                  jedi_completion = { enabled = true },
+                  jedi_hover = { enabled = true },
+                  jedi_references = { enabled = true },
+                  jedi_signature_help = { enabled = true },
+                  jedi_symbols = { enabled = true },
+                  mccabe = { enabled = false },
+                  preload = { enabled = false },
+                  pydocstyle = { enabled = false },
+                  rope_completion = { enabled = true },
+                  rope_rename = { enabled = true },
+                  yapf = { enabled = false },
+                }
+
+              }
+            }
           },
+          ruff_lsp = {},
+          -- pyright = {
+          --   disableOrganizeImports = false, -- use keymap instead
+          --   analysis = {
+          --     useLibraryCodeForTypes = true,
+          --     autoSearchPaths = true,
+          --     diagnosticMode = "workspace",
+          --     autoImportCompletions = true,
+          --   },
+          -- },
           jsonls = {
             -- lazy-load schemastore when needed
             -- on_new_config = function(new_config)
@@ -77,7 +102,27 @@ return {
             },
             init_options = {
               typescript = {
-                tsdk = "~/.pnpm/global/5/node_modules/typescript/lib"
+                -- tsdk = "~/.pnpm/global/5/node_modules/typescript/lib"
+                tsdk = ""
+              },
+              languageFeatures = {
+                implementation = true, -- new in @volar/vue-language-server v0.33
+                references = true,
+                definition = true,
+                typeDefinition = true,
+                callHierarchy = true,
+                hover = true,
+                rename = true,
+                renameFileRefactoring = true,
+                signatureHelp = true,
+                codeAction = true,
+                workspaceSymbol = true,
+                completion = {
+                  defaultTagNameCase = 'both',
+                  defaultAttrNameCase = 'kebabCase',
+                  getDocumentNameCasesRequest = false,
+                  getDocumentSelectionRequest = false,
+                },
               }
             }
           },
@@ -108,7 +153,9 @@ return {
               }
             },
           },
-          emmet_language_server = {},
+          emmet_language_server = {
+            filetypes = { "css", "eruby", "html", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "vue" }
+          },
           lua_ls = {
             single_file_support = true,
             settings = {
@@ -153,10 +200,10 @@ return {
                 },
                 procMacro = { enable = true },
                 cargo = { allFeatures = true },
-                checkOnSave = {
-                  command = "clippy",
-                  extraArgs = { "--no-deps" },
-                },
+                -- checkOnSave = {
+                --   command = "clippy",
+                --   extraArgs = { "--no-deps" },
+                -- },
               }
             },
           },
@@ -300,7 +347,6 @@ return {
     event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
     opts = {
       settings = {
-        -- tsserver_path = "~/.pnpm/global/5/node_modules/typescript/lib",
         tsserver_file_preferences = {
           includeInlayParameterNameHints = 'literals',
           includeInlayVariableTypeHints = true,

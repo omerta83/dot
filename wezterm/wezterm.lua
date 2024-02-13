@@ -142,7 +142,7 @@ return {
   -- font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" }),
   font = wezterm.font_with_fallback({
     {
-      family = 'JetBrainsMono Nerd Font',
+      family = 'JetBrainsMono Nerd Font Mono',
       weight = 'ExtraLight'
     }
   }),

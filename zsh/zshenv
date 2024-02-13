@@ -8,7 +8,7 @@ export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 
 # FZF
-export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow'
+export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS=" \
   --prompt '❯ ' \
   --pointer '➜' \
@@ -38,3 +38,4 @@ export MANWIDTH=999
 # export ANDROID_HOME=$HOME/Library/Android/sdk
 # export PATH=$PATH:$ANDROID_HOME/emulator
 # export PATH=$PATH:$ANDROID_HOME/platform-tools
+. "$HOME/.cargo/env"

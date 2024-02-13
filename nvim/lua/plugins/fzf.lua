@@ -99,6 +99,7 @@ return {
           ["ctrl-s"] = "jump-accept",
           ["alt-a"]  = "toggle-all",
           ["ctrl-l"] = "clear-selection",
+          -- ['ctrl-Q'] = 'select-all+accept',
           -- Only valid with fzf previewers (bat/cat/git/etc)
           ["f3"]     = "toggle-preview-wrap",
           ["ctrl-y"] = "toggle-preview",
