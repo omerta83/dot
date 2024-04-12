@@ -89,7 +89,7 @@ return {
   -- },
 
   -- File browser
-    {
+  {
     'nvim-tree/nvim-tree.lua',
     cmd = 'NvimTreeToggle',
     keys = {
@@ -314,18 +314,14 @@ return {
 
   {
     "j-hui/fidget.nvim",
-    tag = "legacy",
     event = "LspAttach",
-    config = function()
-      require("fidget").setup({
+    opts = {
+      notification = {
         window = {
-          blend = 0,
-        },
-        text = {
-          done = require('config.icons').misc.Check
+          winblend = 0,
         }
-      })
-    end
+      }
+    }
   },
 
   -- better quickfix
@@ -352,4 +348,21 @@ return {
       }
     end
   },
+
+  {
+    'code-biscuits/nvim-biscuits',
+    event = "BufReadPost",
+    opts = {
+      cursor_line_only = true,
+      default_config = {
+        min_distance = 5,
+        prefix_string = " ✨ "
+      },
+      language_config = {
+        vimdoc = {
+          disabled = true
+        }
+      }
+    }
+  }
 }

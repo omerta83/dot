@@ -17,6 +17,7 @@ return {
           return util.has("nvim-cmp")
         end,
       },
+      "marilari88/twoslash-queries.nvim"
     },
     opts = function()
       return {
@@ -95,15 +96,21 @@ return {
           },
           prismals = {},
           volar = {
+            on_attach = function(client, bufnr)
+              require("twoslash-queries").attach(client, bufnr)
+            end,
             root_dir = require('lspconfig').util.root_pattern('nuxt.config.ts', 'quasar.config.js'),
             filetypes = {
               'vue',
-              'typescript'
+              -- 'typescript'
             },
             init_options = {
               typescript = {
                 -- tsdk = "~/.pnpm/global/5/node_modules/typescript/lib"
-                tsdk = ""
+                tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib"
+              },
+              vue = {
+                hybridMode = false,
               },
               languageFeatures = {
                 implementation = true, -- new in @volar/vue-language-server v0.33
@@ -343,9 +350,13 @@ return {
 
   {
     "pmizio/typescript-tools.nvim",
+    dependencies = "marilari88/twoslash-queries.nvim",
     -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
     event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
     opts = {
+      on_attach = function(client, bufnr)
+        require("twoslash-queries").attach(client, bufnr)
+      end,
       settings = {
         tsserver_file_preferences = {
           includeInlayParameterNameHints = 'literals',
