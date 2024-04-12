@@ -16,13 +16,24 @@ return {
 
   -- autocomplete and its sources
   {
-    "roobert/tailwindcss-colorizer-cmp.nvim",
+    "luckasRanarison/tailwind-tools.nvim",
     ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-    config = function()
-      require("tailwindcss-colorizer-cmp").setup({
-        color_square_width = 2,
-      })
-    end
+    opts = {
+      document_color = {
+        enabled = true, -- can be toggled by commands
+        kind = "inline", -- "inline" | "foreground" | "background"
+        inline_symbol = "󰝤 ", -- only used in inline mode
+        debounce = 200, -- in milliseconds, only applied in insert mode
+      },
+      conceal = {
+        enabled = false, -- can be toggled by commands
+        symbol = "󱏿", -- only a single character is allowed
+        highlight = { -- extmark highlight options, see :h 'highlight'
+          fg = "#38BDF8",
+        },
+      },
+      custom_filetypes = {}
+    }
   },
   {
     "hrsh7th/nvim-cmp",
@@ -92,11 +103,11 @@ return {
         }),
         formatting = {
           format = function(entry, vim_item)
-            local has_tw_colorizer, tw_colorizer = pcall(require, "tailwindcss-colorizer-cmp")
-            if has_tw_colorizer then
-              vim_item = tw_colorizer.formatter(entry, vim_item)
-            end
             -- Kind icons
+            local has_tailwind_tools, tailwind_tools = pcall(require, "tailwind-tools.cmp")
+            if has_tailwind_tools then
+              vim_item = tailwind_tools.lspkind_format(entry, vim_item)
+            end
             local icons = require('config.icons').kinds
             if icons[vim_item.kind] then
               vim_item.kind = icons[vim_item.kind] .. ' ' .. vim_item.kind
