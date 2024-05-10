@@ -13,7 +13,6 @@ source ~/.config/zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
 source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/plugins/zsh-vi-mode/zsh-vi-mode.zsh
-alias lzd='lazydocker'
 
 # fzf-tab config
 autoload -Uz compinit && compinit
@@ -33,4 +32,4 @@ export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bi
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
+#export PATH=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH

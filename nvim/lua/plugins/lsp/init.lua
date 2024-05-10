@@ -236,6 +236,8 @@ return {
         require('cmp_nvim_lsp').default_capabilities() or {}
       )
 
+      -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
       -- setup keymaps
       require('util.lsp').on_attach(function(client, buffer)
         require('plugins.lsp.keymaps').on_attach(client, buffer)
@@ -373,5 +375,39 @@ return {
     "akinsho/flutter-tools.nvim",
     event = { 'BufReadPre *.dart', 'BufNewFile *.dart' },
     config = true
+  },
+
+  {
+    "olexsmir/gopher.nvim",
+    ft = { "go", "gomod" },
+    config = function()
+      require("gopher").setup {
+        commands = {
+          go = "go",
+          gomodifytags = "gomodifytags",
+          gotests = "~/go/bin/gotests", -- also you can set custom command path
+          impl = "impl",
+          iferr = "iferr",
+        },
+      }
+    end
   }
+  -- {
+  --   "ray-x/go.nvim",
+  --   dependencies = { -- optional packages
+  --     "ray-x/guihua.lua",
+  --     "neovim/nvim-lspconfig",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   config = function()
+  --     require("go").setup({
+  --       lsp_inlay_hints = {
+  --         enable = false
+  --       }
+  --     })
+  --   end,
+  --   event = { "CmdlineEnter" },
+  --   ft = { "go", 'gomod' },
+  --   build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+  -- }
 }

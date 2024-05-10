@@ -32,6 +32,7 @@ alias wssh='wezterm cli spawn --domain-name'
 alias wimgcat='wezterm imgcat'
 alias k='kubectl'
 alias s='kitty +kitten ssh'
+alias t='sesh connect $(sesh list | fzf)'
 
 #
 # Language

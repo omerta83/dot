@@ -11,8 +11,11 @@ return {
 
   {
     'brenoprata10/nvim-highlight-colors',
-    event = "BufReadPre",
-    config = true
+    event = "BufReadPost",
+    opts = {
+      render = 'background',
+      enabled_named_colors = true
+    }
   },
 
   -- {
@@ -71,7 +74,7 @@ return {
         vue = { 'prettier', 'rustywind' },
         lua = { 'stylua' },
         python = { 'ruff' },
-        go = { 'gofmt' },
+        go = { 'goimports', 'gofmt' },
       }
     },
   },
