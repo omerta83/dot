@@ -1,4 +1,4 @@
----@class util.lsp
+---@class lsp.utils
 local M = {}
 
 function M.on_attach(on_attach)

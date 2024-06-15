@@ -239,12 +239,12 @@ return {
       -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
       -- setup keymaps
-      require('util.lsp').on_attach(function(client, buffer)
+      require('plugins.lsp.utils').on_attach(function(client, buffer)
         require('plugins.lsp.keymaps').on_attach(client, buffer)
       end)
 
       -- setup vetur document formatting
-      require('util.lsp').on_attach(function(client, buffer)
+      require('plugins.lsp.utils').on_attach(function(client, buffer)
         if client.name == 'vuels' then
           -- Need this line for vetur document formatting
           client.server_capabilities.documentFormattingProvider = true
@@ -254,7 +254,7 @@ return {
       -- inlay hints
       local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
       if opts.inlay_hints.enabled and inlay_hint then
-        require('util.lsp').on_attach(function(client, buffer)
+        require('plugins.lsp.utils').on_attach(function(client, buffer)
           if client.server_capabilities.inlayHintProvider then
             vim.defer_fn(function()
               inlay_hint(buffer, true)
@@ -374,7 +374,9 @@ return {
   {
     "akinsho/flutter-tools.nvim",
     event = { 'BufReadPre *.dart', 'BufNewFile *.dart' },
-    config = true
+    opts = {
+      fvm = true
+    }
   },
 
   {

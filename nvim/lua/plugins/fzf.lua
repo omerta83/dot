@@ -96,7 +96,7 @@ return {
           ["ctrl-b"] = "preview-page-up",
           ["ctrl-a"] = "beginning-of-line",
           ["ctrl-e"] = "end-of-line",
-          ["ctrl-s"] = "jump-accept",
+          ["ctrl-s"] = "jump",
           ["alt-a"]  = "toggle-all",
           ["ctrl-l"] = "clear-selection",
           -- ['ctrl-Q'] = 'select-all+accept',

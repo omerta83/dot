@@ -86,6 +86,18 @@ return {
 
         lfpicker:toggle()
       end
+
+      -- Terminal window mappings
+      function _G.set_terminal_keymaps(buffer)
+        local lopts = { buffer = buffer }
+        vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], lopts)
+        vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], lopts)
+        vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], lopts)
+        vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], lopts)
+        vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], lopts)
+      end
+
+      vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
     end
   },
 

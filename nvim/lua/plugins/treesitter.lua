@@ -78,27 +78,27 @@ return {
           enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
           goto_next_start = {
-            ["]f"] = "@function.outer",
+            ["]f"] = { query = "@function.outer", desc = "Next function start" },
             ["]]"] = { query = "@class.outer", desc = "Next class start" },
             --
             -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-            ["]o"] = { query = { "@loop.*", "@block.*", "@conditional.*" } },
+            ["]o"] = { query = { "@loop.*", "@block.*", "@conditional.*" }, desc = "Next loop/block/conditional" },
             -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-            ["]a"] = "@parameter.inner",
+            ["]a"] = { query = "@parameter.inner", desc = "Next parameter" },
           },
           goto_next_end = {
-            ["]F"] = "@function.outer",
-            ["]["] = "@class.outer",
+            ["]F"] = { query = "@function.outer", desc = "Next function end" },
+            ["]["] = { query = "@class.outer", desc = "Next class end" },
           },
           goto_previous_start = {
-            ["[f"] = "@function.outer",
-            ["[["] = "@class.outer",
+            ["[f"] = { query = "@function.outer", desc = "Previous function start" },
+            ["[["] = { query = "@class.outer", desc = "Previous class end" },
             ["[a"] = "@parameter.inner",
-            ["[o"] = { query = { "@loop.*", "@block.*", "@conditional.*" } },
+            ["[o"] = { query = { "@loop.*", "@block.*", "@conditional.*" }, desc = "Previous loop/block/conditional" },
           },
           goto_previous_end = {
-            ["[F"] = "@function.outer",
-            ["[]"] = "@class.outer",
+            ["[F"] = { query = "@function.outer", desc = "Previous function end" },
+            ["[]"] = { query = "@class.outer", desc = "Previous class end" },
           },
         },
       },
