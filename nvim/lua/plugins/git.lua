@@ -35,12 +35,18 @@ return {
   },
 
   {
+    "tpope/vim-fugitive",
+    cmd = "Git",
+  },
+
+  {
     "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
     config = true,
     keys = {
-      { "<leader>gd", "<cmd>DiffviewOpen<cr>",  desc = "DiffView Open" },
-      { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "DiffView Close" }
+      { "<leader>gdo", "<cmd>DiffviewOpen<cr>",  desc = "DiffView Open" },
+      { "<leader>gdc", "<cmd>DiffviewClose<cr>", desc = "DiffView Close" },
+      { "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = "DiffView Current File History" },
     },
   },
 }

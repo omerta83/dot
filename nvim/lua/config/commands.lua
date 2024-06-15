@@ -106,3 +106,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf })
   end,
 })
+
+-- Close fugitive with q
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "fugitiveblame", "fugitive" },
+  callback = function()
+    vim.api.nvim_buf_set_keymap(0, 'n', 'q', 'gq', { silent = true })
+  end
+})
