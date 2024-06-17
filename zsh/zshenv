@@ -15,12 +15,19 @@ export FZF_DEFAULT_OPTS=" \
   --marker '✓' \
   --multi \
   --no-separator \
-  --bind ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-s:jump-accept,ctrl-l:clear-selection \
-  --color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7 \
-  --color=fg+:#c0caf5,bg+:#1a1b26,hl+:#7dcfff \
-  --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
-  --color=border:#292e42 \
-  --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
+  --bind ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-s:jump,ctrl-l:clear-selection"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+ --color=fg:#d0d0d0,bg:#121212,hl:#5f87af \
+ --color=fg+:#d0d0d0,bg+:#121212,hl+:#5fd7ff \
+ --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff \
+ --color=border:#262626 \
+ --color=marker:#87ff00,spinner:#af5fff,header:#87afaf"
+
+# --color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7 \
+# --color=fg+:#c0caf5,bg+:#1a1b26,hl+:#7dcfff \
+# --color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+# --color=border:#292e42 \
+# --color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range :500 {}'"

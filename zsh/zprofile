@@ -33,6 +33,7 @@ alias wimgcat='wezterm imgcat'
 alias k='kubectl'
 alias s='kitty +kitten ssh'
 alias t='sesh connect $(sesh list | fzf)'
+alias fflutter='fvm flutter'
 
 #
 # Language
