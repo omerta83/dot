@@ -123,14 +123,14 @@ return {
         completion = {
           completeopt = "menu,menuone,noselect",
         },
-        -- window = {
-        --   documentation = cmp.config.window.bordered({
-        --     winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
-        --   }),
-        --   completion = cmp.config.window.bordered({
-        --     winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None'
-        --   }),
-        -- },
+        window = {
+          documentation = cmp.config.window.bordered({
+            winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
+          }),
+          completion = cmp.config.window.bordered({
+            winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
+          }),
+        },
       })
 
       vim.keymap.set("i", vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true), function()

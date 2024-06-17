@@ -77,7 +77,7 @@ return {
         builtin = {
           -- neovim `:tmap` mappings for the fzf win
           ["<A-/>"] = "toggle-help",
-          ["<F2>"]  = "toggle-fullscreen",
+          ["<C-i>"]  = "toggle-fullscreen",
           -- Only valid with the 'builtin' previewer
           ["<F3>"]  = "toggle-preview-wrap",
           ["<C-y>"] = "toggle-preview",
@@ -92,11 +92,11 @@ return {
           -- fzf '--bind=' options
           ["ctrl-z"] = "abort",
           ["ctrl-u"] = "unix-line-discard",
-          ["ctrl-f"] = "preview-page-down",
-          ["ctrl-b"] = "preview-page-up",
+          -- ["ctrl-f"] = "preview-page-down",
+          -- ["ctrl-b"] = "preview-page-up",
           ["ctrl-a"] = "beginning-of-line",
           ["ctrl-e"] = "end-of-line",
-          ["ctrl-s"] = "jump",
+          -- ["ctrl-s"] = "jump",
           ["alt-a"]  = "toggle-all",
           ["ctrl-l"] = "clear-selection",
           -- ['ctrl-Q'] = 'select-all+accept',

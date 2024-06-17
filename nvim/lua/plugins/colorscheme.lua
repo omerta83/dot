@@ -84,6 +84,18 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
+      groups = {
+        all = {
+          NormalFloat = { bg = "bg1" },
+          FloatBorder = { bg = "bg1", fg = "bg4" },
+
+          -- CursorLineNr = { fg = "magenta" },
+          CursorLine = { bg = "bg1", fg = "NONE" },
+
+          -- FZF
+          FzfLuaBorder = { link = "FloatBorder" },
+        }
+      }
 
     },
     config = function (_, opts)

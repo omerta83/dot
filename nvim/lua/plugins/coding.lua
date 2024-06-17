@@ -20,21 +20,27 @@ return {
   },
 
   -- comment
+  -- {
+  --   'numToStr/Comment.nvim',
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   -- event = "VeryLazy",
+  --   dependencies = {
+  --     'JoosepAlviste/nvim-ts-context-commentstring',
+  --     init = function ()
+  --       vim.g.skip_ts_context_commentstring_module = true
+  --     end,
+  --   },
+  --   config = function()
+  --     require('Comment').setup({
+  --       pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+  --     })
+  --   end
+  -- },
   {
-    'numToStr/Comment.nvim',
-    event = { "BufReadPost", "BufNewFile" },
-    -- event = "VeryLazy",
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      init = function ()
-        vim.g.skip_ts_context_commentstring_module = true
-      end,
-    },
-    config = function()
-      require('Comment').setup({
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      })
-    end
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
   },
 
   {
@@ -299,6 +305,7 @@ return {
     event = "InsertEnter",
     opts = {
       check_ts = true,
+      fast_wrap = {},
     },
     config = function(_, opts)
       local Rule = require('nvim-autopairs.rule')
@@ -312,9 +319,10 @@ return {
 
   {
     "MaximilianLloyd/tw-values.nvim",
-    keys = {
-      { "<leader>tv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
-    },
+    event={ "BufReadPre *.html,*.js,*.ts,*.jsx,*.tsx,*.vue", "BufNewFile *.html,*.js,*.ts,*.jsx,*.tsx,*.vue" },
+    -- keys = {
+    --   { "<leader>tv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
+    -- },
     opts = {
       border = "rounded",          -- Valid window border style,
       show_unknown_classes = true, -- Shows the unknown classes popup
@@ -323,7 +331,11 @@ return {
       -- keymaps = {
       --   copy = "<C-y>"               -- Normal mode keymap to copy the CSS values between {}
       -- }
-    }
+    },
+    config = function(_, opts)
+      require('tw-values').setup(opts)
+      vim.keymap.set("n", "<leader>tv", "<cmd>TWValues<cr>", { desc = "Show tailwind CSS values" })
+    end
   },
 
   {

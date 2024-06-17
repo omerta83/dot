@@ -17,7 +17,7 @@ return {
           return util.has("nvim-cmp")
         end,
       },
-      "marilari88/twoslash-queries.nvim"
+      -- "marilari88/twoslash-queries.nvim"
     },
     opts = function()
       return {
@@ -60,7 +60,6 @@ return {
                   rope_rename = { enabled = true },
                   yapf = { enabled = false },
                 }
-
               }
             }
           },
@@ -96,9 +95,9 @@ return {
           },
           prismals = {},
           volar = {
-            on_attach = function(client, bufnr)
-              require("twoslash-queries").attach(client, bufnr)
-            end,
+            -- on_attach = function(client, bufnr)
+            --   require("twoslash-queries").attach(client, bufnr)
+            -- end,
             root_dir = require('lspconfig').util.root_pattern('nuxt.config.ts', 'quasar.config.js'),
             filetypes = {
               'vue',
@@ -352,13 +351,13 @@ return {
 
   {
     "pmizio/typescript-tools.nvim",
-    dependencies = "marilari88/twoslash-queries.nvim",
+    -- dependencies = "marilari88/twoslash-queries.nvim",
     -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
     event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
     opts = {
-      on_attach = function(client, bufnr)
-        require("twoslash-queries").attach(client, bufnr)
-      end,
+      -- on_attach = function(client, bufnr)
+      --   require("twoslash-queries").attach(client, bufnr)
+      -- end,
       settings = {
         tsserver_file_preferences = {
           includeInlayParameterNameHints = 'literals',
@@ -394,22 +393,4 @@ return {
       }
     end
   }
-  -- {
-  --   "ray-x/go.nvim",
-  --   dependencies = { -- optional packages
-  --     "ray-x/guihua.lua",
-  --     "neovim/nvim-lspconfig",
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  --   config = function()
-  --     require("go").setup({
-  --       lsp_inlay_hints = {
-  --         enable = false
-  --       }
-  --     })
-  --   end,
-  --   event = { "CmdlineEnter" },
-  --   ft = { "go", 'gomod' },
-  --   build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  -- }
 }

@@ -25,11 +25,11 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.cmd.inoreabbrev("<buffer> none None")
     vim.cmd.inoreabbrev("<buffer> nil None")
 
-    vim.keymap.set("n", "<Leader>to", "<cmd>PyrightOrganizeImports<CR>", {
-      buffer = event.buf,
-      silent = true,
-      noremap = true,
-    })
+    -- vim.keymap.set("n", "<Leader>to", "<cmd>PyrightOrganizeImports<CR>", {
+    --   buffer = event.buf,
+    --   silent = true,
+    --   noremap = true,
+    -- })
   end,
 })
 
@@ -114,3 +114,8 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_buf_set_keymap(0, 'n', 'q', 'gq', { silent = true })
   end
 })
+
+-- Search TODOs with fzf-lua
+vim.api.nvim_create_user_command('Todos', function()
+  require('fzf-lua').grep { search = [[TODO:]], no_esc = true }
+end, { desc = 'Grep TODOs', nargs = 0 })
