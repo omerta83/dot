@@ -11,7 +11,7 @@ return {
         changedelete = { text = '┃' },
       },
       trouble = false,
-      numhl = true,
+      -- numhl = true,
       sign_priority = 15, -- higher than diagnostic,todo signs. lower than dapui breakpoint sign
       on_attach = function()
         local gs = package.loaded.gitsigns
