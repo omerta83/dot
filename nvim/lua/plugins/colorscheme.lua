@@ -80,8 +80,22 @@ return {
   },
 
   {
-    'folke/tokyonight.nvim',
+    "EdenEast/nightfox.nvim",
     lazy = false,
+    priority = 1000,
+    opts = {
+
+    },
+    config = function (_, opts)
+      require('nightfox').setup(opts)
+
+      vim.api.nvim_command("colorscheme carbonfox")
+    end
+  },
+
+  {
+    'folke/tokyonight.nvim',
+    lazy = true,
     priority = 1000,
     opts = {
       style = 'night',
@@ -151,7 +165,7 @@ return {
     config = function(_, opts)
       require('tokyonight').setup(opts)
 
-      vim.api.nvim_command("colorscheme tokyonight")
+      -- vim.api.nvim_command("colorscheme tokyonight")
     end
   }
 }

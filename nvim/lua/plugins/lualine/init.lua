@@ -1,21 +1,18 @@
 return {
   "nvim-lualine/lualine.nvim",
-  -- event = { "BufRead", "BufNewFile" },
   event = "VeryLazy",
   opts = function()
     local components = require('plugins/lualine/components')
-    local colors = require('util.init').theme_colors()
+    local colors = require('util').theme_colors()
 
     -- Custom theme
-    local wonderful_night = require('lualine.themes.tokyonight')
-    wonderful_night.normal.a.bg = colors.bg
-    wonderful_night.normal.c.bg = colors.bg
+    local custom_theme = require('lualine.themes.carbonfox')
+    custom_theme.normal.a.bg = colors.bg
+    custom_theme.normal.c.bg = colors.bg
 
     return {
       options = {
-        -- theme = 'catppuccin',
-        theme = wonderful_night,
-        -- theme = 'tokyonight',
+        theme = custom_theme,
         component_separators = '',
         section_separators = '',
         globalstatus = true,

@@ -1,5 +1,5 @@
 local icons = require('config.icons')
-local colors = require('util.init').theme_colors()
+local colors = require('util').theme_colors()
 local separator = { left = icons.misc.SeparatorLeft, right = icons.misc.SeparatorRight }
 
 local function getLspNames()

@@ -47,8 +47,25 @@ function M.get_dap_adapter_path(name)
 end
 
 function M.theme_colors()
-  if vim.g.colors_name == 'gruvbox' then
-    return require('gruvbox.palette').get_base_colors('dark', 'hard')
+  if vim.g.colors_name == 'carbonfox' then
+    local palette = require('nightfox.palette').load('carbonfox')
+    for k,v in pairs(palette.cyan) do
+      print(k)
+      print(v)
+    end
+    local colors = {}
+    colors.bg = palette.bg1
+    colors.bg_highlight = palette.bg2
+    colors.bg_dark = palette.bg0
+    colors.teal = palette.cyan.base
+    colors.cyan = palette.cyan.base
+    colors.orange = palette.orange.base
+    colors.green = palette.green.base
+    colors.purple = palette.magenta.base
+    colors.blue = palette.blue.base
+    colors.blue1 = palette.blue.base
+    colors.dark5 = palette.black.base
+    return colors
   elseif vim.g.colors_name == 'catppuccin' then
     return require('catppuccin.palettes').get_palette()
   elseif vim.g.colors_name == 'tokyonight' then
