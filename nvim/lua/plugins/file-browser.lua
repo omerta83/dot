@@ -10,7 +10,7 @@ return {
     keys = {
       -- 👇 in this section, choose your own keymappings!
       {
-        "<leader>-",
+        "-",
         function()
           require("yazi").yazi()
         end,
@@ -18,7 +18,7 @@ return {
       },
       {
         -- Open in the current working directory
-        "<leader>cw",
+        "<leader>fe",
         function()
           require("yazi").yazi(nil, vim.fn.getcwd())
         end,

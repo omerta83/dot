@@ -1,10 +1,10 @@
 local map = require('util').map
 
 -- Use j for gj and k for gk when wrapping is enabled.
-if vim.o.wrap then
-  map("n", "j", [[v:count ? 'j' : 'gj']], { expr = true })
-  map("n", "k", [[v:count ? 'k' : 'gk']], { expr = true })
-end
+-- if vim.o.wrap then
+--   map("n", "j", [[v:count ? 'j' : 'gj']], { expr = true })
+--   map("n", "k", [[v:count ? 'k' : 'gk']], { expr = true })
+-- end
 
 -- Keeping the cursor centered when scrolling
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll downwards' })
