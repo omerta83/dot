@@ -10,7 +10,7 @@ function M.on_attach(client, buffer)
   keymap("gd", vim.lsp.buf.definition, "Go to definition [LSP]")
   keymap("gr", vim.lsp.buf.references, "Go to references [LSP]")
   keymap("gi", vim.lsp.buf.implementation, "Go to implementation [LSP]")
-  keymap("<c-s>", vim.lsp.buf.signature_help, "Signature help [LSP]", { "i", "n" })
+  keymap("<c-k>", vim.lsp.buf.signature_help, "Signature help [LSP]", { "i", "n" })
   keymap("K", vim.lsp.buf.hover, "Hover")
   keymap("<leader>cd", vim.diagnostic.open_float, "Line Diagnostics")
   keymap("]d", vim.diagnostic.goto_next, "Next Diagnostic")
@@ -26,8 +26,14 @@ function M.on_attach(client, buffer)
   keymap("<leader>cf", function() require('plugins.lsp.format').format("documentFormatting") end, "Format Document")
   keymap("<leader>cf", function() require('plugins.lsp.format').format("documentRangeFormatting") end, "Format Range",
     { "n", "v" })
-  keymap("<Leader>ca", vim.lsp.buf.code_action, "Code Action [LSP]", { "n", "v" })
-  keymap("<Leader>cl", "<CMD>LspRestart<CR>", "Restart LSP")
+  keymap("<leader>ca", function()
+    if client.name == 'vtsls' then
+      require('vtsls').commands.source_actions()
+    else
+      vim.lsp.buf.code_action()
+    end
+  end, "Code Action [LSP]", { "n", "v" })
+  keymap("<leader>cl", "<CMD>LspRestart<CR>", "Restart LSP")
 end
 
 return M

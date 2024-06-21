@@ -53,6 +53,7 @@ function M.theme_colors()
       print(k)
       print(v)
     end
+    -- Returns a table with the colors of the theme compatible with tokyonight
     local colors = {}
     colors.bg = palette.bg1
     colors.bg_highlight = palette.bg2

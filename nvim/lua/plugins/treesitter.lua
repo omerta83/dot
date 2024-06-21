@@ -45,6 +45,7 @@ return {
         "tsx",
         "typescript",
         "vue",
+        "vimdoc",
         "yaml",
       },
       context_commentstring = {

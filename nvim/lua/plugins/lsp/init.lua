@@ -159,6 +159,7 @@ return {
               }
             },
           },
+          vtsls = {},
           emmet_language_server = {
             filetypes = { "css", "eruby", "html", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "vue" }
           },
@@ -349,25 +350,30 @@ return {
     end
   },
 
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   -- dependencies = "marilari88/twoslash-queries.nvim",
+  --   -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  --   event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
+  --   opts = {
+  --     -- on_attach = function(client, bufnr)
+  --     --   require("twoslash-queries").attach(client, bufnr)
+  --     -- end,
+  --     settings = {
+  --       tsserver_file_preferences = {
+  --         includeInlayParameterNameHints = 'literals',
+  --         includeInlayVariableTypeHints = true,
+  --         includeInlayFunctionLikeReturnTypeHints = true,
+  --       },
+  --       complete_function_calls = true,
+  --       include_completions_with_insert_text = true,
+  --     },
+  --   },
+  -- },
+
   {
-    "pmizio/typescript-tools.nvim",
-    -- dependencies = "marilari88/twoslash-queries.nvim",
-    -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    'yioneko/nvim-vtsls',
     event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
-    opts = {
-      -- on_attach = function(client, bufnr)
-      --   require("twoslash-queries").attach(client, bufnr)
-      -- end,
-      settings = {
-        tsserver_file_preferences = {
-          includeInlayParameterNameHints = 'literals',
-          includeInlayVariableTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
-        },
-        complete_function_calls = true,
-        include_completions_with_insert_text = true,
-      },
-    },
   },
 
   {

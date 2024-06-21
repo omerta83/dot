@@ -35,8 +35,8 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- keymaps for typescript development
 vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup('omerta/typescript_tools', { clear = true }),
-  desc = "Keymaps for typescript tools",
+  group = vim.api.nvim_create_augroup('omerta/typescript', { clear = true }),
+  desc = "Keymaps for typescript development",
   pattern = {
     "typescript",
     "typescriptreact",
@@ -50,45 +50,45 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set(
       "n",
       "<leader>to",
-      "<cmd>TSToolsOrganizeImports<CR>",
-      { buffer = bufnr, desc = "[Typescript Tools] Organize Imports" }
-    )
-    vim.keymap.set(
-      "n",
-      "<leader>cr",
-      "<cmd>TSToolsRenameFile<CR>",
-      { desc = "[Typescript Tools] Rename File", buffer = bufnr }
+      "<cmd>VtsExec organize_imports<CR>",
+      { buffer = bufnr, desc = "[Typescript] Organize Imports" }
     )
     vim.keymap.set(
       "n",
       "<leader>td",
-      "<cmd>TSToolsGoToSourceDefinition<CR>",
-      { desc = "[Typescript Tools] Go To Source Definition", buffer = bufnr }
+      "<cmd>VtsExec goto_source_definition<CR>",
+      { desc = "[Typescript] Go To Source Definition", buffer = bufnr }
     )
     vim.keymap.set(
       "n",
       "<leader>ti",
-      "<cmd>TSToolsAddMissingImports<CR>",
-      { desc = "[Typescript Tools] Add Missing Imports", buffer = bufnr }
+      "<cmd>VtsExec add_missing_imports<CR>",
+      { desc = "[Typescript] Add Missing Imports", buffer = bufnr }
     )
     vim.keymap.set(
       "n",
       "<leader>tu",
-      "<cmd>TSToolsRemoveUnusedImports<CR>",
-      { desc = "[Typescript Tools] Remove Unused Imports", buffer = bufnr }
+      "<cmd>VtsExec remove_unused<CR>",
+      { desc = "[Typescript] Remove Unused Imports", buffer = bufnr }
     )
     vim.keymap.set(
       "n",
       "<leader>tr",
       "<cmd>TSToolsRenameFile<CR>",
-      { desc = "[Typescript Tools] Rename File", buffer = bufnr }
+      { desc = "[Typescript] Rename File", buffer = bufnr }
     )
     vim.keymap.set(
       "n",
       "<leader>tf",
-      "<cmd>TSToolsFixAll<CR>",
-      { desc = "[Typescript Tools] Fix All Errors", buffer = bufnr }
+      "<cmd>VtsExec fix_all<CR>",
+      { desc = "[Typescript] Fix All Errors", buffer = bufnr }
     )
+    -- vim.keymap.set(
+    --   "n",
+    --   "<leader>tc",
+    --   "<cmd>VtsExec source_actions<CR>",
+    --   { desc = "[Typescript] Code Actions", buffer = bufnr }
+    -- )
   end
 })
 
@@ -103,7 +103,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'query',
   },
   callback = function(event)
-    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf })
+    vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = event.buf })
   end,
 })
 

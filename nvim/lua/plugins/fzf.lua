@@ -18,7 +18,8 @@ FilesPicker.pick = function(opts)
   local behavior = ''
   if FilesPicker.ignoring then
     behavior = 'respecting'
-    opts.cmd = 'fd --color=never --no-require-git --type f --hidden --follow --exclude .git' -- always respect .gitignore even if no .git folder exists
+    opts.cmd =
+    'fd --color=never --no-require-git --type f --hidden --follow --exclude .git'            -- always respect .gitignore even if no .git folder exists
   else
     behavior = 'ignoring'
     opts.cmd = 'fd --color=never --type f --hidden --follow --no-ignore'
@@ -52,6 +53,7 @@ return {
     { "<leader>fa",      "<cmd>FzfLua lsp_code_actions<CR>",          desc = "Code actions (FzfLua)" },
     { "<leader>fd",      "<cmd>FzfLua lsp_document_diagnostics<CR>",  desc = "Document diagnostics (FzfLua)" },
     { "<leader>fD",      "<cmd>FzfLua lsp_workspace_diagnostics<CR>", desc = "Workspace diagnostics (FzfLua)" },
+    { '<leader>fy',      "<cmd>FzfLua tmux_buffers<CR>",              desc = "Show tmux yank history" },
     { '<leader>fvs',     '<cmd>FzfLua git_status<cr>',                desc = 'Git status' },
     { '<leader>fvc',     '<cmd>FzfLua git_commits<cr>',               desc = 'Project git commits' },
     { '<leader>fvb',     '<cmd>FzfLua git_bcommits<cr>',              desc = 'Buffer git commits' },
@@ -77,7 +79,7 @@ return {
         builtin = {
           -- neovim `:tmap` mappings for the fzf win
           ["<A-/>"] = "toggle-help",
-          ["<C-i>"]  = "toggle-fullscreen",
+          ["<C-i>"] = "toggle-fullscreen",
           -- Only valid with the 'builtin' previewer
           ["<F3>"]  = "toggle-preview-wrap",
           ["<C-y>"] = "toggle-preview",
