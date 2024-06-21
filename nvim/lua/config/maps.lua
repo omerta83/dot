@@ -1,8 +1,15 @@
 local map = require('util').map
 
+-- Keeping the cursor centered when scrolling
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll downwards' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll upwards' })
 -- Keep search results at the center of screen
-map("n", "n", "nzz", { silent = true })
-map("n", "N", "Nzz", { silent = true })
+map("n", "n", "nzzzv", { silent = true })
+map("n", "N", "Nzzzv", { silent = true })
+
+-- Indent while remaining in visual mode.
+vim.keymap.set('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
 
 local silent_mods = { mods = { silent = true, emsg_silent = true } }
 vim.keymap.set('n', '<leader>xq', function()
@@ -27,7 +34,8 @@ vim.keymap.set('n', '<leader>xl', function()
     end
   end
 end, { desc = 'Toggle location list' })
--- ...and navigating through the items.
+
+-- Navigating through the quickfix/loclist items.
 vim.keymap.set('n', '[q', '<cmd>cprev<cr>zvzz', { desc = 'Previous quickfix item' })
 vim.keymap.set('n', ']q', '<cmd>cnext<cr>zvzz', { desc = 'Next quickfix item' })
 vim.keymap.set('n', '[l', '<cmd>lprev<cr>zvzz', { desc = 'Previous loclist item' })
@@ -35,6 +43,9 @@ vim.keymap.set('n', ']l', '<cmd>lnext<cr>zvzz', { desc = 'Next loclist item' })
 
 -- lazy
 map("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+
+-- Clear search with <esc>.
+vim.keymap.set('n', '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })
 
 -- Moving between windows using their numbers
 for i = 1, 6 do
