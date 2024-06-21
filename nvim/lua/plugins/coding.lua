@@ -300,26 +300,58 @@ return {
   },
 
   -- autopairs
+  -- {
+  --   'windwp/nvim-autopairs',
+  --   event = "InsertEnter",
+  --   opts = {
+  --     check_ts = true,
+  --     fast_wrap = {},
+  --   },
+  --   config = function(_, opts)
+  --     local Rule = require('nvim-autopairs.rule')
+  --     local npairs = require('nvim-autopairs')
+  --     npairs.setup(opts)
+  --     npairs.add_rules({
+  --       Rule("|", "|", { "rust" })
+  --     })
+  --   end
+  -- },
   {
-    'windwp/nvim-autopairs',
-    event = "InsertEnter",
+    'altermo/ultimate-autopair.nvim',
+    event = { 'InsertEnter', 'CmdlineEnter' },
+    branch = 'v0.6', --recommended as each new version will have breaking changes
     opts = {
-      check_ts = true,
-      fast_wrap = {},
+      --Config goes here
+      space2 = { enable = true },
+      tabout = {
+        enable = true,
+        hopout = true,
+        map = '<A-tab>',                                           --string or table
+        cmap = '<A-tab>',                                          --string or table
+      },
+      close = {
+        map = '<A-)>', --string or table
+        cmap = '<A-)>', --string or table
+      },
+      fastwarp = {
+        multi = true,
+        faster = true,
+        { nocursormove = true,  map = "<A-e>", cmap = "<A-e>" },
+        { nocursormove = false, map = "<A-f>", cmap = "<A-f>" },
+      },
+      config_internal_pairs = {
+        -- { '[', ']', suround = true },
+        -- { '(', ')', suround = true },
+        -- { '{', '}', suround = true },
+        { '"', '"', dosuround = true },
+        { "'", "'", dosuround = true },
+      },
     },
-    config = function(_, opts)
-      local Rule = require('nvim-autopairs.rule')
-      local npairs = require('nvim-autopairs')
-      npairs.setup(opts)
-      npairs.add_rules({
-        Rule("|", "|", { "rust" })
-      })
-    end
   },
 
   {
     "MaximilianLloyd/tw-values.nvim",
-    event={ "BufReadPre *.html,*.js,*.ts,*.jsx,*.tsx,*.vue", "BufNewFile *.html,*.js,*.ts,*.jsx,*.tsx,*.vue" },
+    event = { "BufReadPre *.html,*.js,*.ts,*.jsx,*.tsx,*.vue", "BufNewFile *.html,*.js,*.ts,*.jsx,*.tsx,*.vue" },
     -- keys = {
     --   { "<leader>tv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
     -- },
@@ -346,7 +378,7 @@ return {
     },
     keys = {
       -- stylua: ignore
-      { "<leader>p", "<Cmd>YankyRingHistory<CR>", desc = "Open Yank History" },
+      { "<leader>p", "<Cmd>YankyRingHistory<CR>",              desc = "Open Yank History" },
       {
         "y",
         "<Plug>(YankyYank)",
@@ -381,18 +413,18 @@ return {
       --   "Put yanked text before selection",
       --   mode = { "n", "x" }
       -- },
-      { "[y", "<Plug>(YankyCycleForward)",              desc = "Cycle forward through yank history" },
-      { "]y", "<Plug>(YankyCycleBackward)",             desc = "Cycle backward through yank history" },
-      { "]p", "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
-      { "[p", "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
-      { "]P", "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
-      { "[P", "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
-      { ">p", "<Plug>(YankyPutIndentAfterShiftRight)",  desc = "Put and indent right" },
-      { "<p", "<Plug>(YankyPutIndentAfterShiftLeft)",   desc = "Put and indent left" },
-      { ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
-      { "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)",  desc = "Put before and indent left" },
-      { "=p", "<Plug>(YankyPutAfterFilter)",            desc = "Put after applying a filter" },
-      { "=P", "<Plug>(YankyPutBeforeFilter)",           desc = "Put before applying a filter" },
+      { "[y",        "<Plug>(YankyCycleForward)",              desc = "Cycle forward through yank history" },
+      { "]y",        "<Plug>(YankyCycleBackward)",             desc = "Cycle backward through yank history" },
+      { "]p",        "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
+      { "[p",        "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
+      { "]P",        "<Plug>(YankyPutIndentAfterLinewise)",    desc = "Put indented after cursor (linewise)" },
+      { "[P",        "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "Put indented before cursor (linewise)" },
+      { ">p",        "<Plug>(YankyPutIndentAfterShiftRight)",  desc = "Put and indent right" },
+      { "<p",        "<Plug>(YankyPutIndentAfterShiftLeft)",   desc = "Put and indent left" },
+      { ">P",        "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "Put before and indent right" },
+      { "<P",        "<Plug>(YankyPutIndentBeforeShiftLeft)",  desc = "Put before and indent left" },
+      { "=p",        "<Plug>(YankyPutAfterFilter)",            desc = "Put after applying a filter" },
+      { "=P",        "<Plug>(YankyPutBeforeFilter)",           desc = "Put before applying a filter" },
     },
   },
 
