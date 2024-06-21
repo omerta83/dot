@@ -42,7 +42,7 @@ return {
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- nvim-cmp source for neovim's built-in LSP
       'hrsh7th/cmp-buffer',   -- nvim-cmp source for buffer words
-      'hrsh7th/cmp-path',
+      -- 'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       "saadparwaiz1/cmp_luasnip",
     },
@@ -90,7 +90,7 @@ return {
           { name = 'nvim_lsp', group_index = 1 },
           -- { name = "copilot",  group_index = 2 },
           { name = "luasnip",  group_index = 2 },
-          { name = 'path',     group_index = 2 },
+          -- { name = 'path',     group_index = 2 },
           {
             name = 'buffer',
             option = {
@@ -148,11 +148,14 @@ return {
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = 'path' }
-        }, {
-          { name = 'cmdline' }
-        })
+        sources = cmp.config.sources(
+          -- {
+          --   { name = 'path' }
+          -- },
+          {
+            { name = 'cmdline' }
+          }
+        )
       })
     end
   },
