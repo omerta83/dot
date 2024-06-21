@@ -139,7 +139,7 @@ return {
           delay = 100,
           hidden = 'hidden',
           layout = 'vertical',
-          vertical = 'down:45%',
+          vertical = 'down:55%',
         },
       },
       -- Configuration for specific commands.
