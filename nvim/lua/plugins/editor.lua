@@ -179,6 +179,10 @@ return {
       -- { "q", function() require("oil").close() end,      desc = "Close Oil" },
     },
     opts = {
+      delete_to_trash = true,
+      keymaps = {
+        ["<C-y>"] = "actions.preview",
+      },
       float = {
         max_width = 100,
         max_height = 80
