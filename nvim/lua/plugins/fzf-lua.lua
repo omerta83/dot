@@ -57,10 +57,10 @@ return {
     { '<leader>fy',      '<cmd>FzfLua registers<CR>',                 desc = '[FzfLua] Registers' },
     { '<leader>fk',      "<cmd>FzfLua keymaps<CR>",                   desc = "[FzfLua] Keymaps" },
     { '<leader>fY',      "<cmd>FzfLua tmux_buffers<CR>",              desc = "[FzfLua] Show tmux yank history" },
-    { '<leader>fvs',     '<cmd>FzfLua git_status<cr>',                desc = '[FzfLua] Git status' },
-    { '<leader>fvc',     '<cmd>FzfLua git_commits<cr>',               desc = '[FzfLua] Git project commits' },
-    { '<leader>fvb',     '<cmd>FzfLua git_bcommits<cr>',              desc = '[FzfLua] Git buffer commits' },
-    { '<leader>fvr',     '<cmd>FzfLua git_branches<cr>',              desc = '[FzfLua] Git branches' },
+    { '<leader>gt',     '<cmd>FzfLua git_status<cr>',                desc = '[FzfLua] Git status' },
+    { '<leader>gC',     '<cmd>FzfLua git_commits<cr>',               desc = '[FzfLua] Git project commits' },
+    { '<leader>fc',     '<cmd>FzfLua git_bcommits<cr>',              desc = '[FzfLua] Git buffer commits' },
+    { '<leader>gb',     '<cmd>FzfLua git_branches<cr>',              desc = '[FzfLua] Git branches' },
   },
   opts = function()
     local actions = require "fzf-lua.actions"

@@ -21,28 +21,6 @@ return {
         enabled = false,
       }
     },
-    config = function(_, opts)
-      local copilot = require('copilot.suggestion')
-      local luasnip = require('luasnip')
-
-      require('copilot').setup(opts)
-
-      local function set_trigger(trigger)
-        if not trigger and copilot.is_visible() then
-          copilot.dismiss()
-        end
-        vim.b.copilot_suggestion_auto_trigger = trigger
-        vim.b.copilot_suggestion_hidden = trigger
-      end
-
-      vim.api.nvim_create_autocmd('User', {
-        desc = 'Disable Copilot inside snippets',
-        pattern = { 'LuasnipInsertNodeEnter', 'LuasnipInsertNodeLeave' },
-        callback = function()
-          set_trigger(not luasnip.expand_or_locally_jumpable())
-        end,
-      })
-    end
   },
 
   -- comment
@@ -222,7 +200,7 @@ return {
     keys = {
       -- { "<leader>rn", ":IncRename ", desc = "Rename" }
       {
-        "<leader>rn",
+        "<leader>cr",
         function()
           return ":IncRename " .. vim.fn.expand('<cword>')
         end,

@@ -48,7 +48,7 @@ vim.keymap.set('n', '[l', '<cmd>lprev<cr>zvzz', { desc = 'Previous loclist item'
 vim.keymap.set('n', ']l', '<cmd>lnext<cr>zvzz', { desc = 'Next loclist item' })
 
 -- lazy
-map("n", "<leader>lz", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>z", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
 -- Clear search with <esc>.
 vim.keymap.set('n', '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and clear hlsearch' })

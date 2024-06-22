@@ -18,18 +18,18 @@ return {
         local utils = require("util")
 
         -- stylua: ignore start
-        utils.map({ "n", "x", "o" }, "]h", gs.next_hunk, { desc = "Next Hunk" })
-        utils.map({ "n", "x", "o" }, "[h", gs.prev_hunk, { desc = "Prev Hunk" })
-        utils.map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", { desc = "Stage Hunk" })
-        utils.map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", { desc = "Reset Hunk" })
-        utils.map("n", "<leader>ghS", gs.stage_buffer, { desc = "Stage Buffer" })
-        utils.map("n", "<leader>ghu", gs.undo_stage_hunk, { desc = "Undo Stage Hunk" })
-        utils.map("n", "<leader>ghR", gs.reset_buffer, { desc = "Reset Buffer" })
-        utils.map("n", "<leader>ghp", gs.preview_hunk, { desc = "Preview Hunk" })
-        utils.map("n", "<leader>ghb", function() gs.blame_line({ full = true }) end, { desc = "Blame Line" })
-        utils.map("n", "<leader>ghd", gs.diffthis, { desc = "Diff This" })
-        utils.map("n", "<leader>ghD", function() gs.diffthis("~") end, { desc = "Diff This ~" })
-        utils.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "GitSigns Select Hunk" })
+        utils.map({ "n", "x", "o" }, "]h", gs.next_hunk, { desc = "[Gitsigns] Next Hunk" })
+        utils.map({ "n", "x", "o" }, "[h", gs.prev_hunk, { desc = "[Gitsigns] Prev Hunk" })
+        utils.map({ "n", "v" }, "<leader>gss", ":Gitsigns stage_hunk<CR>", { desc = "[Gitsigns] Stage Hunk" })
+        utils.map({ "n", "v" }, "<leader>gsr", ":Gitsigns reset_hunk<CR>", { desc = "[Gitsigns] Reset Hunk" })
+        utils.map("n", "<leader>gsS", gs.stage_buffer, { desc = "[Gitsigns] Stage Buffer" })
+        utils.map("n", "<leader>gsu", gs.undo_stage_hunk, { desc = "[Gitsigns] Undo Stage Hunk" })
+        utils.map("n", "<leader>gsR", gs.reset_buffer, { desc = "[Gitsigns] Reset Buffer" })
+        utils.map("n", "<leader>gsp", gs.preview_hunk, { desc = "[Gitsigns] Preview Hunk" })
+        utils.map("n", "<leader>gsb", function() gs.blame_line({ full = true }) end, { desc = "[Gitsigns] Blame Line" })
+        utils.map("n", "<leader>gsd", gs.diffthis, { desc = "[Gitsigns] Diff This" })
+        utils.map("n", "<leader>gsD", function() gs.diffthis("~") end, { desc = "[Gitsigns] Diff This ~" })
+        utils.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "[GitSigns] Select Hunk" })
       end,
     },
   },
@@ -44,9 +44,9 @@ return {
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
     config = true,
     keys = {
-      { "<leader>gdo", "<cmd>DiffviewOpen<cr>",  desc = "DiffView Open" },
-      { "<leader>gdc", "<cmd>DiffviewClose<cr>", desc = "DiffView Close" },
-      { "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = "DiffView Current File History" },
+      { "<leader>gdo", "<cmd>DiffviewOpen<cr>",          desc = "[DiffView] Open" },
+      { "<leader>gdc", "<cmd>DiffviewClose<cr>",         desc = "[DiffView] Close" },
+      { "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = "[DiffView] Show Current File History" },
     },
   },
 }

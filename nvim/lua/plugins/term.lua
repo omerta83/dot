@@ -4,11 +4,10 @@ return {
     version = "*",
     cmd = "ToggleTerm",
     keys = {
-      { "<leader>lg", "<cmd>lua LazyGit()<CR>",              desc = "Open LazyGit" },
-      { "<leader>ld", "<cmd>lua LazyDocker()<CR>",           desc = "Open LazyDocker" },
-      { "<leader>lt", "<cmd>ToggleTerm direction=float<CR>", desc = "Open Floating Term" },
-      { "<leader>lf", "<cmd>lua LfPicker()<CR>",             desc = "Open LF" },
-      { "<C-\\>",     "<cmd>ToggleTerm<CR>",                 desc = "Toggle terminal" }
+      { "<leader>tg", "<cmd>lua LazyGit()<CR>",              desc = "[ToggleTerm] Open LazyGit" },
+      { "<leader>td", "<cmd>lua LazyDocker()<CR>",           desc = "[ToggleTerm] Open LazyDocker" },
+      { "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", desc = "[ToggleTerm] Open Floating Term" },
+      { "<C-\\>",     "<cmd>ToggleTerm<CR>",                 desc = "[ToggleTerm] Toggle terminal" }
     },
     config = function()
       local terminal = require("toggleterm")
@@ -61,30 +60,6 @@ return {
 
       function _G.LazyDocker()
         lazydocker:toggle()
-      end
-
-      -- https://github.com/akinsho/toggleterm.nvim/issues/66#issuecomment-1557373409
-      function _G.LfPicker()
-        local lf_temp_path = "/tmp/lfpickerpath"
-        local lfpicker = create_float_term("lf -selection-path " .. lf_temp_path, function()
-          local file = io.open(lf_temp_path, "r")
-          if file == nil then
-            return
-          end
-          local name = file:read("*a")
-          file:close()
-          os.remove(lf_temp_path)
-          local timer = vim.loop.new_timer()
-          timer:start(
-            0,
-            0,
-            vim.schedule_wrap(function()
-              vim.cmd("edit " .. name)
-            end)
-          )
-        end)
-
-        lfpicker:toggle()
       end
 
       -- Terminal window mappings

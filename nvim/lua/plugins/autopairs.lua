@@ -9,18 +9,17 @@ return {
       tabout = {
         enable = true,
         hopout = true,
-        map = '<A-tab>', --string or table
+        map = '<A-tab>',  --string or table
         cmap = '<A-tab>', --string or table
       },
       close = {
-        map = '<A-)>', --string or table
+        map = '<A-)>',  --string or table
         cmap = '<A-)>', --string or table
       },
       fastwarp = {
         multi = true,
-        faster = true,
-        { nocursormove = true,  map = "<A-r>", cmap = "<A-r>" },
-        { nocursormove = false, map = "<A-f>", cmap = "<A-f>" },
+        { map = "<A-r>", rmap = "<A-R>", cmap = "<A-r>", rcmap = "<A-R>" },
+        { faster = true, map = "<A-f>",  rmap = '<A-F>', cmap = "<A-f>", rcmap = '<A-F>' },
       },
       config_internal_pairs = {
         -- { '[', ']', suround = true },
