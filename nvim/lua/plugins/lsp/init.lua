@@ -224,6 +224,7 @@ return {
               'postcss.config.js', 'postcss.config.ts', 'postcss.config.cjs')
           },
           dockerls = {},
+          markdown_oxide = {},
         },
       }
     end,
@@ -236,7 +237,9 @@ return {
         require('cmp_nvim_lsp').default_capabilities() or {}
       )
 
-      -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+      -- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
+      -- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
+      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 
       -- setup keymaps
       require('plugins.lsp.utils').on_attach(function(client, buffer)

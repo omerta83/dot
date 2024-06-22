@@ -19,7 +19,7 @@ return {
       fastwarp = {
         multi = true,
         faster = true,
-        { nocursormove = true,  map = "<A-e>", cmap = "<A-e>" },
+        { nocursormove = true,  map = "<A-r>", cmap = "<A-r>" },
         { nocursormove = false, map = "<A-f>", cmap = "<A-f>" },
       },
       config_internal_pairs = {

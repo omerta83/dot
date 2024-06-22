@@ -1,4 +1,4 @@
-local icons = require('config.icons')
+-- local icons = require('config.icons')
 return {
   ---@type LazySpec
   {
@@ -14,15 +14,15 @@ return {
         function()
           require("yazi").yazi()
         end,
-        desc = "Open the file manager",
+        desc = "[Yazi] Open the file manager",
       },
       {
         -- Open in the current working directory
-        "<leader>fe",
+        "<leader>-",
         function()
           require("yazi").yazi(nil, vim.fn.getcwd())
         end,
-        desc = "Open the file manager in nvim's working directory",
+        desc = "[Yazi] Open the file manager in nvim's working directory",
       },
     },
     ---@type YaziConfig

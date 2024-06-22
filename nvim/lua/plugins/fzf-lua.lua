@@ -19,7 +19,7 @@ FilesPicker.pick = function(opts)
   if FilesPicker.ignoring then
     behavior = 'respecting'
     opts.cmd =
-    'fd --color=never --no-require-git --type f --hidden --follow --exclude .git'            -- always respect .gitignore even if no .git folder exists
+    'fd --color=never --no-require-git --type f --hidden --follow --exclude .git' -- always respect .gitignore even if no .git folder exists
   else
     behavior = 'ignoring'
     opts.cmd = 'fd --color=never --type f --hidden --follow --no-ignore'
@@ -38,26 +38,29 @@ return {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
   keys = {
-    { "<leader><space>", FilesPicker.pick,                            desc = "Find files (FzfLua)" },
-    { "<leader>fb",      "<cmd>FzfLua buffers<CR>",                   desc = "Buffers (FzfLua)" },
-    { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>",            desc = "Live Grep --glob (FzfLua)" },
-    { "<leader>fp",      "<cmd>FzfLua grep_project<CR>",              desc = "Search all project lines (FzfLua)" },
-    { '<leader>fr',      '<cmd>FzfLua oldfiles<cr>',                  desc = 'Recently opened files' },
-    { "<leader>f;",      "<cmd>FzfLua resume<CR>",                    desc = "Resume (FzfLua)" },
-    { "<leader>fc",      "<cmd>FzfLua commands<CR>",                  desc = "Commands (FzfLua)" },
-    { "<leader>fh",      "<cmd>FzfLua command_history<CR>",           desc = "Command history (FzfLua)" },
-    { "<leader>fM",      "<cmd>FzfLua man_pages<CR>",                 desc = "Man page (FzfLua)" },
-    { "<leader>f?",      "<cmd>FzfLua help_tags<CR>",                 desc = "Help tags (FzfLua)" },
-    { "<leader>fo",      "<cmd>FzfLua lsp_document_symbols<CR>",      desc = "Document symbols (FzfLua)" },
-    { "<leader>fO",      "<cmd>FzfLua lsp_workspace_symbols<CR>",     desc = "Workspace symbols (FzfLua)" },
-    { "<leader>fa",      "<cmd>FzfLua lsp_code_actions<CR>",          desc = "Code actions (FzfLua)" },
-    { "<leader>fd",      "<cmd>FzfLua lsp_document_diagnostics<CR>",  desc = "Document diagnostics (FzfLua)" },
-    { "<leader>fD",      "<cmd>FzfLua lsp_workspace_diagnostics<CR>", desc = "Workspace diagnostics (FzfLua)" },
-    { '<leader>fy',      "<cmd>FzfLua tmux_buffers<CR>",              desc = "Show tmux yank history" },
-    { '<leader>fvs',     '<cmd>FzfLua git_status<cr>',                desc = 'Git status' },
-    { '<leader>fvc',     '<cmd>FzfLua git_commits<cr>',               desc = 'Project git commits' },
-    { '<leader>fvb',     '<cmd>FzfLua git_bcommits<cr>',              desc = 'Buffer git commits' },
-    { '<leader>fvr',     '<cmd>FzfLua git_branches<cr>',              desc = 'Git branches' },
+    { "<leader><space>", FilesPicker.pick,                            desc = "[FzfLua] Find files" },
+    { "<leader>fb",      "<cmd>FzfLua buffers<CR>",                   desc = "[FzfLua] Buffers" },
+    { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>",            desc = "[FzfLua] Live Grep --glob" },
+    { "<leader>fp",      "<cmd>FzfLua grep_project<CR>",              desc = "[FzfLua] Search all project lines" },
+    { '<leader>fr',      '<cmd>FzfLua oldfiles<cr>',                  desc = '[FzfLua] Recently opened files' },
+    { "<leader>f;",      "<cmd>FzfLua resume<CR>",                    desc = "[FzfLua] Resume" },
+    { "<leader>fc",      "<cmd>FzfLua commands<CR>",                  desc = "[FzfLua] Commands" },
+    { "<leader>fh",      "<cmd>FzfLua command_history<CR>",           desc = "[FzfLua] Command history" },
+    { "<leader>fM",      "<cmd>FzfLua man_pages<CR>",                 desc = "[FzfLua] Man page" },
+    { "<leader>f?",      "<cmd>FzfLua help_tags<CR>",                 desc = "[FzfLua] Help tags" },
+    { "<leader>fo",      "<cmd>FzfLua lsp_document_symbols<CR>",      desc = "[FzfLua] Document symbols" },
+    { "<leader>fO",      "<cmd>FzfLua lsp_workspace_symbols<CR>",     desc = "[FzfLua] Workspace symbols" },
+    { "<leader>fa",      "<cmd>FzfLua lsp_code_actions<CR>",          desc = "[FzfLua] Code actions" },
+    { "<leader>fd",      "<cmd>FzfLua lsp_document_diagnostics<CR>",  desc = "[FzfLua] Document diagnostics" },
+    { "<leader>fD",      "<cmd>FzfLua lsp_workspace_diagnostics<CR>", desc = "[FzfLua] Workspace diagnostics" },
+    { '<leader>fm',      "<cmd>FzfLua marks<CR>",                     desc = "[FzfLua] Marks" },
+    { '<leader>fy',      '<cmd>FzfLua registers<CR>',                 desc = '[FzfLua] Registers' },
+    { '<leader>fk',      "<cmd>FzfLua keymaps<CR>",                   desc = "[FzfLua] Keymaps" },
+    { '<leader>fY',      "<cmd>FzfLua tmux_buffers<CR>",              desc = "[FzfLua] Show tmux yank history" },
+    { '<leader>fvs',     '<cmd>FzfLua git_status<cr>',                desc = '[FzfLua] Git status' },
+    { '<leader>fvc',     '<cmd>FzfLua git_commits<cr>',               desc = '[FzfLua] Git project commits' },
+    { '<leader>fvb',     '<cmd>FzfLua git_bcommits<cr>',              desc = '[FzfLua] Git buffer commits' },
+    { '<leader>fvr',     '<cmd>FzfLua git_branches<cr>',              desc = '[FzfLua] Git branches' },
   },
   opts = function()
     local actions = require "fzf-lua.actions"
@@ -131,7 +134,7 @@ return {
       },
       winopts           = {
         height = 0.75,
-        width = 0.5,
+        width = 0.75,
         preview = {
           -- defer the execution of bat to fzf
           -- default = 'bat_native',

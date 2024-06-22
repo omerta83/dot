@@ -69,37 +69,37 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ["<leader>a"] = { query = "@parameter.inner", desc = "Swap with next argument/parameter" },
+            ["<leader>a"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with next argument/parameter" },
           },
           swap_previous = {
-            ["<leader>A"] = { query = "@parameter.inner", desc = "Swap with prev argument/parameter" }
+            ["<leader>A"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with prev argument/parameter" }
           },
         },
         move = {
           enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
           goto_next_start = {
-            ["]f"] = { query = "@function.outer", desc = "Next function start" },
-            ["]]"] = { query = "@class.outer", desc = "Next class start" },
+            ["]f"] = { query = "@function.outer", desc = "[Text Objects] Next function start" },
+            ["]]"] = { query = "@class.outer", desc = "[Text Objects] Next class start" },
             --
             -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-            ["]o"] = { query = { "@loop.*", "@block.*", "@conditional.*" }, desc = "Next loop/block/conditional" },
+            ["]o"] = { query = { "@loop.*", "@block.*", "@conditional.*" }, desc = "[Text Objects] Next loop/block/conditional" },
             -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-            ["]a"] = { query = "@parameter.inner", desc = "Next parameter" },
+            ["]a"] = { query = "@parameter.inner", desc = "[Text Objects] Next parameter" },
           },
           goto_next_end = {
-            ["]F"] = { query = "@function.outer", desc = "Next function end" },
-            ["]["] = { query = "@class.outer", desc = "Next class end" },
+            ["]F"] = { query = "@function.outer", desc = "[Text Objects] Next function end" },
+            ["]["] = { query = "@class.outer", desc = "[Text Objects] Next class end" },
           },
           goto_previous_start = {
-            ["[f"] = { query = "@function.outer", desc = "Previous function start" },
-            ["[["] = { query = "@class.outer", desc = "Previous class end" },
+            ["[f"] = { query = "@function.outer", desc = "[Text Objects] Previous function start" },
+            ["[["] = { query = "@class.outer", desc = "[Text Objects] Previous class end" },
             ["[a"] = "@parameter.inner",
-            ["[o"] = { query = { "@loop.*", "@block.*", "@conditional.*" }, desc = "Previous loop/block/conditional" },
+            ["[o"] = { query = { "@loop.*", "@block.*", "@conditional.*" }, desc = "[Text Objects] Previous loop/block/conditional" },
           },
           goto_previous_end = {
-            ["[F"] = { query = "@function.outer", desc = "Previous function end" },
-            ["[]"] = { query = "@class.outer", desc = "Previous class end" },
+            ["[F"] = { query = "@function.outer", desc = "[Text Objects] Previous function end" },
+            ["[]"] = { query = "@class.outer", desc = "[Text Objects] Previous class end" },
           },
         },
       },

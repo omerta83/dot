@@ -43,34 +43,51 @@ return {
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-c>'] = cmp.mapping.abort(),
+          ['<C-e>'] = cmp.mapping(function()
+            -- Dismiss copilot if visible
+            local copilot = require('copilot.suggestion')
+            if copilot.is_visible() then
+              copilot.dismiss()
+            end
+            cmp.close()
+          end, { 'i', 's' }),
+          ['<C-Space>'] = cmp.mapping.complete(),
           ['<CR>'] = cmp.mapping.confirm({
             select = true
           }),
           ['<Tab>'] = cmp.mapping(function(fallback)
-            local is_copilot, copilot_suggestion = pcall(require, "copilot.suggestion")
-            if is_copilot and copilot_suggestion.is_visible() then
-              require("copilot.suggestion").accept()
+            -- local is_copilot, copilot_suggestion = pcall(require, "copilot.suggestion")
+            -- if is_copilot and copilot_suggestion.is_visible() then
+            --   require("copilot.suggestion").accept()
+            if cmp.visible() then
+              cmp.select_next_item()
             elseif luasnip.jumpable(1) then
               luasnip.jump(1)
             else
               fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
             end
-          end, { "i", "s" }),
+          end, { 'i', 's' }),
           ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
               luasnip.jump(-1)
             else
               fallback()
             end
-          end, { "i", "s" }),
+          end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
-          -- Copilot Source
-          { name = 'nvim_lsp', group_index = 1 },
-          -- { name = "copilot",  group_index = 2 },
-          { name = "luasnip",  group_index = 2 },
-          -- { name = 'path',     group_index = 2 },
+          {
+            name = 'nvim_lsp',
+            group_index = 1,
+            option = {
+              markdown_oxide = {
+                keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
+              }
+            }
+          },
+          { name = "luasnip", group_index = 2 },
           {
             name = 'buffer',
             option = {
@@ -129,9 +146,9 @@ return {
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
-          -- {
-          --   { name = 'path' }
-          -- },
+        -- {
+        --   { name = 'path' }
+        -- },
           {
             { name = 'cmdline' }
           }

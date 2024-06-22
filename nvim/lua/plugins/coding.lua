@@ -1,22 +1,48 @@
 return {
   -- Copilot
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
     opts = {
       suggestion = {
         enabled = true,
         auto_trigger = true,
         keymap = {
-          accept = false,
-          dismiss = "<C-c>",
+          accept = '<M-CR>',
+          accept_word = '<M-w>',
+          accept_line = '<M-e>',
+          next = '<M-]>',
+          prev = '<M-[>',
+          dismiss = '<C-e>',
         }
       },
       panel = {
         enabled = false,
       }
-    }
+    },
+    config = function(_, opts)
+      local copilot = require('copilot.suggestion')
+      local luasnip = require('luasnip')
+
+      require('copilot').setup(opts)
+
+      local function set_trigger(trigger)
+        if not trigger and copilot.is_visible() then
+          copilot.dismiss()
+        end
+        vim.b.copilot_suggestion_auto_trigger = trigger
+        vim.b.copilot_suggestion_hidden = trigger
+      end
+
+      vim.api.nvim_create_autocmd('User', {
+        desc = 'Disable Copilot inside snippets',
+        pattern = { 'LuasnipInsertNodeEnter', 'LuasnipInsertNodeLeave' },
+        callback = function()
+          set_trigger(not luasnip.expand_or_locally_jumpable())
+        end,
+      })
+    end
   },
 
   -- comment
@@ -37,17 +63,17 @@ return {
   --   end
   -- },
   {
-    "folke/ts-comments.nvim",
+    'folke/ts-comments.nvim',
     opts = {},
-    event = "VeryLazy",
-    enabled = vim.fn.has("nvim-0.10.0") == 1,
+    event = 'VeryLazy',
+    enabled = vim.fn.has('nvim-0.10.0') == 1,
   },
 
   {
-    "echasnovski/mini.ai",
+    'echasnovski/mini.ai',
     -- event = "VeryLazy",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = { "nvim-treesitter-textobjects" },
+    event = { 'BufReadPost', 'BufNewFile' },
+    dependencies = { 'nvim-treesitter-textobjects' },
     opts = function()
       local ai = require("mini.ai")
       return {

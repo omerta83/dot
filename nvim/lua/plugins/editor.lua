@@ -1,20 +1,20 @@
 return {
   -- which-key
-  {
-    "folke/which-key.nvim",
-    -- event = "VeryLazy",
-    event = { "BufReadPost", "BufNewFile" },
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 500
-    end,
-    opts = {
-      plugins = { spelling = false },
-      window = {
-        border = "single",
-      },
-    },
-  },
+  -- {
+  --   "folke/which-key.nvim",
+  --   -- event = "VeryLazy",
+  --   event = { "BufReadPost", "BufNewFile" },
+  --   init = function()
+  --     vim.o.timeout = true
+  --     vim.o.timeoutlen = 500
+  --   end,
+  --   opts = {
+  --     plugins = { spelling = false },
+  --     window = {
+  --       border = "single",
+  --     },
+  --   },
+  -- },
 
   -- add nvim-ufo
   -- {
