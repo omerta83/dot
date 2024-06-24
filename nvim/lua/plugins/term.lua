@@ -35,19 +35,17 @@ return {
         local lazy = Terminal:new({
           cmd = cmd or '',
           direction = "float",
+          hidden = true,
           float_opts = {
             border = 'rounded'
           },
-          on_open = function(term)
-            -- vim.cmd("startinsert!")
+          on_open = function()
             -- Disable esc when in lazygit or lazydocker
-            pcall(vim.keymap.del, 't', '<esc>', { buffer = term.bufnr })
+            vim.api.nvim_buf_set_keymap(0, 't', '<Esc>', '<Esc>', { noremap = true, silent = true })
+            -- vim.keymap.del('t', '<esc>')
           end,
           -- function to run on closing the terminal
           on_close = on_close,
-          -- on_close = function()
-          --   vim.cmd("startinsert!")
-          -- end,
         })
         return lazy
       end
