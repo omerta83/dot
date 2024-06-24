@@ -4,7 +4,7 @@ return {
     version = "*",
     cmd = "ToggleTerm",
     keys = {
-      { "<leader>tg", "<cmd>lua LazyGit()<CR>",              desc = "[ToggleTerm] Open LazyGit" },
+      { "<leader>gg", "<cmd>lua LazyGit()<CR>",              desc = "[ToggleTerm] Open LazyGit" },
       { "<leader>td", "<cmd>lua LazyDocker()<CR>",           desc = "[ToggleTerm] Open LazyDocker" },
       { "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", desc = "[ToggleTerm] Open Floating Term" },
       { "<C-\\>",     "<cmd>ToggleTerm<CR>",                 desc = "[ToggleTerm] Toggle terminal" }
