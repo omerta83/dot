@@ -34,19 +34,23 @@ return {
     },
   },
 
-  {
-    "tpope/vim-fugitive",
-    cmd = "Git",
-  },
+  -- {
+  --   "tpope/vim-fugitive",
+  --   cmd = { "G", "Gedit", "Gblame", "Gbrowse", "Gdiff", "Ggrep", "Glog", "Gmove", "Gpull", "Gpush", "Gread", "Gremove", "Grename", "Gstatus", "Gwrite" },
+  --   keys = {
+  --     { "<leader>gg", "<cmd>G<CR>",      desc = "[Fugitive] Git Status in split view" },
+  --     { "<leader>gG", "<cmd>Gedit:<CR>", desc = "[Fugitive] Git Status" },
+  --   },
+  -- },
 
-  {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
-    config = true,
-    keys = {
-      { "<leader>gdo", "<cmd>DiffviewOpen<cr>",          desc = "[DiffView] Open" },
-      { "<leader>gdc", "<cmd>DiffviewClose<cr>",         desc = "[DiffView] Close" },
-      { "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = "[DiffView] Show Current File History" },
-    },
-  },
+  -- {
+  --   "sindrets/diffview.nvim",
+  --   cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles", "DiffviewFileHistory" },
+  --   config = true,
+  --   keys = {
+  --     { "<leader>gdo", "<cmd>DiffviewOpen<cr>",          desc = "[DiffView] Open" },
+  --     { "<leader>gdc", "<cmd>DiffviewClose<cr>",         desc = "[DiffView] Close" },
+  --     { "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", desc = "[DiffView] Show Current File History" },
+  --   },
+  -- },
 }
