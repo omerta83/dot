@@ -37,7 +37,9 @@ return {
         --   components.lsp_symbols,
         },
         lualine_x = {
+          components.marco_recording,
           components.space,
+          components.searchcount,
         },
         lualine_y = {
           components.encoding,

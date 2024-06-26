@@ -33,6 +33,27 @@ local function term_str()
   )
 end
 
+local function show_searchcount()
+  if vim.v.hlsearch == 0 then
+    return ""
+  end
+  local last_search = vim.fn.getreg('/')
+  if not last_search or last_search == "" then
+    return ""
+  end
+  local search = vim.fn.searchcount({ maxcount = 0 })
+  return last_search .. "(" .. search.current .. "/" .. search.total .. ")"
+end
+
+local function show_macro_recording()
+    local recording_register = vim.fn.reg_recording()
+    if recording_register == "" then
+        return ""
+    else
+        return "Recording @" .. recording_register
+    end
+end
+
 local M = {
   logo = {
     function()
@@ -131,7 +152,17 @@ local M = {
     term_str,
     separator = separator,
     color = { fg = colors.green }
-  }
+  },
+  searchcount = {
+    show_searchcount,
+    icon = icons.misc.Search,
+    color = { fg = colors.green, },
+  },
+  marco_recording = {
+    show_macro_recording,
+    icon = icons.misc.Record,
+    color = { fg = colors.red, },
+  },
 }
 
 return M

@@ -82,7 +82,7 @@ return {
         builtin = {
           -- neovim `:tmap` mappings for the fzf win
           ["<A-/>"] = "toggle-help",
-          ["<C-i>"] = "toggle-fullscreen",
+          ["<C-t>"] = "toggle-fullscreen",
           -- Only valid with the 'builtin' previewer
           ["<F3>"]  = "toggle-preview-wrap",
           ["<C-y>"] = "toggle-preview",
@@ -104,7 +104,7 @@ return {
           -- ["ctrl-s"] = "jump",
           ["alt-a"]  = "toggle-all",
           ["ctrl-l"] = "clear-selection",
-          -- ['ctrl-Q'] = 'select-all+accept',
+          ['ctrl-q'] = 'select-all+accept',
           -- Only valid with fzf previewers (bat/cat/git/etc)
           ["f3"]     = "toggle-preview-wrap",
           ["ctrl-y"] = "toggle-preview",
@@ -117,7 +117,7 @@ return {
           ["ctrl-x"]  = actions.file_split,
           ["ctrl-v"]  = actions.file_vsplit,
           ["ctrl-t"]  = actions.file_tabedit,
-          ["ctrl-q"]  = actions.file_sel_to_qf,
+          -- ["ctrl-q"]  = actions.file_sel_to_qf,
           ["alt-l"]   = actions.file_sel_to_ll,
         },
         buffers = {

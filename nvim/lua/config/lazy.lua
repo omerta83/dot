@@ -32,7 +32,8 @@ require("lazy").setup({
     },
     rtp = {
       paths = {
-        "/usr/local/opt/fzf" -- homebrew version of fzf
+        "/usr/local/opt/fzf", -- homebrew version of fzf for Intel Macs
+        "/opt/homebrew/opt/fzf", -- homebrew version of fzf for Apple Silicon Macs
       },
       disabled_plugins = {
         "2html_plugin",

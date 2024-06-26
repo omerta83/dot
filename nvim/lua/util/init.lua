@@ -49,16 +49,13 @@ end
 function M.theme_colors()
   if vim.g.colors_name == 'carbonfox' then
     local palette = require('nightfox.palette').load('carbonfox')
-    for k,v in pairs(palette.cyan) do
-      print(k)
-      print(v)
-    end
     -- Returns a table with the colors of the theme compatible with tokyonight
     local colors = {}
     colors.bg = palette.bg1
     colors.bg_highlight = palette.bg2
     colors.bg_dark = palette.bg0
     colors.teal = palette.cyan.base
+    colors.red = palette.red.base
     colors.cyan = palette.cyan.base
     colors.orange = palette.orange.base
     colors.green = palette.green.base
@@ -76,6 +73,7 @@ function M.theme_colors()
 end
 
 function M.map(mode, l, r, opts)
+  opts = opts or {}
   vim.keymap.set(mode, l, r, opts)
 end
 
