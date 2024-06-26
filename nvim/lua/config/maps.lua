@@ -52,6 +52,10 @@ local comment = require('vim._comment')
 vim.keymap.set('x', 'ic', comment.textobject)
 vim.keymap.set('o', 'ic', comment.textobject)
 
+-- searching for the word under the cursor goes back to the first match
+vim.keymap.set('n', '*', '*``')
+vim.keymap.set('n', '#', '#``')
+
 -- lazy
 map("n", "<leader>z", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
@@ -64,15 +68,3 @@ for i = 1, 6 do
   local rhs = i .. "<c-w>w"
   map("n", lhs, rhs, { desc = "Move to window " .. i })
 end
-
--- Terminal / ToggleTerm
--- function Set_terminal_keymaps(buffer)
---   local lopts = { buffer = buffer }
---   map('t', '<esc>', [[<C-\><C-n>]], lopts)
---   map('t', '<C-h>', [[<Cmd>wincmd h<CR>]], lopts)
---   map('t', '<C-j>', [[<Cmd>wincmd j<CR>]], lopts)
---   map('t', '<C-k>', [[<Cmd>wincmd k<CR>]], lopts)
---   map('t', '<C-l>', [[<Cmd>wincmd l<CR>]], lopts)
--- end
---
--- vim.cmd('autocmd! TermOpen term://*toggleterm* lua Set_terminal_keymaps()')
