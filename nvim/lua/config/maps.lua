@@ -47,6 +47,11 @@ vim.keymap.set('n', ']q', '<cmd>cnext<cr>zvzz', { desc = 'Next quickfix item' })
 vim.keymap.set('n', '[l', '<cmd>lprev<cr>zvzz', { desc = 'Previous loclist item' })
 vim.keymap.set('n', ']l', '<cmd>lnext<cr>zvzz', { desc = 'Next loclist item' })
 
+-- Comment text objects
+local comment = require('vim._comment')
+vim.keymap.set('x', 'ic', comment.textobject)
+vim.keymap.set('o', 'ic', comment.textobject)
+
 -- lazy
 map("n", "<leader>z", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 
