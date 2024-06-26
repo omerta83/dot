@@ -61,37 +61,43 @@ vim.api.nvim_create_autocmd("FileType", {
     local bufnr = event.buf
     vim.keymap.set(
       "n",
-      "<leader>to",
+      "<leader>co",
       "<cmd>VtsExec organize_imports<CR>",
       { buffer = bufnr, desc = "[Typescript] Organize Imports" }
     )
     vim.keymap.set(
       "n",
-      "<leader>td",
+      "<leader>cd",
       "<cmd>VtsExec goto_source_definition<CR>",
       { desc = "[Typescript] Go To Source Definition", buffer = bufnr }
     )
     vim.keymap.set(
       "n",
-      "<leader>ti",
+      "<leader>ci",
       "<cmd>VtsExec add_missing_imports<CR>",
       { desc = "[Typescript] Add Missing Imports", buffer = bufnr }
     )
     vim.keymap.set(
       "n",
-      "<leader>tu",
+      "<leader>cu",
       "<cmd>VtsExec remove_unused<CR>",
       { desc = "[Typescript] Remove Unused Imports", buffer = bufnr }
     )
     vim.keymap.set(
       "n",
-      "<leader>tr",
-      "<cmd>TSToolsRenameFile<CR>",
+      "<leader>cn",
+      "<cmd>VtsExec rename_file<CR>",
       { desc = "[Typescript] Rename File", buffer = bufnr }
     )
     vim.keymap.set(
       "n",
-      "<leader>tf",
+      "<leader>cs",
+      "<cmd>VtsExec file_references<CR>",
+      { desc = "[Typescript] File References", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cF",
       "<cmd>VtsExec fix_all<CR>",
       { desc = "[Typescript] Fix All Errors", buffer = bufnr }
     )
