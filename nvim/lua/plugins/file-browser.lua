@@ -1,6 +1,6 @@
 -- local icons = require('config.icons')
 return {
-  ---@type LazySpec
+  -- ---@type LazySpec
   -- {
   --   "mikavilpas/yazi.nvim",
   --   dependencies = {
