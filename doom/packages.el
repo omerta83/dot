@@ -49,4 +49,18 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 
-(package! vue-mode)
+(package! which-key
+  :disable t)
+(package! treemacs
+  :disable t)
+(package! lsp-treemacs
+  :disable t)
+
+;; (package! treesit)
+(package! vue-ts-mode
+  :recipe (:local-repo "treesitter/vue-ts-mode"))
+(package! format-all)
+(package! reformatter)
+(package! lsp-tailwindcss :recipe (:host github :repo "merrickluo/lsp-tailwindcss"))
+(package! copilot
+  :recipe (:host github :repo "copilot-emacs/copilot.el" :files ("*.el")))

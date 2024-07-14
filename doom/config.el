@@ -3,6 +3,7 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+;; Some are extracted from https://github.com/tecosaur/emacs-config
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
@@ -36,17 +37,49 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
+
+(setq undo-limit 80000000                         ; Raise undo-limit to 80Mb
+      evil-want-fine-undo t                       ; By default while in insert all changes are one big blob. Be more granular
+      ;; auto-save-default t                         ; Nobody likes to loose work, I certainly don't
+      truncate-string-ellipsis "…"                ; Unicode ellispis are nicer than "...", and also save /precious/ space
+      password-cache-expiry nil                   ; I can trust my computers ... can't I?
+      ;; scroll-preserve-screen-position 'always     ; Don't have `point' jump around
+      scroll-margin 2                             ; It's nice to maintain a little margin
+      display-time-default-load-average nil)      ; I don't think I've ever found this useful
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/org/")
+(setq org-roam-directory "~/Documents/org-roam/")
 
-;; Indent with 4 spaces
-(setq tab-width 4)
-(setq evil-shift-width 4)
+;; Indent with 2 spaces
+(setq tab-width 2)
+(setq evil-shift-width 2)
+
 ;; the amount of data which Emacs reads from the process (improve lsp)
 (setq read-process-output-max (* 1024 1024)) ;; 1mb
+
+;; Fullscreen in macos
+(setq default-frame-alist '((fullscreen . maximized)
+
+                            ;; You can turn off scroll bars by uncommenting these lines:
+                            ;; (vertical-scroll-bars . nil)
+                            ;; (horizontal-scroll-bars . nil)
+
+                            ;; Setting the face in here prevents flashes of
+                            ;; color as the theme gets activated
+                            (background-color . "#000000")
+                            (ns-appearance . dark)
+                            (ns-transparent-titlebar . t)))
+
+;;; Prevent Emacs from popping up new windows when running commands
+(setq display-buffer-base-action
+      '(display-buffer-reuse-mode-window
+        display-buffer-reuse-window
+        display-buffer-same-window))
+;; If a popup does happen, don't resize windows to be equal-sized
+(setq even-window-sizes nil)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -80,60 +113,49 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Fullscreen in macos
-(setq default-frame-alist '((fullscreen . maximized)
+(setq evil-vsplit-window-right t
+      evil-split-window-below t)
 
-                            ;; You can turn off scroll bars by uncommenting these lines:
-                            ;; (vertical-scroll-bars . nil)
-                            ;; (horizontal-scroll-bars . nil)
+;; Use embark for key help
+(setq prefix-help-command #'embark-prefix-help-command)
 
-                            ;; Setting the face in here prevents flashes of
-                            ;; color as the theme gets activated
-                            (background-color . "#000000")
-                            (ns-appearance . dark)
-                            (ns-transparent-titlebar . t)))
+;; Line numbers toggle based on evil states
+(defun mp/display-set-relative ()
+  (setq display-line-numbers 'relative))     ; or 'visual
+(defun mp/display-set-absolute ()
+  (setq display-line-numbers t))
+(add-hook 'evil-insert-state-entry-hook #'mp/display-set-absolute)
+(add-hook 'evil-insert-state-exit-hook #'mp/display-set-relative)
 
-;; vue-mode
-(use-package! vue-mode
-  :mode "\\.vue\\'"
+;; Disable line numbers in some modes
+(dolist (mode '(org-mode-hook
+                helpful-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; When splitting windows, show the buffer list
+(defadvice! prompt-for-buffer (&rest _)
+  :after '(evil-window-split evil-window-vsplit)
+  (consult-buffer))
+
+;; accept completion from copilot and fallback to company
+(use-package! copilot
+  :hook (prog-mode . copilot-mode)
   :config
-  (add-hook 'vue-mode-hook #'lsp!)
-  (setq mmm-submode-decoration-level 0) ; Fix highlighting in vue
-)
-
-(use-package! lsp-ui
-  :config
-  (setq
-   lsp-enable-file-watchers nil
-
-   lsp-ui-doc-enable t
-   lsp-ui-doc-position 'top
-   lsp-ui-doc-include-signature t
-   lsp-ui-doc-use-childframe t
-   lsp-ui-doc-header t
-
-   lsp-ui-flycheck-enable nil
-   lsp-ui-flycheck-list-position 'left
-   lsp-flycheck-live-reporting nil
-
-   lsp-ui-peek-enable t
-   lsp-ui-peek-list-width 60
-   lsp-ui-peek-peek-height 25
-
-   lsp-ui-sideline-delay 1.2
-   lsp-ui-sideline-enable t
-   lsp-ui-sideline-enable t
-   lsp-ui-sideline-show-diagnostics t
-   lsp-ui-sideline-show-hover t
-   lsp-ui-sideline-show-symbol t)
-
-  (map! :n "M-." 'lsp-ui-peek-find-definitions)
-  (map! :n "M-/" 'lsp-ui-peek-find-references))
-
-;; (use-package! web
-;;   :hook
-;;   (prettier-js))
-
-;; (use-package! prettier-js
-;;   :config
-;;   (setq prettier-js-args '("--trailing-comma" "all" "--vue-indent-script-and-style" "true" "--print-width" "90")))
+  (setq copilot-indent-offset-warning-disable t)
+  :bind (:map copilot-completion-map
+              ("M-<ret>" . 'copilot-accept-completion)
+              ("M-RET" . 'copilot-accept-completion)
+              ("M-w" . 'copilot-accept-completion-by-word)
+              ("M-e" . 'copilot-accept-completion-by-line)))
+;;; Load extra files
+(load! "extras/lsp.el")
+(load! "extras/format.el")
+;; Projectile
+(load! "extras/projectile.el")
+;;; Treesitter
+(load! "extras/treesitter.el")
+;;; Additional mappings
+(load! "extras/mappings.el")
