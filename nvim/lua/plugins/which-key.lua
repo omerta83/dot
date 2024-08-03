@@ -26,41 +26,16 @@ return {
     config = function(_, opts)
       local wk = require("which-key")
       wk.setup(opts)
-      wk.register({
-        ["<leader>"] = {
-          f = {
-            name = "+find"
-          },
-          b = {
-            name = "+buffer"
-          },
-          c = {
-            name = "+code"
-          },
-          d = {
-            name = "+debug"
-          },
-          g = {
-            name = "+git"
-          },
-          t = {
-            name = "+term"
-          },
-          w = {
-            name = "+window"
-          },
-          x = {
-            name = "+loclist/quickfix"
-          }
-        },
-        ["<leader>g"] = {
-          d = {
-            name = "+diff"
-          },
-          s = {
-            name = "+gitsigns"
-          }
-        }
+      wk.add({
+        { "<leader>b", group = "+buffer" },
+        { "<leader>f", group = "+find" },
+        { "<leader>c", group = "+code" },
+        { "<leader>g", group = "+git" },
+        { "<leader>d", group = "+debug" },
+        { "<leader>t", group = "+term" },
+        { "<leader>w", group = "+window" },
+        { "<leader>x", group = "+loclist/quickfix" },
+        { "<leader>s", group = "+flash" },
       })
     end,
   },

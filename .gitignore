@@ -1,1 +1,5 @@
 .DS_Store
+/medusa/
+/pnpm/
+/jgit/
+/.dart-cli-completion/

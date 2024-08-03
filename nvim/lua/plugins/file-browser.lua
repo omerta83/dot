@@ -1,36 +1,36 @@
 -- local icons = require('config.icons')
 return {
-  ---@type LazySpec
-  {
-    "mikavilpas/yazi.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    event = "VeryLazy",
-    keys = {
-      -- 👇 in this section, choose your own keymappings!
-      {
-        "-",
-        function()
-          require("yazi").yazi()
-        end,
-        desc = "[Yazi] Open the file manager",
-      },
-      {
-        -- Open in the current working directory
-        "<leader>-",
-        function()
-          require("yazi").yazi(nil, vim.fn.getcwd())
-        end,
-        desc = "[Yazi] Open the file manager in nvim's working directory",
-      },
-    },
-    ---@type YaziConfig
-    opts = {
-      -- Replacing netrw
-      open_for_directories = true,
-    },
-  },
+  -- ---@type LazySpec
+  -- {
+  --   "mikavilpas/yazi.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   event = "VeryLazy",
+  --   keys = {
+  --     -- 👇 in this section, choose your own keymappings!
+  --     {
+  --       "-",
+  --       function()
+  --         require("yazi").yazi()
+  --       end,
+  --       desc = "[Yazi] Open the file manager",
+  --     },
+  --     {
+  --       -- Open in the current working directory
+  --       "<leader>-",
+  --       function()
+  --         require("yazi").yazi(nil, vim.fn.getcwd())
+  --       end,
+  --       desc = "[Yazi] Open the file manager in nvim's working directory",
+  --     },
+  --   },
+  --   ---@type YaziConfig
+  --   opts = {
+  --     -- Replacing netrw
+  --     open_for_directories = true,
+  --   },
+  -- },
 
   -- {
   --   'nvim-tree/nvim-tree.lua',
@@ -147,24 +147,25 @@ return {
   --     })
   --   end
   -- },
-  -- {
-  --   'stevearc/oil.nvim',
-  --   cmd = "Oil",
-  --   keys = {
-  --     { "-", function() require('oil').open_float() end, desc = "Open parent directory in float" },
-  --     -- { "q", function() require("oil").close() end,      desc = "Close Oil" },
-  --   },
-  --   opts = {
-  --     delete_to_trash = true,
-  --     keymaps = {
-  --       ["<C-y>"] = "actions.preview",
-  --     },
-  --     float = {
-  --       max_width = 100,
-  --       max_height = 80
-  --     }
-  --   },
-  --   -- Optional dependencies
-  --   dependencies = { "nvim-tree/nvim-web-devicons" },
-  -- },
+  {
+    'stevearc/oil.nvim',
+    cmd = "Oil",
+    keys = {
+      { "-", function() require('oil').open_float() end, desc = "Open parent directory in float" },
+      { "<leader>-", function() require('oil').open_float(vim.fn.getcwd()) end, desc = "Open working directory in float" },
+      -- { "q", function() require("oil").close() end,      desc = "Close Oil" },
+    },
+    opts = {
+      delete_to_trash = true,
+      keymaps = {
+        ["<C-y>"] = "actions.preview",
+      },
+      float = {
+        max_width = 100,
+        max_height = 80
+      }
+    },
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 }
