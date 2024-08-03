@@ -109,31 +109,6 @@ return {
     end
   },
 
-  -- {
-  --   "nvim-treesitter/nvim-treesitter-context",
-  --   event = { "BufReadPost", "BufNewFile" },
-  --   opts = {
-  --     max_lines = 2,
-  --     mode = "cursor",
-  --   },
-  --   keys = {
-  --     {
-  --       "<leader>ut",
-  --       function()
-  --         require("treesitter-context").toggle()
-  --       end,
-  --       desc = "Toggle Treesitter Context",
-  --     },
-  --     {
-  --       "<leader>uc",
-  --       function()
-  --         require("treesitter-context").go_to_context()
-  --       end,
-  --       desc = "Jumping to context (upwards)"
-  --     }
-  --   },
-  -- },
-
   -- html autotag for treesitter
   {
     'windwp/nvim-ts-autotag',

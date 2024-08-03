@@ -1,6 +1,6 @@
 local M = {}
 
-function M.on_attach(client, buffer)
+function M.on_attach(_, buffer)
   local function keymap(lhs, rhs, desc, mode)
     mode = mode or 'n'
     vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc })
@@ -14,20 +14,20 @@ function M.on_attach(client, buffer)
   keymap("K", vim.lsp.buf.hover, "[LSP] Hover")
   keymap("<leader>ca", vim.lsp.buf.code_action, "[LSP] Code Action", { "n", "v" })
   keymap("<leader>K", vim.diagnostic.open_float, "Line Diagnostics")
-  keymap("]d", vim.diagnostic.goto_next, "Next Diagnostic")
-  keymap("[d", vim.diagnostic.goto_prev, "Prev Diagnostic")
-  keymap("]e", function() vim.diagnostic.goto_next({ wrap = true, severity = vim.diagnostic.severity.ERROR }) end,
+  keymap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
+  keymap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Prev Diagnostic")
+  keymap("]e", function() vim.diagnostic.jump({ count = 1, wrap = true, severity = vim.diagnostic.severity.ERROR }) end,
     "Next Error")
-  keymap("[e", function() vim.diagnostic.goto_prev({ wrap = true, severity = vim.diagnostic.severity.ERROR }) end,
+  keymap("[e", function() vim.diagnostic.jump({ count = -1, wrap = true, severity = vim.diagnostic.severity.ERROR }) end,
     "Prev Error")
-  keymap("]w", function() vim.diagnostic.goto_next({ wrap = true, severity = vim.diagnostic.severity.WARN }) end,
+  keymap("]w", function() vim.diagnostic.jump({ count = 1, wrap = true, severity = vim.diagnostic.severity.WARN }) end,
     "Next Warning")
-  keymap("[w", function() vim.diagnostic.goto_prev({ wrap = true, severity = vim.diagnostic.severity.WARN }) end,
+  keymap("[w", function() vim.diagnostic.jump({ count = -1, wrap = true, severity = vim.diagnostic.severity.WARN }) end,
     "Prev Warning")
   keymap("<leader>cf", function() require('plugins.lsp.format').format("documentFormatting") end, "Format Document")
   keymap("<leader>cf", function() require('plugins.lsp.format').format("documentRangeFormatting") end, "Format Range",
     { "n", "v" })
-  keymap("<leader>ll", "<CMD>LspRestart<CR>", "Restart LSP")
+  keymap("<leader>ll", "<CMD>LspRestart<CR>", "[LSP] Restart LSP")
 end
 
 return M

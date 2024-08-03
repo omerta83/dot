@@ -24,22 +24,23 @@ return {
   },
 
   -- comment
-  -- {
-  --   'numToStr/Comment.nvim',
-  --   event = { "BufReadPost", "BufNewFile" },
-  --   -- event = "VeryLazy",
-  --   dependencies = {
-  --     'JoosepAlviste/nvim-ts-context-commentstring',
-  --     init = function ()
-  --       vim.g.skip_ts_context_commentstring_module = true
-  --     end,
-  --   },
-  --   config = function()
-  --     require('Comment').setup({
-  --       pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-  --     })
-  --   end
-  -- },
+  {
+    'numToStr/Comment.nvim',
+    -- event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
+    dependencies = {
+      -- 'JoosepAlviste/nvim-ts-context-commentstring',
+      -- init = function ()
+      --   vim.g.skip_ts_context_commentstring_module = true
+      -- end,
+    },
+    opts = {
+      -- pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+    },
+    config = function(_, opts)
+      require('Comment').setup(opts)
+    end
+  },
   {
     'folke/ts-comments.nvim',
     opts = {},
@@ -56,15 +57,23 @@ return {
       local ai = require("mini.ai")
       return {
         n_lines = 500,
-        silent = true,
         custom_textobjects = {
-          o = ai.gen_spec.treesitter({
+          o = ai.gen_spec.treesitter({ -- code block
             a = { "@block.outer", "@conditional.outer", "@loop.outer" },
             i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-          }, {}),
-          f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
-          c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
-          -- t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
+          }),
+          f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
+          c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),       -- class
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },           -- tags
+          d = { "%f[%d]%d+" },                                                          -- digits
+          e = {                                                                         -- Word with case
+            { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
+            "^().*()$",
+          },
+          i = require('util.mini').ai_indent,                        -- indent
+          g = require('util.mini').ai_buffer,                        -- buffer
+          u = ai.gen_spec.function_call(),                           -- u for "Usage"
+          U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
         },
       }
     end,
@@ -91,10 +100,16 @@ return {
           a = "Argument",
           b = "Balanced ), ], }",
           c = "Class",
+          d = "Digit(s)",
+          e = "Word in CamelCase & snake_case",
           f = "Function",
+          g = "Entire file",
+          i = "Indent",
           o = "Block, conditional, loop",
           q = "Quote `, \", '",
           t = "Tag",
+          u = "Use/call function & method",
+          U = "Use/call without dot in name",
         }
         local a = vim.deepcopy(i)
         for k, v in pairs(a) do

@@ -14,7 +14,14 @@ return {
       popup_mappings = {
         scroll_down = '<C-f>',
         scroll_up = '<C-b>',
-      }
+      },
+      key_labels = {
+        ["<CR>"] = "⏎",
+        ["<BS>"] = "⌫",
+        ["<space>"] = "󱁐",
+        ["<Tab>"] = "󰌒",
+        ["<Esc>"] = "⎋",
+      },
     },
     config = function(_, opts)
       local wk = require("which-key")
@@ -44,6 +51,14 @@ return {
           },
           x = {
             name = "+loclist/quickfix"
+          }
+        },
+        ["<leader>g"] = {
+          d = {
+            name = "+diff"
+          },
+          s = {
+            name = "+gitsigns"
           }
         }
       })
