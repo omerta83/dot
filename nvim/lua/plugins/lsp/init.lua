@@ -1,6 +1,14 @@
 local util = require('util')
 local icons = require('config.icons')
 return {
+  -- JSON schemas.
+  {
+    'b0o/SchemaStore.nvim',
+    -- Loaded by jsonls when needed.
+    version = false,
+    lazy = true,
+  },
+
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
@@ -36,6 +44,14 @@ return {
             border = 'rounded',
             title = " " .. icons.diagnostics.Warn .. "Diagnostic "
           },
+          signs = {
+            text = {
+              [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+              [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
+              [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+              [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
+            }
+          }
         },
         servers = {
           cssls = {},
@@ -75,10 +91,10 @@ return {
           -- },
           jsonls = {
             -- lazy-load schemastore when needed
-            -- on_new_config = function(new_config)
-            --   new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            --   vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-            -- end,
+            on_new_config = function(new_config)
+              new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+              vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+            end,
             settings = {
               json = {
                 format = {
@@ -159,12 +175,71 @@ return {
               }
             },
           },
-          vtsls = {},
+          vtsls = {
+            settings = {
+              complete_function_calls = true,
+              vtsls = {
+                enableMoveToFileCodeAction = true,
+                autoUseWorkspaceTsdk = true,
+                experimental = {
+                  completion = {
+                    enableServerSideFuzzyMatch = true,
+                  },
+                },
+              },
+              typescript = {
+                updateImportsOnFileMove = { enabled = "always" },
+                suggest = {
+                  completeFunctionCalls = true,
+                },
+              },
+              javascript = {
+                updateImportsOnFileMove = { enabled = "always" },
+                suggest = {
+                  completeFunctionCalls = true,
+                },
+              }
+            }
+          },
           emmet_language_server = {
             filetypes = { "css", "eruby", "html", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "vue" }
           },
           lua_ls = {
             single_file_support = true,
+            on_init = function(client)
+              local path = client.workspace_folders
+                and client.workspace_folders[1]
+                and client.workspace_folders[1].name
+              print(path)
+              if
+                not path
+                or not (
+                  vim.uv.fs_stat(path .. '/.luarc.json')
+                  or vim.uv.fs_stat(path .. '/.luarc.jsonc')
+                )
+              then
+                client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+                  Lua = {
+                    runtime = {
+                      version = 'LuaJIT',
+                    },
+                    workspace = {
+                      checkThirdParty = false,
+                      library = {
+                        vim.env.VIMRUNTIME,
+                        '${3rd}/luv/library',
+                      },
+                    },
+                  },
+                })
+                client.notify(
+                  vim.lsp.protocol.Methods.workspace_didChangeConfiguration,
+                  { settings = client.config.settings }
+                )
+              end
+
+              return true
+            end,
             settings = {
               Lua = {
                 hint = {
@@ -309,10 +384,17 @@ return {
       -- require("mason-lspconfig").setup_handlers({ setup })
 
       -- Diagnostic symbols in the sign column (gutter)
-      local signs = icons.diagnostics
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+      -- local signs = icons.diagnostics
+      -- for type, icon in pairs(signs) do
+      --   local hl = "DiagnosticSign" .. type
+      --   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+      -- end
+      if type(opts.diagnostics.signs) ~= "boolean" then
+        for severity, icon in pairs(opts.diagnostics.signs.text) do
+          local name = vim.diagnostic.severity[severity]:lower():gsub("^%l", string.upper)
+          name = "DiagnosticSign" .. name
+          vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
+        end
       end
       vim.diagnostic.config(opts.diagnostics)
 
@@ -384,6 +466,27 @@ return {
     event = { 'BufReadPre *.dart', 'BufNewFile *.dart' },
     opts = {
       fvm = true
+    }
+  },
+
+  {
+    "luckasRanarison/tailwind-tools.nvim",
+    ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+    opts = {
+      document_color = {
+        enabled = true, -- can be toggled by commands
+        kind = "inline", -- "inline" | "foreground" | "background"
+        inline_symbol = "󰝤 ", -- only used in inline mode
+        debounce = 200, -- in milliseconds, only applied in insert mode
+      },
+      conceal = {
+        enabled = false, -- can be toggled by commands
+        symbol = "󱏿", -- only a single character is allowed
+        highlight = { -- extmark highlight options, see :h 'highlight'
+          fg = "#38BDF8",
+        },
+      },
+      custom_filetypes = {}
     }
   },
 

@@ -1,6 +1,7 @@
 return {
   "nvim-lualine/lualine.nvim",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
+  lazy = false,
   opts = function()
     local components = require('plugins/lualine/components')
     local colors = require('util').theme_colors()

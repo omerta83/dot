@@ -14,7 +14,16 @@ return {
       keys = {
         scroll_down = '<C-f>',
         scroll_up = '<C-b>',
-      }
+      },
+      replace = {
+        key = {
+          { "<CR>", "⏎" },
+          { "<BS>", "⌫" },
+          { "<Space>", "󱁐" },
+          { "<Tab>", "󰌒" },
+          { "<Esc>", "⎋" },
+        },
+      },
     },
     config = function(_, opts)
       local wk = require("which-key")
