@@ -8,10 +8,10 @@ return {
     end,
     opts = {
       plugins = { spelling = false },
-      window = {
+      win = {
         border = "single",
       },
-      popup_mappings = {
+      keys = {
         scroll_down = '<C-f>',
         scroll_up = '<C-b>',
       }

@@ -24,22 +24,22 @@ return {
   },
 
   -- comment
-  -- {
-  --   'numToStr/Comment.nvim',
-  --   event = { "BufReadPost", "BufNewFile" },
-  --   -- event = "VeryLazy",
-  --   dependencies = {
-  --     'JoosepAlviste/nvim-ts-context-commentstring',
-  --     init = function ()
-  --       vim.g.skip_ts_context_commentstring_module = true
-  --     end,
-  --   },
-  --   config = function()
-  --     require('Comment').setup({
-  --       pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-  --     })
-  --   end
-  -- },
+  {
+    'numToStr/Comment.nvim',
+    event = { "BufReadPost", "BufNewFile" },
+    -- event = "VeryLazy",
+    dependencies = {
+      -- 'JoosepAlviste/nvim-ts-context-commentstring',
+      -- init = function ()
+      --   vim.g.skip_ts_context_commentstring_module = true
+      -- end,
+    },
+    config = function()
+      require('Comment').setup({
+        -- pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+      })
+    end
+  },
   {
     'folke/ts-comments.nvim',
     opts = {},

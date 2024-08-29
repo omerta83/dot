@@ -49,7 +49,7 @@ return {
         })
         return lazy
       end
-      local lazygit = create_float_term("lazygit")
+      local lazygit = create_float_term("lazygit", function () vim.cmd("silent! :checktime") end)
       local lazydocker = create_float_term("lazydocker")
 
       function _G.LazyGit()
