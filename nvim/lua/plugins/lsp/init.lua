@@ -19,12 +19,12 @@ return {
       -- },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      {
-        "hrsh7th/cmp-nvim-lsp",
-        cond = function()
-          return util.has("nvim-cmp")
-        end,
-      },
+      -- {
+      --   "hrsh7th/cmp-nvim-lsp",
+      --   cond = function()
+      --     return util.has("nvim-cmp")
+      --   end,
+      -- },
       -- "marilari88/twoslash-queries.nvim"
     },
     opts = function()
@@ -308,9 +308,13 @@ return {
       local capabilities = vim.tbl_deep_extend(
         "force",
         {},
-        vim.lsp.protocol.make_client_capabilities(),
-        require('cmp_nvim_lsp').default_capabilities() or {}
+        vim.lsp.protocol.make_client_capabilities()
+        -- require('cmp_nvim_lsp').default_capabilities() or {}
       )
+      local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+      if (ok) then
+        capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities() or {})
+      end
 
       -- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
       -- Create Unresolved File code action, resolving completions for unindexed code blocks, ...

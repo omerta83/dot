@@ -17,12 +17,12 @@ return {
   -- autocomplete and its sources
   {
     "hrsh7th/nvim-cmp",
+    enabled = false,
     event = { "InsertEnter", "CmdlineEnter" },
     version = false,
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- nvim-cmp source for neovim's built-in LSP
       'hrsh7th/cmp-buffer',   -- nvim-cmp source for buffer words
-      -- 'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       "saadparwaiz1/cmp_luasnip",
     },
@@ -156,4 +156,58 @@ return {
       })
     end
   },
+
+  {
+    'saghen/blink.cmp',
+    enabled = true,
+    lazy = false,
+    -- event = { "InsertEnter" },
+    dependencies = 'rafamadriz/friendly-snippets',
+
+    version = 'v0.*',
+
+    opts = {
+      keymap = {
+        select_prev = { '<Up>', '<C-p>' },
+        select_next = { '<Down>', '<C-n>' },
+        accept = '<CR>',
+      },
+      highlight = {
+        use_nvim_cmp_as_default = true,
+      },
+
+      nerd_font_variant = true,
+      accept = { auto_blankets = { enabled = true } },
+      trigger = { signature_help = { enabled = true } },
+
+      windows = {
+        autocomplete = {
+          border = 'rounded',
+          winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None',
+          draw = 'reversed',
+          -- draw = function(ctx)
+          --   return {
+          --     ' ',
+          --     {
+          --       ctx.label,
+          --       ctx.kind == 'Snippet' and '~' or nil,
+          --       fill = true,
+          --       hl_group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel',
+          --       max_width = 50,
+          --     },
+          --     ' ',
+          --     { ctx.kind_icon, ctx.icon_gap, ctx.kind, hl_group = 'BlinkCmpKind' .. ctx.kind },
+          --     ' ',
+          --   }
+          -- end
+        },
+        documentation = {
+          auto_show = true,
+          border = 'rounded',
+          winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
+        }
+      },
+      kind_icons = require('config.icons').kinds,
+    }
+  }
 }
