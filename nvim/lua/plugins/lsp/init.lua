@@ -305,12 +305,7 @@ return {
     end,
     config = function(_, opts)
       -- Set up completion using nvim_cmp with LSP source
-      local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities()
-        -- require('cmp_nvim_lsp').default_capabilities() or {}
-      )
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
       local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
       if (ok) then
         capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities() or {})
