@@ -72,8 +72,8 @@ return {
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            -- elseif luasnip.expand_or_locally_jumpable() then
-            --   luasnip.expand_or_jump()
+              -- elseif luasnip.expand_or_locally_jumpable() then
+              --   luasnip.expand_or_jump()
             else
               fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
             end
@@ -81,8 +81,8 @@ return {
           ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            -- elseif luasnip.expand_or_locally_jumpable(-1) then
-            --   luasnip.jump(-1)
+              -- elseif luasnip.expand_or_locally_jumpable(-1) then
+              --   luasnip.jump(-1)
             else
               fallback()
             end
@@ -108,7 +108,7 @@ return {
               -- For events
               if cursor_before_line:sub(-1) == '@' then
                 return entry.completion_item.label:match('^@')
-              -- For props also exclude events with `:on-` prefix
+                -- For props also exclude events with `:on-` prefix
               elseif cursor_before_line:sub(-1) == ':' then
                 return entry.completion_item.label:match('^:') and not entry.completion_item.label:match('^:on%-')
               else
@@ -131,13 +131,14 @@ return {
         formatting = {
           format = function(entry, vim_item)
             -- Kind icons
-            local has_tailwind_tools, tailwind_tools = pcall(require, "tailwind-tools.cmp")
-            if has_tailwind_tools then
-              vim_item = tailwind_tools.lspkind_format(entry, vim_item)
-            end
             local icons = require('config.icons').kinds
             if icons[vim_item.kind] then
               vim_item.kind = icons[vim_item.kind] .. ' ' .. vim_item.kind
+            end
+            -- formatting for tailwindcss and general colors
+            local color_item = require('nvim-highlight-colors').format(entry, { kind = vim_item.kind })
+            if color_item.abbr_hl_group then
+              vim_item.kind_hl_group = color_item.abbr_hl_group
             end
             return vim_item
           end,
@@ -176,9 +177,6 @@ return {
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
-        -- {
-        --   { name = 'path' }
-        -- },
           {
             { name = 'cmdline' }
           }

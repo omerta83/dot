@@ -4,7 +4,8 @@ return {
     event = "BufReadPost",
     opts = {
       render = 'background',
-      enabled_named_colors = true
+      enabled_named_colors = true,
+      enable_tailwind = true,
     }
   },
 

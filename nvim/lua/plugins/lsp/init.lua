@@ -309,7 +309,7 @@ return {
       -- Set up completion using nvim_cmp with LSP source
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
-      if (ok) then
+      if ok then
         capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities() or {})
       end
 
@@ -470,26 +470,26 @@ return {
     }
   },
 
-  {
-    "luckasRanarison/tailwind-tools.nvim",
-    ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-    opts = {
-      document_color = {
-        enabled = true, -- can be toggled by commands
-        kind = "inline", -- "inline" | "foreground" | "background"
-        inline_symbol = "󰝤 ", -- only used in inline mode
-        debounce = 200, -- in milliseconds, only applied in insert mode
-      },
-      conceal = {
-        enabled = false, -- can be toggled by commands
-        symbol = "󱏿", -- only a single character is allowed
-        highlight = { -- extmark highlight options, see :h 'highlight'
-          fg = "#38BDF8",
-        },
-      },
-      custom_filetypes = {}
-    }
-  },
+  -- {
+  --   "luckasRanarison/tailwind-tools.nvim",
+  --   ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+  --   opts = {
+  --     document_color = {
+  --       enabled = true, -- can be toggled by commands
+  --       kind = "inline", -- "inline" | "foreground" | "background"
+  --       inline_symbol = "󰝤 ", -- only used in inline mode
+  --       debounce = 200, -- in milliseconds, only applied in insert mode
+  --     },
+  --     conceal = {
+  --       enabled = false, -- can be toggled by commands
+  --       symbol = "󱏿", -- only a single character is allowed
+  --       highlight = { -- extmark highlight options, see :h 'highlight'
+  --         fg = "#38BDF8",
+  --       },
+  --     },
+  --     custom_filetypes = {}
+  --   }
+  -- },
 
   {
     "olexsmir/gopher.nvim",
