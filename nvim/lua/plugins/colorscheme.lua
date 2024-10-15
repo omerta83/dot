@@ -92,8 +92,11 @@ return {
           -- CursorLineNr = { fg = "magenta" },
           CursorLine = { bg = "bg1", fg = "NONE" },
 
+          Pmenu = { bg = "bg2", fg = "NONE" },
+
           -- FZF
           FzfLuaBorder = { link = "FloatBorder" },
+          FzfLuaBackdrop = { bg = "bg1" },
         }
       }
 

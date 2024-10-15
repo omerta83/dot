@@ -30,7 +30,7 @@ return {
     },
     opts = function()
       local vue_language_server_path = require('mason-registry').get_package('vue-language-server'):get_install_path() ..
-      '/node_modules/@vue/language-server'
+        '/node_modules/@vue/language-server'
 
       return {
         inlay_hints = { enabled = false },
@@ -62,9 +62,15 @@ return {
           gopls = {
             settings = {
               gopls = {
+                experimentalPostfixCompletions = true,
+                analyses = {
+                  unusedparams = true,
+                  shadow = true,
+                },
+                staticcheck = true,
                 semanticTokens = true,
               }
-            }
+            },
           },
           pylsp = {
             settings = {

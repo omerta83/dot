@@ -131,18 +131,23 @@ return {
         formatting = {
           format = function(entry, vim_item)
             local color_item = require('nvim-highlight-colors').format(entry, { kind = vim_item.kind })
+            local completion_item = entry:get_completion_item()
             -- Kind icons
             local icons = require('config.icons').kinds
-            local gap = ' '
+            local kind_icon = ''
+            local kind_name = vim_item.kind
             if icons[vim_item.kind] then
-              vim_item.kind = icons[vim_item.kind] .. gap .. vim_item.kind
+              kind_icon = icons[vim_item.kind]
             end
             -- formatting for tailwindcss and general colors
             if color_item.abbr_hl_group then
               vim_item.kind_hl_group = color_item.abbr_hl_group
-              vim_item.kind = color_item.abbr .. gap .. color_item.menu
+              kind_icon = color_item.abbr
+              kind_name = color_item.menu
             end
-            vim_item.kind = gap .. vim_item.kind
+            vim_item.kind = string.format(' %s %s', kind_icon, kind_name)
+            -- symbol info if available
+            vim_item.menu = completion_item.detail
             return vim_item
           end,
         },
@@ -155,10 +160,10 @@ return {
           completeopt = "menu,menuone,noselect",
         },
         window = {
-          documentation = cmp.config.window.bordered({
+          completion = cmp.config.window.bordered({
             winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
           }),
-          completion = cmp.config.window.bordered({
+          documentation = cmp.config.window.bordered({
             winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
           }),
         },
@@ -177,14 +182,14 @@ return {
       -- })
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources(
-          {
-            { name = 'cmdline' }
-          }
-        )
-      })
+      -- cmp.setup.cmdline(':', {
+      --   mapping = cmp.mapping.preset.cmdline(),
+      --   sources = cmp.config.sources(
+      --     {
+      --       { name = 'cmdline' }
+      --     }
+      --   )
+      -- })
     end
   },
 

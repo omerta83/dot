@@ -38,6 +38,7 @@ return {
         { "<leader>w", group = "+window" },
         { "<leader>x", group = "+loclist/quickfix" },
         { "<leader>s", group = "+flash" },
+        { "<leader>r", group = "+refactoring" },
       })
     end,
   },
