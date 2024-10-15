@@ -29,7 +29,8 @@ return {
       -- "marilari88/twoslash-queries.nvim"
     },
     opts = function()
-      local vue_language_server_path = require('mason-registry').get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+      local vue_language_server_path = require('mason-registry').get_package('vue-language-server'):get_install_path() ..
+      '/node_modules/@vue/language-server'
 
       return {
         inlay_hints = { enabled = false },
@@ -58,7 +59,13 @@ return {
         },
         servers = {
           cssls = {},
-          gopls = {},
+          gopls = {
+            settings = {
+              gopls = {
+                semanticTokens = true,
+              }
+            }
+          },
           pylsp = {
             settings = {
               pylsp = {
