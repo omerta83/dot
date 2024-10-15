@@ -27,6 +27,7 @@ function M.on_attach(_, buffer)
   keymap("<leader>cf", function() require('plugins.lsp.format').format("documentFormatting") end, "Format Document")
   keymap("<leader>cf", function() require('plugins.lsp.format').format("documentRangeFormatting") end, "Format Range",
     { "n", "v" })
+  keymap("<leader>rn", vim.lsp.buf.rename, "[LSP] Rename")
   keymap("<leader>ll", "<CMD>LspRestart<CR>", "[LSP] Restart LSP")
 end
 
