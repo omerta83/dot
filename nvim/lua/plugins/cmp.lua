@@ -1,41 +1,54 @@
+local function is_in_start_tag()
+  local ts_utils = require('nvim-treesitter.ts_utils')
+  local node = ts_utils.get_node_at_cursor()
+  if not node then
+    return false
+  end
+  local node_to_check = { 'start_tag', 'self_closing_tag', 'directive_attribute' }
+  return vim.tbl_contains(node_to_check, node:type())
+end
+
 return {
   -- Snippets
-  {
-    "L3MON4D3/LuaSnip",
-    enabled = false, -- disabled as blink.cmp being used
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
-    },
-    opts = {
-      history = true,
-      delete_check_events = "TextChanged",
-    },
-  },
+  -- {
+  --   "L3MON4D3/LuaSnip",
+  --   enabled = true, -- disabled as blink.cmp being used
+  --   dependencies = {
+  --     "rafamadriz/friendly-snippets",
+  --     config = function()
+  --       require("luasnip.loaders.from_vscode").lazy_load()
+  --     end,
+  --   },
+  --   opts = {
+  --     history = true,
+  --     delete_check_events = "TextChanged",
+  --   },
+  -- },
 
   -- autocomplete and its sources
   {
     "hrsh7th/nvim-cmp",
-    enabled = false, -- disabled as blink.cmp being used
+    url = "https://github.com/iguanacucumber/magazine.nvim",
+    enabled = true, -- disabled as blink.cmp being used
     event = { "InsertEnter", "CmdlineEnter" },
     version = false,
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- nvim-cmp source for neovim's built-in LSP
       'hrsh7th/cmp-buffer',   -- nvim-cmp source for buffer words
       'hrsh7th/cmp-cmdline',
-      "saadparwaiz1/cmp_luasnip",
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      -- "saadparwaiz1/cmp_luasnip",
     },
     config = function()
       local cmp = require('cmp')
       local defaults = require("cmp.config.default")()
-      local luasnip = require('luasnip')
+      -- local luasnip = require('luasnip')
 
       cmp.setup({
         snippet = {
           expand = function(args)
-            require("luasnip").lsp_expand(args.body)
+            -- require("luasnip").lsp_expand(args.body)
+            vim.snippet.expand(args.body)
           end,
         },
         sorting = defaults.sorting,
@@ -59,8 +72,8 @@ return {
           ['<Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
+            -- elseif luasnip.expand_or_locally_jumpable() then
+            --   luasnip.expand_or_jump()
             else
               fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
             end
@@ -68,8 +81,8 @@ return {
           ['<S-Tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
-            elseif luasnip.expand_or_locally_jumpable(-1) then
-              luasnip.jump(-1)
+            -- elseif luasnip.expand_or_locally_jumpable(-1) then
+            --   luasnip.jump(-1)
             else
               fallback()
             end
@@ -83,9 +96,27 @@ return {
               markdown_oxide = {
                 keyword_pattern = [[\(\k\| \|\/\|#\)\+]]
               }
-            }
+            },
+            -- intergration for Vue props and emits
+            entry_filter = function(entry, ctx)
+              -- Check if the buffer type is 'vue'
+              if ctx.filetype ~= 'vue' then
+                return true
+              end
+
+              local cursor_before_line = ctx.cursor_before_line
+              -- For events
+              if cursor_before_line:sub(-1) == '@' then
+                return entry.completion_item.label:match('^@')
+              -- For props also exclude events with `:on-` prefix
+              elseif cursor_before_line:sub(-1) == ':' then
+                return entry.completion_item.label:match('^:') and not entry.completion_item.label:match('^:on%-')
+              else
+                return true
+              end
+            end
           },
-          { name = "luasnip", group_index = 2 },
+          -- { name = "luasnip",                group_index = 2 },
           {
             name = 'buffer',
             option = {
@@ -95,6 +126,7 @@ return {
             },
             group_index = 2
           },
+          { name = 'nvim_lsp_signature_help' }
         }),
         formatting = {
           format = function(entry, vim_item)
@@ -157,9 +189,9 @@ return {
 
   {
     'saghen/blink.cmp',
-    enabled = true,
+    enabled = false,
     lazy = false,
-    dependencies = 'rafamadriz/friendly-snippets',
+    -- dependencies = 'rafamadriz/friendly-snippets',
 
     version = 'v0.*',
 

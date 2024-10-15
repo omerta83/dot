@@ -257,8 +257,8 @@ return {
   -- Navigating
   {
     "folke/flash.nvim",
-    -- event = "VeryLazy",
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
+    -- event = { "BufReadPost", "BufNewFile" },
     opts = {
       labels = "0123456789", -- prevent messing with inserting characters
       search = {
@@ -268,14 +268,14 @@ return {
         char = {
           autohide = true,
           jump_labels = true,
-          label = { exclude = "hjkliardcx" },
+          -- label = { exclude = "hjkliardcx" },
           multi_line = false,
         }
       },
     },
     keys = {
       {
-        "<leader>s",
+        "s",
         mode = { "n", "o", "x" },
         function() require("flash").jump() end,
         desc = "Flash",

@@ -1,5 +1,6 @@
-local util = require('util')
+-- local util = require('util')
 local icons = require('config.icons')
+
 return {
   -- JSON schemas.
   {
@@ -28,6 +29,8 @@ return {
       -- "marilari88/twoslash-queries.nvim"
     },
     opts = function()
+      local vue_language_server_path = require('mason-registry').get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+
       return {
         inlay_hints = { enabled = false },
         diagnostics = {
@@ -110,44 +113,7 @@ return {
             }
           },
           prismals = {},
-          volar = {
-            -- on_attach = function(client, bufnr)
-            --   require("twoslash-queries").attach(client, bufnr)
-            -- end,
-            root_dir = require('lspconfig').util.root_pattern('nuxt.config.ts', 'quasar.config.js'),
-            filetypes = {
-              'vue',
-              -- 'typescript'
-            },
-            init_options = {
-              typescript = {
-                -- tsdk = "~/.pnpm/global/5/node_modules/typescript/lib"
-                tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib"
-              },
-              vue = {
-                hybridMode = false,
-              },
-              languageFeatures = {
-                implementation = true, -- new in @volar/vue-language-server v0.33
-                references = true,
-                definition = true,
-                typeDefinition = true,
-                callHierarchy = true,
-                hover = true,
-                rename = true,
-                renameFileRefactoring = true,
-                signatureHelp = true,
-                codeAction = true,
-                workspaceSymbol = true,
-                completion = {
-                  defaultTagNameCase = 'both',
-                  defaultAttrNameCase = 'kebabCase',
-                  getDocumentNameCasesRequest = false,
-                  getDocumentSelectionRequest = false,
-                },
-              }
-            }
-          },
+          -- Vue 2.x
           vuels = {
             root_dir = require('lspconfig').util.root_pattern('jsconfig.json'),
             settings = {
@@ -175,6 +141,25 @@ return {
               }
             },
           },
+          -- Vue 3.x
+          volar = {
+            -- on_attach = function(client, bufnr)
+            --   require("twoslash-queries").attach(client, bufnr)
+            -- end,
+            root_dir = require('lspconfig').util.root_pattern('nuxt.config.ts', 'quasar.config.js'),
+            -- filetypes = {
+            --   'vue',
+            -- },
+            init_options = {
+              typescript = {
+                tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib"
+              },
+              vue = {
+                -- auto start tsserver in the background
+                hybridMode = false,
+              },
+            }
+          },
           vtsls = {
             settings = {
               complete_function_calls = true,
@@ -186,6 +171,16 @@ return {
                     enableServerSideFuzzyMatch = true,
                   },
                 },
+                -- Use volar for only .vue files and tsserver for .ts and .js files.
+                tsserver = {
+                  globalPlugins = {
+                    {
+                      name = "@vue/typescript-plugin",
+                      location = vue_language_server_path,
+                      languages = { 'vue' }
+                    }
+                  }
+                }
               },
               typescript = {
                 updateImportsOnFileMove = { enabled = "always" },
