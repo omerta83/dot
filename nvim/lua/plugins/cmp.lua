@@ -130,16 +130,19 @@ return {
         }),
         formatting = {
           format = function(entry, vim_item)
+            local color_item = require('nvim-highlight-colors').format(entry, { kind = vim_item.kind })
             -- Kind icons
             local icons = require('config.icons').kinds
+            local gap = ' '
             if icons[vim_item.kind] then
-              vim_item.kind = icons[vim_item.kind] .. ' ' .. vim_item.kind
+              vim_item.kind = icons[vim_item.kind] .. gap .. vim_item.kind
             end
             -- formatting for tailwindcss and general colors
-            local color_item = require('nvim-highlight-colors').format(entry, { kind = vim_item.kind })
             if color_item.abbr_hl_group then
               vim_item.kind_hl_group = color_item.abbr_hl_group
+              vim_item.kind = color_item.abbr .. gap .. color_item.menu
             end
+            vim_item.kind = gap .. vim_item.kind
             return vim_item
           end,
         },
