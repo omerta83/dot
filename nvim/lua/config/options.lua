@@ -1,10 +1,10 @@
 -- vim.cmd("autocmd!")
 
-vim.g.mapleader = " "
+vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.wo.linebreak = true
-vim.wo.winbar = "" -- Turn off winbar
+vim.wo.winbar = '' -- Turn off winbar
 
 local opt = vim.opt
 opt.autowrite = true -- Enable auto write
