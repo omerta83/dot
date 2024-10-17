@@ -16,44 +16,12 @@ return {
     dependencies = {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      -- {
-      --   "hrsh7th/cmp-nvim-lsp",
-      --   cond = function()
-      --     return util.has("nvim-cmp")
-      --   end,
-      -- },
-      -- "marilari88/twoslash-queries.nvim"
     },
     opts = function()
       local vue_language_server_path = require('mason-registry').get_package('vue-language-server'):get_install_path() ..
         '/node_modules/@vue/language-server'
 
       return {
-        inlay_hints = { enabled = false },
-        diagnostics = {
-          underline = true,
-          severity_sort = true,
-          update_in_insert = false,
-          -- virtual_text = {
-          --   spacing = 4,
-          --   source = "if_many",
-          --   prefix = '●'
-          -- },
-          virtual_text = false, -- for tiny-inline-diagnostic plugin
-          float = {
-            source = "always",  -- Or "if_many"
-            border = 'rounded',
-            title = " " .. icons.diagnostics.Warn .. "Diagnostic "
-          },
-          signs = {
-            text = {
-              [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
-              [vim.diagnostic.severity.WARN] = icons.diagnostics.Warn,
-              [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
-              [vim.diagnostic.severity.INFO] = icons.diagnostics.Info,
-            }
-          }
-        },
         servers = {
           cssls = {},
           gopls = {
@@ -325,31 +293,6 @@ return {
       -- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
       capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 
-      -- setup keymaps
-      require('plugins.lsp.utils').on_attach(function(client, buffer)
-        require('plugins.lsp.keymaps').on_attach(client, buffer)
-      end)
-
-      -- setup vetur document formatting
-      require('plugins.lsp.utils').on_attach(function(client, buffer)
-        if client.name == 'vuels' then
-          -- Need this line for vetur document formatting
-          client.server_capabilities.documentFormattingProvider = true
-        end
-      end)
-
-      -- inlay hints
-      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-      if opts.inlay_hints.enabled and inlay_hint then
-        require('plugins.lsp.utils').on_attach(function(client, buffer)
-          if client.server_capabilities.inlayHintProvider then
-            vim.defer_fn(function()
-              inlay_hint(buffer, true)
-            end, 500)
-          end
-        end)
-      end
-
       -- Server setup
       local servers = opts.servers
       local function setup(server)
@@ -389,27 +332,6 @@ return {
       if have_mason then
         mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
       end
-      -- require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
-      -- require("mason-lspconfig").setup_handlers({ setup })
-
-      -- Diagnostic symbols in the sign column (gutter)
-      if type(opts.diagnostics.signs) ~= "boolean" then
-        for severity, icon in pairs(opts.diagnostics.signs.text) do
-          local name = vim.diagnostic.severity[severity]:lower():gsub("^%l", string.upper)
-          name = "DiagnosticSign" .. name
-          vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-        end
-      end
-      vim.diagnostic.config(opts.diagnostics)
-
-      -- Set border for hover popup
-      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-        vim.lsp.handlers.hover,
-        {
-          border = 'rounded',
-          title = " " .. icons.misc.Bell .. " Hover "
-        }
-      )
     end
   },
 
@@ -473,27 +395,6 @@ return {
     }
   },
 
-  -- {
-  --   "luckasRanarison/tailwind-tools.nvim",
-  --   ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-  --   opts = {
-  --     document_color = {
-  --       enabled = true, -- can be toggled by commands
-  --       kind = "inline", -- "inline" | "foreground" | "background"
-  --       inline_symbol = "󰝤 ", -- only used in inline mode
-  --       debounce = 200, -- in milliseconds, only applied in insert mode
-  --     },
-  --     conceal = {
-  --       enabled = false, -- can be toggled by commands
-  --       symbol = "󱏿", -- only a single character is allowed
-  --       highlight = { -- extmark highlight options, see :h 'highlight'
-  --         fg = "#38BDF8",
-  --       },
-  --     },
-  --     custom_filetypes = {}
-  --   }
-  -- },
-
   {
     "olexsmir/gopher.nvim",
     ft = { "go", "gomod" },
@@ -513,7 +414,7 @@ return {
   {
     "rachartier/tiny-inline-diagnostic.nvim",
     enabled = true,
-    event = "LspAttach", -- Or `LspAttach`
+    event = "BufEnter", -- Or `LspAttach`
     config = function()
       require('tiny-inline-diagnostic').setup({
         options = {

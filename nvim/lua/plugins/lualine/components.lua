@@ -136,10 +136,10 @@ local M = {
     color = { bg = colors.bg_highlight },
     separator = separator,
     symbols = {
-      error = icons.diagnostics.Error,
-      warn = icons.diagnostics.Warn,
-      info = icons.diagnostics.Info,
-      hint = icons.diagnostics.Hint,
+      error = icons.diagnostics.ERROR,
+      warn = icons.diagnostics.WARN,
+      info = icons.diagnostics.INFO,
+      hint = icons.diagnostics.HINT,
     },
   },
   lsp = {
