@@ -32,13 +32,15 @@ return {
         { "<leader>b", group = "+buffer" },
         { "<leader>f", group = "+find" },
         { "<leader>c", group = "+code" },
-        { "<leader>g", group = "+git" },
         { "<leader>d", group = "+debug" },
         { "<leader>t", group = "+term" },
         { "<leader>w", group = "+window" },
         { "<leader>x", group = "+loclist/quickfix" },
         { "<leader>s", group = "+flash" },
         { "<leader>r", group = "+refactoring" },
+        { "<leader>g", group = "+git" },
+        { "<leader>gd", group = "+diffview" },
+        { "<leader>gs", group = "+gitsigns" }
       })
     end,
   },

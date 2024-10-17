@@ -37,11 +37,11 @@ return {
               }
             },
           },
-          eslint = {
-            settings = {
-              format = false,
-            }
-          },
+          -- eslint = {
+          --   settings = {
+          --     format = false,
+          --   }
+          -- },
           pylsp = {
             settings = {
               pylsp = {
@@ -65,7 +65,7 @@ return {
               }
             }
           },
-          ruff_lsp = {},
+          -- ruff_lsp = {},
           -- pyright = {
           --   disableOrganizeImports = false, -- use keymap instead
           --   analysis = {
@@ -188,7 +188,6 @@ return {
               local path = client.workspace_folders
                 and client.workspace_folders[1]
                 and client.workspace_folders[1].name
-              print(path)
               if
                 not path
                 or not (
@@ -414,12 +413,16 @@ return {
   {
     "rachartier/tiny-inline-diagnostic.nvim",
     enabled = true,
-    event = "BufEnter", -- Or `LspAttach`
+    event = "VeryLazy", -- Or `LspAttach`
     config = function()
       require('tiny-inline-diagnostic').setup({
         options = {
-          show_source = true,
+          -- show_source = true,
           multiple_diag_under_cursor = true,
+          format = function(diagnostic)
+            local level = vim.diagnostic.severity[diagnostic.severity]
+            return string.format("%s %s [%s]", require('config.icons').diagnostics[level], diagnostic.message, diagnostic.source)
+          end,
           -- Enable diagnostic message on all lines.
           -- multilines = true,
           -- show_all_diags_on_cursorline = true,
