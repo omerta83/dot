@@ -42,27 +42,36 @@ return {
           --     format = false,
           --   }
           -- },
-          pylsp = {
-            settings = {
-              pylsp = {
-                plugins = {
-                  pycodestyle = { enabled = false },
-                  pyflakes = { enabled = false },
-                  pylint = { enabled = false },
-                  flake8 = { enabled = false },
-                  jedi_completion = { enabled = true },
-                  jedi_hover = { enabled = true },
-                  jedi_references = { enabled = true },
-                  jedi_signature_help = { enabled = true },
-                  jedi_symbols = { enabled = true },
-                  mccabe = { enabled = false },
-                  preload = { enabled = false },
-                  pydocstyle = { enabled = false },
-                  rope_completion = { enabled = true },
-                  rope_rename = { enabled = true },
-                  yapf = { enabled = false },
-                }
-              }
+          -- pylsp = {
+          --   settings = {
+          --     pylsp = {
+          --       plugins = {
+          --         pycodestyle = { enabled = false },
+          --         pyflakes = { enabled = false },
+          --         pylint = { enabled = false },
+          --         flake8 = { enabled = false },
+          --         jedi_completion = { enabled = true },
+          --         jedi_hover = { enabled = true },
+          --         jedi_references = { enabled = true },
+          --         jedi_signature_help = { enabled = true },
+          --         jedi_symbols = { enabled = true },
+          --         mccabe = { enabled = false },
+          --         preload = { enabled = false },
+          --         pydocstyle = { enabled = false },
+          --         rope_completion = { enabled = true },
+          --         rope_rename = { enabled = true },
+          --         yapf = { enabled = false },
+          --       }
+          --     }
+          --   }
+          -- },
+          basedpyright = {
+            disableOrganizeImports = false, -- use keymap instead
+            analysis= {
+              useLibraryCodeForTypes = true,
+              autoSearchPaths = true,
+              diagnosticMode = "workspace",
+              autoImportCompletions = true,
             }
           },
           -- ruff_lsp = {},

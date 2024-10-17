@@ -34,6 +34,25 @@ local function on_attach(client, buffer)
     { "n", "v" })
   keymap("<leader>rn", vim.lsp.buf.rename, "[LSP] Rename")
   keymap("<leader>ll", "<CMD>LspRestart<CR>", "[LSP] Restart LSP")
+
+  if client.supports_method(methods.textDocument_inlayHint) then
+    vim.keymap.set('n', '<leader>ci', function()
+      -- Toggle the hints:
+      local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = buffer }
+      vim.lsp.inlay_hint.enable(not enabled, { bufnr = buffer })
+
+      -- If toggling them on, turn them back off when entering insert mode.
+      if not enabled then
+        vim.api.nvim_create_autocmd('InsertEnter', {
+          buffer = buffer,
+          once = true,
+          callback = function()
+            vim.lsp.inlay_hint.enable(false, { bufnr = buffer })
+          end,
+        })
+      end
+    end, { buffer = buffer, desc = 'Toggle inlay hints' })
+  end
 end
 
 -- function M.on_attach(on_attach)
