@@ -1,36 +1,9 @@
--- https://github.com/vuejs/language-tools/discussions/4495
-local function is_in_start_tag()
-  local ts_utils = require('nvim-treesitter.ts_utils')
-  local node = ts_utils.get_node_at_cursor()
-  if not node then
-    return false
-  end
-  local node_to_check = { 'start_tag', 'self_closing_tag', 'directive_attribute' }
-  return vim.tbl_contains(node_to_check, node:type())
-end
-
 return {
-  -- Snippets
-  -- {
-  --   "L3MON4D3/LuaSnip",
-  --   enabled = true, -- disabled as blink.cmp being used
-  --   dependencies = {
-  --     "rafamadriz/friendly-snippets",
-  --     config = function()
-  --       require("luasnip.loaders.from_vscode").lazy_load()
-  --     end,
-  --   },
-  --   opts = {
-  --     history = true,
-  --     delete_check_events = "TextChanged",
-  --   },
-  -- },
-
   -- autocomplete and its sources
   {
     "hrsh7th/nvim-cmp",
     url = "https://github.com/iguanacucumber/magazine.nvim",
-    enabled = true, -- disabled as blink.cmp being used
+    enabled = true,
     event = { "InsertEnter", "CmdlineEnter" },
     version = false,
     dependencies = {
@@ -38,12 +11,21 @@ return {
       'hrsh7th/cmp-buffer',   -- nvim-cmp source for buffer words
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lsp-signature-help',
-      -- "saadparwaiz1/cmp_luasnip",
     },
     config = function()
       local cmp = require('cmp')
       local defaults = require("cmp.config.default")()
-      -- local luasnip = require('luasnip')
+
+      -- https://github.com/vuejs/language-tools/discussions/4495
+      local function is_in_start_tag()
+        local ts_utils = require('nvim-treesitter.ts_utils')
+        local node = ts_utils.get_node_at_cursor()
+        if not node then
+          return false
+        end
+        local node_to_check = { 'start_tag', 'self_closing_tag', 'directive_attribute' }
+        return vim.tbl_contains(node_to_check, node:type())
+      end
 
       cmp.setup({
         snippet = {
@@ -127,9 +109,12 @@ return {
               else
                 return true
               end
+
+              -- TODO: filter out emmet_ls items when not in html for vue, react
+              -- https://github.com/hrsh7th/nvim-cmp/issues/806#issuecomment-1207815660
             end
           },
-          -- { name = "luasnip",                group_index = 2 },
+          { name = 'nvim_lsp_signature_help' },
           {
             name = 'buffer',
             option = {
@@ -139,10 +124,10 @@ return {
             },
             group_index = 2
           },
-          { name = 'nvim_lsp_signature_help' }
         }),
         formatting = {
           format = function(entry, vim_item)
+            -- format: [abbr] [kind (icon + name)] [menu (symbol info if available)]
             local color_item = require('nvim-highlight-colors').format(entry, { kind = vim_item.kind })
             local completion_item = entry:get_completion_item()
             -- Kind icons
@@ -187,14 +172,6 @@ return {
         vim.b[bufnr]._vue_ts_cached_is_in_start_tag = nil
       end)
 
-      -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-      -- cmp.setup.cmdline({ '/', '?' }, {
-      --   mapping = cmp.mapping.preset.cmdline(),
-      --   sources = {
-      --     { name = 'buffer' }
-      --   }
-      -- })
-
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
@@ -204,9 +181,6 @@ return {
           }
         )
       })
-
-      -- TODO: filter out emmet_ls items when not in html for vue, react
-      -- https://github.com/hrsh7th/nvim-cmp/issues/806#issuecomment-1207815660
     end
   },
 
@@ -215,9 +189,7 @@ return {
     enabled = false,
     lazy = false,
     -- dependencies = 'rafamadriz/friendly-snippets',
-
     version = 'v0.*',
-
     opts = {
       keymap = {
         select_prev = { '<Up>', '<C-p>' },

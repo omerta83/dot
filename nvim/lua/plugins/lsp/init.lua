@@ -14,10 +14,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      -- {
-      --   "b0o/SchemaStore.nvim",
-      --   version = false, -- last release is way too old
-      -- },
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       -- {
@@ -38,13 +34,14 @@ return {
           underline = true,
           severity_sort = true,
           update_in_insert = false,
-          virtual_text = {
-            spacing = 4,
-            source = "if_many",
-            prefix = '●'
-          },
+          -- virtual_text = {
+          --   spacing = 4,
+          --   source = "if_many",
+          --   prefix = '●'
+          -- },
+          virtual_text = false, -- for tiny-inline-diagnostic plugin
           float = {
-            source = "always", -- Or "if_many"
+            source = "always",  -- Or "if_many"
             border = 'rounded',
             title = " " .. icons.diagnostics.Warn .. "Diagnostic "
           },
@@ -71,6 +68,11 @@ return {
                 semanticTokens = true,
               }
             },
+          },
+          eslint = {
+            settings = {
+              format = false,
+            }
           },
           pylsp = {
             settings = {
@@ -391,11 +393,6 @@ return {
       -- require("mason-lspconfig").setup_handlers({ setup })
 
       -- Diagnostic symbols in the sign column (gutter)
-      -- local signs = icons.diagnostics
-      -- for type, icon in pairs(signs) do
-      --   local hl = "DiagnosticSign" .. type
-      --   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-      -- end
       if type(opts.diagnostics.signs) ~= "boolean" then
         for severity, icon in pairs(opts.diagnostics.signs.text) do
           local name = vim.diagnostic.severity[severity]:lower():gsub("^%l", string.upper)
@@ -510,6 +507,24 @@ return {
           iferr = "iferr",
         },
       }
+    end
+  },
+
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    enabled = true,
+    event = "LspAttach", -- Or `LspAttach`
+    config = function()
+      require('tiny-inline-diagnostic').setup({
+        options = {
+          show_source = true,
+          multiple_diag_under_cursor = true,
+          -- Enable diagnostic message on all lines.
+          -- multilines = true,
+          -- show_all_diags_on_cursorline = true,
+          -- overwrite_events = { "DiagnosticChanged" },
+        }
+      })
     end
   }
 }
