@@ -21,7 +21,8 @@ require("lazy").setup({
     colorscheme = { "tokyonight" }
   },
   ui = {
-    border = "single"
+    border = "single",
+    backdrop = 100
   },
   diff = {
     cmd = "terminal_git",

@@ -281,8 +281,7 @@ return {
               "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim",
               "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascriptreact", "reason",
               "rescript", "typescriptreact", "vue", "svelte" },
-            root_dir = require('lspconfig').util.root_pattern('tailwind.config.js', 'tailwind.config.ts',
-              'postcss.config.js', 'postcss.config.ts', 'postcss.config.cjs')
+            root_dir = require('lspconfig').util.root_pattern('tailwind.config.js', 'tailwind.config.ts')
           },
           dockerls = {},
           markdown_oxide = {},

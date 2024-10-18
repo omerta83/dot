@@ -259,7 +259,7 @@ return {
           autohide = true,
           jump_labels = true,
           -- label = { exclude = "hjkliardcx" },
-          multi_line = false,
+          multi_line = true,
         }
       },
     },

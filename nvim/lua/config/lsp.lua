@@ -2,7 +2,6 @@ local methods = vim.lsp.protocol.Methods
 local icons = require('config.icons')
 local diagnostic_icons = icons.diagnostics
 
----@class lsp.utils
 local M = {}
 
 local function on_attach(client, buffer)
@@ -55,11 +54,10 @@ local function on_attach(client, buffer)
   end
 end
 
--- function M.on_attach(on_attach)
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
-    local buffer = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local buffer = args.buf
     if not client then
       return
     end
@@ -73,7 +71,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
   end,
 })
--- end
 
 -- Define the diagnostic signs.
 for severity, icon in pairs(diagnostic_icons) do
