@@ -24,7 +24,6 @@ return {
             vim.snippet.expand(args.body)
           end,
         },
-        sorting = defaults.sorting,
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -97,6 +96,10 @@ return {
           documentation = cmp.config.window.bordered({
             winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
           }),
+        },
+        sorting = defaults.sorting,
+        performance = {
+          max_view_entries = 10,
         },
       })
 

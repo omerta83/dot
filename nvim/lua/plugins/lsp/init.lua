@@ -260,21 +260,21 @@ return {
               },
             },
           },
-          rust_analyzer = {
-            settings = {
-              ["rust-analyzer"] = {
-                inlayHints = {
-                  chainingHints = { enable = true },
-                },
-                procMacro = { enable = true },
-                cargo = { allFeatures = true },
-                -- checkOnSave = {
-                --   command = "clippy",
-                --   extraArgs = { "--no-deps" },
-                -- },
-              }
-            },
-          },
+          -- rust_analyzer = {
+          --   settings = {
+          --     ["rust-analyzer"] = {
+          --       inlayHints = {
+          --         chainingHints = { enable = true },
+          --       },
+          --       procMacro = { enable = true },
+          --       cargo = { allFeatures = true },
+          --       -- checkOnSave = {
+          --       --   command = "clippy",
+          --       --   extraArgs = { "--no-deps" },
+          --       -- },
+          --     }
+          --   },
+          -- },
           tailwindcss = {
             filetypes = { "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
               "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex",
@@ -416,6 +416,12 @@ return {
         },
       }
     end
+  },
+
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
   },
 
   {

@@ -46,7 +46,14 @@ return {
         '-html',
         '-javascriptreact',
         '-typescriptreact',
-      }):with_pair(conds.before_regex('%a+:?:?$', 3)):with_move(function(opts)
+        '-vue',
+      }):with_pair(
+        -- regex will make it so that it will auto-pair on
+        -- `a<` but not `a <`
+        -- The `:?:?` part makes it also
+        -- work on Rust generics like `some_func::<T>()`
+        conds.before_regex('%a+:?:?$', 3)
+      ):with_move(function(opts)
         return opts.char == '>'
       end))
     end,
