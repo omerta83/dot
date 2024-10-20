@@ -220,29 +220,53 @@ return {
   -- },
 
   -- better increase/descrease
-  -- {
-  --   "monaqa/dial.nvim",
-  --   -- stylua: ignore
-  --   keys = {
-  --     { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
-  --     { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
-  --   },
-  --   config = function()
-  --     local augend = require("dial.augend")
-  --     require("dial.config").augends:register_group({
-  --       default = {
-  --         augend.integer.alias.decimal,
-  --         augend.integer.alias.hex,
-  --         augend.date.alias["%Y/%m/%d"],
-  --         augend.constant.alias.bool,
-  --         augend.semver.alias.semver,
-  --         augend.hexcolor.new {
-  --           case = "lower",
-  --         }
-  --       },
-  --     })
-  --   end,
-  -- },
+  {
+    "monaqa/dial.nvim",
+    -- stylua: ignore
+    keys = {
+      {
+        "<C-a>",
+        function() return require("dial.map").inc_normal() end,
+        expr = true,
+        mode = "n",
+        desc = "Increment",
+      },
+      {
+        "<C-x>",
+        function() require("dial.map").dec_normal() end,
+        expr = true,
+        mode = "n",
+        desc = "Decrement",
+      },
+      {
+        "<C-a>",
+        function() require('dial.map').manipulate('increment', 'visual') end,
+        desc = 'Increment in Visual',
+        mode = { 'v' },
+      },
+      {
+        "<C-x>",
+        function() require('dial.map').manipulate('decrement', 'visual') end,
+        desc = 'Decrement in Visual',
+        mode = { 'v' },
+      },
+    },
+    config = function()
+      local augend = require("dial.augend")
+      require("dial.config").augends:register_group({
+        default = {
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.date.alias["%Y/%m/%d"],
+          augend.constant.alias.bool,
+          augend.semver.alias.semver,
+          augend.hexcolor.new {
+            case = "lower",
+          }
+        },
+      })
+    end,
+  },
 
   -- Navigating
   {

@@ -112,7 +112,8 @@ return {
   -- html autotag for treesitter
   {
     'windwp/nvim-ts-autotag',
-    lazy = false,
+    -- lazy = false,
+    event = "InsertEnter",
     config = function()
       require('nvim-ts-autotag').setup({
         enable_close_on_slash = false,
