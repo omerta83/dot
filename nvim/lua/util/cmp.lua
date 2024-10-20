@@ -37,6 +37,9 @@ end
 -- integration for Vue props and emits
 -- https://github.com/vuejs/language-tools/discussions/4495
 M.lsp_entry_filter = function(entry, ctx)
+  -- TODO: filter out emmet_ls items when not in html for vue, react
+  -- https://github.com/hrsh7th/nvim-cmp/issues/806#issuecomment-1207815660
+
   -- Check if the buffer type is 'vue'
   if ctx.filetype ~= 'vue' then
     return true
@@ -65,9 +68,6 @@ M.lsp_entry_filter = function(entry, ctx)
   else
     return true
   end
-
-  -- TODO: filter out emmet_ls items when not in html for vue, react
-  -- https://github.com/hrsh7th/nvim-cmp/issues/806#issuecomment-1207815660
 end
 
 M.clear_cache = function()
