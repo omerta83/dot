@@ -3,7 +3,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     url = "https://github.com/iguanacucumber/magazine.nvim",
-    enabled = true,
+    enabled = false,
     event = { "InsertEnter", "CmdlineEnter" },
     version = false,
     dependencies = {
@@ -176,7 +176,7 @@ return {
 
   {
     'saghen/blink.cmp',
-    enabled = false,
+    enabled = true,
     lazy = false,
     -- dependencies = 'rafamadriz/friendly-snippets',
     version = 'v0.*',
@@ -190,15 +190,19 @@ return {
         use_nvim_cmp_as_default = true,
       },
 
-      nerd_font_variant = true,
+      nerd_font_variant = 'mono',
       accept = { auto_blankets = { enabled = true } },
       trigger = { signature_help = { enabled = true } },
+
+      fuzzy = {
+        max_items = 20
+      },
 
       windows = {
         autocomplete = {
           border = 'single',
           winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None',
-          draw = 'reversed',
+          draw = require('util.cmp').draw,
         },
         documentation = {
           auto_show = true,
@@ -209,6 +213,7 @@ return {
           border = 'single',
         }
       },
+      kind_icons = require('config.icons').kinds,
     }
   }
 }

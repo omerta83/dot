@@ -78,4 +78,57 @@ M.clear_cache = function()
   end
 end
 
+-- for blink.cmp
+-- TailwindCSS color highlighting
+-- https://github.com/NvChad/ui/blob/87578bb7e2bc106127f013f9a1edd7a716f4f6c6/lua/nvchad/cmp/format.lua#L6
+-- Adapted from this PR: https://github.com/Saghen/blink.cmp/pull/143
+local function try_get_tailwind_hl(ctx)
+  local doc = ctx.item.documentation
+  if ctx.kind == 'Color' and doc then
+    local content = type(doc) == 'string' and doc or doc.value
+    if ctx.kind == 'Color' and content and content:match('^#%x%x%x%x%x%x$') then
+      local hl_name = 'HexColor' .. content:sub(2)
+      if #vim.api.nvim_get_hl(0, { name = hl_name }) == 0 then
+        vim.api.nvim_set_hl(0, hl_name, { fg = content })
+      end
+      return hl_name
+    end
+  end
+end
+-- Draw function for blink.cmp
+-- format: [[abbr]] [[kind (icon + name)]] [[menu (symbol info if available)]]
+M.draw = function(ctx)
+  local completion_item = ctx.item
+  local kind_icon = ctx.kind == 'Color' and '󱓻' or ctx.kind_icon
+  -- space separator for detail - one or nothing if no detail to preserve alignment
+  local detail_gap = completion_item.detail and ' ' or ''
+  local components = {
+    ' ',
+    {
+      ctx.label,
+      ctx.kind == 'Snippet' and '~' or nil,
+      fill = true,
+      hl_group = ctx.deprecated and 'BlinkCmpLabelDeprecated' or 'BlinkCmpLabel',
+      max_width = 50,
+    },
+    ' ',
+    {
+      ctx.icon_gap,
+      kind_icon,
+      ctx.icon_gap,
+      ctx.kind,
+      hl_group = try_get_tailwind_hl(ctx) or ('BlinkCmpKind' .. ctx.kind),
+    },
+    ' ',
+    {
+      detail_gap,
+      completion_item.detail,
+      hl_group = 'CmpItemMenu',
+      detail_gap
+    }
+  }
+
+  return components
+end
+
 return M

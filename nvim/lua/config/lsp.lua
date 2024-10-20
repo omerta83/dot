@@ -34,9 +34,9 @@ local function on_attach(client, buffer)
   keymap("<leader>rn", vim.lsp.buf.rename, "[LSP] Rename")
   keymap("<leader>ll", "<CMD>LspRestart<CR>", "[LSP] Restart LSP")
 
+  -- Toggle inlay hints
   if client.supports_method(methods.textDocument_inlayHint) then
     vim.keymap.set('n', '<leader>ci', function()
-      -- Toggle the hints:
       local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = buffer }
       vim.lsp.inlay_hint.enable(not enabled, { bufnr = buffer })
 

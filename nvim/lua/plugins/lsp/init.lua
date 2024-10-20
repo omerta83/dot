@@ -175,13 +175,21 @@ return {
                 }
               },
               typescript = {
-                updateImportsOnFileMove = { enabled = "always" },
+                inlayHints = {
+                  functionLikeReturnTypes = { enabled = true },
+                  parameterNames = { enabled = 'literals' },
+                  variableTypes = { enabled = true },
+                },
                 suggest = {
                   completeFunctionCalls = true,
                 },
               },
               javascript = {
-                updateImportsOnFileMove = { enabled = "always" },
+                inlayHints = {
+                  functionLikeReturnTypes = { enabled = true },
+                  parameterNames = { enabled = 'literals' },
+                  variableTypes = { enabled = true },
+                },
                 suggest = {
                   completeFunctionCalls = true,
                 },
