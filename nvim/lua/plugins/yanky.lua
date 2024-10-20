@@ -6,7 +6,11 @@ return {
   },
   keys = {
     -- stylua: ignore
-    { "<leader>p", "<Cmd>YankyRingHistory<CR>",              desc = "Open Yank History" },
+    {
+      "<leader>p",
+      "<Cmd>YankyRingHistory<CR>",
+      desc = "Open Yank History",
+    },
     {
       "y",
       "<Plug>(YankyYank)",
@@ -39,17 +43,65 @@ return {
     --   "Put yanked text before selection",
     --   mode = { "n", "x" }
     -- },
-    { "[y",        "<Plug>(YankyCycleForward)",              desc = "[Yanky] Cycle forward through yank history" },
-    { "]y",        "<Plug>(YankyCycleBackward)",             desc = "[Yanky] Cycle backward through yank history" },
-    { "]p",        "<Plug>(YankyPutIndentAfterLinewise)",    desc = "[Yanky] Put indented after cursor (linewise)" },
-    { "[p",        "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "[Yanky] Put indented before cursor (linewise)" },
-    { "]P",        "<Plug>(YankyPutIndentAfterLinewise)",    desc = "[Yanky] Put indented after cursor (linewise)" },
-    { "[P",        "<Plug>(YankyPutIndentBeforeLinewise)",   desc = "[Yanky] Put indented before cursor (linewise)" },
-    { ">p",        "<Plug>(YankyPutIndentAfterShiftRight)",  desc = "[Yanky] Put and indent right" },
-    { "<p",        "<Plug>(YankyPutIndentAfterShiftLeft)",   desc = "[Yanky] Put and indent left" },
-    { ">P",        "<Plug>(YankyPutIndentBeforeShiftRight)", desc = "[Yanky] Put before and indent right" },
-    { "<P",        "<Plug>(YankyPutIndentBeforeShiftLeft)",  desc = "[Yanky] Put before and indent left" },
-    { "=p",        "<Plug>(YankyPutAfterFilter)",            desc = "[Yanky] Put after applying a filter" },
-    { "=P",        "<Plug>(YankyPutBeforeFilter)",           desc = "[Yanky] Put before applying a filter" },
+    {
+      "[y",
+      "<Plug>(YankyCycleForward)",
+      desc = "[Yanky] Cycle forward through yank history",
+    },
+    {
+      "]y",
+      "<Plug>(YankyCycleBackward)",
+      desc = "[Yanky] Cycle backward through yank history",
+    },
+    {
+      "]p",
+      "<Plug>(YankyPutIndentAfterLinewise)",
+      desc = "[Yanky] Put indented after cursor (linewise)",
+    },
+    {
+      "[p",
+      "<Plug>(YankyPutIndentBeforeLinewise)",
+      desc = "[Yanky] Put indented before cursor (linewise)",
+    },
+    {
+      "]P",
+      "<Plug>(YankyPutIndentAfterLinewise)",
+      desc = "[Yanky] Put indented after cursor (linewise)",
+    },
+    {
+      "[P",
+      "<Plug>(YankyPutIndentBeforeLinewise)",
+      desc = "[Yanky] Put indented before cursor (linewise)",
+    },
+    {
+      ">p",
+      "<Plug>(YankyPutIndentAfterShiftRight)",
+      desc = "[Yanky] Put and indent right",
+    },
+    {
+      "<p",
+      "<Plug>(YankyPutIndentAfterShiftLeft)",
+      desc = "[Yanky] Put and indent left",
+    },
+    {
+      ">P",
+      "<Plug>(YankyPutIndentBeforeShiftRight)",
+      desc = "[Yanky] Put before and indent right",
+    },
+    {
+      "<P",
+      "<Plug>(YankyPutIndentBeforeShiftLeft)",
+      desc = "[Yanky] Put before and indent left",
+    },
+    {
+      "=p",
+      "<Plug>(YankyPutAfterFilter)",
+      desc = "[Yanky] Put after applying a filter",
+    },
+    {
+      "=P",
+      "<Plug>(YankyPutBeforeFilter)",
+      desc = "[Yanky] Put before applying a filter",
+    },
   },
 }

@@ -67,7 +67,7 @@ return {
           -- },
           basedpyright = {
             disableOrganizeImports = false, -- use keymap instead
-            analysis= {
+            analysis = {
               useLibraryCodeForTypes = true,
               autoSearchPaths = true,
               diagnosticMode = "workspace",
@@ -421,7 +421,28 @@ return {
   {
     'mrcjkb/rustaceanvim',
     version = '^5', -- Recommended
-    lazy = false, -- This plugin is already lazy
+    lazy = false,   -- This plugin is already lazy
+    config = function()
+      vim.g.rustaceanvim = {
+        tools = {
+          float_win_config = {
+            border = 'rounded'
+          },
+          -- code_actions = {
+          --   ui_select_fallback = true
+          -- }
+        },
+        server = {
+          default_settings = {
+            ['rust_analyzer'] = {
+              inlayHints = {
+                chainingHints = { enable = false },
+              },
+            }
+          }
+        },
+      }
+    end
   },
 
   {
@@ -435,7 +456,8 @@ return {
           multiple_diag_under_cursor = true,
           format = function(diagnostic)
             local level = vim.diagnostic.severity[diagnostic.severity]
-            return string.format("%s %s [%s]", require('config.icons').diagnostics[level], diagnostic.message, diagnostic.source)
+            return string.format("%s %s [%s]", require('config.icons').diagnostics[level], diagnostic.message,
+              diagnostic.source)
           end,
           -- Enable diagnostic message on all lines.
           -- multilines = true,
