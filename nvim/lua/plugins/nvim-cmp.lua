@@ -15,12 +15,39 @@ return {
     config = function()
       local cmp = require('cmp')
       local cmp_util = require('util.cmp')
-      local defaults = require("cmp.config.default")()
+      local types = require("cmp.types")
+      -- local defaults = require("cmp.config.default")()
+
+      local priority_map = {
+        -- [types.lsp.CompletionItemKind.EnumMember] = 1,
+        -- [types.lsp.CompletionItemKind.Variable] = 2,
+        [types.lsp.CompletionItemKind.Text] = 100, -- to the bottom
+      }
+
+      local kind = function(entry1, entry2)
+        local kind1 = entry1:get_kind()
+        local kind2 = entry2:get_kind()
+        kind1 = priority_map[kind1] or kind1
+        kind2 = priority_map[kind2] or kind2
+        if kind1 ~= kind2 then
+          if kind1 == types.lsp.CompletionItemKind.Snippet then
+            return true
+          end
+          if kind2 == types.lsp.CompletionItemKind.Snippet then
+            return false
+          end
+          local diff = kind1 - kind2
+          if diff < 0 then
+            return true
+          elseif diff > 0 then
+            return false
+          end
+        end
+      end
 
       cmp.setup({
         snippet = {
           expand = function(args)
-            -- require("luasnip").lsp_expand(args.body)
             vim.snippet.expand(args.body)
           end,
         },
@@ -61,6 +88,32 @@ return {
             end
           end, { 'i', 's' }),
         }),
+        -- sorting = defaults.sorting,
+        sorting = {
+          priority_weight = 100,
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            function(entry1, entry2)
+              local _, entry1_under = entry1.completion_item.label:find "^_+"
+              local _, entry2_under = entry2.completion_item.label:find "^_+"
+              entry1_under = entry1_under or 0
+              entry2_under = entry2_under or 0
+              if entry1_under > entry2_under then
+                return false
+              elseif entry1_under < entry2_under then
+                return true
+              end
+            end,
+            kind,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
         sources = cmp.config.sources({
           {
             name = 'nvim_lsp',
@@ -97,7 +150,6 @@ return {
             winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
           }),
         },
-        sorting = defaults.sorting,
         performance = {
           max_view_entries = 10,
         },
