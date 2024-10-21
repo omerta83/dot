@@ -3,7 +3,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     url = "https://github.com/iguanacucumber/magazine.nvim",
-    enabled = false,
+    enabled = true,
     event = { "InsertEnter", "CmdlineEnter" },
     version = false,
     dependencies = {
@@ -159,9 +159,6 @@ return {
         cmp.complete()
       end)
 
-      -- https://github.com/vuejs/language-tools/discussions/4495
-      cmp.event:on('menu_closed', cmp_util.clear_cache)
-
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(':', {
         mapping = cmp.mapping.preset.cmdline(),
@@ -176,7 +173,7 @@ return {
 
   {
     'saghen/blink.cmp',
-    enabled = true,
+    enabled = false,
     lazy = false,
     -- dependencies = 'rafamadriz/friendly-snippets',
     version = 'v0.*',
@@ -191,17 +188,21 @@ return {
       },
 
       nerd_font_variant = 'mono',
-      accept = { auto_blankets = { enabled = true } },
+      accept = {
+        create_undo_point = false,
+        auto_blankets = { enabled = true },
+      },
       trigger = { signature_help = { enabled = true } },
 
       fuzzy = {
-        max_items = 20
+        max_items = 20,
       },
 
       windows = {
         autocomplete = {
           border = 'single',
           winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None',
+          selection = 'auto_insert',
           draw = require('util.cmp').draw,
         },
         documentation = {
