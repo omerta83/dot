@@ -1,44 +1,44 @@
 -- https://github.com/MariaSolOs/dotfiles/blob/main/.config/nvim/lua/plugins/fzf-lua.lua
 -- Custom files picker with toggling for respecting/ignoring .gitignore.
-local FilesPicker = {
-  opts = nil,
-  ignoring = nil,
-}
-FilesPicker.toggle = function(_, _)
-  FilesPicker.pick(FilesPicker.opts)
-end
-FilesPicker.pick = function(opts)
-  if not opts then
-    FilesPicker.ignoring = true
-  end
-  opts = opts or {}
-  opts.actions = {
-    ['ctrl-g'] = FilesPicker.toggle,
-  }
-  local behavior = ''
-  if FilesPicker.ignoring then
-    behavior = 'respecting'
-    opts.cmd =
-    'fd --color=never --no-require-git --type f --hidden --follow --exclude .git' -- always respect .gitignore even if no .git folder exists
-  else
-    behavior = 'ignoring'
-    opts.cmd = 'fd --color=never --type f --hidden --follow --no-ignore'
-  end
-  opts.winopts = {
-    title = ' Files (' .. behavior .. ' .gitignore) ',
-    title_pos = 'center',
-  }
-  FilesPicker.ignoring = not FilesPicker.ignoring
-  FilesPicker.opts = opts
-
-  require('fzf-lua').files(opts)
-end
+-- local FilesPicker = {
+--   opts = nil,
+--   ignoring = nil,
+-- }
+-- FilesPicker.toggle = function(_, _)
+--   FilesPicker.pick(FilesPicker.opts)
+-- end
+-- FilesPicker.pick = function(opts)
+--   if not opts then
+--     FilesPicker.ignoring = true
+--   end
+--   opts = opts or {}
+--   opts.actions = {
+--     ['ctrl-g'] = FilesPicker.toggle,
+--   }
+--   local behavior = ''
+--   if FilesPicker.ignoring then
+--     behavior = 'respecting'
+--     opts.cmd =
+--     'fd --color=never --no-require-git --type f --hidden --follow --exclude .git' -- always respect .gitignore even if no .git folder exists
+--   else
+--     behavior = 'ignoring'
+--     opts.cmd = 'fd --color=never --type f --hidden --follow --no-ignore'
+--   end
+--   opts.winopts = {
+--     title = ' Files (' .. behavior .. ' .gitignore) ',
+--     title_pos = 'center',
+--   }
+--   FilesPicker.ignoring = not FilesPicker.ignoring
+--   FilesPicker.opts = opts
+--
+--   require('fzf-lua').files(opts)
+-- end
 
 return {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
   keys = {
-    { "<leader><space>", FilesPicker.pick,                             desc = "[FzfLua] Find files" },
+    { "<leader><space>", "<cmd>FzfLua files<CR>",                      desc = "[FzfLua] Find files" },
     { "<leader>fb",      "<cmd>FzfLua buffers<CR>",                    desc = "[FzfLua] Buffers" },
     { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>",             desc = "[FzfLua] Live Grep --glob" },
     { "<leader>fp",      "<cmd>FzfLua grep_project<CR>",               desc = "[FzfLua] Search all project lines" },
@@ -220,6 +220,6 @@ return {
     require('fzf-lua').setup(opts)
 
     -- Add the .gitignore toggle description for the files picker.
-    require('fzf-lua.config').set_action_helpstr(FilesPicker.toggle, 'no-ignore<->ignore')
+    -- require('fzf-lua.config').set_action_helpstr(FilesPicker.toggle, 'no-ignore<->ignore')
   end
 }
