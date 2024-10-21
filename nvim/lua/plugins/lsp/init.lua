@@ -197,7 +197,8 @@ return {
             }
           },
           emmet_language_server = {
-            filetypes = { "css", "eruby", "html", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "vue" }
+            -- no need for vue as volar already provides emmet support
+            filetypes = { "css", "eruby", "html", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
           },
           lua_ls = {
             single_file_support = true,
