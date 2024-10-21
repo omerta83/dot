@@ -8,7 +8,6 @@ return {
 
     -- Custom theme
     local custom_theme = require('lualine.themes.carbonfox')
-    custom_theme.normal.a.bg = colors.bg
     custom_theme.normal.c.bg = colors.bg
 
     return {

@@ -2,6 +2,22 @@ local icons = require('config.icons')
 local colors = require('util').theme_colors()
 local separator = { left = icons.misc.SeparatorLeft, right = icons.misc.SeparatorRight }
 
+-- https://www.reddit.com/r/neovim/s/ZbFDWKLIZd
+local mode_map = {
+  n = '(˵•̀ ᴗ -)',
+  nt = '(˵•̀ ᴗ -)',
+  i = '(•̀ - •́ )',
+  R = '( •̯́ ₃ •̯̀)',
+  v = '( -_・)σ',
+  V = '( -_・)σ',
+  no = 'Σ(°△°ꪱꪱ)',
+  ['\22'] = '( -_・)σ',
+  t = ' (⌐■_■) ',
+  ['!'] = 'Σ(°△°ꪱꪱ)',
+  c = 'Σ(°△°ꪱꪱ)',
+  s = '(´ ▽｀) ',
+}
+
 local function getLspNames()
   local msg = "No Active Lsp"
   local icon = icons.misc.Gear .. " "
@@ -17,7 +33,8 @@ local function getLspNames()
     local filetypes = client.config.filetypes
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
       -- return icon .. client.name
-      clientNames = clientNames .. (clientNames == '' and '' or '') .. client.name:gsub("[-_].*$", "") -- remove any characters after - or _
+      clientNames = clientNames ..
+      (clientNames == '' and '' or '') .. client.name:gsub("[-_].*$", "") -- remove any characters after - or _
     end
   end
   return icon .. (clientNames ~= '' and clientNames or msg)
@@ -47,12 +64,12 @@ local function show_searchcount()
 end
 
 local function show_macro_recording()
-    local recording_register = vim.fn.reg_recording()
-    if recording_register == "" then
-        return ""
-    else
-        return "Recording @" .. recording_register
-    end
+  local recording_register = vim.fn.reg_recording()
+  if recording_register == "" then
+    return ""
+  else
+    return "Recording @" .. recording_register
+  end
 end
 
 local M = {
@@ -122,9 +139,10 @@ local M = {
   modes = {
     "mode",
     fmt = function(str)
-      return str:sub(1, 1)
+      -- return str:sub(1, 1)
+      return mode_map[vim.api.nvim_get_mode().mode] or vim.api.nvim_get_mode().mode
     end,
-    color = { bg = colors.orange, fg = colors.bg_dark },
+    -- color = { bg = colors.orange, fg = colors.bg_dark },
     separator = separator,
   },
   -- lsp_symbols = {
