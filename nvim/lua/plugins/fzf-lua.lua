@@ -1,42 +1,7 @@
--- https://github.com/MariaSolOs/dotfiles/blob/main/.config/nvim/lua/plugins/fzf-lua.lua
--- Custom files picker with toggling for respecting/ignoring .gitignore.
--- local FilesPicker = {
---   opts = nil,
---   ignoring = nil,
--- }
--- FilesPicker.toggle = function(_, _)
---   FilesPicker.pick(FilesPicker.opts)
--- end
--- FilesPicker.pick = function(opts)
---   if not opts then
---     FilesPicker.ignoring = true
---   end
---   opts = opts or {}
---   opts.actions = {
---     ['ctrl-g'] = FilesPicker.toggle,
---   }
---   local behavior = ''
---   if FilesPicker.ignoring then
---     behavior = 'respecting'
---     opts.cmd =
---     'fd --color=never --no-require-git --type f --hidden --follow --exclude .git' -- always respect .gitignore even if no .git folder exists
---   else
---     behavior = 'ignoring'
---     opts.cmd = 'fd --color=never --type f --hidden --follow --no-ignore'
---   end
---   opts.winopts = {
---     title = ' Files (' .. behavior .. ' .gitignore) ',
---     title_pos = 'center',
---   }
---   FilesPicker.ignoring = not FilesPicker.ignoring
---   FilesPicker.opts = opts
---
---   require('fzf-lua').files(opts)
--- end
-
 return {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
+  event = "VeryLazy",
   keys = {
     { "<leader><space>", "<cmd>FzfLua files<CR>",                      desc = "[FzfLua] Find files" },
     { "<leader>fb",      "<cmd>FzfLua buffers<CR>",                    desc = "[FzfLua] Buffers" },
@@ -218,8 +183,16 @@ return {
   end,
   config = function(_, opts)
     require('fzf-lua').setup(opts)
-
-    -- Add the .gitignore toggle description for the files picker.
-    -- require('fzf-lua.config').set_action_helpstr(FilesPicker.toggle, 'no-ignore<->ignore')
+    -- https://github.com/ibhagwan/fzf-lua/issues/793
+    require("fzf-lua").register_ui_select(function(_, items)
+      local min_h, max_h = 0.15, 0.50
+      local h = (#items + 4) / vim.o.lines
+      if h < min_h then
+        h = min_h
+      elseif h > max_h then
+        h = max_h
+      end
+      return { winopts = { height = h, width = 0.60, row = 0.40 } }
+    end)
   end
 }
