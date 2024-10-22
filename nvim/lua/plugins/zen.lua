@@ -1,26 +1,14 @@
 return {
   {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    keys = {
-      {
-        "<leader>cz",
-        function()
-          require("zen-mode").toggle()
-        end,
-        mode = "n",
-        desc = "Zen Mode"
-      }
-    },
+    "shortcuts/no-neck-pain.nvim",
+    version = "*",
+    lazy = false,
     opts = {
-      window = {
-        width = 0.50,
+      autocmds = {
+        enableOnVimEnter = true,
       },
-      plugins = {
-        kitty = {
-          enabled = true,
-          font = "+4",
-        }
+      mappings = {
+        enabled = true,
       }
     }
   }

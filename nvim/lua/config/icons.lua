@@ -97,6 +97,7 @@ local M = {
     Record = '',
     Search = '',
     VerticalBar = "▏",
+    VerticalBar1 = '│',
     Arrow = "➜",
   }
 }

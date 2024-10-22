@@ -18,9 +18,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     opts = function()
-      local vue_language_server_path = require('mason-registry').get_package('vue-language-server'):get_install_path() ..
-        '/node_modules/@vue/language-server'
-
+      local vue_language_server_path = require('mason-registry').get_package('vue-language-server')
       return {
         servers = {
           cssls = {},
@@ -135,13 +133,7 @@ return {
           },
           -- Vue 3.x
           volar = {
-            -- on_attach = function(client, bufnr)
-            --   require("twoslash-queries").attach(client, bufnr)
-            -- end,
             root_dir = require('lspconfig').util.root_pattern('nuxt.config.ts', 'quasar.config.js'),
-            -- filetypes = {
-            --   'vue',
-            -- },
             init_options = {
               typescript = {
                 tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib"
@@ -153,6 +145,7 @@ return {
             }
           },
           vtsls = {
+            -- filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
             settings = {
               complete_function_calls = true,
               vtsls = {
@@ -163,16 +156,17 @@ return {
                     enableServerSideFuzzyMatch = true,
                   },
                 },
-                -- Use volar for only .vue files and tsserver for .ts and .js files.
                 tsserver = {
                   globalPlugins = {
+                    -- Use volar for only .vue files and tsserver for .ts and .js files.
                     {
                       name = "@vue/typescript-plugin",
                       location = vue_language_server_path,
-                      languages = { 'vue' },
+                      languages = { "vue" },
                       configNamespace = "typescript",
                       enableForWorkspaceTypeScriptVersions = true,
                     }
+
                   }
                 }
               },
@@ -196,7 +190,28 @@ return {
                   completeFunctionCalls = true,
                 },
               }
-            }
+            },
+            -- before_init = function(params, config)
+            --   -- https://github.com/yioneko/vtsls/issues/148#issuecomment-2119744901
+            --   -- checks whether vue is installed before adding the plugin.
+            --   local result = vim.system(
+            --     { "npm", "query", "#vue" },
+            --     { cwd = params.workspaceFolders[1].name, text = true }
+            --   ):wait()
+            --   if result.stdout ~= "[]" then
+            --     -- Use volar for only .vue files and tsserver for .ts and .js files.
+            --     -- local vue_language_server_path = require('mason-registry').get_package('vue-language-server')
+            --     -- :get_install_path() .. '/node_modules/@vue/language-server'
+            --     local vuePluginConfig = {
+            --       name = "@vue/typescript-plugin",
+            --       location = vue_language_server_path,
+            --       languages = { "vue" },
+            --       configNamespace = "typescript",
+            --       enableForWorkspaceTypeScriptVersions = true,
+            --     }
+            --     table.insert(config.settings.vtsls.tsserver.globalPlugins, vuePluginConfig)
+            --   end
+            -- end
           },
           emmet_language_server = {
             -- no need for vue as volar already provides emmet support

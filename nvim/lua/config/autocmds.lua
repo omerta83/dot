@@ -45,14 +45,6 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
-vim.api.nvim_create_autocmd('BufRead', {
-  group = vim.api.nvim_create_augroup('omerta/open_zen_mode', { clear = true }),
-  desc = 'Open Zen Mode when entering a buffer',
-  callback = function()
-    vim.cmd 'ZenMode'
-  end,
-})
-
 -- keymaps for typescript development
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup('omerta/typescript', { clear = true }),

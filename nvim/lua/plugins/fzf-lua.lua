@@ -5,7 +5,9 @@ return {
   keys = {
     { "<leader><space>", "<cmd>FzfLua files<CR>",                      desc = "[FzfLua] Find files" },
     { "<leader>fb",      "<cmd>FzfLua buffers<CR>",                    desc = "[FzfLua] Buffers" },
+    { '<leader>f/',      '<cmd>FzfLua lgrep_curbuf<CR>',               desc = 'Grep current buffer' },
     { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>",             desc = "[FzfLua] Live Grep --glob" },
+    { "<leader>fg",      "<CMD>FzfLua grep_visual<CR>",                desc = "[FzfLua] Live Grep --glob",        mode = 'x' },
     { "<leader>fp",      "<cmd>FzfLua grep_project<CR>",               desc = "[FzfLua] Search all project lines" },
     { '<leader>fr',      '<cmd>FzfLua oldfiles<cr>',                   desc = '[FzfLua] Recently opened files' },
     { "<leader>f;",      "<cmd>FzfLua resume<CR>",                     desc = "[FzfLua] Resume" },
@@ -14,8 +16,8 @@ return {
     { "<leader>fM",      "<cmd>FzfLua man_pages<CR>",                  desc = "[FzfLua] Man page" },
     { "<leader>f?",      "<cmd>FzfLua help_tags<CR>",                  desc = "[FzfLua] Help tags" },
     { "<leader>fo",      "<cmd>FzfLua lsp_document_symbols<CR>",       desc = "[FzfLua] Document symbols" },
-    { "<leader>fO",      "<cmd>FzfLua lsp_workspace_symbols<CR>",      desc = "[FzfLua] Workspace symbols" },
-    { "<leader>fS",      "<cmd>FzfLua lsp_live_workspace_symbols<CR>", desc = "[FzfLua] Live workspace symbols" },
+    -- { "<leader>fO", "<cmd>FzfLua lsp_workspace_symbols<CR>",      desc = "[FzfLua] Workspace symbols" },
+    { "<leader>fO",      "<cmd>FzfLua lsp_live_workspace_symbols<CR>", desc = "[FzfLua] Live workspace symbols" },
     { "<leader>fa",      "<cmd>FzfLua lsp_code_actions<CR>",           desc = "[FzfLua] Code actions" },
     { "<leader>fd",      "<cmd>FzfLua lsp_document_diagnostics<CR>",   desc = "[FzfLua] Document diagnostics" },
     { "<leader>fD",      "<cmd>FzfLua lsp_workspace_diagnostics<CR>",  desc = "[FzfLua] Workspace diagnostics" },
@@ -30,7 +32,6 @@ return {
   },
   opts = function()
     local actions = require "fzf-lua.actions"
-    local preview_pager = vim.fn.executable("delta") == 1 and "delta --width=$FZF_PREVIEW_COLUMNS"
     local icons = require('config.icons')
 
     return {
@@ -40,9 +41,7 @@ return {
       -- global_file_icons = false,
       file_icon_padding = ' ',
       fzf_opts          = {
-        ['--info'] = 'default',
-        ['--pointer'] = icons.misc.Arrow,
-        ['--marker'] = '✓',
+        ['--layout'] = 'reverse-list',
       },
       keymap            = {
         builtin = {
@@ -51,39 +50,28 @@ return {
           ["<C-t>"] = "toggle-fullscreen",
           -- Only valid with the 'builtin' previewer
           ["<F3>"]  = "toggle-preview-wrap",
-          ["<C-y>"] = "toggle-preview",
-          -- Rotate preview clockwise/counter-clockwise
-          -- ["<F5>"]     = "toggle-preview-ccw",
-          -- ["<F6>"]     = "toggle-preview-cw",
-          -- ["<C-f>"]    = "preview-page-down",
-          -- ["<C-b>"]    = "preview-page-up",
-          -- ["<S-left>"] = "preview-page-reset",
+          ["<C-/>"] = "toggle-preview",
         },
         fzf = {
           -- fzf '--bind=' options
           ["ctrl-z"] = "abort",
           ["ctrl-u"] = "unix-line-discard",
-          -- ["ctrl-f"] = "preview-page-down",
-          -- ["ctrl-b"] = "preview-page-up",
           ["ctrl-a"] = "beginning-of-line",
           ["ctrl-e"] = "end-of-line",
-          -- ["ctrl-s"] = "jump",
           ["alt-a"]  = "toggle-all",
           ["ctrl-l"] = "clear-selection",
           ['ctrl-q'] = 'select-all+accept',
           -- Only valid with fzf previewers (bat/cat/git/etc)
           ["f3"]     = "toggle-preview-wrap",
-          ["ctrl-y"] = "toggle-preview",
+          ["ctrl-/"] = "toggle-preview",
         },
       },
       actions           = {
         files = {
-          -- ["default"]     = actions.file_edit,
           ["default"] = actions.file_edit_or_qf,
           ["ctrl-x"]  = actions.file_split,
           ["ctrl-v"]  = actions.file_vsplit,
           ["ctrl-t"]  = actions.file_tabedit,
-          -- ["ctrl-q"]  = actions.file_sel_to_qf,
           ["alt-l"]   = actions.file_sel_to_ll,
         },
         buffers = {
@@ -93,14 +81,9 @@ return {
           ["ctrl-t"]  = actions.buf_tabedit,
         }
       },
-      previewers        = {
-        git_diff = {
-          pager = preview_pager
-        },
-      },
       winopts           = {
-        height = 0.75,
-        width = 0.75,
+        height = 0.7,
+        width = 0.5,
         preview = {
           -- defer the execution of bat to fzf
           -- default = 'bat_native',
@@ -108,17 +91,15 @@ return {
           delay = 100,
           hidden = 'hidden',
           layout = 'vertical',
-          vertical = 'down:55%',
+          vertical = 'up:55%',
         },
       },
       -- Configuration for specific commands.
       files             = {
         cwd_prompt = false,
-        prompt = 'Files❯ ',
       },
       git               = {
         status = {
-          prompt = 'Git Status❯ ',
           winopts = {
             preview = { hidden = 'nohidden' },
           },
@@ -129,35 +110,14 @@ return {
             ["ctrl-h"] = { fn = actions.git_stage_unstage, reload = true },
           }
         },
-        commits = {
-          prompt = 'Git Commits❯ ',
-          preview_pager = preview_pager,
-        },
-        bcommits = {
-          prompt = 'Buffer Commits❯ ',
-          preview_pager = preview_pager,
-        }
-      },
-      grep              = {
-        prompt = 'Grep❯ ',
-        header_prefix = icons.misc.Search .. ' ',
       },
       lsp               = {
-        prompt_postfix = '❯ ',
-        cwd_only = true,
+        cwd_only = true, -- LSP/diagnostics for cwd only?
         symbols = {
-          prompt_postfix = '❯ ',
           symbol_icons = icons.kinds,
         },
-        code_actions = {
-          prompt = 'Code Actions❯ ',
-        }
-      },
-      diagnostics       = {
-        prompt = 'Diagnostics❯ ',
       },
       oldfiles          = {
-        prompt = 'Recent Files❯ ',
         cwd_only = true,
         include_current_session = true,
         winopts = {
@@ -165,7 +125,6 @@ return {
         },
       },
       buffers           = {
-        prompt = 'Buffers❯ ',
         cwd_only = true,
         actions = {
           ["ctrl-x"] = actions.buf_split,
@@ -174,25 +133,14 @@ return {
       },
       manpages          = {
         cmd = "man -k -S 1 -M /usr/local/share/man .",
-        prompt = 'Man❯ ',
-      },
-      helptags          = {
-        prompt = 'Help❯ ',
       },
     }
   end,
   config = function(_, opts)
     require('fzf-lua').setup(opts)
     -- https://github.com/ibhagwan/fzf-lua/issues/793
-    require("fzf-lua").register_ui_select(function(_, items)
-      local min_h, max_h = 0.15, 0.50
-      local h = (#items + 4) / vim.o.lines
-      if h < min_h then
-        h = min_h
-      elseif h > max_h then
-        h = max_h
-      end
-      return { winopts = { height = h, width = 0.60, row = 0.40 } }
-    end)
+    require("fzf-lua").register_ui_select({
+      { winopts = { height = 0.60, width = 0.60, row = 0.40 } }
+    })
   end
 }
