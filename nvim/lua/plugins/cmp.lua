@@ -175,7 +175,6 @@ return {
     'saghen/blink.cmp',
     enabled = false,
     lazy = false,
-    -- dependencies = 'rafamadriz/friendly-snippets',
     version = 'v0.*',
     opts = {
       keymap = {
@@ -193,10 +192,6 @@ return {
         auto_blankets = { enabled = true },
       },
       trigger = { signature_help = { enabled = true } },
-
-      fuzzy = {
-        max_items = 20,
-      },
 
       windows = {
         autocomplete = {
