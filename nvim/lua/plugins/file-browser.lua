@@ -1,5 +1,26 @@
 -- local icons = require('config.icons')
 return {
+  {
+    'stevearc/oil.nvim',
+    cmd = "Oil",
+    keys = {
+      { "-",         function() require('oil').open_float() end,                desc = "Open parent directory in float" },
+      { "<leader>-", function() require('oil').open_float(vim.fn.getcwd()) end, desc = "Open working directory in float" },
+    },
+    opts = {
+      delete_to_trash = true,
+      keymaps = {
+        ["<C-y>"] = "actions.preview",
+        ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+      },
+      float = {
+        max_width = 100,
+        max_height = 80
+      }
+    },
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
   -- ---@type LazySpec
   -- {
   --   "mikavilpas/yazi.nvim",
@@ -147,25 +168,4 @@ return {
   --     })
   --   end
   -- },
-  {
-    'stevearc/oil.nvim',
-    cmd = "Oil",
-    keys = {
-      { "-", function() require('oil').open_float() end, desc = "Open parent directory in float" },
-      { "<leader>-", function() require('oil').open_float(vim.fn.getcwd()) end, desc = "Open working directory in float" },
-      -- { "q", function() require("oil").close() end,      desc = "Close Oil" },
-    },
-    opts = {
-      delete_to_trash = true,
-      keymaps = {
-        ["<C-y>"] = "actions.preview",
-      },
-      float = {
-        max_width = 100,
-        max_height = 80
-      }
-    },
-    -- Optional dependencies
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
 }
