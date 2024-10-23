@@ -178,8 +178,8 @@ return {
     version = 'v0.*',
     opts = {
       keymap = {
-        select_prev = { '<Up>', '<C-p>' },
-        select_next = { '<Down>', '<C-n>' },
+        select_prev = { '<Up>', '<C-p>', '<S-Tab>' },
+        select_next = { '<Down>', '<C-n>', '<Tab>' },
         accept = '<CR>',
       },
       highlight = {
@@ -188,7 +188,6 @@ return {
 
       nerd_font_variant = 'mono',
       accept = {
-        create_undo_point = false,
         auto_blankets = { enabled = true },
       },
       trigger = { signature_help = { enabled = true } },
@@ -197,7 +196,7 @@ return {
         autocomplete = {
           border = 'single',
           winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None',
-          selection = 'auto_insert',
+          -- selection = 'auto_insert',
           draw = require('util.cmp').draw,
         },
         documentation = {

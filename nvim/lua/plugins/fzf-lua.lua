@@ -138,9 +138,5 @@ return {
   end,
   config = function(_, opts)
     require('fzf-lua').setup(opts)
-    -- https://github.com/ibhagwan/fzf-lua/issues/793
-    require("fzf-lua").register_ui_select({
-      { winopts = { height = 0.60, width = 0.60, row = 0.40 } }
-    })
   end
 }

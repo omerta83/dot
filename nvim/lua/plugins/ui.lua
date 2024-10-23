@@ -42,5 +42,46 @@ return {
     end
   },
 
+  -- better vim.ui
+  {
+    "stevearc/dressing.nvim",
+    lazy = true,
+    opts = {
+      input = {
+        win_options = {
+          winhighlight = 'FloatBorder:LspFloatWinBorder',
+          winblend = 5,
+        },
+      },
+      select = {
+        trim_prompt = false,
+        get_config = function()
+          return {
+            backend = 'fzf_lua',
+            fzf_lua = {
+              winopts = {
+                height = 0.6,
+                width = 0.6,
+                row = 0.4,
+              }
+            },
+          }
+        end,
+      },
+    },
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+      end
+    end,
+  },
+
   { 'nvim-tree/nvim-web-devicons', lazy = true },
 }
