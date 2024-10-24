@@ -1,5 +1,5 @@
 require('config.options')
 require('config.lazy')
 require('config.maps')
-require('config.autocmds')
 require('config.lsp')
+require('config.autocmds')

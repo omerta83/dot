@@ -7,35 +7,39 @@ vim.wo.linebreak = true
 vim.wo.winbar = '' -- Turn off winbar
 
 local opt = vim.opt
-opt.autowrite = true -- Enable auto write
+-- opt.autowrite = true -- Enable auto write
 opt.clipboard = "unnamedplus" -- Sync with system clipboard + and *
 opt.cursorline = true -- Enable highlighting of the current line
-opt.expandtab = true -- Use spaces instead of tabs
 -- opt.formatoptions = "jcroqlnt" -- tcqj
 opt.formatoptions = "jcqln" -- do not wrap when format
-opt.grepformat = "%f:%l:%c:%m"
-opt.grepprg = "rg --vimgrep --no-heading --smart-case"
-opt.ignorecase = true -- Ignore case
+-- opt.grepformat = "%f:%l:%c:%m"
+-- opt.grepprg = "rg --vimgrep --no-heading --smart-case"
+-- opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
-opt.laststatus = 3
 opt.list = true -- Show some invisible characters
 opt.listchars = "tab:󰄾 ,trail:·,eol:¬"
 opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Print line number
 opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
-opt.scrolloff = 4 -- Lines of context
-opt.sidescrolloff = 8 -- Columns of context
-opt.shiftround = true -- Round indent
+-- opt.scrolloff = 4 -- Lines of context
+-- opt.sidescrolloff = 8 -- Columns of context
+-- opt.shiftround = true -- Round indent
+
+-- Indent
+opt.expandtab = true -- Use spaces instead of tabs
 opt.shiftwidth = 2 -- Size of an indent
+opt.tabstop = 2 -- Number of spaces tabs count for
+
 opt.shortmess:append { W = true, I = true, c = true }
 opt.showmode = false -- Dont show mode since we have a statusline
 opt.signcolumn = "yes:2" -- Always show the signcolumn, otherwise it would shift the text each time
 opt.smartcase = true -- Don't ignore case with capitals
 opt.smartindent = true -- Insert indents automatically
+
+-- Splitting
 opt.splitbelow = true -- Put new windows below current
 opt.splitright = true -- Put new windows right of current
-opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 -- opt.timeoutlen = 300
 opt.undofile = true
@@ -66,11 +70,19 @@ opt.foldlevelstart = 99
 --   eob = " ",
 -- }
 opt.fillchars:append { diff = "╱" }
+
+-- statusline
+opt.laststatus = 3
 opt.cmdheight = 0
 
 -- Word wrap
 -- opt.textwidth = 120
 -- opt.wrapmargin = 0
+
+-- Update times and timeouts.
+opt.updatetime = 300
+opt.timeoutlen = 500
+opt.ttimeoutlen = 10
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0

@@ -16,7 +16,7 @@ local function on_attach(client, buffer)
   keymap("gi", vim.lsp.buf.implementation, "[LSP] Go to implementation")
   keymap("<c-s>", vim.lsp.buf.signature_help, "[LSP] Signature help", { "i", "n" })
   keymap("K", vim.lsp.buf.hover, "[LSP] Hover")
-  keymap("<leader>ca", vim.lsp.buf.code_action, "[LSP] Code Action", { "n", "v" })
+  keymap("<leader>ca", vim.lsp.buf.code_action, "[LSP] Code Action on Hover", { "n", "v" })
   keymap("<leader>K", vim.diagnostic.open_float, "Line Diagnostics")
   keymap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
   keymap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Prev Diagnostic")
@@ -28,15 +28,13 @@ local function on_attach(client, buffer)
     "Next Warning")
   keymap("[w", function() vim.diagnostic.jump({ count = -1, wrap = true, severity = vim.diagnostic.severity.WARN }) end,
     "Prev Warning")
-  keymap("<leader>cf", function() require('plugins.lsp.format').format("documentFormatting") end, "Format Document")
-  keymap("<leader>cf", function() require('plugins.lsp.format').format("documentRangeFormatting") end, "Format Range",
-    { "n", "v" })
-  keymap("<leader>rn", vim.lsp.buf.rename, "[LSP] Rename")
+  keymap("<leader>cf", function() require('plugins.lsp.format').format() end, "[LSP] Format Code", { "n", "v" })
+  keymap("<leader>cr", vim.lsp.buf.rename, "[LSP] Rename")
   keymap("<leader>ll", "<CMD>LspRestart<CR>", "[LSP] Restart LSP")
 
   -- Toggle inlay hints
   if client.supports_method(methods.textDocument_inlayHint) then
-    vim.keymap.set('n', '<leader>ci', function()
+    vim.keymap.set('n', '<leader>ch', function()
       local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = buffer }
       vim.lsp.inlay_hint.enable(not enabled, { bufnr = buffer })
 
@@ -50,7 +48,7 @@ local function on_attach(client, buffer)
           end,
         })
       end
-    end, { buffer = buffer, desc = 'Toggle inlay hints' })
+    end, { buffer = buffer, desc = '[LSP] Toggle inlay hints' })
   end
 end
 

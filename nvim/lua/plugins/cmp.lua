@@ -11,6 +11,7 @@ return {
       'hrsh7th/cmp-buffer',   -- nvim-cmp source for buffer words
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lsp-signature-help',
+      'lukas-reineke/cmp-rg',
     },
     config = function()
       local cmp = require('cmp')
@@ -88,13 +89,13 @@ return {
             end
           end, { 'i', 's' }),
         }),
-        -- sorting = defaults.sorting,
         sorting = {
           priority_weight = 100,
           comparators = {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.score,
+            -- cmp-under
             function(entry1, entry2)
               local _, entry1_under = entry1.completion_item.label:find "^_+"
               local _, entry2_under = entry2.completion_item.label:find "^_+"
@@ -127,6 +128,10 @@ return {
           },
           { name = 'nvim_lsp_signature_help' },
           {
+            name = 'rg',
+            keyword_length = 3
+          },
+          {
             name = 'buffer',
             option = {
               get_bufnrs = function()
@@ -151,7 +156,7 @@ return {
           }),
         },
         performance = {
-          max_view_entries = 10,
+          max_view_entries = 100,
         },
       })
 
@@ -174,7 +179,8 @@ return {
   {
     'saghen/blink.cmp',
     enabled = false,
-    lazy = false,
+    -- lazy = false,
+    event = "InsertCharPre",
     version = 'v0.*',
     opts = {
       keymap = {
