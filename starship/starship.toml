@@ -12,8 +12,8 @@ vicmd_symbol = "[⤙](bold green)"
 [cmake]
 disabled = true
 
-[conda]
-disabled = true
+# [conda]
+# disabled = false
 
 [crystal]
 disabled = true
@@ -56,7 +56,7 @@ symbol = " "
 # [git_status]
 
 [golang]
-disabled = true
+symbol = ' '
 
 # [hostname]
 
