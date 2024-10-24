@@ -79,7 +79,29 @@ vim.diagnostic.config({
   signs = false, -- no signs in the gutter
   underline = true,
   severity_sort = true,
-  virtual_text = false,
+  -- virtual_text = false,
+  -- Steal from https://github.com/MariaSolOs/dotfiles/blob/b08f8cd1e5699c1dcd2e14e1515bc96a4a7abd40/.config/nvim/lua/lsp.lua#L109-L139
+  virtual_text = {
+    prefix = '',
+    spacing = 2,
+    format = function(diagnostic)
+      -- Use shorter, nicer names for some sources:
+      local special_sources = {
+        ['Lua Diagnostics.'] = 'lua',
+        ['Lua Syntax Check.'] = 'lua',
+      }
+
+      local message = diagnostic_icons[vim.diagnostic.severity[diagnostic.severity]]
+      if diagnostic.source then
+        message = string.format('%s %s', message, special_sources[diagnostic.source] or diagnostic.source)
+      end
+      if diagnostic.code then
+        message = string.format('%s[%s]', message, diagnostic.code)
+      end
+
+      return message .. ' '
+    end,
+  },
   float = {
     source = 'if_many',
     border = 'rounded',

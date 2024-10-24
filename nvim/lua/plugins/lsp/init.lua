@@ -510,26 +510,26 @@ return {
     end
   },
 
-  {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    enabled = true,
-    event = "VeryLazy", -- Or `LspAttach`
-    config = function()
-      require('tiny-inline-diagnostic').setup({
-        options = {
-          -- show_source = true,
-          multiple_diag_under_cursor = true,
-          format = function(diagnostic)
-            local level = vim.diagnostic.severity[diagnostic.severity]
-            return string.format("%s %s [%s]", require('config.icons').diagnostics[level], diagnostic.message,
-              diagnostic.source)
-          end,
-          -- Enable diagnostic message on all lines.
-          -- multilines = true,
-          -- show_all_diags_on_cursorline = true,
-          -- overwrite_events = { "DiagnosticChanged" },
-        }
-      })
-    end
-  }
+  -- {
+  --   "rachartier/tiny-inline-diagnostic.nvim",
+  --   enabled = false,
+  --   event = "VeryLazy", -- Or `LspAttach`
+  --   config = function()
+  --     require('tiny-inline-diagnostic').setup({
+  --       options = {
+  --         -- show_source = true,
+  --         multiple_diag_under_cursor = true,
+  --         format = function(diagnostic)
+  --           local level = vim.diagnostic.severity[diagnostic.severity]
+  --           return string.format("%s %s [%s]", require('config.icons').diagnostics[level], diagnostic.message,
+  --             diagnostic.source)
+  --         end,
+  --         -- Enable diagnostic message on all lines.
+  --         -- multilines = true,
+  --         -- show_all_diags_on_cursorline = true,
+  --         -- overwrite_events = { "DiagnosticChanged" },
+  --       }
+  --     })
+  --   end
+  -- }
 }

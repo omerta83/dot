@@ -34,7 +34,7 @@ local function getLspNames()
     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
       -- return icon .. client.name
       clientNames = clientNames ..
-      (clientNames == '' and '' or '') .. client.name:gsub("[-_].*$", "") -- remove any characters after - or _
+        (clientNames == '' and '' or '') .. client.name:gsub("[-_].*$", "") -- remove any characters after - or _
     end
   end
   return icon .. (clientNames ~= '' and clientNames or msg)

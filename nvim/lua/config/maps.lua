@@ -14,15 +14,19 @@ map('n', '<C-u>', '<C-u>zz', { desc = 'Scroll upwards' })
 -- map("n", "N", "Nzzzv", { silent = true })
 map('n', 'n', function()
   vim.cmd('silent normal! nzzzv')
-  require('lualine').refresh({
-    place = { "statusline" }
-  })
+  vim.schedule_wrap(function()
+    require('lualine').refresh({
+      place = { "statusline" }
+    })
+  end)
 end, { desc = 'Move to next search result' })
 map('n', 'N', function()
   vim.cmd('silent normal! Nzzzv')
-  require('lualine').refresh({
-    place = { "statusline" }
-  })
+  vim.schedule_wrap(function()
+    require('lualine').refresh({
+      place = { "statusline" }
+    })
+  end)
 end, { desc = 'Move to previous search result' })
 
 -- Indent while remaining in visual mode.
