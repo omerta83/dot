@@ -16,6 +16,9 @@ return {
         component_separators = '',
         section_separators = '',
         globalstatus = true,
+        -- refresh = {
+        --   statusline = 0, -- avoid flickering when refresh
+        -- },
         disabled_filetypes = {
           statusline = { "dashboard", "lazy", "alpha", "TelescopePrompt", "mason", "lspinfo", "fzf" }
         },
@@ -32,6 +35,7 @@ return {
           components.space,
           components.branch,
           -- components.diff,
+          components.tasks,
         },
         lualine_c = {
         --   components.lsp_symbols,

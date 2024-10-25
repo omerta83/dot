@@ -1,3 +1,16 @@
+local biome_or_other = function(includeTailwind)
+  local cwd = vim.fn.getcwd()
+  local has_biome = vim.fn.filereadable(cwd .. '/biome.json')
+  local formatters = has_biome == 1 and { 'biome' } or { 'prettier' }
+  if includeTailwind then
+    local has_tailwind = vim.fn.filereadable(cwd .. '/tailwind.config.js') or
+      vim.fn.filereadable(cwd .. '/tailwind.config.ts')
+    if has_tailwind == 1 then
+      table.insert(formatters, 'rustywind')
+    end
+  end
+  return formatters
+end
 return {
   {
     'brenoprata10/nvim-highlight-colors',
@@ -34,16 +47,16 @@ return {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
-        javascript = { 'biome' },
-        typescript = { 'biome' },
-        ["javascript.jsx"] = { "biome", "rustywind" },
-        javascriptreact = { "biome", "rustywind" },
-        ["typescript.tsx"] = { 'biome', 'rustywind' },
-        typescriptreact = { 'biome', 'rustywind' },
-        vue = { 'prettier', 'rustywind' },
+        javascript = biome_or_other,
+        typescript = biome_or_other,
+        ["javascript.jsx"] = biome_or_other(true),
+        javascriptreact = biome_or_other(true),
+        ["typescript.tsx"] = biome_or_other(true),
+        typescriptreact = biome_or_other(true),
+        vue = biome_or_other(true),
         lua = { 'stylua' },
         python = { 'ruff' },
-        go = { 'goimports', 'gofmt' },
+        go = { 'goimports', 'gofumpt' },
       }
     },
   },
@@ -111,4 +124,44 @@ return {
       lint.try_lint(nil, { ignore_errors = true })
     end,
   },
+
+  -- Task runner
+  {
+    'stevearc/overseer.nvim',
+    keys = {
+      { '<leader>or', '<cmd>OverseerRun<cr>',    desc = '[Overseer] Run task' },
+      { '<leader>ot', '<cmd>OverseerToggle<cr>', desc = '[Overseer] Toggle task runner' },
+      { '<leader>oo', '<cmd>OverseerOpen<cr>',   desc = '[Overseer] Open task runner' },
+      {
+        '<leader>ol',
+        function()
+          local overseer = require 'overseer'
+
+          local tasks = overseer.list_tasks { recent_first = true }
+          if vim.tbl_isempty(tasks) then
+            vim.notify('No tasks found', vim.log.levels.WARN)
+          else
+            overseer.run_action(tasks[1], 'restart')
+          end
+        end,
+        desc = '[Overseer] Restart last task',
+      },
+    },
+    opts = {
+      task_list = {
+        default_detail = 2,
+        direction = 'bottom',
+        max_width = { 600, 0.7 },
+        bindings = {
+          ['<C-b>'] = 'ScrollOutputUp',
+          ['<C-f>'] = 'ScrollOutputDown',
+        },
+      },
+      strategy = {
+        'toggleterm',
+        open_on_start = false,
+        hidden = true, -- show on the statusline
+      },
+    },
+  }
 }

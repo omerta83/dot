@@ -420,43 +420,43 @@ return {
     -- event = "VeryLazy",
     -- event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
     ft = { "typescript", "typescriptreact", "javascript", "javascriptreact"  },
-    keys = {
-      {
-        "<leader>co",
-        "<cmd>VtsExec organize_imports<CR>",
-        desc = "[Typescript] Organize imports",
-      },
-      {
-        "<leader>cd",
-        "<cmd>VtsExec goto_source_definition<CR>",
-        desc = "[Typescript] Go to source definition",
-      },
-      {
-        "<leader>ci",
-        "<cmd>VtsExec add_missing_imports<CR>",
-        desc = "[Typescript] Add missing imports",
-      },
-      {
-        "<leader>cu",
-        "<cmd>VtsExec remove_unused<CR>",
-        desc = "[Typescript] Remove unused imports",
-      },
-      {
-        "<leader>cn",
-        "<cmd>VtsExec rename_file<CR>",
-        desc = "[Typescript] Rename file",
-      },
-      {
-        "<leader>cs",
-        "<cmd>VtsExec file_references<CR>",
-        desc = "[Typescript] File references",
-      },
-      {
-        "<leader>cF",
-        "<cmd>VtsExec fix_all<CR>",
-        desc = "[Typescript] Fix all",
-      },
-    }
+    -- keys = {
+    --   {
+    --     "<leader>co",
+    --     "<cmd>VtsExec organize_imports<CR>",
+    --     desc = "[Typescript] Organize imports",
+    --   },
+    --   {
+    --     "<leader>cd",
+    --     "<cmd>VtsExec goto_source_definition<CR>",
+    --     desc = "[Typescript] Go to source definition",
+    --   },
+    --   {
+    --     "<leader>ci",
+    --     "<cmd>VtsExec add_missing_imports<CR>",
+    --     desc = "[Typescript] Add missing imports",
+    --   },
+    --   {
+    --     "<leader>cu",
+    --     "<cmd>VtsExec remove_unused<CR>",
+    --     desc = "[Typescript] Remove unused imports",
+    --   },
+    --   {
+    --     "<leader>cn",
+    --     "<cmd>VtsExec rename_file<CR>",
+    --     desc = "[Typescript] Rename file",
+    --   },
+    --   {
+    --     "<leader>cs",
+    --     "<cmd>VtsExec file_references<CR>",
+    --     desc = "[Typescript] File references",
+    --   },
+    --   {
+    --     "<leader>cF",
+    --     "<cmd>VtsExec fix_all<CR>",
+    --     desc = "[Typescript] Fix all",
+    --   },
+    -- }
   },
 
   {

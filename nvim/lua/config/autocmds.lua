@@ -24,6 +24,12 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.cmd.inoreabbrev("<buffer> null None")
     vim.cmd.inoreabbrev("<buffer> none None")
     vim.cmd.inoreabbrev("<buffer> nil None")
+
+    -- vim.keymap.set("n", "<Leader>to", "<cmd>PyrightOrganizeImports<CR>", {
+    --   buffer = event.buf,
+    --   silent = true,
+    --   noremap = true,
+    -- })
   end,
 })
 
@@ -37,6 +43,65 @@ vim.api.nvim_create_autocmd('BufReadPost', {
       vim.cmd 'normal! g`"zz'
     end
   end,
+})
+
+-- keymaps for typescript development
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup('omerta/typescript', { clear = true }),
+  desc = "Keymaps for typescript development",
+  pattern = {
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+    "javascript",
+    "javascript.jsx",
+    "javascriptreact",
+  },
+  callback = function(event)
+    local bufnr = event.buf
+    vim.keymap.set(
+      "n",
+      "<leader>co",
+      "<cmd>VtsExec organize_imports<CR>",
+      { buffer = bufnr, desc = "[Typescript] Organize Imports" }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cd",
+      "<cmd>VtsExec goto_source_definition<CR>",
+      { desc = "[Typescript] Go To Source Definition", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>ci",
+      "<cmd>VtsExec add_missing_imports<CR>",
+      { desc = "[Typescript] Add Missing Imports", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cu",
+      "<cmd>VtsExec remove_unused<CR>",
+      { desc = "[Typescript] Remove Unused Imports", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cn",
+      "<cmd>VtsExec rename_file<CR>",
+      { desc = "[Typescript] Rename File", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cs",
+      "<cmd>VtsExec file_references<CR>",
+      { desc = "[Typescript] File References", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cF",
+      "<cmd>VtsExec fix_all<CR>",
+      { desc = "[Typescript] Fix All Errors", buffer = bufnr }
+    )
+  end
 })
 
 -- close with q
