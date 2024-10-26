@@ -9,6 +9,7 @@ return {
     },
     opts = {
       delete_to_trash = true,
+      skip_confirm_for_simple_edits = true,
       keymaps = {
         ["<C-y>"] = "actions.preview",
         ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },

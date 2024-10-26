@@ -11,6 +11,7 @@ local biome_or_other = function(includeTailwind)
   end
   return formatters
 end
+
 return {
   {
     'brenoprata10/nvim-highlight-colors',

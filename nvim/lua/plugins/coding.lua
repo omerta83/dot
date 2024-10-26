@@ -56,6 +56,8 @@ return {
       local ai = require("mini.ai")
       return {
         n_lines = 500,
+        -- Whether to disable showing non-error feedback
+        silent = true,
         custom_textobjects = {
           o = ai.gen_spec.treesitter({ -- code block
             a = { "@block.outer", "@conditional.outer", "@loop.outer" },
@@ -63,6 +65,7 @@ return {
           }),
           f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
           c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),       -- class
+          C = require('vim._comment').textobject,                                       -- Comment
           t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },           -- tags
           d = { "%f[%d]%d+" },                                                          -- digits
           e = {                                                                         -- Word with case
@@ -80,51 +83,9 @@ return {
       require("mini.ai").setup(opts)
       -- register all text objects with which-key
       if require("util").has("which-key.nvim") then
-        local objects = {
-          { " ", desc = "whitespace" },
-          { '"', desc = 'balanced "' },
-          { "'", desc = "balanced '" },
-          { "(", desc = "balanced (" },
-          { ")", desc = "balanced ) including white-space" },
-          { "<", desc = "balanced <" },
-          { ">", desc = "balanced > including white-space" },
-          { "?", desc = "user prompt" },
-          { "U", desc = "use/call without dot in name" },
-          { "[", desc = "balanced [" },
-          { "]", desc = "balanced ] including white-space" },
-          { "_", desc = "underscore" },
-          { "`", desc = "balanced `" },
-          { "a", desc = "argument" },
-          { "b", desc = "balanced )]}" },
-          { "c", desc = "class" },
-          { "d", desc = "digit(s)" },
-          { "e", desc = "word in CamelCase & snake_case" },
-          { "f", desc = "function" },
-          { "g", desc = "entire file" },
-          { "i", desc = "indent" },
-          { "o", desc = "block, conditional, loop" },
-          { "q", desc = "quote `\"'" },
-          { "t", desc = "tag" },
-          { "u", desc = "use/call function & method" },
-          { "{", desc = "balanced {" },
-          { "}", desc = "balanced } including white-space" },
-        }
-
-        local ret = { mode = { "o", "x" } }
-        for prefix, name in pairs({
-          i = "inside",
-          a = "around",
-          il = "last",
-          ["in"] = "next",
-          al = "last",
-          an = "next",
-        }) do
-          ret[#ret + 1] = { prefix, group = name }
-          for _, obj in ipairs(objects) do
-            ret[#ret + 1] = { prefix .. obj[1], desc = obj.desc }
-          end
-        end
-        require("which-key").add(ret, { notify = false })
+        vim.schedule(function ()
+          require('util.mini').ai_whichkey(opts)
+        end)
       end
     end,
   },

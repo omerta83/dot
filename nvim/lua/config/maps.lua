@@ -40,9 +40,9 @@ map('n', '[l', '<cmd>lprev<cr>zvzz', { desc = 'Previous loclist item' })
 map('n', ']l', '<cmd>lnext<cr>zvzz', { desc = 'Next loclist item' })
 
 -- Comment text objects
-local comment = require('vim._comment')
-map('x', 'ic', comment.textobject)
-map('o', 'ic', comment.textobject)
+-- local comment = require('vim._comment')
+-- map('x', 'ic', comment.textobject)
+-- map('o', 'ic', comment.textobject)
 
 -- #/* go back to the first match
 map('n', '*', '*``')
