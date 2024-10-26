@@ -51,6 +51,8 @@ function M.theme_colors()
     local palette = require('nightfox.palette').load('carbonfox')
     -- Returns a table with the colors of the theme compatible with tokyonight
     local colors = {}
+    colors.fg = palette.fg1
+    colors.fg_dark = palette.fg3
     colors.bg = palette.bg1
     colors.bg_highlight = palette.bg2
     colors.bg_dark = palette.bg0

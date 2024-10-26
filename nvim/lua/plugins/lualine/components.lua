@@ -1,6 +1,6 @@
 local icons = require('config.icons')
-local colors = require('util').theme_colors()
-local separator = { left = icons.misc.SeparatorLeft, right = icons.misc.SeparatorRight }
+-- local colors = require('util').theme_colors()
+-- local separator = { left = icons.misc.SeparatorLeft, right = icons.misc.SeparatorRight }
 
 -- https://www.reddit.com/r/neovim/s/ZbFDWKLIZd
 local mode_map = {
@@ -77,34 +77,35 @@ local M = {
     function()
       return icons.misc.Robot
     end,
-    separator = separator,
-    color = { bg = colors.bg_highlight, fg = colors.teal },
+    -- separator = separator,
+    -- color = { bg = colors.bg_highlight, fg = colors.teal },
   },
   space = {
     function()
       return " "
     end,
-    color = { bg = colors.bg },
+    -- color = { bg = colors.bg },
     padding = 0
   },
   filename = {
     'filename',
     path = 1,
     symbols = icons.file,
-    color = { bg = colors.blue, fg = colors.bg_dark },
-    separator = separator,
+    -- color = { bg = colors.blue, fg = colors.bg_dark },
+    -- separator = separator,
   },
   filetype = {
     "filetype",
     icon_only = true,
     colored = true,
-    color = { bg = colors.bg_highlight },
-    separator = separator,
+    icon = { align = 'right' }
+    -- color = { bg = colors.bg_highlight },
+    -- separator = separator,
   },
   fileformat = {
     "fileformat",
-    color = { bg = colors.dark5, fg = colors.bg_dark },
-    separator = separator,
+    -- color = { bg = colors.dark5, fg = colors.bg_dark },
+    -- separator = separator,
     cond = function()
       -- only show when not unix
       return vim.bo.fileformat ~= "unix"
@@ -112,8 +113,8 @@ local M = {
   },
   encoding = {
     "encoding",
-    color = { bg = colors.bg_highlight, fg = colors.blue1 },
-    separator = separator,
+    -- color = { bg = colors.bg_highlight, fg = colors.blue1 },
+    -- separator = separator,
     cond = function()
       -- only show when not utf-8
       return vim.bo.fileencoding ~= "utf-8"
@@ -123,8 +124,8 @@ local M = {
     "branch",
     -- icon = "",
     icon = icons.git.head,
-    color = { bg = colors.cyan, fg = colors.bg_dark },
-    separator = separator,
+    -- color = { bg = colors.cyan, fg = colors.bg_dark },
+    -- separator = separator,
   },
   diff = {
     "diff",
@@ -133,8 +134,8 @@ local M = {
       modified = icons.git.modified,
       removed = icons.git.removed,
     },
-    color = { bg = colors.bg_highlight },
-    separator = separator,
+    -- color = { bg = colors.bg_highlight },
+    -- separator = separator,
   },
   modes = {
     "mode",
@@ -142,11 +143,11 @@ local M = {
       -- return str:sub(1, 1)
       return mode_map[vim.api.nvim_get_mode().mode] or vim.api.nvim_get_mode().mode
     end,
-    separator = separator,
+    -- separator = separator,
   },
   tasks = {
     "overseer",
-    separator = separator,
+    -- separator = separator,
   },
   -- lsp_symbols = {
   --   function() return require("nvim-navic").get_location() end,
@@ -154,8 +155,8 @@ local M = {
   -- },
   dia = {
     "diagnostics",
-    color = { bg = colors.bg_highlight },
-    separator = separator,
+    -- color = { bg = colors.bg_highlight },
+    -- separator = separator,
     symbols = {
       error = icons.diagnostics.ERROR,
       warn = icons.diagnostics.WARN,
@@ -167,23 +168,22 @@ local M = {
     function()
       return getLspNames()
     end,
-    separator = separator,
-    color = { bg = colors.purple, fg = colors.bg_dark },
+    -- separator = separator,
   },
   term = {
     term_str,
-    separator = separator,
-    color = { fg = colors.green }
+    -- separator = separator,
+    -- color = { fg = colors.green }
   },
   searchcount = {
     show_searchcount,
     icon = icons.misc.Search,
-    color = { fg = colors.green, },
+    -- color = { fg = colors.green, },
   },
   marco_recording = {
     show_macro_recording,
     icon = icons.misc.Record,
-    color = { fg = colors.red, },
+    -- color = { fg = colors.red, },
   },
 }
 
