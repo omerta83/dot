@@ -23,6 +23,8 @@ git:
   paging:
     colorArg: always
     pager: delta --dark --paging=never
+  log:
+    showGraph: always
 os:
   edit: 'nvim'
   editAtLine: '{{editor}} +{{line}} -- {{filename}}'
