@@ -86,6 +86,7 @@ return {
     opts = {
       groups = {
         all = {
+          StatusLine = { bg = "bg1" },
           NormalFloat = { bg = "bg1" },
           FloatBorder = { bg = "bg1", fg = "bg4" },
 

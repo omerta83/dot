@@ -18,7 +18,7 @@ return {
       }
 
       -- Lazygit and lazydocker
-      local function create_float_term(cmd, on_close)
+      local function create_float_term(cmd, on_exit)
         local Terminal = require('toggleterm.terminal').Terminal
         local lazy = Terminal:new({
           cmd = cmd or '',
@@ -33,11 +33,16 @@ return {
             -- vim.keymap.del('t', '<esc>')
           end,
           -- function to run on closing the terminal
-          on_close = on_close,
+          on_exit = on_exit,
         })
         return lazy
       end
-      local lazygit = create_float_term("lazygit", function () vim.cmd("silent! :checktime") end)
+      local lazygit = create_float_term(
+        "lazygit",
+        function ()
+          vim.cmd("silent! :checktime")
+        end
+      )
       local lazydocker = create_float_term("lazydocker")
 
       function _G.LazyGit()

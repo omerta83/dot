@@ -98,7 +98,8 @@ local M = {
     "filetype",
     icon_only = true,
     colored = true,
-    icon = { align = 'right' }
+    -- icon = { align = 'right' }
+    separator = "", padding = { left = 0, right = 1 } 
     -- color = { bg = colors.bg_highlight },
     -- separator = separator,
   },

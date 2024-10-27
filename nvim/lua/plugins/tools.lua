@@ -129,10 +129,29 @@ return {
   -- Task runner
   {
     'stevearc/overseer.nvim',
+    cmd = {
+      "OverseerOpen",
+      "OverseerClose",
+      "OverseerToggle",
+      "OverseerSaveBundle",
+      "OverseerLoadBundle",
+      "OverseerDeleteBundle",
+      "OverseerRunCmd",
+      "OverseerRun",
+      "OverseerInfo",
+      "OverseerBuild",
+      "OverseerQuickAction",
+      "OverseerTaskAction",
+      "OverseerClearCache",
+    },
     keys = {
-      { '<leader>or', '<cmd>OverseerRun<cr>',    desc = '[Overseer] Run task' },
-      { '<leader>ot', '<cmd>OverseerToggle<cr>', desc = '[Overseer] Toggle task runner' },
-      { '<leader>oo', '<cmd>OverseerOpen<cr>',   desc = '[Overseer] Open task runner' },
+      { '<leader>oo', '<cmd>OverseerRun<cr>',         desc = '[Overseer] Run task' },
+      { '<leader>ow', '<cmd>OverseerToggle<cr>',      desc = '[Overseer] Toggle task runner' },
+      { "<leader>oq", "<cmd>OverseerQuickAction<cr>", desc = "[Overseer] Action recent task" },
+      { "<leader>oi", "<cmd>OverseerInfo<cr>",        desc = "[Overseer] Info" },
+      { "<leader>ob", "<cmd>OverseerBuild<cr>",       desc = "[Overseer] Task builder" },
+      { "<leader>ot", "<cmd>OverseerTaskAction<cr>",  desc = "[Overseer] Task action" },
+      { "<leader>oc", "<cmd>OverseerClearCache<cr>",  desc = "[Overseer] Clear cache" },
       {
         '<leader>ol',
         function()
