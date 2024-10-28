@@ -168,6 +168,7 @@ return {
       },
     },
     opts = {
+      dap = false,
       task_list = {
         default_detail = 2,
         direction = 'bottom',
@@ -177,11 +178,12 @@ return {
           ['<C-f>'] = 'ScrollOutputDown',
         },
       },
-      strategy = {
-        'toggleterm',
-        open_on_start = false,
-        hidden = true, -- show on the statusline
-      },
+      -- strategy = {
+      --   'toggleterm',
+      --   open_on_start = false,
+      --   hidden = true, -- show on the statusline
+      --   auto_scroll = true,
+      -- },
     },
   }
 }

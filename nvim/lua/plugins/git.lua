@@ -76,9 +76,9 @@ return {
           view = {
             { "n", "<C-f>", actions.toggle_files, { desc = "Toggle the file panel" } },
             { "n", "gf", actions.goto_file_edit, { desc = "Open the file in the previous tabpage" } },
-            { "n", "co", actions.conflict_choose_all("ours"), { desc = "Choose conflict --ours" } },
-            { "n", "ct", actions.conflict_choose_all("theirs"), { desc = "Choose conflict --theirs" } },
-            { "n", "cb", actions.conflict_choose_all("base"), { desc = "Choose conflict --base" } },
+            { "n", "<leader>gco", actions.conflict_choose_all("ours"), { desc = "Choose conflict --ours" } },
+            { "n", "<leader>gct", actions.conflict_choose_all("theirs"), { desc = "Choose conflict --theirs" } },
+            { "n", "<leader>gcb", actions.conflict_choose_all("base"), { desc = "Choose conflict --base" } },
             ["gq"] = function()
               if vim.fn.tabpagenr("$") > 1 then
                 vim.cmd.DiffviewClose()
