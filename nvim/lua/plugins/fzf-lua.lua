@@ -4,6 +4,13 @@ return {
   event = "VeryLazy",
   keys = {
     { "<leader><space>", "<cmd>FzfLua files<CR>",                      desc = "[FzfLua] Find files" },
+    {
+      "<leader>ff",
+      function()
+        require 'fzf-lua'.files({ cwd = vim.fn.expand('%:p:h') })
+      end,
+      desc = "[FzfLua] Find files in current folder"
+    },
     { "<leader>fb",      "<cmd>FzfLua buffers<CR>",                    desc = "[FzfLua] Buffers" },
     { '<leader>f/',      '<cmd>FzfLua lgrep_curbuf<CR>',               desc = 'Grep current buffer' },
     { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>",             desc = "[FzfLua] Live Grep --glob" },
@@ -27,8 +34,8 @@ return {
     { '<leader>fY',      "<cmd>FzfLua tmux_buffers<CR>",               desc = "[FzfLua] Show tmux yank history" },
     { '<leader>gt',      '<cmd>FzfLua git_status<cr>',                 desc = '[FzfLua] Git status' },
     { '<leader>gC',      '<cmd>FzfLua git_commits<cr>',                desc = '[FzfLua] Git project commits' },
-    { '<leader>fc',      '<cmd>FzfLua git_bcommits<cr>',               desc = '[FzfLua] Git buffer commits' },
-    { '<leader>gb',      '<cmd>FzfLua git_branches<cr>',               desc = '[FzfLua] Git branches' },
+    { '<leader>gc',      '<cmd>FzfLua git_bcommits<cr>',               desc = '[FzfLua] Git buffer commits' },
+    -- { '<leader>gb',      '<cmd>FzfLua git_branches<cr>',               desc = '[FzfLua] Git branches' },
   },
   opts = function()
     local actions = require "fzf-lua.actions"

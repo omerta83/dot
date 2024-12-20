@@ -7,7 +7,7 @@ return {
   keys = {
     -- stylua: ignore
     {
-      "<leader>p",
+      "<leader>y",
       "<Cmd>YankyRingHistory<CR>",
       desc = "Open Yank History",
     },
@@ -60,16 +60,6 @@ return {
     },
     {
       "[p",
-      "<Plug>(YankyPutIndentBeforeLinewise)",
-      desc = "[Yanky] Put indented before cursor (linewise)",
-    },
-    {
-      "]P",
-      "<Plug>(YankyPutIndentAfterLinewise)",
-      desc = "[Yanky] Put indented after cursor (linewise)",
-    },
-    {
-      "[P",
       "<Plug>(YankyPutIndentBeforeLinewise)",
       desc = "[Yanky] Put indented before cursor (linewise)",
     },

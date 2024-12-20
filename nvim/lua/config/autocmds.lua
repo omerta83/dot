@@ -113,6 +113,7 @@ vim.api.nvim_create_autocmd('FileType', {
     -- 'man', -- disable man as it will mess up with q to close outside vim
     'qf',
     'query',
+    'gitsigns-blame'
   },
   callback = function(event)
     vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = event.buf })

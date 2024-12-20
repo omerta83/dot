@@ -30,8 +30,16 @@ map('n', 'N', function()
 end, { desc = 'Move to previous search result' })
 
 -- Indent while remaining in visual mode.
-map('v', '<', '<gv')
-map('v', '>', '>gv')
+map('v', '<', '<gv', { desc = 'Indent left in visual mode' })
+map('v', '>', '>gv', { desc = 'Indent right in visual mode' })
+-- Move lines up and down in visual mode. 
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '<-2<CR>gv=gv")
+-- Join lines and retain the cursor position
+-- map("n", "J", "mzJ`z")
+-- Paste replace text but keep pasted text in the unamed register and discard the replaced text
+-- into the black hole register.
+map("x", "<leader>p", [["_dP]])
 
 -- Navigating through the quickfix/loclist items.
 map('n', '[q', '<cmd>cprev<cr>zvzz', { desc = 'Previous quickfix item' })

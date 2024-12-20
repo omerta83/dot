@@ -83,7 +83,7 @@ return {
       require("mini.ai").setup(opts)
       -- register all text objects with which-key
       if require("util").has("which-key.nvim") then
-        vim.schedule(function ()
+        vim.schedule(function()
           require('util.mini').ai_whichkey(opts)
         end)
       end
@@ -193,52 +193,52 @@ return {
     }
   },
 
-  -- Navigating
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    -- event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      labels = "0123456789", -- prevent messing with inserting characters
-      search = {
-        multi_window = false,
-      },
-      modes = {
-        char = {
-          autohide = true,
-          jump_labels = true,
-          -- label = { exclude = "hjkliardcx" },
-          multi_line = true,
-        }
-      },
-    },
-    keys = {
-      {
-        "s",
-        mode = { "n", "o", "x" },
-        function() require("flash").jump() end,
-        desc = "Flash",
-      },
-      {
-        "<leader>S",
-        mode = { "n", "o", "x" },
-        function() require("flash").treesitter() end,
-        desc = "Flash Treesitter",
-      },
-      {
-        "r",
-        mode = "o",
-        function() require("flash").remote() end,
-        desc = "Remote Flash",
-      },
-      {
-        "R",
-        mode = { "o", "x" },
-        function() require("flash").treesitter_search() end,
-        desc = "Treesitter Search",
-      },
-    }
-  },
+  -- -- Navigating
+  -- {
+  --   "folke/flash.nvim",
+  --   event = "VeryLazy",
+  --   -- event = { "BufReadPost", "BufNewFile" },
+  --   opts = {
+  --     labels = "0123456789", -- prevent messing with inserting characters
+  --     search = {
+  --       multi_window = false,
+  --     },
+  --     modes = {
+  --       char = {
+  --         autohide = true,
+  --         jump_labels = true,
+  --         -- label = { exclude = "hjkliardcx" },
+  --         multi_line = true,
+  --       }
+  --     },
+  --   },
+  --   keys = {
+  --     {
+  --       "s",
+  --       mode = { "n", "o", "x" },
+  --       function() require("flash").jump() end,
+  --       desc = "Flash",
+  --     },
+  --     {
+  --       "<leader>S",
+  --       mode = { "n", "o", "x" },
+  --       function() require("flash").treesitter() end,
+  --       desc = "Flash Treesitter",
+  --     },
+  --     {
+  --       "r",
+  --       mode = "o",
+  --       function() require("flash").remote() end,
+  --       desc = "Remote Flash",
+  --     },
+  --     {
+  --       "R",
+  --       mode = { "o", "x" },
+  --       function() require("flash").treesitter_search() end,
+  --       desc = "Treesitter Search",
+  --     },
+  --   }
+  -- },
 
   -- surround
   {

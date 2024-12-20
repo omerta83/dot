@@ -39,7 +39,7 @@ return {
       end
       local lazygit = create_float_term(
         "lazygit",
-        function ()
+        function()
           vim.cmd("silent! :checktime")
         end
       )
@@ -86,10 +86,30 @@ return {
       vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
       vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
       -- swapping buffers between windows
-      vim.keymap.set('n', '<leader>wh', require('smart-splits').swap_buf_left)
-      vim.keymap.set('n', '<leader>wj', require('smart-splits').swap_buf_down)
-      vim.keymap.set('n', '<leader>wk', require('smart-splits').swap_buf_up)
-      vim.keymap.set('n', '<leader>wl', require('smart-splits').swap_buf_right)
+      vim.keymap.set(
+        'n',
+        '<leader>wh',
+        function() require('smart-splits').swap_buf_left({ move_cursor = true }) end,
+        { desc = "Swap buffer left" }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>wj',
+        function() require('smart-splits').swap_buf_down({ move_cursor = true }) end,
+        { desc = "Swap buffer down" }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>wk',
+        function() require('smart-splits').swap_buf_up({ move_cursor = true }) end,
+        { desc = "Swap buffer up" }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>wl',
+        function() require('smart-splits').swap_buf_right({ move_cursor = true }) end,
+        { desc = "Swap buffer right" }
+      )
     end
   },
 }

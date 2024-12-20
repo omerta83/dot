@@ -140,11 +140,10 @@ local M = {
   },
   modes = {
     "mode",
-    fmt = function()
-      -- return str:sub(1, 1)
-      return mode_map[vim.api.nvim_get_mode().mode] or vim.api.nvim_get_mode().mode
-    end,
-    -- separator = separator,
+    -- fmt = function()
+    --   -- return str:sub(1, 1)
+    --   return mode_map[vim.api.nvim_get_mode().mode] or vim.api.nvim_get_mode().mode
+    -- end,
   },
   tasks = {
     "overseer",

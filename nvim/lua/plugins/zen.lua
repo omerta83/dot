@@ -6,6 +6,7 @@ return {
     opts = {
       autocmds = {
         enableOnVimEnter = true,
+        skipEnteringNoNeckPainBuffer = true,
       },
       mappings = {
         enabled = true,

@@ -3,15 +3,15 @@ return {
   {
     "hrsh7th/nvim-cmp",
     url = "https://github.com/iguanacucumber/magazine.nvim",
-    enabled = true,
-    event = { "InsertEnter", "CmdlineEnter" },
+    enabled = false,
+    event = { "InsertEnter" },
     version = false,
     dependencies = {
       'hrsh7th/cmp-nvim-lsp', -- nvim-cmp source for neovim's built-in LSP
       'hrsh7th/cmp-buffer',   -- nvim-cmp source for buffer words
-      'hrsh7th/cmp-cmdline',
+      -- 'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lsp-signature-help',
-      'lukas-reineke/cmp-rg',
+      -- 'lukas-reineke/cmp-rg',
     },
     config = function()
       local cmp = require('cmp')
@@ -127,10 +127,10 @@ return {
             entry_filter = cmp_util.lsp_entry_filter,
           },
           { name = 'nvim_lsp_signature_help' },
-          {
-            name = 'rg',
-            keyword_length = 3
-          },
+          -- {
+          --   name = 'rg',
+          --   keyword_length = 3
+          -- },
           {
             name = 'buffer',
             option = {
@@ -165,56 +165,108 @@ return {
       end)
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources(
-          {
-            { name = 'cmdline' }
-          }
-        )
-      })
+      -- cmp.setup.cmdline(':', {
+      --   mapping = cmp.mapping.preset.cmdline(),
+      --   sources = cmp.config.sources(
+      --     {
+      --       { name = 'cmdline' }
+      --     }
+      --   )
+      -- })
     end
   },
 
   {
     'saghen/blink.cmp',
-    enabled = false,
+    enabled = true,
     -- lazy = false,
-    event = "InsertCharPre",
+    event = "InsertEnter",
     version = 'v0.*',
+    -- opts_extend = {
+    --   "sources.completion.enabled_providers",
+    --   "sources.compat",
+    --   "sources.default",
+    -- },
+    dependencies = {
+      {
+        "saghen/blink.compat",
+        opts = {},
+        version = '*'
+      },
+    },
     opts = {
       keymap = {
-        select_prev = { '<Up>', '<C-p>', '<S-Tab>' },
-        select_next = { '<Down>', '<C-n>', '<Tab>' },
-        accept = '<CR>',
+        preset = 'enter'
       },
-      highlight = {
+      appearance = {
+        -- sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- useful for when your theme doesn't support blink.cmp
+        -- will be removed in a future release, assuming themes add support
         use_nvim_cmp_as_default = true,
+        -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
+
+        kind_icons = vim.tbl_extend("keep", {
+          Color = "󱓻",
+        }, require('config.icons').kinds),
       },
 
-      nerd_font_variant = 'mono',
-      accept = {
-        auto_blankets = { enabled = true },
-      },
-      trigger = { signature_help = { enabled = true } },
-
-      windows = {
-        autocomplete = {
-          border = 'single',
-          winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None',
-          -- selection = 'auto_insert',
-          draw = require('util.cmp').draw,
+      completion = {
+        accept = {
+          -- experimental auto-brackets support
+          auto_brackets = {
+            enabled = true,
+          },
+        },
+        menu = {
+          draw = {
+            columns = { {'kind_icon'}, {'label'}, {'source_name'} },
+            components = {
+              source_name = {
+                text = function(ctx) return ctx.item.detail or ctx.source_name end,
+              }
+            }
+          },
         },
         documentation = {
           auto_show = true,
-          border = 'single',
-          winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
+          auto_show_delay_ms = 200,
         },
-        signature_help = {
-          border = 'single',
-        }
+        -- list = {
+        --   selection = "auto_insert"
+        -- },
+        ghost_text = {
+          enabled = false,
+        },
       },
-      kind_icons = require('config.icons').kinds,
+
+      -- experimental signature help support
+      signature = { enabled = true },
+
+      sources = {
+        -- adding any nvim-cmp sources here will enable them
+        -- with blink.compat
+        compat = {},
+        default = { "lsp", "path", "snippets", "buffer" },
+        cmdline = {},
+      },
+      -- windows = {
+      --   autocomplete = {
+      --     border = 'single',
+      --     winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None',
+      --     -- selection = 'auto_insert',
+      --     -- draw = require('util.cmp').draw,
+      --   },
+      --   documentation = {
+      --     auto_show = true,
+      --     border = 'single',
+      --     winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
+      --   },
+      --   signature_help = {
+      --     border = 'single',
+      --   }
+      -- },
     }
   }
 }

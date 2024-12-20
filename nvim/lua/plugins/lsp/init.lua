@@ -18,7 +18,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     opts = function()
-      local vue_language_server_path = require('mason-registry').get_package('vue-language-server')
+      local vue_language_server_path = require("mason-registry").get_package("vue-language-server"):get_install_path() .. "/node_modules/@vue/language-server"
       return {
         servers = {
           cssls = {},
@@ -133,7 +133,7 @@ return {
           },
           -- Vue 3.x
           volar = {
-            root_dir = require('lspconfig').util.root_pattern('nuxt.config.ts', 'quasar.config.js'),
+            root_dir = require('lspconfig').util.root_pattern('nuxt.config.ts', 'quasar.config.js', 'quasar.config.ts'),
             init_options = {
               typescript = {
                 tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib"
@@ -156,6 +156,7 @@ return {
                     enableServerSideFuzzyMatch = true,
                   },
                 },
+                -- https://github.com/yioneko/vtsls/issues/148
                 tsserver = {
                   globalPlugins = {
                     -- Use volar for only .vue files and tsserver for .ts and .js files.
@@ -163,8 +164,8 @@ return {
                       name = "@vue/typescript-plugin",
                       location = vue_language_server_path,
                       languages = { "vue" },
-                      configNamespace = "typescript",
-                      enableForWorkspaceTypeScriptVersions = true,
+                      -- configNamespace = "typescript",
+                      -- enableForWorkspaceTypeScriptVersions = true,
                     }
 
                   }
@@ -467,48 +468,48 @@ return {
     }
   },
 
-  {
-    "olexsmir/gopher.nvim",
-    ft = { "go", "gomod" },
-    config = function()
-      require("gopher").setup {
-        commands = {
-          go = "go",
-          gomodifytags = "gomodifytags",
-          gotests = "~/go/bin/gotests", -- also you can set custom command path
-          impl = "impl",
-          iferr = "iferr",
-        },
-      }
-    end
-  },
+  -- {
+  --   "olexsmir/gopher.nvim",
+  --   ft = { "go", "gomod" },
+  --   config = function()
+  --     require("gopher").setup {
+  --       commands = {
+  --         go = "go",
+  --         gomodifytags = "gomodifytags",
+  --         gotests = "~/go/bin/gotests", -- also you can set custom command path
+  --         impl = "impl",
+  --         iferr = "iferr",
+  --       },
+  --     }
+  --   end
+  -- },
 
-  {
-    'mrcjkb/rustaceanvim',
-    version = '^5', -- Recommended
-    lazy = false,   -- This plugin is already lazy
-    config = function()
-      vim.g.rustaceanvim = {
-        tools = {
-          float_win_config = {
-            border = 'rounded'
-          },
-          -- code_actions = {
-          --   ui_select_fallback = true
-          -- }
-        },
-        server = {
-          default_settings = {
-            ['rust_analyzer'] = {
-              inlayHints = {
-                chainingHints = { enable = false },
-              },
-            }
-          }
-        },
-      }
-    end
-  },
+  -- {
+  --   'mrcjkb/rustaceanvim',
+  --   version = '^5', -- Recommended
+  --   lazy = false,   -- This plugin is already lazy
+  --   config = function()
+  --     vim.g.rustaceanvim = {
+  --       tools = {
+  --         float_win_config = {
+  --           border = 'rounded'
+  --         },
+  --         -- code_actions = {
+  --         --   ui_select_fallback = true
+  --         -- }
+  --       },
+  --       server = {
+  --         default_settings = {
+  --           ['rust_analyzer'] = {
+  --             inlayHints = {
+  --               chainingHints = { enable = false },
+  --             },
+  --           }
+  --         }
+  --       },
+  --     }
+  --   end
+  -- },
 
   -- {
   --   "rachartier/tiny-inline-diagnostic.nvim",
@@ -532,4 +533,24 @@ return {
   --     })
   --   end
   -- }
+  -- {
+  --   "luckasRanarison/tailwind-tools.nvim",
+  --   ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
+  --   opts = {
+  --     document_color = {
+  --       enabled = true, -- can be toggled by commands
+  --       kind = "inline", -- "inline" | "foreground" | "background"
+  --       inline_symbol = "󰝤 ", -- only used in inline mode
+  --       debounce = 200, -- in milliseconds, only applied in insert mode
+  --     },
+  --     conceal = {
+  --       enabled = false, -- can be toggled by commands
+  --       symbol = "󱏿", -- only a single character is allowed
+  --       highlight = { -- extmark highlight options, see :h 'highlight'
+  --         fg = "#38BDF8",
+  --       },
+  --     },
+  --     custom_filetypes = {}
+  --   }
+  -- },
 }
