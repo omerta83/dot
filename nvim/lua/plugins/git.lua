@@ -18,8 +18,8 @@ return {
         local utils = require("util")
 
         -- stylua: ignore start
-        utils.map({ "n", "x", "o" }, "]c", gs.next_hunk, { desc = "[Gitsigns] Next Hunk" })
-        utils.map({ "n", "x", "o" }, "[c", gs.prev_hunk, { desc = "[Gitsigns] Prev Hunk" })
+        utils.map({ "n", "x", "o" }, "]h", gs.next_hunk, { desc = "[Gitsigns] Next Hunk" })
+        utils.map({ "n", "x", "o" }, "[h", gs.prev_hunk, { desc = "[Gitsigns] Prev Hunk" })
         utils.map({ "n", "v" }, "<leader>gss", ":Gitsigns stage_hunk<CR>", { desc = "[Gitsigns] Stage Hunk" })
         utils.map({ "n", "v" }, "<leader>gsr", ":Gitsigns reset_hunk<CR>", { desc = "[Gitsigns] Reset Hunk" })
         utils.map("n", "<leader>gsS", gs.stage_buffer, { desc = "[Gitsigns] Stage Buffer" })
