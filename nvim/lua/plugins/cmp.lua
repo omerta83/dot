@@ -187,13 +187,13 @@ return {
     --   "sources.compat",
     --   "sources.default",
     -- },
-    dependencies = {
-      {
-        "saghen/blink.compat",
-        opts = {},
-        version = '*'
-      },
-    },
+    -- dependencies = {
+    --   {
+    --     "saghen/blink.compat",
+    --     opts = {},
+    --     version = '*'
+    --   },
+    -- },
     opts = {
       keymap = {
         preset = 'enter'
@@ -221,7 +221,7 @@ return {
         },
         menu = {
           draw = {
-            columns = { {'kind_icon'}, {'label'}, {'source_name'} },
+            columns = { {'kind_icon'}, {'label', 'label_description', gap = 1}, {'source_name'} },
             components = {
               source_name = {
                 text = function(ctx) return ctx.item.detail or ctx.source_name end,
@@ -247,26 +247,11 @@ return {
       sources = {
         -- adding any nvim-cmp sources here will enable them
         -- with blink.compat
-        compat = {},
+        -- compat = {},
         default = { "lsp", "path", "snippets", "buffer" },
+        -- Disable cmdline for now
         cmdline = {},
       },
-      -- windows = {
-      --   autocomplete = {
-      --     border = 'single',
-      --     winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None',
-      --     -- selection = 'auto_insert',
-      --     -- draw = require('util.cmp').draw,
-      --   },
-      --   documentation = {
-      --     auto_show = true,
-      --     border = 'single',
-      --     winhighlight = 'Normal:CmpPmenu,CursorLine:Pmenu,Search:None'
-      --   },
-      --   signature_help = {
-      --     border = 'single',
-      --   }
-      -- },
     }
   }
 }

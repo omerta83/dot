@@ -318,10 +318,11 @@ return {
     config = function(_, opts)
       -- Set up completion using nvim_cmp with LSP source
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
-      if ok then
-        capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities() or {})
-      end
+      -- local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+      capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+      -- if ok then
+      --   capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities() or {})
+      -- end
 
       -- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
       -- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
