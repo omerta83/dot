@@ -1,5 +1,5 @@
 return {
-  -- Copilot
+  --- Copilot
   {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
@@ -90,7 +90,7 @@ return {
     end,
   },
 
-  -- Generate docs
+  --- Generate docs
   {
     "danymat/neogen",
     keys = {
@@ -102,10 +102,10 @@ return {
         desc = "Neogen Comment",
       },
     },
-    opts = { snippet_engine = "luasnip" },
+    opts = { snippet_engine = "nvim" },
   },
 
-  -- refactoring
+  --- refactoring
   {
     "ThePrimeagen/refactoring.nvim",
     keys = {
