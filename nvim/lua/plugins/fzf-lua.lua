@@ -29,7 +29,6 @@ return {
     { "<leader>fM", "<cmd>FzfLua man_pages<CR>",                  desc = "[FzfLua] Man page" },
     { "<leader>f?", "<cmd>FzfLua help_tags<CR>",                  desc = "[FzfLua] Help tags" },
     { "<leader>fo", "<cmd>FzfLua lsp_document_symbols<CR>",       desc = "[FzfLua] Document symbols" },
-    -- { "<leader>fO", "<cmd>FzfLua lsp_workspace_symbols<CR>",      desc = "[FzfLua] Workspace symbols" },
     { "<leader>fO", "<cmd>FzfLua lsp_live_workspace_symbols<CR>", desc = "[FzfLua] Live workspace symbols" },
     { "<leader>fa", "<cmd>FzfLua lsp_code_actions<CR>",           desc = "[FzfLua] Code actions" },
     { "<leader>fd", "<cmd>FzfLua lsp_document_diagnostics<CR>",   desc = "[FzfLua] Document diagnostics" },

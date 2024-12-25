@@ -216,6 +216,7 @@ return {
           },
         },
         menu = {
+          border = 'single',
           draw = {
             columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
             components = {
@@ -228,6 +229,9 @@ return {
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 200,
+          window = {
+            border = 'single',
+          }
         },
         -- list = {
         --   selection = "auto_insert"

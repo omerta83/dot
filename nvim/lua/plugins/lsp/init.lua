@@ -18,7 +18,8 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     opts = function()
-      local vue_language_server_path = require("mason-registry").get_package("vue-language-server"):get_install_path() .. "/node_modules/@vue/language-server"
+      local vue_language_server_path = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
+      "/node_modules/@vue/language-server"
       return {
         servers = {
           cssls = {},
@@ -421,7 +422,7 @@ return {
     'yioneko/nvim-vtsls',
     -- event = "VeryLazy",
     -- event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
-    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact"  },
+    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
   },
 
   {
@@ -443,6 +444,10 @@ return {
         },
         settings = {
           completeFunctionCalls = false,
+          analysisExcludedFolders = {
+            vim.fn.expand '$HOME/.pub-cache',
+            -- vim.fn.expand '$HOME/fvm/versions', -- flutter-tools should automatically exclude your SDK.
+          },
         }
       }
     }

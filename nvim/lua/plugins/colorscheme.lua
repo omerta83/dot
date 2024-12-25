@@ -100,9 +100,11 @@ return {
           FzfLuaBackdrop            = { bg = "bg1" },
 
           -- Blink
+          BlinkCmpMenuBorder        = { link = "FloatBorder" },
           BlinkCmpMenuSelection     = { link = "Pmenu" },
-          BlinkCmpDoc               = { link = "CmpDocumentation" },
-          BlinkCmpDocBorder         = { link = "CmpDocumentationBorder" },
+          -- BlinkCmpDoc               = { link = "CmpDocumentation" },
+          -- BlinkCmpDocBorder         = { link = "CmpDocumentationBorder" },
+          BlinkCmpDocBorder         = { link = "FloatBorder" },
           BlinkCmpLabel             = { link = "CmpItemAbbr" },
           BlinkCmpLabelDeprecated   = { link = "CmpItemAbbrDeprecated" },
           BlinkCmpLabelMatch        = { link = "CmpItemAbbrMatch" },

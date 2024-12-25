@@ -14,8 +14,21 @@ local function on_attach(client, buffer)
   keymap("gd", vim.lsp.buf.definition, "[LSP] Go to definition")
   keymap("gr", vim.lsp.buf.references, "[LSP] Go to references")
   keymap("gi", vim.lsp.buf.implementation, "[LSP] Go to implementation")
-  keymap("<c-s>", vim.lsp.buf.signature_help, "[LSP] Signature help", { "i", "n" })
-  keymap("K", vim.lsp.buf.hover, "[LSP] Hover")
+  keymap("<c-s>", function()
+    vim.lsp.buf.signature_help({
+      border = 'rounded',
+      focusable = false,
+      max_height = math.floor(vim.o.lines * 0.5),
+      max_width = math.floor(vim.o.columns * 0.4),
+    })
+  end, "[LSP] Signature help", { "i", "n" })
+  keymap("K", function()
+    vim.lsp.buf.hover({
+      border = 'rounded',
+      max_height = math.floor(vim.o.lines * 0.5),
+      max_width = math.floor(vim.o.columns * 0.4),
+    })
+  end, "[LSP] Hover")
   keymap("<leader>ca", vim.lsp.buf.code_action, "[LSP] Code Action on Hover", { "n", "v" })
   keymap("<leader>K", vim.diagnostic.open_float, "Line Diagnostics")
   keymap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
@@ -34,7 +47,7 @@ local function on_attach(client, buffer)
 
   -- Toggle inlay hints
   if client.supports_method(methods.textDocument_inlayHint) then
-    vim.keymap.set('n', '<leader>ch', function()
+    vim.keymap.set('n', '<leader>ci', function()
       local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = buffer }
       vim.lsp.inlay_hint.enable(not enabled, { bufnr = buffer })
 

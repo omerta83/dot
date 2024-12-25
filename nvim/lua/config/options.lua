@@ -30,6 +30,7 @@ opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.expandtab = true -- Use spaces instead of tabs
 opt.shiftwidth = 2 -- Size of an indent
 opt.tabstop = 2 -- Number of spaces tabs count for
+opt.softtabstop = 2
 
 opt.shortmess:append { W = true, I = true, c = true }
 opt.showmode = false -- Dont show mode since we have a statusline
@@ -56,7 +57,6 @@ opt.hidden = true
 opt.incsearch = true
 -- opt.hlsearch = false
 opt.undolevels = 1500
-opt.softtabstop = 2
 opt.autoindent = true
 opt.foldlevel = 99
 opt.foldlevelstart = 99
