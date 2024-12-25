@@ -14,7 +14,7 @@ return {
       indent = {
         enable = true,
 
-        disable = { 'dart', 'python', 'css', 'rust' },
+        disable = { --[[ 'dart', ]] 'python', 'css', 'rust' },
       },
       ensure_installed = {
         "comment",
