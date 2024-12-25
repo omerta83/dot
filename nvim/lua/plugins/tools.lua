@@ -24,7 +24,6 @@ return {
     }
   },
 
-
   -- {
   --   "andymass/vim-matchup",
   --   event = "BufReadPost",
@@ -47,6 +46,13 @@ return {
   {
     'stevearc/conform.nvim',
     opts = {
+      formatters = {
+        -- fvm dart
+        fdart_format = {
+          command = "/usr/local/bin/fvm",
+          args = { "dart", "format" },
+        }
+      },
       formatters_by_ft = {
         javascript = biome_or_other,
         typescript = biome_or_other,
@@ -58,6 +64,7 @@ return {
         lua = { 'stylua' },
         python = { 'ruff' },
         go = { 'goimports', 'gofumpt' },
+        dart = { 'fdart_format' },
       }
     },
   },

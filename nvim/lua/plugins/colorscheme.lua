@@ -86,23 +86,55 @@ return {
     opts = {
       groups = {
         all = {
-          StatusLine = { bg = "bg1" },
-          NormalFloat = { bg = "bg1" },
-          FloatBorder = { bg = "bg1", fg = "bg4" },
+          StatusLine                = { bg = "bg1" },
+          NormalFloat               = { bg = "bg1" },
+          FloatBorder               = { bg = "bg1", fg = "bg4" },
 
           -- CursorLineNr = { fg = "magenta" },
-          CursorLine = { bg = "bg1", fg = "NONE" },
+          CursorLine                = { bg = "bg1", fg = "NONE" },
 
-          Pmenu = { bg = "bg2", fg = "NONE" },
+          Pmenu                     = { bg = "bg2", fg = "NONE" },
 
           -- FZF
-          FzfLuaBorder = { link = "FloatBorder" },
-          FzfLuaBackdrop = { bg = "bg1" },
+          FzfLuaBorder              = { link = "FloatBorder" },
+          FzfLuaBackdrop            = { bg = "bg1" },
+
+          -- Blink
+          BlinkCmpMenuSelection     = { link = "Pmenu" },
+          BlinkCmpDoc               = { link = "CmpDocumentation" },
+          BlinkCmpDocBorder         = { link = "CmpDocumentationBorder" },
+          BlinkCmpLabel             = { link = "CmpItemAbbr" },
+          BlinkCmpLabelDeprecated   = { link = "CmpItemAbbrDeprecated" },
+          BlinkCmpLabelMatch        = { link = "CmpItemAbbrMatch" },
+          BlinkCmpMenu              = { link = "CmpItemMenu" },
+          -- BlinkCmpKind              = { link = "CmpItemKindDefault" },
+          BlinkCmpKind              = { link = "CmpItemKindValue" },
+          BlinkCmpKindKeyword       = { link = "CmpItemKindKeyword" },
+          BlinkCmpKindVariable      = { link = "CmpItemKindVariable" },
+          BlinkCmpKindConstant      = { link = "CmpItemKindConstant" },
+          BlinkCmpKindReference     = { link = "CmpItemKindReference" },
+          BlinkCmpKindValue         = { link = "CmpItemKindValue" },
+          BlinkCmpKindFunction      = { link = "CmpItemKindFunction" },
+          BlinkCmpKindMethod        = { link = "CmpItemKindMethod" },
+          BlinkCmpKindConstructor   = { link = "CmpItemKindConstructor" },
+          BlinkCmpKindInterface     = { link = "CmpItemKindInterface" },
+          BlinkCmpKindEvent         = { link = "CmpItemKindEvent" },
+          BlinkCmpKindEnum          = { link = "CmpItemKindEnum" },
+          BlinkCmpKindUnit          = { link = "CmpItemKindUnit" },
+          BlinkCmpKindClass         = { link = "CmpItemKindClass" },
+          BlinkCmpKindStruct        = { link = "CmpItemKindStruct" },
+          BlinkCmpKindModule        = { link = "CmpItemKindModule" },
+          BlinkCmpKindProperty      = { link = "CmpItemKindProperty" },
+          BlinkCmpKindField         = { link = "CmpItemKindField" },
+          BlinkCmpKindTypeParameter = { link = "CmpItemKindTypeParameter" },
+          BlinkCmpKindEnumMember    = { link = "CmpItemKindEnumMember" },
+          BlinkCmpKindOperator      = { link = "CmpItemKindOperator" },
+          BlinkCmpKindSnippet       = { link = "CmpItemKindSnippet" },
         }
       }
 
     },
-    config = function (_, opts)
+    config = function(_, opts)
       require('nightfox').setup(opts)
 
       vim.api.nvim_command("colorscheme carbonfox")

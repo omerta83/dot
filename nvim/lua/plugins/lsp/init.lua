@@ -422,50 +422,29 @@ return {
     -- event = "VeryLazy",
     -- event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
     ft = { "typescript", "typescriptreact", "javascript", "javascriptreact"  },
-    -- keys = {
-    --   {
-    --     "<leader>co",
-    --     "<cmd>VtsExec organize_imports<CR>",
-    --     desc = "[Typescript] Organize imports",
-    --   },
-    --   {
-    --     "<leader>cd",
-    --     "<cmd>VtsExec goto_source_definition<CR>",
-    --     desc = "[Typescript] Go to source definition",
-    --   },
-    --   {
-    --     "<leader>ci",
-    --     "<cmd>VtsExec add_missing_imports<CR>",
-    --     desc = "[Typescript] Add missing imports",
-    --   },
-    --   {
-    --     "<leader>cu",
-    --     "<cmd>VtsExec remove_unused<CR>",
-    --     desc = "[Typescript] Remove unused imports",
-    --   },
-    --   {
-    --     "<leader>cn",
-    --     "<cmd>VtsExec rename_file<CR>",
-    --     desc = "[Typescript] Rename file",
-    --   },
-    --   {
-    --     "<leader>cs",
-    --     "<cmd>VtsExec file_references<CR>",
-    --     desc = "[Typescript] File references",
-    --   },
-    --   {
-    --     "<leader>cF",
-    --     "<cmd>VtsExec fix_all<CR>",
-    --     desc = "[Typescript] Fix all",
-    --   },
-    -- }
   },
 
   {
-    "akinsho/flutter-tools.nvim",
+    "nvim-flutter/flutter-tools.nvim",
     event = { 'BufReadPre *.dart', 'BufNewFile *.dart' },
     opts = {
-      fvm = true
+      fvm = true,
+      widget_guides = {
+        enabled = true,
+      },
+      dev_log = {
+        open_cmd = "10split",
+        focus_on_open = false,
+      },
+      lsp = {
+        color = {
+          enabled = true,
+          virtual_text_str = "󱓻",
+        },
+        settings = {
+          completeFunctionCalls = false,
+        }
+      }
     }
   },
 
@@ -510,48 +489,5 @@ return {
   --       },
   --     }
   --   end
-  -- },
-
-  -- {
-  --   "rachartier/tiny-inline-diagnostic.nvim",
-  --   enabled = false,
-  --   event = "VeryLazy", -- Or `LspAttach`
-  --   config = function()
-  --     require('tiny-inline-diagnostic').setup({
-  --       options = {
-  --         -- show_source = true,
-  --         multiple_diag_under_cursor = true,
-  --         format = function(diagnostic)
-  --           local level = vim.diagnostic.severity[diagnostic.severity]
-  --           return string.format("%s %s [%s]", require('config.icons').diagnostics[level], diagnostic.message,
-  --             diagnostic.source)
-  --         end,
-  --         -- Enable diagnostic message on all lines.
-  --         -- multilines = true,
-  --         -- show_all_diags_on_cursorline = true,
-  --         -- overwrite_events = { "DiagnosticChanged" },
-  --       }
-  --     })
-  --   end
-  -- }
-  -- {
-  --   "luckasRanarison/tailwind-tools.nvim",
-  --   ft = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-  --   opts = {
-  --     document_color = {
-  --       enabled = true, -- can be toggled by commands
-  --       kind = "inline", -- "inline" | "foreground" | "background"
-  --       inline_symbol = "󰝤 ", -- only used in inline mode
-  --       debounce = 200, -- in milliseconds, only applied in insert mode
-  --     },
-  --     conceal = {
-  --       enabled = false, -- can be toggled by commands
-  --       symbol = "󱏿", -- only a single character is allowed
-  --       highlight = { -- extmark highlight options, see :h 'highlight'
-  --         fg = "#38BDF8",
-  --       },
-  --     },
-  --     custom_filetypes = {}
-  --   }
   -- },
 }

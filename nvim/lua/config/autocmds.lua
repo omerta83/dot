@@ -158,3 +158,19 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'CmdlineEn
 vim.api.nvim_create_user_command('Todos', function()
   require('fzf-lua').grep { search = 'TODO|FIX|HACK|NOTE|PERF', no_esc = true }
 end, { desc = 'Grep TODOs', nargs = 0 })
+
+--- Hide copilot on blink suggestion
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'BlinkCmpCompletionMenuOpen',
+  callback = function()
+    require("copilot.suggestion").dismiss()
+    vim.b.copilot_suggestion_hidden = true
+  end,
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'BlinkCmpCompletionMenuClose',
+  callback = function()
+    vim.b.copilot_suggestion_hidden = false
+  end,
+})

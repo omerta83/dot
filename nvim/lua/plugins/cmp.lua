@@ -179,21 +179,19 @@ return {
   {
     'saghen/blink.cmp',
     enabled = true,
-    -- lazy = false,
     event = "InsertEnter",
     version = 'v0.*',
-    -- opts_extend = {
-    --   "sources.completion.enabled_providers",
-    --   "sources.compat",
-    --   "sources.default",
-    -- },
-    -- dependencies = {
-    --   {
-    --     "saghen/blink.compat",
-    --     opts = {},
-    --     version = '*'
-    --   },
-    -- },
+    dependencies = {
+      {
+        --- Use friendly-snippets for native snippets
+        "rafamadriz/friendly-snippets"
+      },
+      -- {
+      --   "saghen/blink.compat",
+      --   opts = {},
+      --   version = '*'
+      -- },
+    },
     opts = {
       keymap = {
         preset = 'enter'
@@ -202,14 +200,12 @@ return {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
         -- useful for when your theme doesn't support blink.cmp
         -- will be removed in a future release, assuming themes add support
-        use_nvim_cmp_as_default = true,
+        use_nvim_cmp_as_default = false,
         -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
         -- adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
 
-        kind_icons = vim.tbl_extend("keep", {
-          Color = "󱓻",
-        }, require('config.icons').kinds),
+        kind_icons = require('config.icons').kinds,
       },
 
       completion = {
@@ -221,11 +217,11 @@ return {
         },
         menu = {
           draw = {
-            columns = { {'kind_icon'}, {'label', 'label_description', gap = 1}, {'source_name'} },
+            columns = { { 'kind_icon' }, { 'label', 'label_description', gap = 1 }, { 'source_name' } },
             components = {
-              source_name = {
-                text = function(ctx) return ctx.item.detail or ctx.source_name end,
-              }
+              label_description = require('util.cmp').blink_label_description,
+              -- customize the drawing of kind icons
+              kind_icon = require('util.cmp').blink_kind_icon,
             }
           },
         },
