@@ -364,6 +364,8 @@ return {
     keys = { { "<leader>m", "<cmd>Mason<CR>", desc = "Mason" } },
     build = ":MasonUpdate",
     opts = {
+      -- linters
+      ensure_installed = { 'biome', 'golangci-lint', 'oxlint', 'ruff' },
       ui = {
         border = "single",
         icons = {

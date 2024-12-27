@@ -165,9 +165,7 @@ local M = {
     },
   },
   lsp = {
-    function()
-      return getLspNames()
-    end,
+    getLspNames,
     -- separator = separator,
   },
   term = {

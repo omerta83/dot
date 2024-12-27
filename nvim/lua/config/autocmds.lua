@@ -38,12 +38,10 @@ vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup('omerta/typescript', { clear = true }),
   desc = "Keymaps for typescript development",
   pattern = {
+    "javascript",
+    "javascriptreact",
     "typescript",
     "typescriptreact",
-    "typescript.tsx",
-    "javascript",
-    "javascript.jsx",
-    "javascriptreact",
   },
   callback = function(event)
     local bufnr = event.buf
