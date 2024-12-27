@@ -364,8 +364,8 @@ return {
     keys = { { "<leader>m", "<cmd>Mason<CR>", desc = "Mason" } },
     build = ":MasonUpdate",
     opts = {
-      -- linters
-      ensure_installed = { 'biome', 'golangci-lint', 'oxlint', 'ruff' },
+      -- linters and formatters
+      ensure_installed = { 'biome', 'golangci-lint', 'oxlint', 'ruff', 'rustywind' }, -- not an option from mason.nvim
       ui = {
         border = "single",
         icons = {
@@ -376,13 +376,76 @@ return {
       },
     },
     config = function(_, opts)
-      require('mason').setup(opts)
+      local mason = require('mason')
+      mason.setup(opts)
+
+      -- Disable cursorline for Mason files
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "mason",
         callback = function()
           vim.cmd([[setlocal nocursorline]])
         end
       })
+
+      -- TODO: merge this with mason-lspconfig configuration
+      -- Install all packages on startup
+      -- Extracted from https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+      local mr = require 'mason-registry'
+      local show = vim.schedule_wrap(function(msg)
+        vim.notify(msg, vim.log.levels.INFO, { title = 'mason-tool-installer' })
+      end)
+      local show_error = vim.schedule_wrap(function(msg)
+        vim.notify(msg, vim.log.levels.ERROR, { title = 'mason-tool-installer' })
+      end)
+      local installed_packages = {}
+      local do_install = function(p, version, on_close)
+        show(string.format('%s: installing', p.name))
+        p:once('install:success', function()
+          show(string.format('%s: successfully installed', p.name))
+        end)
+        p:once('install:failed', function()
+          show_error(string.format('%s: failed to install', p.name))
+        end)
+        table.insert(installed_packages, p.name)
+        p:install({ version = version }):once('closed', vim.schedule_wrap(on_close))
+      end
+
+      local completed = 0
+      local total = vim.tbl_count(opts.ensure_installed)
+      local on_close = function()
+        completed = completed + 1
+        if completed >= total then
+          local event = {
+            pattern = 'MasonToolsUpdateCompleted',
+          }
+          if vim.fn.has 'nvim-0.8' == 1 then
+            event.data = installed_packages
+          end
+          vim.api.nvim_exec_autocmds('User', event)
+        end
+      end
+      local ensure_installed = function()
+        for _, item in ipairs(opts.ensure_installed or {}) do
+          local name = item
+          local p = mr.get_package(name)
+          if p:is_installed() then
+            vim.schedule(on_close)
+          else
+            do_install(p, nil, on_close)
+          end
+        end
+      end
+      if mr.refresh then
+        mr.refresh(ensure_installed)
+      else
+        ensure_installed()
+      end
+
+      -- User command to install all Mason packages
+      -- Adapted from https://github.com/williamboman/mason.nvim/issues/130#issuecomment-1217773757
+      vim.api.nvim_create_user_command("MasonInstallAll", function()
+        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+      end, {})
     end
   },
 
