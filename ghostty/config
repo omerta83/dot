@@ -1,21 +1,27 @@
-theme = nightfox
+theme = "Kanagawa Dragon"
 
-background = "#161616"
-foreground = "#f2f4f8"
+#theme = nightfox
+#background = "#161616"
+#foreground = "#f2f4f8"
 
 window-decoration = true
 window-padding-x = 16
 window-padding-y = 10
 macos-window-shadow = false
 
-clipboard-read = "allow"
+clipboard-read = allow
 cursor-style = block
+cursor-style-blink = false
+
+mouse-hide-while-typing = true
 
 font-size = 15
 font-family = "JetBrainsMono NFM Thin"
 font-family-bold = "JetBrainsMono NFM Medium"
 font-family-italic = "JetBrainsMono NFM Thin Italic"
 font-family-bold-italic = "JetBrainsMono NFM Medium Italic"
+# This seems to make font look brighter
+font-thicken = true
 
 adjust-cell-width = "3%"
 adjust-cell-height = "2%"
@@ -43,6 +49,8 @@ keybind = super+d=new_split:right
 keybind = super+plus=increase_font_size:1
 keybind = super+minus=decrease_font_size:1
 keybind = super+enter=toggle_fullscreen
+keybind = super+alt+i=inspector:toggle
+keybind = super+alt+,=toggle_quick_terminal
 
 ### Terminal app keybindings
 # nvim save buffer
@@ -53,10 +61,13 @@ keybind = super+g=text:\x00\x67
 keybind = super+p=text:\x20\x20
 
 ### Tmux
+## Run `xxd -psg` for key codes
 # reload tmux config
 keybind = super+r=text:\x00\x72
 # tmux thumb mode
 keybind = super+shift+f=text:\x00\x43
+# tmux url capture using fzf, shortcut mimics kitty's
+keybind = ctrl+shift+e=text:\x00\x75
 # tmux copy mode
 keybind = super+shift+c=text:\x00\x5b
 # tmux paste mode
