@@ -102,7 +102,7 @@ return {
         desc = "Neogen Comment",
       },
     },
-    opts = { snippet_engine = "nvim" },
+    opts = { snippet_engine = "luasnip" },
   },
 
   --- refactoring
