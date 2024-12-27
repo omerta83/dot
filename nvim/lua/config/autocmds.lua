@@ -33,18 +33,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd('BufReadPost', {
-  group = vim.api.nvim_create_augroup('omerta/last_location', { clear = true }),
-  desc = 'Go to the last location when opening a buffer',
-  callback = function(args)
-    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
-    local line_count = vim.api.nvim_buf_line_count(args.buf)
-    if mark[1] > 0 and mark[1] <= line_count then
-      vim.cmd 'normal! g`"zz'
-    end
-  end,
-})
-
 -- keymaps for typescript development
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup('omerta/typescript', { clear = true }),
@@ -104,7 +92,60 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- close with q
+--- Keymaps for flutter development
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup('omerta/flutter', { clear = true }),
+  desc = "Keymaps for flutter development",
+  pattern = { "dart" },
+  callback = function(event)
+    local bufnr = event.buf
+    vim.keymap.set(
+      "n",
+      "<leader>cl",
+      "<cmd>FlutterLogToggle<CR>",
+      { desc = "[Flutter] Toggle Log", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cd",
+      "<cmd>FlutterRun<CR>",
+      { desc = "[Flutter] Run / Deploy", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>ce",
+      "<cmd>FlutterEmulators<CR>",
+      { desc = "[Flutter] Emulators", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cE",
+      "<cmd>FlutterDevices<CR>",
+      { desc = "[Flutter] Devices", buffer = bufnr }
+    )
+    vim.keymap.set(
+      "n",
+      "<leader>cp",
+      "<cmd>FlutterPubGet<CR>",
+      { desc = "[Flutter] Pub Get", buffer = bufnr }
+    )
+  end
+})
+
+--- Go to the last location when opening a buffer
+vim.api.nvim_create_autocmd('BufReadPost', {
+  group = vim.api.nvim_create_augroup('omerta/last_location', { clear = true }),
+  desc = 'Go to the last location when opening a buffer',
+  callback = function(args)
+    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+    local line_count = vim.api.nvim_buf_line_count(args.buf)
+    if mark[1] > 0 and mark[1] <= line_count then
+      vim.cmd 'normal! g`"zz'
+    end
+  end,
+})
+
+--- close with q
 vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('omerta/close_with_q', { clear = true }),
   desc = 'Close with <q>',
@@ -120,7 +161,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--- Close fugitive with q
+--- Close fugitive with q
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "fugitiveblame", "fugitive" },
   callback = function()
@@ -128,7 +169,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end
 })
 
--- Toggle relative line numbers
+--- Toggle relative line numbers
 local line_numbers_group = vim.api.nvim_create_augroup('omerta/toggle_line_numbers', {})
 vim.api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'CmdlineLeave', 'WinEnter' }, {
   group = line_numbers_group,
@@ -154,12 +195,12 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'CmdlineEn
   end,
 })
 
--- :Todos - Search TODOs with fzf-lua
+--- :Todos - Search TODOs with fzf-lua
 vim.api.nvim_create_user_command('Todos', function()
   require('fzf-lua').grep { search = 'TODO|FIX|HACK|NOTE|PERF', no_esc = true }
 end, { desc = 'Grep TODOs', nargs = 0 })
 
---- Hide copilot on blink suggestion
+--- Toggle copilot on blink suggestion
 vim.api.nvim_create_autocmd('User', {
   pattern = 'BlinkCmpCompletionMenuOpen',
   callback = function()
@@ -167,7 +208,6 @@ vim.api.nvim_create_autocmd('User', {
     vim.b.copilot_suggestion_hidden = true
   end,
 })
-
 vim.api.nvim_create_autocmd('User', {
   pattern = 'BlinkCmpCompletionMenuClose',
   callback = function()

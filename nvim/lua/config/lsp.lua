@@ -47,7 +47,8 @@ local function on_attach(client, buffer)
 
   -- Toggle inlay hints
   if client.supports_method(methods.textDocument_inlayHint) then
-    vim.keymap.set('n', '<leader>ci', function()
+    -- <leader>ci already used for vtsls for filetype autocmd
+    vim.keymap.set('n', '<leader>ch', function()
       local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = buffer }
       vim.lsp.inlay_hint.enable(not enabled, { bufnr = buffer })
 

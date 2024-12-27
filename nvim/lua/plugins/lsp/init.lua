@@ -19,7 +19,7 @@ return {
     },
     opts = function()
       local vue_language_server_path = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
-      "/node_modules/@vue/language-server"
+        "/node_modules/@vue/language-server"
       return {
         servers = {
           cssls = {},
@@ -288,21 +288,6 @@ return {
               },
             },
           },
-          -- rust_analyzer = {
-          --   settings = {
-          --     ["rust-analyzer"] = {
-          --       inlayHints = {
-          --         chainingHints = { enable = true },
-          --       },
-          --       procMacro = { enable = true },
-          --       cargo = { allFeatures = true },
-          --       -- checkOnSave = {
-          --       --   command = "clippy",
-          --       --   extraArgs = { "--no-deps" },
-          --       -- },
-          --     }
-          --   },
-          -- },
           tailwindcss = {
             filetypes = { "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge",
               "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex",
@@ -327,13 +312,15 @@ return {
 
       -- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
       -- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
-      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+      -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
+      local servers = opts.servers
 
       -- Server setup
-      local servers = opts.servers
       local function setup(server)
-        local server_opts = vim.tbl_deep_extend("force", {
-          capabilities = vim.deepcopy(capabilities),
+        local server_opts = vim.tbl_deep_extend('error', {
+          -- capabilities = vim.deepcopy(capabilities),
+          capabilities = capabilities,
         }, servers[server] or {})
 
         -- If a setup method is provided, use it instead
@@ -397,37 +384,14 @@ return {
     end
   },
 
-  -- {
-  --   "pmizio/typescript-tools.nvim",
-  --   -- dependencies = "marilari88/twoslash-queries.nvim",
-  --   -- ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-  --   event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
-  --   opts = {
-  --     -- on_attach = function(client, bufnr)
-  --     --   require("twoslash-queries").attach(client, bufnr)
-  --     -- end,
-  --     settings = {
-  --       tsserver_file_preferences = {
-  --         includeInlayParameterNameHints = 'literals',
-  --         includeInlayVariableTypeHints = true,
-  --         includeInlayFunctionLikeReturnTypeHints = true,
-  --       },
-  --       complete_function_calls = true,
-  --       include_completions_with_insert_text = true,
-  --     },
-  --   },
-  -- },
-
   {
     'yioneko/nvim-vtsls',
-    -- event = "VeryLazy",
-    -- event = { 'BufReadPre *.ts,*.tsx,*.js,*.jsx', 'BufNewFile *.ts,*.tsx,*.js,*.jsx' },
     ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
   },
 
   {
     "nvim-flutter/flutter-tools.nvim",
-    event = { 'BufReadPre *.dart', 'BufNewFile *.dart' },
+    ft = "dart",
     opts = {
       fvm = true,
       widget_guides = {
@@ -443,7 +407,7 @@ return {
           virtual_text_str = "󱓻",
         },
         settings = {
-          completeFunctionCalls = false,
+          completeFunctionCalls = true,
           analysisExcludedFolders = {
             vim.fn.expand '$HOME/.pub-cache',
             -- vim.fn.expand '$HOME/fvm/versions', -- flutter-tools should automatically exclude your SDK.
@@ -452,47 +416,4 @@ return {
       }
     }
   },
-
-  -- {
-  --   "olexsmir/gopher.nvim",
-  --   ft = { "go", "gomod" },
-  --   config = function()
-  --     require("gopher").setup {
-  --       commands = {
-  --         go = "go",
-  --         gomodifytags = "gomodifytags",
-  --         gotests = "~/go/bin/gotests", -- also you can set custom command path
-  --         impl = "impl",
-  --         iferr = "iferr",
-  --       },
-  --     }
-  --   end
-  -- },
-
-  -- {
-  --   'mrcjkb/rustaceanvim',
-  --   version = '^5', -- Recommended
-  --   lazy = false,   -- This plugin is already lazy
-  --   config = function()
-  --     vim.g.rustaceanvim = {
-  --       tools = {
-  --         float_win_config = {
-  --           border = 'rounded'
-  --         },
-  --         -- code_actions = {
-  --         --   ui_select_fallback = true
-  --         -- }
-  --       },
-  --       server = {
-  --         default_settings = {
-  --           ['rust_analyzer'] = {
-  --             inlayHints = {
-  --               chainingHints = { enable = false },
-  --             },
-  --           }
-  --         }
-  --       },
-  --     }
-  --   end
-  -- },
 }
