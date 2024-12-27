@@ -34,6 +34,12 @@ alias k='kubectl'
 alias s='kitty +kitten ssh'
 alias t='sesh connect $(sesh list | fzf)'
 alias fflutter='fvm flutter'
+alias python=python3
+alias c='clear'
+# Git
+alias g=git
+alias gwa='git worktree add'
+alias gco='git checkout'
 
 #
 # Language
@@ -79,3 +85,7 @@ fi
 if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
