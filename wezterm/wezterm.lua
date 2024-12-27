@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local keys = require("keys")
-local colors = wezterm.color.get_builtin_schemes()['Tokyo Night']
+local color_scheme = 'Kanagawa Dragon (Gogh)'
+local colors = wezterm.color.get_builtin_schemes()[color_scheme]
 
 wezterm.on('gui-startup', function(cmd)
   local _, _, window = wezterm.mux.spawn_window(cmd or {})
@@ -139,20 +140,19 @@ wezterm.on("format-tab-title", function(tab)
 end)
 
 return {
-  -- font = wezterm.font("JetBrainsMono Nerd Font", { weight = "Regular" }),
   font = wezterm.font_with_fallback({
     {
       family = 'JetBrainsMono Nerd Font Mono',
-      weight = 'ExtraLight'
+      weight = 'Thin'
     }
   }),
-  font_size = 16,
+  font_size = 15,
   freetype_load_flags = 'NO_HINTING',
   enable_wayland = false,
   term = 'wezterm',
   pane_focus_follows_mouse = false,
   warn_about_missing_glyphs = false,
-  show_update_window = false,
+  -- show_update_window = false,
   check_for_updates = false,
   cell_width = 1.1,
   line_height = 1.04,
@@ -178,9 +178,10 @@ return {
   hide_tab_bar_if_only_one_tab = true,
   window_background_opacity = 1.0,
   disable_default_key_bindings = false,
+  max_fps = 120,
   -- front_end = "WebGpu",
-  colors = colors,
-  -- color_scheme = 'rose-pine',
+  -- colors = colors,
+  color_scheme = color_scheme,
   keys = keys,
   hyperlink_rules = {
     {
