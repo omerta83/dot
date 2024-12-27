@@ -15,7 +15,7 @@ cursor-style-blink = false
 
 mouse-hide-while-typing = true
 
-font-size = 15
+font-size = 16
 font-family = "JetBrainsMono NFM Thin"
 font-family-bold = "JetBrainsMono NFM Medium"
 font-family-italic = "JetBrainsMono NFM Thin Italic"
