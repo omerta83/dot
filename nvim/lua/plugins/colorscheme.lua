@@ -148,6 +148,8 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
+      compile = true,
+      keywordStyle = { italic = false },
       overrides = function(colors)
         local theme = colors.theme
         return {
