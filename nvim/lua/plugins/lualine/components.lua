@@ -1,6 +1,4 @@
 local icons = require('config.icons')
--- local colors = require('util').theme_colors()
--- local separator = { left = icons.misc.SeparatorLeft, right = icons.misc.SeparatorRight }
 
 -- https://www.reddit.com/r/neovim/s/ZbFDWKLIZd
 local mode_map = {

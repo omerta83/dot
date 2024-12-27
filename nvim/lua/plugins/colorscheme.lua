@@ -79,67 +79,119 @@ return {
   --   end
   -- },
 
+  -- {
+  --   "EdenEast/nightfox.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {
+  --     groups = {
+  --       all = {
+  --         StatusLine                = { bg = "bg1" },
+  --         NormalFloat               = { bg = "bg1" },
+  --         FloatBorder               = { bg = "bg1", fg = "bg4" },
+  --
+  --         -- CursorLineNr = { fg = "magenta" },
+  --         CursorLine                = { bg = "bg1", fg = "NONE" },
+  --
+  --         Pmenu                     = { bg = "bg2", fg = "NONE" },
+  --
+  --         -- FZF
+  --         FzfLuaBorder              = { link = "FloatBorder" },
+  --         FzfLuaBackdrop            = { bg = "bg1" },
+  --
+  --         -- Blink
+  --         BlinkCmpMenuBorder        = { link = "FloatBorder" },
+  --         BlinkCmpMenuSelection     = { link = "Pmenu" },
+  --         -- BlinkCmpDoc               = { link = "CmpDocumentation" },
+  --         -- BlinkCmpDocBorder         = { link = "CmpDocumentationBorder" },
+  --         BlinkCmpDocBorder         = { link = "FloatBorder" },
+  --         BlinkCmpLabel             = { link = "CmpItemAbbr" },
+  --         BlinkCmpLabelDeprecated   = { link = "CmpItemAbbrDeprecated" },
+  --         BlinkCmpLabelMatch        = { link = "CmpItemAbbrMatch" },
+  --         BlinkCmpMenu              = { link = "CmpItemMenu" },
+  --         -- BlinkCmpKind              = { link = "CmpItemKindDefault" },
+  --         BlinkCmpKind              = { link = "CmpItemKindValue" },
+  --         BlinkCmpKindKeyword       = { link = "CmpItemKindKeyword" },
+  --         BlinkCmpKindVariable      = { link = "CmpItemKindVariable" },
+  --         BlinkCmpKindConstant      = { link = "CmpItemKindConstant" },
+  --         BlinkCmpKindReference     = { link = "CmpItemKindReference" },
+  --         BlinkCmpKindValue         = { link = "CmpItemKindValue" },
+  --         BlinkCmpKindFunction      = { link = "CmpItemKindFunction" },
+  --         BlinkCmpKindMethod        = { link = "CmpItemKindMethod" },
+  --         BlinkCmpKindConstructor   = { link = "CmpItemKindConstructor" },
+  --         BlinkCmpKindInterface     = { link = "CmpItemKindInterface" },
+  --         BlinkCmpKindEvent         = { link = "CmpItemKindEvent" },
+  --         BlinkCmpKindEnum          = { link = "CmpItemKindEnum" },
+  --         BlinkCmpKindUnit          = { link = "CmpItemKindUnit" },
+  --         BlinkCmpKindClass         = { link = "CmpItemKindClass" },
+  --         BlinkCmpKindStruct        = { link = "CmpItemKindStruct" },
+  --         BlinkCmpKindModule        = { link = "CmpItemKindModule" },
+  --         BlinkCmpKindProperty      = { link = "CmpItemKindProperty" },
+  --         BlinkCmpKindField         = { link = "CmpItemKindField" },
+  --         BlinkCmpKindTypeParameter = { link = "CmpItemKindTypeParameter" },
+  --         BlinkCmpKindEnumMember    = { link = "CmpItemKindEnumMember" },
+  --         BlinkCmpKindOperator      = { link = "CmpItemKindOperator" },
+  --         BlinkCmpKindSnippet       = { link = "CmpItemKindSnippet" },
+  --       }
+  --     }
+  --
+  --   },
+  --   config = function(_, opts)
+  --     require('nightfox').setup(opts)
+  --
+  --     vim.api.nvim_command("colorscheme carbonfox")
+  --   end
+  -- },
+
   {
-    "EdenEast/nightfox.nvim",
+    'rebelot/kanagawa.nvim',
     lazy = false,
     priority = 1000,
     opts = {
-      groups = {
-        all = {
-          StatusLine                = { bg = "bg1" },
-          NormalFloat               = { bg = "bg1" },
-          FloatBorder               = { bg = "bg1", fg = "bg4" },
+      overrides = function(colors)
+        local theme = colors.theme
+        return {
+          -- Shortcut to transparent background
+          NoneBg = { bg = "none" },
+          CursorLine = { link = "NoneBg" },
+          StatusLine = { link = "NoneBg" },
+          NormalFloat = { link = "NoneBg" },
+          FloatBorder = { link = "NoneBg" },
+          FloatTitle = { link = "NoneBg" },
 
-          -- CursorLineNr = { fg = "magenta" },
-          CursorLine                = { bg = "bg1", fg = "NONE" },
+          FzfLuaBackdrop = { bg = theme.ui.bg },
+          FzfLuaNormal = { bg = theme.ui.bg },
 
-          Pmenu                     = { bg = "bg2", fg = "NONE" },
+          -- Save an hlgroup with dark background and dimmed foreground
+          -- so that you can use it where your still want darker windows.
+          -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
+          NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
 
-          -- FZF
-          FzfLuaBorder              = { link = "FloatBorder" },
-          FzfLuaBackdrop            = { bg = "bg1" },
+          -- Popular plugins that open floats will link to NormalFloat by default;
+          -- set their background accordingly if you wish to keep them dark and borderless
+          LazyNormal = { bg = theme.ui.bg, fg = theme.ui.fg_dim },
+          MasonNormal = { bg = theme.ui.bg, fg = theme.ui.fg_dim },
 
-          -- Blink
-          BlinkCmpMenuBorder        = { link = "FloatBorder" },
-          BlinkCmpMenuSelection     = { link = "Pmenu" },
-          -- BlinkCmpDoc               = { link = "CmpDocumentation" },
-          -- BlinkCmpDocBorder         = { link = "CmpDocumentationBorder" },
-          BlinkCmpDocBorder         = { link = "FloatBorder" },
-          BlinkCmpLabel             = { link = "CmpItemAbbr" },
-          BlinkCmpLabelDeprecated   = { link = "CmpItemAbbrDeprecated" },
-          BlinkCmpLabelMatch        = { link = "CmpItemAbbrMatch" },
-          BlinkCmpMenu              = { link = "CmpItemMenu" },
-          -- BlinkCmpKind              = { link = "CmpItemKindDefault" },
-          BlinkCmpKind              = { link = "CmpItemKindValue" },
-          BlinkCmpKindKeyword       = { link = "CmpItemKindKeyword" },
-          BlinkCmpKindVariable      = { link = "CmpItemKindVariable" },
-          BlinkCmpKindConstant      = { link = "CmpItemKindConstant" },
-          BlinkCmpKindReference     = { link = "CmpItemKindReference" },
-          BlinkCmpKindValue         = { link = "CmpItemKindValue" },
-          BlinkCmpKindFunction      = { link = "CmpItemKindFunction" },
-          BlinkCmpKindMethod        = { link = "CmpItemKindMethod" },
-          BlinkCmpKindConstructor   = { link = "CmpItemKindConstructor" },
-          BlinkCmpKindInterface     = { link = "CmpItemKindInterface" },
-          BlinkCmpKindEvent         = { link = "CmpItemKindEvent" },
-          BlinkCmpKindEnum          = { link = "CmpItemKindEnum" },
-          BlinkCmpKindUnit          = { link = "CmpItemKindUnit" },
-          BlinkCmpKindClass         = { link = "CmpItemKindClass" },
-          BlinkCmpKindStruct        = { link = "CmpItemKindStruct" },
-          BlinkCmpKindModule        = { link = "CmpItemKindModule" },
-          BlinkCmpKindProperty      = { link = "CmpItemKindProperty" },
-          BlinkCmpKindField         = { link = "CmpItemKindField" },
-          BlinkCmpKindTypeParameter = { link = "CmpItemKindTypeParameter" },
-          BlinkCmpKindEnumMember    = { link = "CmpItemKindEnumMember" },
-          BlinkCmpKindOperator      = { link = "CmpItemKindOperator" },
-          BlinkCmpKindSnippet       = { link = "CmpItemKindSnippet" },
+          -- Autocompletion popup
+          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg }, -- add `blend = vim.o.pumblend` to enable transparency
+          PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+          PmenuSbar = { bg = theme.ui.bg_m1 },
+          PmenuThumb = { bg = theme.ui.bg_p2 },
         }
-      }
-
+      end,
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+            }
+          }
+        }
+      },
     },
     config = function(_, opts)
-      require('nightfox').setup(opts)
-
-      vim.api.nvim_command("colorscheme carbonfox")
+      require('kanagawa').setup(opts)
+      vim.api.nvim_command("colorscheme kanagawa-dragon")
     end
   },
 

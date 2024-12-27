@@ -46,34 +46,6 @@ function M.get_dap_adapter_path(name)
   return require('mason-registry').get_package(name):get_install_path()
 end
 
-function M.theme_colors()
-  if vim.g.colors_name == 'carbonfox' then
-    local palette = require('nightfox.palette').load('carbonfox')
-    -- Returns a table with the colors of the theme compatible with tokyonight
-    local colors = {}
-    colors.fg = palette.fg1
-    colors.fg_dark = palette.fg3
-    colors.bg = palette.bg1
-    colors.bg_highlight = palette.bg2
-    colors.bg_dark = palette.bg0
-    colors.teal = palette.cyan.base
-    colors.red = palette.red.base
-    colors.cyan = palette.cyan.base
-    colors.orange = palette.orange.base
-    colors.green = palette.green.base
-    colors.purple = palette.magenta.base
-    colors.blue = palette.blue.base
-    colors.blue1 = palette.blue.base
-    colors.dark5 = palette.black.base
-    return colors
-  elseif vim.g.colors_name == 'catppuccin' then
-    return require('catppuccin.palettes').get_palette()
-  elseif vim.g.colors_name == 'tokyonight' then
-    return require('tokyonight.colors').setup({ style = 'night' })
-  end
-  return {}
-end
-
 function M.map(mode, l, r, opts)
   opts = opts or {}
   vim.keymap.set(mode, l, r, opts)
