@@ -148,11 +148,13 @@ vim.api.nvim_create_autocmd('FileType', {
   group = vim.api.nvim_create_augroup('omerta/close_with_q', { clear = true }),
   desc = 'Close with <q>',
   pattern = {
+    'git',
     'help',
     -- 'man', -- disable man as it will mess up with q to close outside vim
     'qf',
     'query',
-    'gitsigns-blame'
+    'gitsigns-blame',
+    'scratch',
   },
   callback = function(event)
     vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = event.buf })
