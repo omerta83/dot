@@ -11,12 +11,14 @@ return {
       delete_to_trash = true,
       skip_confirm_for_simple_edits = true,
       keymaps = {
-        ["<C-y>"] = "actions.preview",
         ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+        ["<C-v>"] = { "actions.select", opts = { vertical = true } },
+        ["`"] = false, -- disable cd
       },
       float = {
         max_width = 100,
-        max_height = 80
+        max_height = 80,
+        preview_split = 'below',
       }
     },
     -- Optional dependencies

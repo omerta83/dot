@@ -148,7 +148,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      compile = true,
+      compile = false,
       keywordStyle = { italic = false },
       overrides = function(colors)
         local theme = colors.theme
@@ -179,6 +179,8 @@ return {
           PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
           PmenuSbar = { bg = theme.ui.bg_m1 },
           PmenuThumb = { bg = theme.ui.bg_p2 },
+
+          LspReferenceWrite = { underline = false },
         }
       end,
       colors = {

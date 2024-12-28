@@ -28,7 +28,8 @@ return {
   -- Prettier quickfix UI
   {
     'stevearc/quicker.nvim',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
+    -- ft = "qf",
     keys = {
       {
         '<leader>xq',
