@@ -1,42 +1,48 @@
-theme = "Kanagawa Dragon"
+### Font
+# freetype-load-flags = no-hinting
+# freetype-load-flags = no-force-autohint
 
+font-family = "JetBrainsMono NFM ExtraLight"
+font-family-bold = "JetBrainsMono NFM Light"
+font-family-italic = "JetBrainsMono NFM ExtraLight Italic"
+font-family-bold-italic = "JetBrainsMono NFM Light Italic"
+
+font-size = 15
+font-thicken = false
+window-inherit-font-size = true
+
+### Look and feel
+theme = dark:"Kanagawa Dragon",light:"Kanagawa Wave"
 #theme = nightfox
 #background = "#161616"
 #foreground = "#f2f4f8"
-
-window-decoration = true
-window-padding-x = 16
-window-padding-y = 10
-macos-window-shadow = false
-
-clipboard-read = allow
+adjust-cell-height = "5%"
+adjust-cell-width = "8%"
+adjust-cursor-thickness = 3
+adjust-underline-position = 3
+bold-is-bright = true
 cursor-style = block
 cursor-style-blink = false
-
-mouse-hide-while-typing = true
-
-font-size = 16
-font-family = "JetBrainsMono NFM Thin"
-font-family-bold = "JetBrainsMono NFM Medium"
-font-family-italic = "JetBrainsMono NFM Thin Italic"
-font-family-bold-italic = "JetBrainsMono NFM Medium Italic"
-# This seems to make font look brighter
-font-thicken = true
-
-adjust-cell-width = "3%"
-adjust-cell-height = "2%"
-
+fullscreen = false
+link-url = true
 macos-non-native-fullscreen = visible-menu
-
-# Hide window's title and icon
-title = " "
 macos-titlebar-proxy-icon = hidden
-
+macos-window-shadow = false
+mouse-hide-while-typing = true
+title = " "
+window-decoration = true
 window-height = 9999
+window-padding-x = 16
+window-padding-y = 0
 window-width = 9999
 
-fullscreen = false
+### Other
+clipboard-read = allow
+quick-terminal-position = center
+shell-integration = zsh
+shell-integration-features = no-cursor,no-sudo,title
 
+### Key bindings
 # Clear all keybindings before setting new ones
 keybind = clear
 # Some default keybindings
@@ -50,9 +56,9 @@ keybind = super+plus=increase_font_size:1
 keybind = super+minus=decrease_font_size:1
 keybind = super+enter=toggle_fullscreen
 keybind = super+alt+i=inspector:toggle
-keybind = super+alt+,=toggle_quick_terminal
+keybind = global:super+\=toggle_quick_terminal
 
-### Terminal app keybindings
+## Terminal app keybindings
 # nvim save buffer
 keybind = super+s=text:\x1b\x3a\x77\x0a
 # lazygit
@@ -60,8 +66,8 @@ keybind = super+g=text:\x00\x67
 # Go to file in vim using fzf
 keybind = super+p=text:\x20\x20
 
-### Tmux
-## Run `xxd -psg` for key codes
+## Tmux
+# Run `xxd -psg` for key codes
 # reload tmux config
 keybind = super+r=text:\x00\x72
 # tmux thumb mode
