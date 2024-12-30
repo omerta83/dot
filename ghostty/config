@@ -41,6 +41,7 @@ clipboard-read = allow
 quick-terminal-position = center
 shell-integration = zsh
 shell-integration-features = no-cursor,no-sudo,title
+macos-option-as-alt = true
 
 ### Key bindings
 # Clear all keybindings before setting new ones
