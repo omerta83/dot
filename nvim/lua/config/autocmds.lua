@@ -23,6 +23,7 @@ vim.api.nvim_create_autocmd('FileType', {
     'query',
     'gitsigns-blame',
     'scratch',
+    'deck',
   },
   callback = function(event)
     vim.keymap.set('n', 'q', '<cmd>quit<cr>', { buffer = event.buf })
@@ -66,19 +67,22 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'CmdlineEn
 --- :Todos - Search TODOs with fzf-lua
 vim.api.nvim_create_user_command('Todos', function()
   require('fzf-lua').grep { search = 'TODO|FIX|HACK|NOTE|PERF', no_esc = true }
-end, { desc = 'Grep TODOs', nargs = 0 })
+end, { desc = 'List TODOs', nargs = 0 })
 
---- Toggle copilot on blink suggestion
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'BlinkCmpCompletionMenuOpen',
-  callback = function()
-    require("copilot.suggestion").dismiss()
-    vim.b.copilot_suggestion_hidden = true
-  end,
-})
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'BlinkCmpCompletionMenuClose',
-  callback = function()
-    vim.b.copilot_suggestion_hidden = false
-  end,
+--- Autoclear search highlights
+-- vim.api.nvim_create_autocmd('CursorMoved', {
+--   group = vim.api.nvim_create_augroup('omerta/auto-hlsearch', { clear = true }),
+--   callback = function ()
+--     if vim.v.hlsearch == 1 and vim.fn.searchcount().exact_match == 0 then
+--       vim.schedule(function ()
+--         vim.cmd.nohlsearch()
+--         vim.cmd.stopinsert()
+--       end)
+--     end
+--   end
+-- })
+
+vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+  desc = 'Redraw buffer when associated file is changed',
+  command = 'checktime',
 })

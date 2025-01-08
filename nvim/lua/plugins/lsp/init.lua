@@ -18,8 +18,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     opts = function()
-      local vue_language_server_path = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
-        "/node_modules/@vue/language-server"
+      -- local vue_language_server_path = require("mason-registry").get_package("vue-language-server"):get_install_path() .. "/node_modules/@vue/language-server"
       return {
         servers = {
           cssls = {},
@@ -163,7 +162,7 @@ return {
                     -- Use volar for only .vue files and tsserver for .ts and .js files.
                     {
                       name = "@vue/typescript-plugin",
-                      location = vue_language_server_path,
+                      location = require("mason-registry").get_package("vue-language-server"):get_install_path() .. "/node_modules/@vue/language-server",
                       languages = { "vue" },
                       -- configNamespace = "typescript",
                       -- enableForWorkspaceTypeScriptVersions = true,
@@ -303,9 +302,9 @@ return {
     end,
     config = function(_, opts)
       -- Set up completion using nvim_cmp with LSP source
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
       -- local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
-      capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+      local blink = require('blink.cmp')
       -- if ok then
       --   capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities() or {})
       -- end
@@ -318,10 +317,11 @@ return {
 
       -- Server setup
       local function setup(server)
-        local server_opts = vim.tbl_deep_extend('error', {
-          -- capabilities = vim.deepcopy(capabilities),
-          capabilities = capabilities,
-        }, servers[server] or {})
+        -- local server_opts = vim.tbl_deep_extend('error', {
+        --   -- capabilities = vim.deepcopy(capabilities),
+        --   capabilities = capabilities,
+        -- }, servers[server] or {})
+        local server_opts = blink.get_lsp_capabilities(servers[server] or {})
 
         -- If a setup method is provided, use it instead
         if opts.setup and opts.setup[server] then
@@ -340,16 +340,16 @@ return {
       end
       -- local available = mlsp.get_available_servers()
       local ensure_installed = {}
-      for server, server_opts in pairs(servers) do
-        if server_opts then
-          server_opts = server_opts == true and {} or server_opts
+      for server, _ in pairs(servers) do
+        -- if server_opts then
+        --   server_opts = server_opts == true and {} or server_opts
           -- run manual setup if this is a server that cannot be installed with mason-lspconfig
           if not vim.tbl_contains(all_mslp_servers, server) then
             setup(server)
           else
             ensure_installed[#ensure_installed + 1] = server
           end
-        end
+        -- end
       end
 
       if have_mason then
