@@ -1,46 +1,45 @@
 return {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
   keys = {
-    { "<leader><space>", "<cmd>FzfLua files<CR>",          desc = "[FzfLua] Find files" },
+    { "<leader><space>", "<cmd>FzfLua files<CR>",          desc = "Find files" },
     {
       "<leader>ff",
       function()
         require 'fzf-lua'.files({ cwd = vim.fn.expand('%:p:h') })
       end,
-      desc = "[FzfLua] Find files in current folder"
+      desc = "Find [f]iles in current folder"
     },
-    { "<leader>fb",      "<cmd>FzfLua buffers<CR>",        desc = "[FzfLua] Buffers" },
-    { '<leader>f/',      '<cmd>FzfLua lgrep_curbuf<CR>',   desc = '[FzfLua] Grep current buffer' },
-    { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>", desc = "[FzfLua] Live Grep --glob" },
-    { "<leader>fg",      "<CMD>FzfLua grep_visual<CR>",    desc = "[FzfLua] Live Grep --glob",        mode = 'x' },
-    { "<leader>fp",      "<cmd>FzfLua grep_project<CR>",   desc = "[FzfLua] Search all project lines" },
+    { "<leader>fb",      "<cmd>FzfLua buffers<CR>",        desc = "List [b]uffers" },
+    { '<leader>f/',      '<cmd>FzfLua lgrep_curbuf<CR>',   desc = 'Grep current buffer' },
+    { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>", desc = "Live [g]rep --glob" },
+    { "<leader>fg",      "<CMD>FzfLua grep_visual<CR>",    desc = "Live [g]rep --glob",    mode = 'x' },
+    { "<leader>fp",      "<cmd>FzfLua grep_project<CR>",   desc = "Search [p]roject Lines" },
     {
       "<leader>fr",
       function()
         require('fzf-lua').oldfiles({ include_current_session = true })
       end,
-      desc = "Recently opened files (cwd)"
+      desc = "[r]ecently opened files"
     },
-    { "<leader>f;", "<cmd>FzfLua resume<CR>",                     desc = "[FzfLua] Resume" },
-    { "<leader>fc", "<cmd>FzfLua commands<CR>",                   desc = "[FzfLua] Commands" },
-    { "<leader>fh", "<cmd>FzfLua command_history<CR>",            desc = "[FzfLua] Command history" },
-    { "<leader>fM", "<cmd>FzfLua man_pages<CR>",                  desc = "[FzfLua] Man page" },
-    { "<leader>f?", "<cmd>FzfLua help_tags<CR>",                  desc = "[FzfLua] Help tags" },
-    { "<leader>fo", "<cmd>FzfLua lsp_document_symbols<CR>",       desc = "[FzfLua] Document symbols" },
-    { "<leader>fO", "<cmd>FzfLua lsp_live_workspace_symbols<CR>", desc = "[FzfLua] Live workspace symbols" },
-    { "<leader>fa", "<cmd>FzfLua lsp_code_actions<CR>",           desc = "[FzfLua] Code actions" },
-    { "<leader>fd", "<cmd>FzfLua lsp_document_diagnostics<CR>",   desc = "[FzfLua] Document diagnostics" },
-    { "<leader>fD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>",  desc = "[FzfLua] Workspace diagnostics" },
-    { '<leader>fm', "<cmd>FzfLua marks<CR>",                      desc = "[FzfLua] Marks" },
-    { '<leader>fy', '<cmd>FzfLua registers<CR>',                  desc = '[FzfLua] Registers' },
-    { '<leader>fk', "<cmd>FzfLua keymaps<CR>",                    desc = "[FzfLua] Keymaps" },
-    { '<leader>fY', "<cmd>FzfLua tmux_buffers<CR>",               desc = "[FzfLua] Show tmux yank history" },
-    { '<leader>gt', '<cmd>FzfLua git_status<cr>',                 desc = '[FzfLua] Git status' },
-    { '<leader>gC', '<cmd>FzfLua git_commits<cr>',                desc = '[FzfLua] Git project commits' },
-    { '<leader>gc', '<cmd>FzfLua git_bcommits<cr>',               desc = '[FzfLua] Git buffer commits' },
-    -- { '<leader>gb',      '<cmd>FzfLua git_branches<cr>',               desc = '[FzfLua] Git branches' },
+    { "<leader>f;", "<cmd>FzfLua resume<CR>",                     desc = "Resume" },
+    { "<leader>fc", "<cmd>FzfLua commands<CR>",                   desc = "List [c]ommands" },
+    { "<leader>fh", "<cmd>FzfLua command_history<CR>",            desc = "Command [h]istory" },
+    { "<leader>fM", "<cmd>FzfLua man_pages<CR>",                  desc = "[M]an Pages" },
+    { "<leader>f?", "<cmd>FzfLua help_tags<CR>",                  desc = "[?] Help tags" },
+    { "<leader>fo", "<cmd>FzfLua lsp_document_symbols<CR>",       desc = "Document symb[o]ls" },
+    { "<leader>fO", "<cmd>FzfLua lsp_live_workspace_symbols<CR>", desc = "Live workspace symb[O]ls" },
+    { "<leader>fa", "<cmd>FzfLua lsp_code_actions<CR>",           desc = "Code [a]ctions" },
+    { "<leader>fd", "<cmd>FzfLua lsp_document_diagnostics<CR>",   desc = "Document [d]iagnostics" },
+    { "<leader>fD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>",  desc = "Workspace [D]iagnostics" },
+    { '<leader>fm', "<cmd>FzfLua marks<CR>",                      desc = "List [m]arks" },
+    { '<leader>fs', '<cmd>FzfLua registers<CR>',                  desc = 'List regi[s]ters' },
+    { '<leader>fk', "<cmd>FzfLua keymaps<CR>",                    desc = "List [k]eymaps" },
+    { '<leader>fy', "<cmd>FzfLua tmux_buffers<CR>",               desc = "Show tmux yank histor[y]" },
+    { '<leader>gt', '<cmd>FzfLua git_status<cr>',                 desc = 'Git s[t]atus with FZF' },
+    { '<leader>gC', '<cmd>FzfLua git_commits<cr>',                desc = 'Git project [C]ommits with FZF' },
+    { '<leader>gc', '<cmd>FzfLua git_bcommits<cr>',               desc = 'Git buffer [c]ommits with FZF' },
   },
   opts = function()
     local actions = require "fzf-lua.actions"
@@ -48,14 +47,14 @@ return {
 
     return {
       "fzf-native",
-      -- for performance
-      global_git_icons  = false,
-      -- global_file_icons = false,
-      file_icon_padding = ' ',
-      fzf_opts          = {
+      defaults = {
+        git_icons = false,
+        file_icons = 'devicons',
+      },
+      fzf_opts = {
         ['--layout'] = 'reverse-list',
       },
-      keymap            = {
+      keymap   = {
         builtin = {
           -- neovim `:tmap` mappings for the fzf win
           ["<A-/>"] = "toggle-help",
@@ -78,7 +77,7 @@ return {
           ["ctrl-/"] = "toggle-preview",
         },
       },
-      actions           = {
+      actions  = {
         files = {
           ["default"] = actions.file_edit_or_qf,
           ["ctrl-x"]  = actions.file_split,
@@ -93,7 +92,7 @@ return {
           ["ctrl-t"]  = actions.buf_tabedit,
         }
       },
-      winopts           = {
+      winopts  = {
         height = 0.7,
         width = 0.5,
         preview = {
@@ -107,10 +106,10 @@ return {
         },
       },
       -- Configuration for specific commands.
-      files             = {
+      files    = {
         cwd_prompt = false,
       },
-      git               = {
+      git      = {
         status = {
           winopts = {
             preview = { hidden = 'nohidden' },
@@ -123,27 +122,27 @@ return {
           }
         },
       },
-      lsp               = {
+      lsp      = {
         cwd_only = true, -- LSP/diagnostics for cwd only?
         symbols = {
           symbol_icons = icons.kinds,
         },
       },
-      oldfiles          = {
+      oldfiles = {
         cwd_only = true,
         include_current_session = true,
         winopts = {
           preview = { hidden = 'hidden' },
         },
       },
-      buffers           = {
+      buffers  = {
         cwd_only = true,
         actions = {
           ["ctrl-x"] = actions.buf_split,
           ["ctrl-d"] = { fn = actions.buf_del, reload = true },
         }
       },
-      manpages          = {
+      manpages = {
         cmd = "man -k -S 1 -M /usr/local/share/man .",
       },
     }
