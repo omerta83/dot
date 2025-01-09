@@ -40,6 +40,10 @@ return {
       },
 
       completion = {
+        list = {
+          selection = { preselect = true, auto_insert = true },
+          max_items = 20,
+        },
         accept = {
           -- experimental auto-brackets support
           auto_brackets = {
@@ -47,7 +51,7 @@ return {
           },
         },
         menu = {
-          border = 'single',
+          border = 'rounded',
           draw = {
             -- treesitter = { "lsp" },
             columns = {
@@ -67,7 +71,7 @@ return {
           auto_show = true,
           auto_show_delay_ms = 200,
           window = {
-            border = 'single',
+            border = 'rounded',
           }
         },
         -- list = {
