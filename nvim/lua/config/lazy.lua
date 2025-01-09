@@ -18,7 +18,7 @@ require("lazy").setup({
   defaults = { lazy = true },
   install = {
     missing = true,
-    colorscheme = { "tokyonight" }
+    colorscheme = { "kanagawa-dragon" }
   },
   ui = {
     border = "single",
@@ -33,37 +33,18 @@ require("lazy").setup({
     },
     rtp = {
       paths = {
-        "/usr/local/opt/fzf", -- homebrew version of fzf for Intel Macs
+        "/usr/local/opt/fzf",    -- homebrew version of fzf for Intel Macs
         "/opt/homebrew/opt/fzf", -- homebrew version of fzf for Apple Silicon Macs
       },
       disabled_plugins = {
-        "2html_plugin",
-        "bugreport",
-        "compiler",
-        "ftplugin",
-        "getscript",
-        "getscriptPlugin",
         "gzip",
-        "logipat",
-        "netrw",
-        "netrwFileHandlers",
-        "netrwPlugin",
-        "netrwSettings",
-        "optwin",
-        "rplugin",
-        "rrhelper",
-        "spellfile_plugin",
-        "synmenu",
-        "syntax",
-        "tar",
+        -- "matchit",
+        -- "matchparen",
+        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
-        "vimball",
-        "vimballPlugin",
-        "zip",
         "zipPlugin",
-        -- "matchit",
       },
     },
   },
