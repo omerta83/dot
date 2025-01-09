@@ -25,16 +25,23 @@ cursor-style = block
 cursor-style-blink = false
 fullscreen = false
 link-url = true
+# no titlebar
+macos-titlebar-style = hidden
 macos-non-native-fullscreen = visible-menu
-macos-titlebar-proxy-icon = hidden
 macos-window-shadow = false
 mouse-hide-while-typing = true
-title = " "
 window-decoration = true
-window-height = 9999
-window-padding-x = 16
+window-padding-x = 8
 window-padding-y = 0
+window-padding-balance = true
 window-width = 9999
+window-height = 9999
+
+### Icon
+# macos-icon = custom-style
+# macos-icon-frame = plastic
+# macos-icon-ghost-color = #BCBEC4
+# macos-icon-screen-color = #00FF00
 
 ### Other
 clipboard-read = allow
@@ -42,6 +49,7 @@ quick-terminal-position = center
 shell-integration = zsh
 shell-integration-features = no-cursor,no-sudo,title
 macos-option-as-alt = true
+confirm-close-surface = false
 
 ### Key bindings
 # Clear all keybindings before setting new ones
@@ -65,7 +73,7 @@ keybind = super+s=text:\x1b\x3a\x77\x0a
 # lazygit
 keybind = super+g=text:\x00\x67
 # Go to file in vim using fzf
-keybind = super+p=text:\x20\x20
+keybind = super+o=text:\x20\x20
 
 ## Tmux
 # Run `xxd -psg` for key codes
@@ -82,8 +90,10 @@ keybind = super+shift+v=text:\x00\x5d
 # Switch to last tmux session
 keybind = super+l=text:\x00\x4c
 # tmux smart session manager
-keybind = super+j=text:\x00\x54
-keybind = super+k=text:\x00\x54
+keybind = super+p=text:\x00\x54
+# Swap tmux panes
+keybind = super+j=text:\x00\x4a
+keybind = super+k=text:\x00\x4b
 # tmux rename window
 keybind = super+,=text:\x00\x2c
 # tmux command mode
@@ -91,9 +101,9 @@ keybind = super+;=text:\x00\x3a
 # tmux kill window
 keybind = super+w=text:\x00\x78
 # tmux split window right
-keybind = super+e=text:\x00\x25
+keybind = super+d=text:\x00\x25
 # tmux spit window below
-keybind = super+shift+e=text:\x00\x22
+keybind = super+shift+d=text:\x00\x22
 # New tmux window
 keybind = super+t=text:\x00\x63
 # Tmux next / prev window
