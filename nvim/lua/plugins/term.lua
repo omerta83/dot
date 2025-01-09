@@ -4,10 +4,10 @@ return {
     version = "*",
     cmd = "ToggleTerm",
     keys = {
-      { "<leader>gg", "<cmd>lua LazyGit()<CR>",              desc = "[ToggleTerm] Open LazyGit" },
-      { "<leader>td", "<cmd>lua LazyDocker()<CR>",           desc = "[ToggleTerm] Open LazyDocker" },
-      { "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", desc = "[ToggleTerm] Open Floating Term" },
-      { "<C-\\>",     "<cmd>ToggleTerm<CR>",                 desc = "[ToggleTerm] Toggle terminal" }
+      { "<leader>gg", "<cmd>lua LazyGit()<CR>",              desc = "Open Lazy[g]it" },
+      { "<leader>td", "<cmd>lua LazyDocker()<CR>",           desc = "Open Lazy[d]ocker" },
+      { "<leader>tf", "<cmd>ToggleTerm direction=float<CR>", desc = "Open [f]loating terminal" },
+      { "<C-\\>",     "<cmd>ToggleTerm<CR>",                 desc = "Toggle terminal" },
     },
     config = function()
       local terminal = require("toggleterm")
@@ -38,10 +38,10 @@ return {
         return lazy
       end
       local lazygit = create_float_term(
-        "lazygit",
-        function()
-          vim.cmd("silent! :checktime")
-        end
+        "lazygit"
+        -- function()
+        --   vim.cmd("silent! :checktime")
+        -- end
       )
       local lazydocker = create_float_term("lazydocker")
 

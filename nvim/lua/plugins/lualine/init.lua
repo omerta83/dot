@@ -2,19 +2,13 @@ return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   init = function()
-    vim.g.lualine_laststatus = vim.o.laststatus
     if vim.fn.argc(-1) > 0 then
       -- set an empty statusline till lualine loads
       vim.o.statusline = " "
-    else
-      -- hide the statusline on the starter page
-      vim.o.laststatus = 0
     end
   end,
   opts = function()
     local components = require('plugins/lualine/components')
-
-    vim.o.laststatus = vim.g.lualine_laststatus
 
     return {
       options = {
@@ -31,9 +25,9 @@ return {
       },
       sections = {
         lualine_a = {
-          components.modes,
+          components.mode,
           -- components.logo,
-          components.space,
+          -- components.space,
         },
         lualine_b = {
           components.filename,
@@ -44,19 +38,19 @@ return {
           -- components.tasks,
         },
         lualine_c = {
-          components.space,
-          components.tasks,
-          --   components.lsp_symbols,
+          -- components.space,
+          -- components.tasks,
+            -- components.lsp_symbols,
         },
         lualine_x = {
-          components.marco_recording,
-          components.space,
-          components.searchcount,
+          -- components.marco_recording,
+          -- components.space,
+          -- components.searchcount,
         },
         lualine_y = {
           components.encoding,
           components.fileformat,
-          components.space,
+          -- components.space,
           components.lsp,
         },
         lualine_z = {

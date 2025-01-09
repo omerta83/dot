@@ -1,13 +1,13 @@
-local biome_or_other = function(includeTailwind)
+local biome_or_other = function()
   local cwd = vim.fn.getcwd()
   local has_biome = vim.fn.filereadable(cwd .. '/biome.json')
   local formatters = has_biome == 1 and { 'biome' } or { 'prettier' }
-  if includeTailwind then
-    local has_tailwind = vim.fn.filereadable(cwd .. '/tailwind.config.js') or
-      vim.fn.filereadable(cwd .. '/tailwind.config.ts')
-    if has_tailwind == 1 then
-      table.insert(formatters, 'rustywind')
-    end
+
+  -- Include rustywind if tailwind.config.js or tailwind.config.ts exists
+  local has_tailwind = vim.fn.filereadable(cwd .. '/tailwind.config.js') or
+    vim.fn.filereadable(cwd .. '/tailwind.config.ts')
+  if has_tailwind == 1 then
+    table.insert(formatters, 'rustywind')
   end
   return formatters
 end
@@ -24,22 +24,15 @@ return {
     }
   },
 
-  -- {
-  --   "andymass/vim-matchup",
-  --   event = "BufReadPost",
-  --   config = function()
-  --     vim.g.matchup_matchparen_deferred = 1
-  --     vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
-  --     -- vim.g.matchup_matchpref = { html = { nolists = 1 } }
-  --   end,
-  -- },
-
   {
     "Wansmer/treesj",
     keys = {
       { "<Leader>J", "<cmd>TSJToggle<cr>", desc = "Join Toggle" },
     },
-    opts = { use_default_keymaps = false, max_join_length = 150 },
+    opts = {
+      use_default_keymaps = false,
+      max_join_length = 150,
+    },
   },
 
   -- formatters
@@ -55,10 +48,10 @@ return {
       },
       formatters_by_ft = {
         javascript = biome_or_other,
-        javascriptreact = biome_or_other(true),
+        javascriptreact = biome_or_other,
         typescript = biome_or_other,
-        typescriptreact = biome_or_other(true),
-        vue = biome_or_other(true),
+        typescriptreact = biome_or_other,
+        vue = biome_or_other,
         lua = { 'stylua' },
         python = { 'ruff' },
         go = { 'goimports', 'gofumpt' },

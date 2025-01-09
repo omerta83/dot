@@ -9,7 +9,7 @@ return {
         skipEnteringNoNeckPainBuffer = true,
       },
       mappings = {
-        enabled = true,
+        enabled = false,
       }
     }
   }

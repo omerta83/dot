@@ -10,10 +10,10 @@ local function on_attach(client, buffer)
     vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc })
   end
 
-  keymap("gD", vim.lsp.buf.declaration, "[LSP] Go to declaration")
-  keymap("gd", vim.lsp.buf.definition, "[LSP] Go to definition")
-  keymap("gr", vim.lsp.buf.references, "[LSP] Go to references")
-  keymap("gi", vim.lsp.buf.implementation, "[LSP] Go to implementation")
+  keymap("gd", "<cmd>FzfLua lsp_definitions     jump_to_single_result=true ignore_current_line=true<cr>", "[G]oto [D]efinition")
+  keymap("gR", "<cmd>FzfLua lsp_references      jump_to_single_result=true ignore_current_line=true<cr>", "[G]oto [R]eference")
+  keymap("gI", "<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>", "[G]oto [I]mplementation")
+  keymap("gy", "<cmd>FzfLua lsp_typedefs        jump_to_single_result=true ignore_current_line=true<cr>", "[G]oto T[y]pe Definition")
   keymap("<c-s>", function()
     vim.lsp.buf.signature_help({
       border = 'rounded',
@@ -21,29 +21,28 @@ local function on_attach(client, buffer)
       max_height = math.floor(vim.o.lines * 0.5),
       max_width = math.floor(vim.o.columns * 0.4),
     })
-  end, "[LSP] Signature help", { "i", "n" })
+  end, "Signature help", { "i", "n" })
   keymap("K", function()
     vim.lsp.buf.hover({
       border = 'rounded',
       max_height = math.floor(vim.o.lines * 0.5),
       max_width = math.floor(vim.o.columns * 0.4),
     })
-  end, "[LSP] Hover")
-  keymap("<leader>ca", vim.lsp.buf.code_action, "[LSP] Code Action on Hover", { "n", "v" })
+  end, "Hover")
+  keymap("<leader>ca", vim.lsp.buf.code_action, "Show code [a]ctions on Hover", { "n", "v" })
   keymap("<leader>K", vim.diagnostic.open_float, "Line Diagnostics")
-  keymap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next Diagnostic")
-  keymap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Prev Diagnostic")
+  keymap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next [d]iagnostic")
+  keymap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Prev [d]iagnostic")
   keymap("]e", function() vim.diagnostic.jump({ count = 1, wrap = true, severity = vim.diagnostic.severity.ERROR }) end,
-    "Next Error")
+    "Next [e]rror")
   keymap("[e", function() vim.diagnostic.jump({ count = -1, wrap = true, severity = vim.diagnostic.severity.ERROR }) end,
-    "Prev Error")
+    "Prev [e]rror")
   keymap("]w", function() vim.diagnostic.jump({ count = 1, wrap = true, severity = vim.diagnostic.severity.WARN }) end,
-    "Next Warning")
+    "Next [w]arning")
   keymap("[w", function() vim.diagnostic.jump({ count = -1, wrap = true, severity = vim.diagnostic.severity.WARN }) end,
-    "Prev Warning")
-  keymap("<leader>cf", function() require('plugins.lsp.format').format() end, "[LSP] Format Code", { "n", "v" })
-  keymap("<leader>cr", vim.lsp.buf.rename, "[LSP] Rename")
-  keymap("<leader>ll", "<CMD>LspRestart<CR>", "[LSP] Restart LSP")
+    "Prev [w]arning")
+  keymap("<leader>cf", function() require('plugins.lsp.format').format() end, "Code [f]ormat", { "n", "v" })
+  keymap("<leader>cr", vim.lsp.buf.rename, "Symbol [r]ename")
 
   -- https://github.com/nvim-lua/kickstart.nvim/blob/de44f491016126204824fac2b5a7d7e544a769be/init.lua#L549C11-L576C14
   -- The following two autocommands are used to highlight references of the
@@ -91,7 +90,7 @@ local function on_attach(client, buffer)
           end,
         })
       end
-    end, { buffer = buffer, desc = '[LSP] Toggle inlay hints' })
+    end, { buffer = buffer, desc = 'Toggle inlay [h]ints' })
   end
 end
 
@@ -155,13 +154,5 @@ vim.diagnostic.config({
     end,
   }
 })
-
--- Set border for hover popup
-vim.lsp.handlers[methods.textDocument_hover] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = 'rounded',
-  }
-)
 
 return M

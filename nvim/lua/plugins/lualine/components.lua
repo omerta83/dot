@@ -49,18 +49,6 @@ local function term_str()
   )
 end
 
-local function show_searchcount()
-  if vim.v.hlsearch == 0 then
-    return ""
-  end
-  local last_search = vim.fn.getreg('/')
-  if not last_search or last_search == "" then
-    return ""
-  end
-  local search = vim.fn.searchcount({ maxcount = 0 })
-  return last_search .. "(" .. search.current .. "/" .. search.total .. ")"
-end
-
 local function show_macro_recording()
   local recording_register = vim.fn.reg_recording()
   if recording_register == "" then
@@ -75,8 +63,6 @@ local M = {
     function()
       return icons.misc.Robot
     end,
-    -- separator = separator,
-    -- color = { bg = colors.bg_highlight, fg = colors.teal },
   },
   space = {
     function()
@@ -89,22 +75,17 @@ local M = {
     'filename',
     path = 1,
     symbols = icons.file,
-    -- color = { bg = colors.blue, fg = colors.bg_dark },
-    -- separator = separator,
   },
   filetype = {
     "filetype",
-    icon_only = true,
+    icon_only = true, -- file statuses
     colored = true,
     -- icon = { align = 'right' }
-    separator = "", padding = { left = 0, right = 1 } 
-    -- color = { bg = colors.bg_highlight },
-    -- separator = separator,
+    separator = "",
+    padding = { left = 0, right = 1 },
   },
   fileformat = {
     "fileformat",
-    -- color = { bg = colors.dark5, fg = colors.bg_dark },
-    -- separator = separator,
     cond = function()
       -- only show when not unix
       return vim.bo.fileformat ~= "unix"
@@ -112,8 +93,6 @@ local M = {
   },
   encoding = {
     "encoding",
-    -- color = { bg = colors.bg_highlight, fg = colors.blue1 },
-    -- separator = separator,
     cond = function()
       -- only show when not utf-8
       return vim.bo.fileencoding ~= "utf-8"
@@ -121,10 +100,8 @@ local M = {
   },
   branch = {
     "branch",
-    -- icon = "",
     icon = icons.git.head,
-    -- color = { bg = colors.cyan, fg = colors.bg_dark },
-    -- separator = separator,
+    color = { fg = '#FF5D62' }, -- Kanagawa peachRed
   },
   diff = {
     "diff",
@@ -133,28 +110,20 @@ local M = {
       modified = icons.git.modified,
       removed = icons.git.removed,
     },
-    -- color = { bg = colors.bg_highlight },
-    -- separator = separator,
   },
-  modes = {
+  mode = {
     "mode",
-    -- fmt = function()
-    --   -- return str:sub(1, 1)
-    --   return mode_map[vim.api.nvim_get_mode().mode] or vim.api.nvim_get_mode().mode
-    -- end,
+    fmt = function(str)
+      return str:sub(1, 1)
+      -- return mode_map[vim.api.nvim_get_mode().mode] or vim.api.nvim_get_mode().mode
+    end,
   },
   tasks = {
     "overseer",
     -- separator = separator,
   },
-  -- lsp_symbols = {
-  --   function() return require("nvim-navic").get_location() end,
-  --   cond = function() return package.loaded["nvim-navic"] and require("nvim-navic").is_available() end,
-  -- },
   dia = {
     "diagnostics",
-    -- color = { bg = colors.bg_highlight },
-    -- separator = separator,
     symbols = {
       error = icons.diagnostics.ERROR,
       warn = icons.diagnostics.WARN,
@@ -168,19 +137,14 @@ local M = {
   },
   term = {
     term_str,
-    -- separator = separator,
-    -- color = { fg = colors.green }
   },
   searchcount = {
-    show_searchcount,
-    icon = icons.misc.Search,
-    -- color = { fg = colors.green, },
+    'searchcount',
   },
-  marco_recording = {
-    show_macro_recording,
-    icon = icons.misc.Record,
-    -- color = { fg = colors.red, },
-  },
+  -- marco_recording = {
+  --   show_macro_recording,
+  --   icon = icons.misc.Record,
+  -- },
 }
 
 return M

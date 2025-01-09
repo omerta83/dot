@@ -4,9 +4,9 @@ local M = {}
 M.term = {
   sections = {
     lualine_a = {
-      components.modes,
+      components.mode,
       -- components.logo,
-      components.space,
+      -- components.space,
     },
     lualine_b = {
       components.term,

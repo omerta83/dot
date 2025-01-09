@@ -14,7 +14,7 @@ return {
       indent = {
         enable = true,
 
-        disable = { --[[ 'dart', ]] 'python', 'css', 'rust' },
+        -- disable = { 'python', 'css', 'rust' },
       },
       ensure_installed = {
         "comment",
@@ -79,29 +79,11 @@ return {
         move = {
           enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
-          goto_next_start = {
-            ["]f"] = { query = "@function.outer", desc = "[Text Objects] Next function start" },
-            ["]c"] = { query = "@class.outer", desc = "[Text Objects] Next class start" },
-            --
-            -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-            ["]o"] = { query = { "@loop.*", "@block.*", "@conditional.*" }, desc = "[Text Objects] Next loop/block/conditional" },
-            -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-            ["]a"] = { query = "@parameter.inner", desc = "[Text Objects] Next parameter" },
-          },
-          goto_next_end = {
-            ["]F"] = { query = "@function.outer", desc = "[Text Objects] Next function end" },
-            ["]C"] = { query = "@class.outer", desc = "[Text Objects] Next class end" },
-          },
-          goto_previous_start = {
-            ["[f"] = { query = "@function.outer", desc = "[Text Objects] Previous function start" },
-            ["[c"] = { query = "@class.outer", desc = "[Text Objects] Previous class end" },
-            ["[a"] = "@parameter.inner",
-            ["[o"] = { query = { "@loop.*", "@block.*", "@conditional.*" }, desc = "[Text Objects] Previous loop/block/conditional" },
-          },
-          goto_previous_end = {
-            ["[F"] = { query = "@function.outer", desc = "[Text Objects] Previous function end" },
-            ["[C"] = { query = "@class.outer", desc = "[Text Objects] Previous class end" },
-          },
+          -- LazyVim move keybindings
+          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
         },
       },
     },

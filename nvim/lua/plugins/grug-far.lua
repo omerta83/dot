@@ -13,7 +13,7 @@ return {
             keymaps = { help = '?' },
           }
         end,
-        desc = 'GrugFar',
+        desc = 'GrugFar [g]rep',
         mode = { 'n', 'v' },
       },
     },

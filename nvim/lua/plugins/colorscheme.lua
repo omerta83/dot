@@ -181,6 +181,11 @@ return {
           PmenuThumb = { bg = theme.ui.bg_p2 },
 
           LspReferenceWrite = { underline = false },
+
+          -- Blink
+          BlinkCmpMenuBorder        = { link = "FloatBorder" },
+          -- BlinkCmpMenuSelection     = { fg = theme.syn.comment, bg = 'none' },
+          BlinkCmpDocBorder         = { link = "FloatBorder" },
         }
       end,
       colors = {

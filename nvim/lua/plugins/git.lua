@@ -18,19 +18,19 @@ return {
         local utils = require("util")
 
         -- stylua: ignore start
-        utils.map({ "n", "x", "o" }, "]h", gs.next_hunk, { desc = "[Gitsigns] Next Hunk" })
-        utils.map({ "n", "x", "o" }, "[h", gs.prev_hunk, { desc = "[Gitsigns] Prev Hunk" })
-        utils.map({ "n", "v" }, "<leader>gss", ":Gitsigns stage_hunk<CR>", { desc = "[Gitsigns] Stage Hunk" })
-        utils.map({ "n", "v" }, "<leader>gsr", ":Gitsigns reset_hunk<CR>", { desc = "[Gitsigns] Reset Hunk" })
-        utils.map("n", "<leader>gsS", gs.stage_buffer, { desc = "[Gitsigns] Stage Buffer" })
-        utils.map("n", "<leader>gsu", gs.undo_stage_hunk, { desc = "[Gitsigns] Undo Stage Hunk" })
-        utils.map("n", "<leader>gsR", gs.reset_buffer, { desc = "[Gitsigns] Reset Buffer" })
-        utils.map("n", "<leader>gsp", gs.preview_hunk, { desc = "[Gitsigns] Preview Hunk" })
+        utils.map({ "n", "x", "o" }, "]h", gs.next_hunk, { desc = "Next [h]unk" })
+        utils.map({ "n", "x", "o" }, "[h", gs.prev_hunk, { desc = "Prev [h]unk" })
+        utils.map({ "n", "v" }, "<leader>gss", ":Gitsigns stage_hunk<CR>", { desc = "Gitsigns [s]tage hunk" })
+        utils.map({ "n", "v" }, "<leader>gsr", ":Gitsigns reset_hunk<CR>", { desc = "Gitsigns [r]eset hunk" })
+        utils.map("n", "<leader>gsS", gs.stage_buffer, { desc = "Gitsigns [S]tage buffer" })
+        utils.map("n", "<leader>gsu", gs.undo_stage_hunk, { desc = "Gitsigns [u]ndo stage hunk" })
+        utils.map("n", "<leader>gsR", gs.reset_buffer, { desc = "Gitsigns [R]eset buffer" })
+        utils.map("n", "<leader>gsp", gs.preview_hunk, { desc = "Gitsigns [p]review hunk" })
         -- utils.map("n", "<leader>gsb", function() gs.blame_line({ full = true }) end, { desc = "[Gitsigns] Blame Line" })
-        utils.map("n", "<leader>gsb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "[Gitsigns] Toggle blame Line" })
-        utils.map("n", "<leader>gsd", gs.diffthis, { desc = "[Gitsigns] Diff This" })
-        utils.map("n", "<leader>gsD", function() gs.diffthis("~") end, { desc = "[Gitsigns] Diff This ~" })
-        utils.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "[GitSigns] Select Hunk" })
+        utils.map("n", "<leader>gsb", "<cmd>Gitsigns toggle_current_line_blame<CR>", { desc = "Gitsigns toggle [b]lame line" })
+        utils.map("n", "<leader>gsd", gs.diffthis, { desc = "Gitsigns [d]iff this" })
+        utils.map("n", "<leader>gsD", function() gs.diffthis("~") end, { desc = "Gitsigns [D]iff this ~" })
+        utils.map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Gitsigns select hunk" })
       end,
     },
   },
@@ -39,8 +39,8 @@ return {
     "tpope/vim-fugitive",
     event = "VeryLazy",
     keys = {
-      { "<leader>gf", "<cmd>Git<CR>", desc = "[Fugitive] Git Status in split view" },
-      { "<leader>gF", "<cmd>Gedit:<CR>", desc = "[Fugitive] Git Status" },
+      { "<leader>gf", "<cmd>Git<CR>", desc = "De[f]ault git status output in split view" },
+      { "<leader>gi", "<cmd>Gedit:<CR>", desc = "G[i]t status" },
     },
     config = function()
       -- vim.keymap.set("n", "<leader>gf", vim.cmd.Git)
