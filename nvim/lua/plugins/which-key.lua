@@ -2,9 +2,10 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
+    enabled = true,
     opts = {
       preset = 'helix',
-      delay = 400,
+      -- delay = 400,
       plugins = { spelling = false },
       win = {
         border = "single",

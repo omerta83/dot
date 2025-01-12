@@ -1,8 +1,8 @@
 return {
   {
     "lukas-reineke/indent-blankline.nvim",
-    -- event = "VeryLazy",
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
+    -- event = { "BufReadPost", "BufNewFile" },
     main = 'ibl',
     opts = {
       indent = {
@@ -84,4 +84,22 @@ return {
   },
 
   { 'nvim-tree/nvim-web-devicons', lazy = true },
+
+  {
+    'mrjones2014/legendary.nvim',
+    cmd = "Legendary",
+    -- sqlite is only needed if you want to use frecency sorting
+    dependencies = { 'kkharji/sqlite.lua' },
+    opts = {
+      col_separator_char = '', -- Looks better on fzf-lua
+      extensions = {
+        lazy_nvim = true,
+        smart_splits = true,
+        diffview = true,
+      },
+    },
+    keys = {
+      { '<leader>l', '<cmd>Legendary<CR>', desc = 'Open [l]egendary' },
+    },
+  }
 }
