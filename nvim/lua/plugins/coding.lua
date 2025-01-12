@@ -27,7 +27,16 @@ return {
   {
     'numToStr/Comment.nvim',
     -- event = { "BufReadPost", "BufNewFile" },
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    keys = {
+      { 'gcc', desc = 'Toggles the current line using linewise comment' },
+      { 'gbc', desc = 'Toggles the current line using blockwise comment' },
+      { 'gc', mode = 'x', desc = 'Toggles the region using linewise comment' },
+      { 'gb', mode = 'x', desc = 'Toggles the region using blockwise comment' },
+      { 'gco', desc = 'Insert comment to the next line and enters INSERT mode' },
+      { 'gcO', desc = 'Insert comment to the previous line and enters INSERT mode' },
+      { 'gcA', desc = 'Insert comment to end of the current line and enters INSERT mode' },
+    },
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring',
       init = function ()
@@ -49,8 +58,8 @@ return {
 
   {
     'echasnovski/mini.ai',
-    -- event = "VeryLazy",
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = "VeryLazy",
+    -- event = { 'BufReadPost', 'BufNewFile' },
     dependencies = { 'nvim-treesitter-textobjects' },
     opts = function()
       local ai = require("mini.ai")
@@ -94,7 +103,7 @@ return {
   {
     "danymat/neogen",
     cmd = "Neogen",
-    dependencies = 'echasnovski/mini.snippets',
+    -- dependencies = 'echasnovski/mini.snippets',
     keys = {
       {
         "<leader>cc",
@@ -104,7 +113,7 @@ return {
         desc = "Generate [c]omment",
       },
     },
-    opts = { snippet_engine = "mini" },
+    opts = { snippet_engine = "nvim" },
   },
 
   --- refactoring
@@ -261,9 +270,8 @@ return {
   -- surround
   {
     "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    -- event = "VeryLazy",
-    event = { "BufReadPost", "BufNewFile" },
+    event = "VeryLazy",
+    -- event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("nvim-surround").setup({
         aliases = {

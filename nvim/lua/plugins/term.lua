@@ -70,9 +70,24 @@ return {
   -- Navigate between nvim and tmux/kitty/wezterm
   {
     'mrjones2014/smart-splits.nvim',
-    -- lazy = false, -- disable lazy when using with wezterm
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     opts = {},
+    keys = {
+      {'<C-h>', desc = "Move to the left split"},
+      {'<C-j>', desc = "Move to the bottom split"},
+      {'<C-k>', desc = "Move to the top split"},
+      {'<C-l>', desc = "Move to the right split"},
+
+      {'<A-h>', desc = "Resize the left split"},
+      {'<A-j>', desc = "Resize the bottom split"},
+      {'<A-k>', desc = "Resize the top split"},
+      {'<A-l>', desc = "Resize the right split"},
+
+      {'<leader>wh', desc = "Swap buffer left"},
+      {'<leader>wj', desc = "Swap buffer down"},
+      {'<leader>wk', desc = "Swap buffer up"},
+      {'<leader>wl', desc = "Swap buffer right"},
+    },
     config = function(_, opts)
       require('smart-splits').setup(opts)
       -- resizing splits
