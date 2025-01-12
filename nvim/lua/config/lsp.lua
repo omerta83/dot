@@ -41,7 +41,7 @@ local function on_attach(client, buffer)
     "Next [w]arning")
   keymap("[w", function() vim.diagnostic.jump({ count = -1, wrap = true, severity = vim.diagnostic.severity.WARN }) end,
     "Prev [w]arning")
-  keymap("<leader>cf", function() require('plugins.lsp.format').format() end, "Code [f]ormat", { "n", "v" })
+  -- keymap("<leader>cf", function() require('plugins.lsp.format').format() end, "Code [f]ormat", { "n", "v" })
   keymap("<leader>cr", vim.lsp.buf.rename, "Symbol [r]ename")
 
   -- https://github.com/nvim-lua/kickstart.nvim/blob/de44f491016126204824fac2b5a7d7e544a769be/init.lua#L549C11-L576C14
