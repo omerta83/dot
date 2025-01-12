@@ -1,31 +1,34 @@
 return {
-  {
-    'echasnovski/mini.snippets',
-    version = false,
-    config = function()
-      local gen_loader = require('mini.snippets').gen_loader
-      require('mini.snippets').setup({
-        snippets = {
-          -- Load snippets based on current language by reading files from
-          -- "snippets/" subdirectories from 'runtimepath' directories.
-          gen_loader.from_lang(),
-        },
-      })
-    end
-  },
+  -- {
+  --   'echasnovski/mini.snippets',
+  --   version = false,
+  --   dependencies = 'rafamadriz/friendly-snippets',
+  --   config = function()
+  --     local gen_loader = require('mini.snippets').gen_loader
+  --     require('mini.snippets').setup({
+  --       snippets = {
+  --         -- Load snippets based on current language by reading files from
+  --         -- "snippets/" subdirectories from 'runtimepath' directories.
+  --         gen_loader.from_lang(),
+  --       },
+  --     })
+  --   end
+  -- },
 
   {
     'saghen/blink.cmp',
     enabled = true,
     event = "InsertEnter",
-    dependencies = 'echasnovski/mini.snippets',
+    -- dependencies = 'echasnovski/mini.snippets',
+    dependencies = 'rafamadriz/friendly-snippets',
     version = '*',
     opts = {
-      snippets = {
-        preset = 'mini_snippets',
-      },
+      -- snippets = {
+      --   preset = 'mini_snippets',
+      -- },
       keymap = {
-        preset = 'enter'
+        preset = 'enter',
+        ['<C-y>'] = { 'show', 'show_documentation', 'hide_documentation' },
       },
       appearance = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -41,7 +44,7 @@ return {
 
       completion = {
         list = {
-          selection = { preselect = true, auto_insert = true },
+          selection = { preselect = false, auto_insert = true },
           max_items = 20,
         },
         accept = {
@@ -51,6 +54,7 @@ return {
           },
         },
         menu = {
+          scrollbar = false,
           border = 'rounded',
           draw = {
             -- treesitter = { "lsp" },
@@ -74,9 +78,6 @@ return {
             border = 'rounded',
           }
         },
-        -- list = {
-        --   selection = "auto_insert"
-        -- },
         ghost_text = {
           enabled = false,
         },
@@ -86,9 +87,6 @@ return {
       signature = { enabled = true },
 
       sources = {
-        -- adding any nvim-cmp sources here will enable them
-        -- with blink.compat
-        -- compat = {},
         default = { "lsp", "path", "snippets", "buffer", "dadbod" },
         providers = {
           dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" }
