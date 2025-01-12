@@ -39,10 +39,10 @@ map('n', '<leader>oO', 'm`O<Esc>``', { desc = '[O]pen new line above in normal m
 map('n', '<esc>', '<cmd>stopinsert<bar>noh<cr><esc>')
 
 -- Duplicate a line and comment out the first one
-vim.keymap.set('n', 'yc', 'yygccp', { remap = true })
+map('n', 'yc', 'yygccp', { remap = true })
 
 -- Change in word
-vim.keymap.set('n', '<C-c>', 'ciw')
+map('n', '<C-c>', 'ciw')
 
 -- #/* go back to the first match
 -- map('n', '*', '*``')
@@ -54,10 +54,12 @@ map('n', ']q', '<cmd>cnext<cr>zvzz', { desc = 'Next quickfix item' })
 map('n', '[l', '<cmd>lprev<cr>zvzz', { desc = 'Previous loclist item' })
 map('n', ']l', '<cmd>lnext<cr>zvzz', { desc = 'Next loclist item' })
 
-vim.keymap.set('n', '<bs>', ':b#<CR>', { desc = 'switch to last buffer' })
+map('n', '<bs>', ':b#<CR>', { desc = 'switch to last buffer' })
 
 -- lazy
 map("n", "<leader>z", "<cmd>Lazy<cr>", { desc = "Lazy" })
+
+map("n", "<leader>.", "<cmd>Scratch<cr>", { desc = "Toggle Scratch Buffer" })
 
 -- Moving between windows using their numbers
 for i = 1, 6 do
