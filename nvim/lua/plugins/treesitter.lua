@@ -5,7 +5,7 @@ return {
     build = ":TSUpdate",
     -- event = { "BufReadPost", "BufNewFile" },
     event = "VeryLazy",
-    lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+    -- lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
     dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
     opts = {
       highlight = {
@@ -13,8 +13,6 @@ return {
       },
       indent = {
         enable = true,
-
-        -- disable = { 'python', 'css', 'rust' },
       },
       ensure_installed = {
         "comment",
@@ -52,9 +50,6 @@ return {
       context_commentstring = {
         enable = true,
         enable_autocmd = false,
-      },
-      matchup = {
-        enable = true,
       },
       incremental_selection = {
         enable = true,
