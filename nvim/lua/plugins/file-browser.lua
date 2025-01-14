@@ -1,4 +1,5 @@
--- local icons = require('config.icons')
+local detail = false
+
 return {
   {
     'stevearc/oil.nvim',
@@ -14,6 +15,17 @@ return {
         ["<C-x>"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
         ["<C-v>"] = { "actions.select", opts = { vertical = true } },
         ["`"] = false, -- disable cd
+        ["gd"] = {
+          desc = "Toggle file detail view",
+          callback = function()
+            detail = not detail
+            if detail then
+              require("oil").set_columns({ "icon", "permissions", "size", "mtime" })
+            else
+              require("oil").set_columns({ "icon" })
+            end
+          end,
+        },
       },
       float = {
         max_width = 100,
