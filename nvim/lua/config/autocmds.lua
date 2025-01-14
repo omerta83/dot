@@ -65,9 +65,22 @@ vim.api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'CmdlineEn
   end,
 })
 
-vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
-  desc = 'Redraw buffer when associated file is changed',
-  command = 'checktime',
+-- vim.api.nvim_create_autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+--   desc = 'Redraw buffer when associated file is changed',
+--   command = 'checktime',
+-- })
+-- https://github.com/stevearc/dotfiles/blob/6bc8a8c96af72ab5b0437865542db3ad5d57ba0f/.config/nvim/init.lua#L286C1-L297C3
+vim.api.nvim_create_autocmd("FocusGained", {
+  desc = "Reload files from disk when we focus vim",
+  pattern = "*",
+  command = "if getcmdwintype() == '' | checktime | endif",
+  group = vim.api.nvim_create_augroup("omerta/refresh", {}),
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+  desc = "Every time we enter an unmodified buffer, check if it changed on disk",
+  pattern = "*",
+  command = "if &buftype == '' && !&modified && expand('%') != '' | exec 'checktime ' . expand('<abuf>') | endif",
+  group = vim.api.nvim_create_augroup("omerta/refresh", {}),
 })
 
 --- :Todos - Search TODOs with fzf-lua
