@@ -59,6 +59,8 @@ return {
           -- neovim `:tmap` mappings for the fzf win
           ["<A-/>"] = "toggle-help",
           ["<C-t>"] = "toggle-fullscreen",
+          ['<C-f>'] = 'preview-page-down',
+          ['<C-b>'] = 'preview-page-up',
           -- Only valid with the 'builtin' previewer
           ["<F3>"]  = "toggle-preview-wrap",
           ["<C-/>"] = "toggle-preview",
@@ -96,8 +98,6 @@ return {
         height = 0.7,
         width = 0.5,
         preview = {
-          -- defer the execution of bat to fzf
-          -- default = 'bat_native',
           scrollbar = false,
           delay = 100,
           hidden = 'hidden',
@@ -108,6 +108,9 @@ return {
       -- Configuration for specific commands.
       files    = {
         cwd_prompt = false,
+        winopts = {
+          preview = { hidden = 'hidden' },
+        },
       },
       git      = {
         status = {
