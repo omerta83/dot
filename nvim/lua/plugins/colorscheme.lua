@@ -152,6 +152,7 @@ return {
       keywordStyle = { italic = false },
       overrides = function(colors)
         local theme = colors.theme
+        local palette = colors.palette
         return {
           -- Shortcut to transparent background
           NoneBg = { bg = "none" },
@@ -160,6 +161,8 @@ return {
           NormalFloat = { link = "NoneBg" },
           FloatBorder = { link = "NoneBg" },
           FloatTitle = { link = "NoneBg" },
+
+          CursorLineNr = { fg = palette.dragonGray2 },
 
           FzfLuaBackdrop = { bg = theme.ui.bg },
           FzfLuaNormal = { bg = theme.ui.bg },
