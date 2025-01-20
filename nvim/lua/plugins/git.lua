@@ -38,7 +38,8 @@ return {
 
   {
     "tpope/vim-fugitive",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    cmd = "Git",
     keys = {
       { "<leader>gf", "<cmd>Git<CR>", desc = "De[f]ault git status output in split view" },
       { "<leader>gi", "<cmd>Gedit:<CR>", desc = "G[i]t status" },
