@@ -27,19 +27,19 @@ return {
   {
     'numToStr/Comment.nvim',
     -- event = { "BufReadPost", "BufNewFile" },
-    -- event = "VeryLazy",
-    keys = {
-      { 'gcc', desc = 'Toggles the current line using linewise comment' },
-      { 'gbc', desc = 'Toggles the current line using blockwise comment' },
-      { 'gc', mode = 'x', desc = 'Toggles the region using linewise comment' },
-      { 'gb', mode = 'x', desc = 'Toggles the region using blockwise comment' },
-      { 'gco', desc = 'Insert comment to the next line and enters INSERT mode' },
-      { 'gcO', desc = 'Insert comment to the previous line and enters INSERT mode' },
-      { 'gcA', desc = 'Insert comment to end of the current line and enters INSERT mode' },
-    },
+    event = "VeryLazy",
+    -- keys = {
+    --   { 'gcc', desc = 'Toggles the current line using linewise comment' },
+    --   { 'gbc', desc = 'Toggles the current line using blockwise comment' },
+    --   { 'gc',  mode = 'x',                                                               desc = 'Toggles the region using linewise comment' },
+    --   { 'gb',  mode = 'x',                                                               desc = 'Toggles the region using blockwise comment' },
+    --   { 'gco', desc = 'Insert comment to the next line and enters INSERT mode' },
+    --   { 'gcO', desc = 'Insert comment to the previous line and enters INSERT mode' },
+    --   { 'gcA', desc = 'Insert comment to end of the current line and enters INSERT mode' },
+    -- },
     dependencies = {
       'JoosepAlviste/nvim-ts-context-commentstring',
-      init = function ()
+      init = function()
         vim.g.skip_ts_context_commentstring_module = true
       end,
     },
@@ -47,56 +47,16 @@ return {
       require('Comment').setup({
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
       })
+      -- Fix which-key not responding to gc and gb
+      -- https://github.com/numToStr/Comment.nvim/issues/483
+      -- vim.keymap.del("n", "gc")
+      -- vim.keymap.del("n", "gb")
+      -- local wk = require('which-key')
+      -- wk.add({
+      --   { "gb", group = "Comment toggle blockwise" },
+      --   { "gc", group = "Comment toggle linewise" },
+      -- })
     end
-  },
-  -- {
-  --   'folke/ts-comments.nvim',
-  --   opts = {},
-  --   event = 'VeryLazy',
-  --   enabled = vim.fn.has('nvim-0.10.0') == 1,
-  -- },
-
-  {
-    'echasnovski/mini.ai',
-    event = "VeryLazy",
-    -- event = { 'BufReadPost', 'BufNewFile' },
-    dependencies = { 'nvim-treesitter-textobjects' },
-    opts = function()
-      local ai = require("mini.ai")
-      return {
-        n_lines = 500,
-        -- Whether to disable showing non-error feedback
-        silent = true,
-        custom_textobjects = {
-          o = ai.gen_spec.treesitter({ -- code block
-            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
-            i = { "@block.inner", "@conditional.inner", "@loop.inner" },
-          }),
-          f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
-          c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),       -- class
-          C = require('vim._comment').textobject,                                       -- Comment
-          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },           -- tags
-          d = { "%f[%d]%d+" },                                                          -- digits
-          e = {                                                                         -- Word with case
-            { "%u[%l%d]+%f[^%l%d]", "%f[%S][%l%d]+%f[^%l%d]", "%f[%P][%l%d]+%f[^%l%d]", "^[%l%d]+%f[^%l%d]" },
-            "^().*()$",
-          },
-          i = require('util.mini').ai_indent,                        -- indent
-          g = require('util.mini').ai_buffer,                        -- buffer
-          u = ai.gen_spec.function_call(),                           -- u for "Usage"
-          U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
-        },
-      }
-    end,
-    config = function(_, opts)
-      require("mini.ai").setup(opts)
-      -- register all text objects with which-key
-      if require("util").has("which-key.nvim") then
-        vim.schedule(function()
-          require('util.mini').ai_whichkey(opts)
-        end)
-      end
-    end,
   },
 
   --- Generate docs
