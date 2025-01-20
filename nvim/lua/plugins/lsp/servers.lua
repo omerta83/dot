@@ -3,13 +3,16 @@ M.cssls = {}
 M.gopls = {
   settings = {
     gopls = {
+      directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
       experimentalPostfixCompletions = true,
+      gofumpt = true,
+      completeUnimported = true,
       analyses = {
         unusedparams = true,
         shadow = true,
       },
       staticcheck = true,
-      semanticTokens = true,
+      -- semanticTokens = true,
     }
   },
 }
@@ -102,7 +105,8 @@ M.vtsls = {
           -- Use volar for only .vue files and tsserver for .ts and .js files.
           {
             name = "@vue/typescript-plugin",
-            location = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
+            -- location = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
+            location = require('util').get_mason_pkg_path('vue-language-server') ..
               "/node_modules/@vue/language-server",
             languages = { "vue" },
             -- configNamespace = "typescript",
@@ -182,9 +186,9 @@ M.lua_ls = {
       completion = {
         keywordSnippet = "Both",
         callSnippet = "Both",
-        showWord = "Disable",    -- already done by completion plugin
-        workspaceWord = false,   -- already done by completion plugin
-        postfix = ".",           -- useful for `table.insert` and the like
+        showWord = "Disable",  -- already done by completion plugin
+        workspaceWord = false, -- already done by completion plugin
+        postfix = ".",         -- useful for `table.insert` and the like
       },
       diagnostics = {
         disable = { "incomplete-signature-doc", "trailing-space" },

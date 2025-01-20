@@ -42,7 +42,7 @@ function M.has(plugin)
   return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
-function M.get_dap_adapter_path(name)
+function M.get_mason_pkg_path(name)
   return require('mason-registry').get_package(name):get_install_path()
 end
 
