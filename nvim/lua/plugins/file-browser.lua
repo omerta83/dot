@@ -37,6 +37,18 @@ return {
     -- dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
+  {
+    'chrisgrieser/nvim-genghis',
+    cmd = "Genghis",
+    keys = {
+      { "<leader>Gn", "<cmd>Genghis createNewFile<CR>",         desc = "Create new file" },
+      { "<leader>Gr", "<cmd>Genghis renameFile<CR>",            desc = "Rename file or directory" },
+      { "<leader>Gc", "<cmd>Genghis copyFilepath<CR>",          desc = "Copy file path" },
+      { "<leader>GC", "<cmd>Genghis copyFilepathWithTilde<CR>", desc = "Copy filepath with ~" },
+      { "<leader>Gd", "<cmd>Genghis trashFile<CR>",             desc = "Search files" },
+    }
+  },
+
   -- {
   --   'nvim-tree/nvim-tree.lua',
   --   cmd = 'NvimTreeToggle',
