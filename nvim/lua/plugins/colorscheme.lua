@@ -189,6 +189,13 @@ return {
           BlinkCmpMenuBorder        = { link = "FloatBorder" },
           -- BlinkCmpMenuSelection     = { fg = theme.syn.comment, bg = 'none' },
           BlinkCmpDocBorder         = { link = "FloatBorder" },
+
+          -- LspInlayHint = { bg = theme.ui.nontext, fg = theme.ui.bg_m3 },
+          LspInlayHint = { fg = theme.ui.nontext },
+          ["@lsp.typemod.function.readonly"] = { bold = false },
+          -- Make this treesitter hl the same as lsp's semantic highlighting
+          ["@variable"] = { link = "Constant" },
+          ["@type"] = { link = "Constant" },
         }
       end,
       colors = {
@@ -203,6 +210,8 @@ return {
     },
     config = function(_, opts)
       require('kanagawa').setup(opts)
+      -- Drop the priority of semantic tokens below treesitter (100)
+      -- vim.highlight.priorities.semantic_tokens = 75
       vim.api.nvim_command("colorscheme kanagawa-dragon")
     end
   },
