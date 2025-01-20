@@ -12,17 +12,11 @@ map('n', '<C-u>', '<C-u>zz', { desc = 'Scroll upwards' })
 -- Keep search results at the center of screen
 map("n", "n", "nzzzv", { desc = 'Next result', silent = true })
 map("n", "N", "Nzzzv", { desc = 'Prev result', silent = true })
--- map('n', 'n', function()
---   vim.cmd('silent normal! nzzzv')
--- end, { desc = 'Move to next search result' })
--- map('n', 'N', function()
---   vim.cmd('silent normal! Nzzzv')
--- end, { desc = 'Move to previous search result' })
 
 -- Indent while remaining in visual mode.
 map('v', '<', '<gv', { desc = 'Indent left in visual mode' })
 map('v', '>', '>gv', { desc = 'Indent right in visual mode' })
--- Move lines up and down in visual mode. 
+-- Move lines up and down in visual mode.
 map("x", "J", ":m '>+1<CR>gv=gv", { desc = 'Move lines down in visual mode' })
 map("x", "K", ":m '<-2<CR>gv=gv", { desc = 'Move lines up in visual mode' })
 -- Join lines and retain the cursor position
@@ -60,6 +54,16 @@ map('n', '<bs>', ':b#<CR>', { desc = 'switch to last buffer' })
 map("n", "<leader>z", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 map("n", "<leader>.", "<cmd>Scratch<cr>", { desc = "Toggle Scratch Buffer" })
+
+vim.g.status_bar_enabled = true
+map("n", "<leader>S", function()
+  vim.g.status_bar_enabled = not vim.g.status_bar_enabled
+  if vim.g.status_bar_enabled then
+    vim.opt.laststatus = 3
+  else
+    vim.opt.laststatus = 0
+  end
+end, { desc = "Toggle [S]tatusline" })
 
 -- Moving between windows using their numbers
 for i = 1, 6 do

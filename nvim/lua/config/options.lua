@@ -67,8 +67,10 @@ o.incsearch = true
 -- opt.hlsearch = false
 o.undolevels = 1500
 o.autoindent = true
+
 o.foldlevel = 99
 o.foldlevelstart = 99
+-- o.foldopen = 'hor'
 -- opt.foldenable = true
 -- opt.fillchars = {
 --   foldopen = "",
