@@ -92,7 +92,7 @@ return {
           dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" }
         },
         -- Disable cmdline for now
-        cmdline = {},
+        -- cmdline = {},
       },
     }
   }

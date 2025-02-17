@@ -12,7 +12,7 @@ M.gopls = {
         shadow = true,
       },
       staticcheck = true,
-      -- semanticTokens = true,
+      semanticTokens = true,
     }
   },
 }

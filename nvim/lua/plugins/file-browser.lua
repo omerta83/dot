@@ -26,6 +26,7 @@ return {
             end
           end,
         },
+        ['gq'] = { "actions.close", mode = "n" },
       },
       float = {
         max_width = 100,
