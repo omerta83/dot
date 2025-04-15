@@ -79,6 +79,12 @@ local M = {
     Value = "󰎠",
     Variable = "󰀫",
   },
+  arrows = {
+    right = '',
+    left = '',
+    up = '',
+    down = '',
+  },
   misc = {
     Bell = "",
     Gear = "󰢻",
