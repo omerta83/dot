@@ -155,7 +155,7 @@ return {
           }),
         },
         performance = {
-          max_view_entries = 100,
+          max_view_entries = 20,
         },
       })
 

@@ -1,31 +1,13 @@
 return {
-  -- {
-  --   'echasnovski/mini.snippets',
-  --   version = false,
-  --   dependencies = 'rafamadriz/friendly-snippets',
-  --   config = function()
-  --     local gen_loader = require('mini.snippets').gen_loader
-  --     require('mini.snippets').setup({
-  --       snippets = {
-  --         -- Load snippets based on current language by reading files from
-  --         -- "snippets/" subdirectories from 'runtimepath' directories.
-  --         gen_loader.from_lang(),
-  --       },
-  --     })
-  --   end
-  -- },
-
   {
     'saghen/blink.cmp',
     enabled = true,
     event = "InsertEnter",
-    -- dependencies = 'echasnovski/mini.snippets',
-    dependencies = 'rafamadriz/friendly-snippets',
     version = '*',
     opts = {
-      -- snippets = {
-      --   preset = 'mini_snippets',
-      -- },
+      cmdline = {
+        enabled = false
+      },
       keymap = {
         preset = 'enter',
         ['<C-y>'] = { 'show', 'show_documentation', 'hide_documentation' },
@@ -44,7 +26,7 @@ return {
 
       completion = {
         list = {
-          selection = { preselect = false, auto_insert = true },
+          selection = { preselect = false, auto_insert = false },
           max_items = 20,
         },
         accept = {
@@ -87,13 +69,31 @@ return {
       signature = { enabled = true },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "dadbod" },
+        default = function()
+          local sources = { 'lsp', 'buffer' }
+          local ok, node = pcall(vim.treesitter.get_node)
+
+          if ok and node then
+            if not vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+              table.insert(sources, 'path')
+            end
+            if node:type() ~= 'string' then
+              table.insert(sources, 'snippets')
+            end
+          end
+
+          return sources
+        end,
+        per_filetype = { sql = { 'dadbod' } },
         providers = {
-          dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" }
-        },
-        -- Disable cmdline for now
-        -- cmdline = {},
+          dadbod = { module = "vim_dadbod_completion.blink" },
+        }
       },
-    }
+    },
+    config = function(_, opts)
+      require('blink.cmp').setup(opts)
+      -- Extend neovim's client capabilities with the completion ones.
+      vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities(nil, true) })
+    end
   }
 }

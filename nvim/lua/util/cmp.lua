@@ -116,19 +116,12 @@ M.blink_kind_icon = {
     -- detect emmet-ls
     local source, client = ctx.item.source_id, ctx.item.client_id
     local lspName = client and vim.lsp.get_client_by_id(client).name
-    if lspName == "emmet_language_server" then source = "emmet" end
 
-    -- use source-specific icons, and `kind_icon` only for items from LSPs
-    local sourceIcons = {
-      snippets = "󰩫",
-      luasnip = "󰩫",
-      -- buffer = "󰦨",
-      buffer = '',
-      emmet = "",
-      path = "",
-      cmdline = "󰘳",
-    }
-    return sourceIcons[source] or icon
+    if source == "snippets" then return "󰩫" end
+    if source == "buffer" then return "﬘" end
+    if source == "path" then return "" end
+    if lspName == "emmet_language_server" then return "" end
+    return icon
   end,
 }
 M.blink_label_description = {
