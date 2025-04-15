@@ -1,28 +1,4 @@
 return {
-  --- Copilot
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    opts = {
-      suggestion = {
-        enabled = true,
-        auto_trigger = true,
-        keymap = {
-          accept = '<M-CR>',
-          accept_word = '<M-w>',
-          accept_line = '<M-e>',
-          next = '<M-]>',
-          prev = '<M-[>',
-          dismiss = '<C-e>',
-        }
-      },
-      panel = {
-        enabled = false,
-      }
-    },
-  },
-
   -- comment
   {
     'numToStr/Comment.nvim',

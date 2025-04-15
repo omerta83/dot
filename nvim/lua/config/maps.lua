@@ -51,7 +51,7 @@ map('n', ']l', '<cmd>lnext<cr>zvzz', { desc = 'Next loclist item' })
 map('n', '<bs>', ':b#<CR>', { desc = 'switch to last buffer' })
 
 -- lazy
-map("n", "<leader>z", "<cmd>Lazy<cr>", { desc = "Lazy" })
+map("n", "<leader>Z", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 map("n", "<leader>.", "<cmd>Scratch<cr>", { desc = "Toggle Scratch Buffer" })
 

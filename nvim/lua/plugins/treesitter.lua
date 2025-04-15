@@ -65,10 +65,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ["<leader>a"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with next argument/parameter" },
+            ["<leader>ta"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with next argument/parameter" },
           },
           swap_previous = {
-            ["<leader>A"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with prev argument/parameter" }
+            ["<leader>tA"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with prev argument/parameter" }
           },
         },
         move = {

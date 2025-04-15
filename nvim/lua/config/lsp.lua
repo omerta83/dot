@@ -10,10 +10,10 @@ local function on_attach(client, buffer)
     vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc })
   end
 
-  keymap("gd", "<cmd>FzfLua lsp_definitions     jump_to_single_result=true ignore_current_line=true<cr>", "[G]oto [D]efinition")
-  keymap("gR", "<cmd>FzfLua lsp_references      jump_to_single_result=true ignore_current_line=true<cr>", "[G]oto [R]eference")
-  keymap("gI", "<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>", "[G]oto [I]mplementation")
-  keymap("gy", "<cmd>FzfLua lsp_typedefs        jump_to_single_result=true ignore_current_line=true<cr>", "[G]oto T[y]pe Definition")
+  keymap("gd", "<cmd>FzfLua lsp_definitions     jump1=true ignore_current_line=true<cr>", "[G]oto [D]efinition")
+  keymap("gR", "<cmd>FzfLua lsp_references      jump1=true ignore_current_line=true<cr>", "[G]oto [R]eference")
+  keymap("gI", "<cmd>FzfLua lsp_implementations jump1=true ignore_current_line=true<cr>", "[G]oto [I]mplementation")
+  keymap("gy", "<cmd>FzfLua lsp_typedefs        jump1=true ignore_current_line=true<cr>", "[G]oto T[y]pe Definition")
   keymap("<c-s>", function()
     vim.lsp.buf.signature_help({
       border = 'rounded',
@@ -50,7 +50,7 @@ local function on_attach(client, buffer)
   --    See `:help CursorHold` for information about when this is executed
   --
   -- When you move your cursor, the highlights will be cleared (the second autocommand).
-  if client and client.supports_method(methods.textDocument_documentHighlight) then
+  if client and client:supports_method(methods.textDocument_documentHighlight) then
     local highlight_augroup = vim.api.nvim_create_augroup('omerta/lsp-highlight', { clear = false })
     vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
       buffer = buffer,
@@ -74,7 +74,7 @@ local function on_attach(client, buffer)
   end
 
   -- Toggle inlay hints
-  if client.supports_method(methods.textDocument_inlayHint) then
+  if client:supports_method(methods.textDocument_inlayHint) then
     -- <leader>ci already used for vtsls for filetype autocmd
     vim.keymap.set('n', '<leader>ch', function()
       local enabled = vim.lsp.inlay_hint.is_enabled { bufnr = buffer }
@@ -153,6 +153,19 @@ vim.diagnostic.config({
       return prefix, 'Diagnostic' .. level:gsub('^%l', string.upper)
     end,
   }
+})
+
+-- Set up LSP servers.
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
+  once = true,
+  callback = function()
+    local server_configs = vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
+      :map(function(file)
+        return vim.fn.fnamemodify(file, ':t:r')
+      end)
+      :totable()
+    vim.lsp.enable(server_configs)
+  end,
 })
 
 return M
