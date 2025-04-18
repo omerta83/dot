@@ -40,6 +40,7 @@ return {
         { "<leader>t",  group = "terminal" },
         { "<leader>w",  group = "window" },
         { "<leader>x",  group = "diagnostics/quickfix" },
+        { "<leader>A",  group = "AI" },
       })
     end,
   },

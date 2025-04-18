@@ -11,7 +11,7 @@ local jsts_settings = {
 return {
   cmd = { 'vtsls', '--stdio' },
   filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-  root_markers = { 'tsconfig.json', 'jsonconfig.json' },
+  root_markers = { 'tsconfig.json', 'jsonconfig.json', 'package.json', '.git' },
   settings = {
     complete_function_calls = true,
     vtsls = {

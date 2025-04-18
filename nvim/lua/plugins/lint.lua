@@ -1,3 +1,4 @@
+local uv = vim.uv or vim.loop
 return {
   {
     "mfussenegger/nvim-lint",
@@ -11,9 +12,9 @@ return {
       "vue",
     },
     opts = {
-      default_format_opts = {
-        lsp_format = "fallback",
-      },
+      -- default_format_opts = {
+      --   lsp_format = "fallback",
+      -- },
       linters_by_ft = {
         javascript = { "oxlint" },
         javascriptreact = { "oxlint" },
@@ -27,7 +28,6 @@ return {
     },
     config = function(_, opts)
       -- Copied from https://github.com/stevearc/dotfiles/blob/8a34b64a26f5479ac8837b2fb5bdf65464bb0712/.config/nvim/lua/plugins/lint.lua
-      local uv = vim.uv or vim.loop
       local lint = require("lint")
 
       lint.linters_by_ft = opts.linters_by_ft

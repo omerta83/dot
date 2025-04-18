@@ -1,3 +1,5 @@
+-- Install with `brew install lua-language-server`
+-- Do not use Mason version as it does not work well
 ---@type vim.lsp.Config
 return {
   cmd = { 'lua-language-server' },
