@@ -20,7 +20,7 @@ return {
         javascriptreact = { "oxlint" },
         typescript = { "oxlint" },
         typescriptreact = { "oxlint" },
-        vue = { "oxlint" },
+        -- vue = { "oxlint" },
         go = { "golangcilint" },
         python = { "ruff" },
       },
