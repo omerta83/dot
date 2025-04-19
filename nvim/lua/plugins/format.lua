@@ -34,7 +34,7 @@ return {
             end
           end)
         end,
-        mode = "",
+        mode = { "n", "v" },
         desc = 'Code [f]ormat',
       }
     },

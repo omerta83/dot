@@ -35,18 +35,53 @@ return {
       end
     end)
   end,
+  -- init_options = {
+  --   usePlaceholders = true,
+  -- },
   settings = {
     gopls = {
       directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
       experimentalPostfixCompletions = true,
       gofumpt = true,
       completeUnimported = true,
-      analyses = {
-        unusedparams = true,
-        shadow = true,
-      },
+      vulncheck = "Imports",
       staticcheck = true,
       semanticTokens = true,
+      analyses = {
+        shadow = true,
+        fillreturns = true,
+        nonewvars = true,
+        staticcheck = true,
+        structure = true,
+        unparam = true,
+        deadcode = true,
+        nilness = true,
+        typeparams = true,
+
+        unusedwrite = true,
+        unusedparams = true,
+        unusedresult = true,
+      },
+      codelenses = {
+        references = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        regenerate_cgo = true,
+        generate = true,
+        gc_details = false,
+        run_govulncheck = true,
+        vendor = true,
+      },
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
     }
   },
 }
