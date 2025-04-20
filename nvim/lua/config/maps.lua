@@ -71,3 +71,27 @@ for i = 1, 6 do
   local rhs = i .. "<c-w>w"
   map("n", lhs, rhs, { desc = "Move to window " .. i })
 end
+
+-- All the ways to start a search, with a description
+-- https://www.reddit.com/r/neovim/comments/1k27y0t/go_back_to_the_start_of_a_search_for_the_current/
+local mark_search_keys = {
+  ["/"] = "Search forward",
+  ["?"] = "Search backward",
+  ["*"] = "Search current word (forward)",
+  ["#"] = "Search current word (backward)",
+  -- ["$"] = "Search current word (backward)",
+  ["g*"] = "Search current word (forward, not whole word)",
+  ["g#"] = "Search current word (backward, not whole word)",
+  -- ["g$"] = "Search current word (backward, not whole word)",
+}
+
+-- Before starting the search, set a mark `s`
+for key, desc in pairs(mark_search_keys) do
+  vim.keymap.set("n", key, "ms" .. key, { desc = desc })
+end
+
+-- Clear search highlight when jumping back to beginning
+vim.keymap.set("n", "`s", function()
+  vim.cmd("normal! `s")
+  vim.cmd.nohlsearch()
+end)
