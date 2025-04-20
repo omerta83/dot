@@ -1,0 +1,4 @@
+[tools]
+golangci-lint = "latest"
+node = "lts"
+pnpm = "10"
