@@ -2,13 +2,20 @@ return {
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
+    init = function()
+      vim.o.timeoutlen = 300
+    end,
     enabled = true,
     opts = {
       preset = 'helix',
-      delay = 400,
+      -- delay = 300,
       plugins = { spelling = false },
       win = {
         border = "single",
+      },
+      icons = {
+        mappings = false,
+        colors = false,
       },
       keys = {
         scroll_down = '<C-f>',
@@ -34,8 +41,11 @@ return {
         { "<leader>f",  group = "find" },
         { "<leader>g",  group = "git" },
         { "<leader>gs", group = "gitsigns" },
-        -- { "<leader>gd", group = "diffview" },
+        { "<leader>gd", group = "diffview" },
         { "<leader>o",  group = "ops" },
+        { "<leader>G",  group = "files" },
+        { "<leader>M",  group = "molten" },
+        { "<leader>R",  group = "rest" },
         { "<leader>cx", group = "refactor" },
         { "<leader>t",  group = "terminal" },
         { "<leader>w",  group = "window" },
