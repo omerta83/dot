@@ -5,10 +5,6 @@ function M.has(plugin)
   return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
-function M.get_mason_pkg_path(name)
-  return require('mason-registry').get_package(name):get_install_path()
-end
-
 function M.map(mode, l, r, opts)
   opts = opts or {}
   vim.keymap.set(mode, l, r, opts)

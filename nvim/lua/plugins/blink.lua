@@ -3,13 +3,18 @@ return {
     'saghen/blink.cmp',
     enabled = true,
     event = "InsertEnter",
-    version = '*',
+    dependencies = { "fang2hou/blink-copilot" },
+    version = '1.*',
     opts = {
       cmdline = {
         enabled = false
       },
+      term = {
+        enabled = false
+      },
       keymap = {
-        preset = 'enter',
+        -- preset = 'enter',
+        preset = 'super-tab',
         ['<C-y>'] = { 'show', 'show_documentation', 'hide_documentation' },
       },
       appearance = {
@@ -26,8 +31,8 @@ return {
 
       completion = {
         list = {
-          selection = { preselect = false, auto_insert = false },
-          max_items = 20,
+          selection = { preselect = true, auto_insert = false },
+          max_items = 10,
         },
         accept = {
           -- experimental auto-brackets support
@@ -70,7 +75,7 @@ return {
 
       sources = {
         default = function()
-          local sources = { 'lsp', 'buffer' }
+          local sources = { 'lsp', 'buffer', 'copilot' }
           local ok, node = pcall(vim.treesitter.get_node)
 
           if ok and node then
@@ -84,9 +89,15 @@ return {
 
           return sources
         end,
-        per_filetype = { sql = { 'dadbod' } },
+        -- per_filetype = { sql = { 'dadbod' } },
         providers = {
-          dadbod = { module = "vim_dadbod_completion.blink" },
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
+          },
+          --   dadbod = { module = "vim_dadbod_completion.blink" },
         }
       },
     },
