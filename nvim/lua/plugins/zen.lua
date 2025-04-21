@@ -2,7 +2,8 @@ return {
   {
     "shortcuts/no-neck-pain.nvim",
     version = "*",
-    lazy = false,
+    lazy = true,
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       autocmds = {
         enableOnVimEnter = true,
