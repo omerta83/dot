@@ -6,7 +6,7 @@ return {
     event = 'InsertEnter',
     opts = {
       suggestion = {
-        enabled = true,
+        enabled = false, -- use blink instead
         auto_trigger = false,
         keymap = {
           accept = '<M-CR>',
@@ -49,6 +49,19 @@ return {
     }
   },
 
+  -- Install with `pnpm install -g @github/copilot-language-server`
+  -- {
+  --   "copilotlsp-nvim/copilot-lsp",
+  --   event = "VeryLazy",
+  --   init = function()
+  --     vim.g.copilot_nes_debounce = 500
+  --     vim.lsp.enable("copilot")
+  --     vim.keymap.set("n", "<tab>", function()
+  --       require("copilot-lsp.nes").apply_pending_nes()
+  --     end)
+  --   end,
+  -- },
+
   {
     "joshuavial/aider.nvim",
     cmd = { "AiderOpen", "AiderAddModifiedFiles" },
@@ -66,7 +79,7 @@ return {
     },
     opts = {
       auto_manage_context = false, -- automatically manage buffer context
-      default_bindings = false,   -- use default <leader>A keybindings
+      default_bindings = false,    -- use default <leader>A keybindings
     },
   }
 }

@@ -16,6 +16,7 @@ return {
         -- preset = 'enter',
         preset = 'super-tab',
         ['<C-y>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<CR>'] = { 'accept', 'fallback' },
       },
       appearance = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -31,7 +32,7 @@ return {
 
       completion = {
         list = {
-          selection = { preselect = true, auto_insert = false },
+          selection = { preselect = false, auto_insert = false },
           max_items = 10,
         },
         accept = {

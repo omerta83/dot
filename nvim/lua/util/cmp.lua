@@ -118,7 +118,7 @@ M.blink_kind_icon = {
     local lspName = client and vim.lsp.get_client_by_id(client).name
 
     if source == "snippets" then return "󰩫" end
-    if source == "buffer" then return "﬘" end
+    if source == "buffer" then return "" end
     if source == "path" then return "" end
     if lspName == "emmet_language_server" then return "" end
     return icon
@@ -126,6 +126,9 @@ M.blink_kind_icon = {
 }
 M.blink_label_description = {
   text = function(ctx)
+    if (ctx.kind == 'Copilot') then
+      return ''
+    end
     local newline_char = '↲'
     local label_description = ctx.item.labelDetails and ctx.item.labelDetails.description or ''
     return (ctx.item.detail or label_description):gsub('\n', newline_char)

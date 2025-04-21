@@ -1,38 +1,39 @@
 return {
   -- comment
   {
-    'numToStr/Comment.nvim',
-    -- event = { "BufReadPost", "BufNewFile" },
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    init = function()
+      vim.g.skip_ts_context_commentstring_module = true
+    end,
+    opts = {
+      enable_autocmd = false,
+    }
+  },
+
+  -- {
+  --   'numToStr/Comment.nvim',
+  --   -- event = { "BufReadPost", "BufNewFile" },
+  --   event = "VeryLazy",
+  --   dependencies = 'nvim-ts-context-commentstring',
+  --   config = function()
+  --     require('Comment').setup({
+  --       pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+  --     })
+  --   end
+  -- },
+
+  {
+    'echasnovski/mini.comment',
+    version = false,
     event = "VeryLazy",
-    -- keys = {
-    --   { 'gcc', desc = 'Toggles the current line using linewise comment' },
-    --   { 'gbc', desc = 'Toggles the current line using blockwise comment' },
-    --   { 'gc',  mode = 'x',                                                               desc = 'Toggles the region using linewise comment' },
-    --   { 'gb',  mode = 'x',                                                               desc = 'Toggles the region using blockwise comment' },
-    --   { 'gco', desc = 'Insert comment to the next line and enters INSERT mode' },
-    --   { 'gcO', desc = 'Insert comment to the previous line and enters INSERT mode' },
-    --   { 'gcA', desc = 'Insert comment to end of the current line and enters INSERT mode' },
-    -- },
-    dependencies = {
-      'JoosepAlviste/nvim-ts-context-commentstring',
-      init = function()
-        vim.g.skip_ts_context_commentstring_module = true
-      end,
-    },
-    config = function()
-      require('Comment').setup({
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      })
-      -- Fix which-key not responding to gc and gb
-      -- https://github.com/numToStr/Comment.nvim/issues/483
-      -- vim.keymap.del("n", "gc")
-      -- vim.keymap.del("n", "gb")
-      -- local wk = require('which-key')
-      -- wk.add({
-      --   { "gb", group = "Comment toggle blockwise" },
-      --   { "gc", group = "Comment toggle linewise" },
-      -- })
-    end
+    dependencies = 'nvim-ts-context-commentstring',
+    opts = {
+      options = {
+        custom_commentstring = function()
+          return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
+        end,
+      }
+    }
   },
 
   --- Generate docs

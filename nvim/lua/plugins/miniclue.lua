@@ -3,6 +3,7 @@ return {
   {
     'echasnovski/mini.clue',
     event = 'VeryLazy',
+    enabled = false,
     opts = function()
       local miniclue = require 'mini.clue'
 
