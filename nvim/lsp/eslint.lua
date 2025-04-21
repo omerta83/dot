@@ -1,36 +1,4 @@
--- Install with: `pnpm i -g vscode-langservers-extracted` or mason
 -- https://github.com/neovim/nvim-lspconfig/blob/d3ad666b7895f958d088cceb6f6c199672c404fe/lua/lspconfig/configs/eslint.lua#L70
-local lsp = vim.lsp
-
-local function fix_all(opts)
-  opts = opts or {}
-
-  local eslint_lsp_client = vim.lsp.get_clients({ bufnr = opts.bufnr, name = 'eslint' })[1]
-  if eslint_lsp_client == nil then
-    return
-  end
-
-  local request
-  if opts.sync then
-    request = function(bufnr, method, params)
-      eslint_lsp_client.request_sync(method, params, {}, bufnr)
-    end
-  else
-    request = function(bufnr, method, params)
-      eslint_lsp_client.request(method, params, nil, bufnr)
-    end
-  end
-
-  request(0, 'workspace/executeCommand', {
-    command = 'eslint.applyAllFixes',
-    arguments = {
-      {
-        uri = vim.uri_from_bufnr(0),
-        version = lsp.util.buf_versions[0],
-      },
-    },
-  })
-end
 
 ---@type vim.lsp.Config
 return {
@@ -47,6 +15,7 @@ return {
     '.eslintrc',
     '.eslintrc.js',
     '.eslintrc.json',
+    '.eslintrc.cjs',
     'eslint.config.js',
     'eslint.config.mjs',
   },
@@ -92,14 +61,4 @@ return {
       return {}
     end,
   },
-  on_attach = function()
-    vim.api.nvim_buf_create_user_command(
-      0,
-      'EslintFixAll',
-      function()
-        fix_all { sync = true, bufnr = 0 }
-      end,
-      { desc = 'Fix all eslint problems for this buffer' }
-    )
-  end
 }

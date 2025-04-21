@@ -1,3 +1,5 @@
+-- Install with `pnpm install -g @vtsls/language-server`
+
 local jsts_settings = {
   suggest = { completeFunctionCalls = true },
   inlayHints = {
@@ -10,7 +12,7 @@ local jsts_settings = {
 ---@type vim.lsp.Config
 return {
   cmd = { 'vtsls', '--stdio' },
-  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' },
   root_markers = { 'tsconfig.json', 'jsonconfig.json', 'package.json', '.git' },
   settings = {
     complete_function_calls = true,
@@ -28,12 +30,11 @@ return {
           -- Use volar for only .vue files and tsserver for .ts and .js files.
           {
             name = "@vue/typescript-plugin",
-            -- location = require("mason-registry").get_package("vue-language-server"):get_install_path() ..
-            location = require('util').get_mason_pkg_path('vue-language-server') ..
-              "/node_modules/@vue/language-server",
+            -- vue-language-server installed with brew
+            location = '/usr/local/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server',
             languages = { "vue" },
-            -- configNamespace = "typescript",
-            -- enableForWorkspaceTypeScriptVersions = true,
+            configNamespace = "typescript",
+            enableForWorkspaceTypeScriptVersions = true,
           }
 
         }

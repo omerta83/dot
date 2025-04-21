@@ -9,7 +9,7 @@ local volar_init_options = {
     tsdk = '',
   },
   vue = {
-    hybridMode = false
+    hybridMode = true
   }
 }
 ---@type vim.lsp.Config
@@ -28,15 +28,8 @@ return {
   init_options = volar_init_options,
   before_init = function(_, config)
     if config.init_options and config.init_options.typescript and config.init_options.typescript.tsdk == '' then
+      ---@diagnostic disable-next-line: inject-field
       config.init_options.typescript.tsdk = get_typescript_server_path(config.root_dir)
     end
   end,
-  -- init_options = {
-  --   typescript = {
-  --     tsdk = vim.fn.getcwd() .. "/node_modules/typescript/lib"
-  --   },
-  --   vue = {
-  --     hybridMode = false
-  --   }
-  -- }
 }
