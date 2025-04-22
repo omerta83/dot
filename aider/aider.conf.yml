@@ -18,8 +18,7 @@
 # Main model:
 
 ## Specify the model to use for the main chat
-model: openrouter/deepseek/deepseek-chat-v3-0324:free
-
+model: openrouter/deepseek/deepseek-chat:free
 ########################
 # API Keys and settings:
 
@@ -308,7 +307,7 @@ check-update: false
 #install-main-branch: false
 
 ## Upgrade aider to the latest version from PyPI
-upgrade: true
+upgrade: false
 
 ## Show the version number and exit
 #version: xxx
@@ -369,10 +368,9 @@ upgrade: true
 ## specify a read-only file (can be used multiple times)
 #read: xxx
 ## Specify multiple values like this:
-#read:
-#  - xxx
-#  - yyy
-#  - zzz
+read:
+ - CONVENTIONS.md
+ - .clinerules # Compatibilty with CLine
 
 ## Use VI editing mode in the terminal (default: False)
 vim: true
