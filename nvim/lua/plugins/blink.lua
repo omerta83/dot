@@ -13,8 +13,23 @@ return {
         enabled = false
       },
       keymap = {
-        -- preset = 'enter',
         preset = 'super-tab',
+        ['<C-space>'] = {},
+        ["<Tab>"] = {
+          function(cmp)
+            if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+              cmp.hide()
+              return require("copilot-lsp.nes").apply_pending_nes()
+            end
+            if cmp.snippet_active() then
+              return cmp.accept()
+            else
+              return cmp.select_and_accept()
+            end
+          end,
+          "snippet_forward",
+          "fallback",
+        },
         ['<C-y>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<CR>'] = { 'accept', 'fallback' },
       },

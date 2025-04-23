@@ -4,6 +4,7 @@ return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
     event = 'InsertEnter',
+    copilot_model = "gpt-4o-copilot", -- Current LSP default is gpt-35-turbo, supports gpt-4o-copilot
     opts = {
       suggestion = {
         enabled = false, -- use blink instead
@@ -32,7 +33,7 @@ return {
     build = "make tiktoken",                          -- Only on MacOS or Linux
     opts = {
       -- See Configuration section for options
-      model = 'claude-3.5-sonnet',
+      model = 'claude-3.7-sonnet',
     },
     -- See Commands section for default commands if you want to lazy load on them
     cmd = { "CopilotChatModels" },
@@ -50,36 +51,15 @@ return {
   },
 
   -- Install with `pnpm install -g @github/copilot-language-server`
-  -- {
-  --   "copilotlsp-nvim/copilot-lsp",
-  --   event = "VeryLazy",
-  --   init = function()
-  --     vim.g.copilot_nes_debounce = 500
-  --     vim.lsp.enable("copilot")
-  --     vim.keymap.set("n", "<tab>", function()
-  --       require("copilot-lsp.nes").apply_pending_nes()
-  --     end)
-  --   end,
-  -- },
-
   {
-    "joshuavial/aider.nvim",
-    cmd = { "AiderOpen", "AiderAddModifiedFiles" },
-    keys = {
-      {
-        '<leader>Ao',
-        ':AiderOpen<CR>i',
-        desc = "Open Aider",
-      },
-      {
-        '<leader>Am',
-        ':AiderAddModifiedFiles<CR>',
-        desc = "Add all git-modified files to the Aider chat",
-      }
-    },
-    opts = {
-      auto_manage_context = false, -- automatically manage buffer context
-      default_bindings = false,    -- use default <leader>A keybindings
-    },
-  }
+    "copilotlsp-nvim/copilot-lsp",
+    event = "VeryLazy",
+    init = function()
+      vim.g.copilot_nes_debounce = 500
+      vim.lsp.enable("copilot")
+      vim.keymap.set("n", "<tab>", function()
+        require("copilot-lsp.nes").apply_pending_nes()
+      end)
+    end,
+  },
 }
