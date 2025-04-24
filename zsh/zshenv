@@ -28,6 +28,16 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range :500 {}'"
 export FZF_ALT_C_OPTS="--preview 'eza -l --tree --color=always --icons {} | head -200'"
 
+# List conda envs
+fzf-conda-activate () {
+    conda activate "$(conda env list | sed 's/\*/ /;1,2d' | xargs -I {} bash -c ' name_path=( {} ); py_version=( $(${name_path[1]}/bin/python --version) ); echo ${name_path[0]} ${py_version[1]} ${name_path[1]} ' | column -t | fzf | awk '{print $1}')"
+}
+
+# LLM
+export ANTHROPIC_API_KEY=$(security find-generic-password -a "anthropic-api-key" -s "Anthropic API Key" -w)
+export OPENROUTER_API_KEY=$(security find-generic-password -a "openrouter-api-key" -s "OpenRouter API Key" -w)
+export GEMINI_API_KEY=$(security find-generic-password -a "gemini-api-key" -s "Gemini API Key" -w)
+
 # Use nvim as manpager
 export MANPAGER='nvim +Man!'
 export MANWIDTH=999
