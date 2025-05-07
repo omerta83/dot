@@ -1,0 +1,85 @@
+### Language servers
+
+# vtsls
+# Install: `pnpm install -g @vtsls/language-server`
+# Override typescript-language-server with vtsls
+[language-server.typescript-language-server]
+command = "vtsls"
+args = ["--stdio"]
+config.hostInfo = "helix"
+
+[language-server.typescript-language-server.config.typescript]
+# updateImportsOnFileMove = { enabled = "always" }
+suggest = { completeFunctionCalls = true }
+
+[language-server.typescript-language-server.config.typescript.inlayHints]
+functionLikeReturnTypes = { enabled = true }
+parameterNames = { enabled = 'literals' }
+variableTypes = { enabled = true }
+
+[language-server.typescript-language-server.config.vtsls]
+enableMoveToFileCodeAction = true
+autoWorkspaceTsdk = true
+experimental = [{ completion = { enableServerSizeFuzzyMatch = true } }]
+
+# Vue plugin for tsserver
+[language-server.typescript-language-server.config.vtsls.tsserver]
+globalPlugins = [{ name = "@vue/typescript-plugin", location = "/usr/local/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server", languages = ["vue"], configNamespace = "typescript", enableForWorkspaceTypeScriptVersions = true }]
+
+# Volar
+[language-server.volar]
+command = "vue-language-server"
+args = ["--stdio"]
+
+[language-server.volar.config]
+vue = { hybridMode = true }
+typescript = { tsdk = "~/.pnpm/global/5/node_modules/typescript/lib" }
+
+# Ruff
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+### Languages
+
+# https://github.com/helix-editor/helix/wiki/Language-Server-Configurations#vue
+[[language]]
+name = "vue"
+roots = ["package.json", ".git"]
+file-types = ["vue"]
+auto-format = false
+formatter = { command = "prettier", args = ["--parser", "vue"] }
+language-servers = ["typescript-language-server", "volar"]
+
+[[language]]
+name = "go"
+auto-format = false
+formatter = { command = "goimports" }
+
+[[language]]
+name = "python"
+language-servers = [ "basedpyright", "ruff" ]
+
+[[language]]
+name = "html"
+language-servers = [ "vscode-html-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "css"
+language-servers = [ "vscode-css-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "jsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "tsx"
+language-servers = [ "typescript-language-server", "tailwindcss-ls" ]
+
+[[language]]
+name = "svelte"
+language-servers = [ "svelteserver", "tailwindcss-ls" ]
