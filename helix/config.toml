@@ -9,6 +9,10 @@ line-number = "relative"
 insert-final-newline = false
 popup-border = 'all'
 shell = ["zsh", "-c"]
+end-of-line-diagnostics = "error"
+
+[editor.statusline]
+right = ["diagnostics", "version-control", "selections", "position-percentage", "file-encoding"]
 
 [editor.cursor-shape]
 insert = 'bar'

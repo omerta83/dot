@@ -12,11 +12,6 @@ config.hostInfo = "helix"
 # updateImportsOnFileMove = { enabled = "always" }
 suggest = { completeFunctionCalls = true }
 
-[language-server.typescript-language-server.config.typescript.inlayHints]
-functionLikeReturnTypes = { enabled = true }
-parameterNames = { enabled = 'literals' }
-variableTypes = { enabled = true }
-
 [language-server.typescript-language-server.config.vtsls]
 enableMoveToFileCodeAction = true
 autoWorkspaceTsdk = true

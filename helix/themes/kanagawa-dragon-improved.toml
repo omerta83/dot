@@ -1,14 +1,17 @@
 # https://github.com/Luke-Marques/dotfiles/blob/a516b848f83767d7979ebcbd5aa5b8cfc95a8217/dots/helix/themes/kanagawa-dragon-improved.toml
 inherits = "kanagawa-dragon"
 
+"ui.background" = { bg = "#090E13" }
 # Buffers
 "ui.bufferline" = { fg = "dragonBlack6", bg = "dragonBlack3" }
 "ui.bufferline.active" = { fg = "dragonGray2", bg = "dragonBlack3" }
 "ui.bufferline.background" = { bg = "dragonBlack3" }
 
 # Gutter
-"ui.gutter" = { fg = "dragonBlack3", bg = "dragonBlack3" }
-"ui.linenr" = { fg = "dragonBlack5", bg = "dragonBlack3" }
+# "ui.gutter" = { fg = "dragonBlack3", bg = "dragonBlack3" }
+"ui.gutter" = { fg = "dragonBlack3", bg = "#090E13" }
+# "ui.linenr" = { fg = "dragonBlack5", bg = "dragonBlack3" }
+"ui.linenr" = { fg = "dragonBlack5", bg = "#090E13" }
 "ui.linenr.selected" = { fg = "dragonGray2", modifiers = ["bold"] }
 
 # Cursor line/column highlight
