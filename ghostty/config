@@ -12,7 +12,8 @@ font-thicken = false
 window-inherit-font-size = true
 
 ### Look and feel
-theme = dark:"Kanagawa Dragon",light:"Kanagawa Wave"
+# theme = dark:"Kanagawa Dragon",light:"Kanagawa Wave"
+theme = dark:"kanso-zen",light:"kanso-pearl"
 #theme = nightfox
 #background = "#161616"
 #foreground = "#f2f4f8"
@@ -35,7 +36,8 @@ window-padding-x = 8
 window-padding-y = 0
 window-padding-balance = true
 window-width = 9999
-window-height = 9999
+window-height = 99999
+maximize = true
 
 ### Icon
 # macos-icon = custom-style
