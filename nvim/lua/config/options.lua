@@ -58,7 +58,7 @@ o.wildmode = "longest:full,full" -- Command-line completion mode
 o.winminwidth = 5 -- Minimum window width
 o.winblend = 0
 o.wildoptions = 'pum' -- cmdline autocomplete menu
-o.background = 'dark'
+-- o.background = 'dark'
 o.swapfile = false
 
 o.hidden = true

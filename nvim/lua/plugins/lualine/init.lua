@@ -13,6 +13,7 @@ return {
     return {
       options = {
         theme = require('util.lualine').theme(),
+        -- theme = 'kanso',
         component_separators = '',
         section_separators = '',
         globalstatus = true,

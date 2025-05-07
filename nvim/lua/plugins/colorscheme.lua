@@ -79,70 +79,6 @@ return {
   --   end
   -- },
 
-  -- {
-  --   "EdenEast/nightfox.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {
-  --     groups = {
-  --       all = {
-  --         StatusLine                = { bg = "bg1" },
-  --         NormalFloat               = { bg = "bg1" },
-  --         FloatBorder               = { bg = "bg1", fg = "bg4" },
-  --
-  --         -- CursorLineNr = { fg = "magenta" },
-  --         CursorLine                = { bg = "bg1", fg = "NONE" },
-  --
-  --         Pmenu                     = { bg = "bg2", fg = "NONE" },
-  --
-  --         -- FZF
-  --         FzfLuaBorder              = { link = "FloatBorder" },
-  --         FzfLuaBackdrop            = { bg = "bg1" },
-  --
-  --         -- Blink
-  --         BlinkCmpMenuBorder        = { link = "FloatBorder" },
-  --         BlinkCmpMenuSelection     = { link = "Pmenu" },
-  --         -- BlinkCmpDoc               = { link = "CmpDocumentation" },
-  --         -- BlinkCmpDocBorder         = { link = "CmpDocumentationBorder" },
-  --         BlinkCmpDocBorder         = { link = "FloatBorder" },
-  --         BlinkCmpLabel             = { link = "CmpItemAbbr" },
-  --         BlinkCmpLabelDeprecated   = { link = "CmpItemAbbrDeprecated" },
-  --         BlinkCmpLabelMatch        = { link = "CmpItemAbbrMatch" },
-  --         BlinkCmpMenu              = { link = "CmpItemMenu" },
-  --         -- BlinkCmpKind              = { link = "CmpItemKindDefault" },
-  --         BlinkCmpKind              = { link = "CmpItemKindValue" },
-  --         BlinkCmpKindKeyword       = { link = "CmpItemKindKeyword" },
-  --         BlinkCmpKindVariable      = { link = "CmpItemKindVariable" },
-  --         BlinkCmpKindConstant      = { link = "CmpItemKindConstant" },
-  --         BlinkCmpKindReference     = { link = "CmpItemKindReference" },
-  --         BlinkCmpKindValue         = { link = "CmpItemKindValue" },
-  --         BlinkCmpKindFunction      = { link = "CmpItemKindFunction" },
-  --         BlinkCmpKindMethod        = { link = "CmpItemKindMethod" },
-  --         BlinkCmpKindConstructor   = { link = "CmpItemKindConstructor" },
-  --         BlinkCmpKindInterface     = { link = "CmpItemKindInterface" },
-  --         BlinkCmpKindEvent         = { link = "CmpItemKindEvent" },
-  --         BlinkCmpKindEnum          = { link = "CmpItemKindEnum" },
-  --         BlinkCmpKindUnit          = { link = "CmpItemKindUnit" },
-  --         BlinkCmpKindClass         = { link = "CmpItemKindClass" },
-  --         BlinkCmpKindStruct        = { link = "CmpItemKindStruct" },
-  --         BlinkCmpKindModule        = { link = "CmpItemKindModule" },
-  --         BlinkCmpKindProperty      = { link = "CmpItemKindProperty" },
-  --         BlinkCmpKindField         = { link = "CmpItemKindField" },
-  --         BlinkCmpKindTypeParameter = { link = "CmpItemKindTypeParameter" },
-  --         BlinkCmpKindEnumMember    = { link = "CmpItemKindEnumMember" },
-  --         BlinkCmpKindOperator      = { link = "CmpItemKindOperator" },
-  --         BlinkCmpKindSnippet       = { link = "CmpItemKindSnippet" },
-  --       }
-  --     }
-  --
-  --   },
-  --   config = function(_, opts)
-  --     require('nightfox').setup(opts)
-  --
-  --     vim.api.nvim_command("colorscheme carbonfox")
-  --   end
-  -- },
-
   {
     'rebelot/kanagawa.nvim',
     lazy = false,
@@ -155,43 +91,45 @@ return {
         local palette = colors.palette
         return {
           -- Shortcut to transparent background
-          NoneBg = { bg = "none" },
-          CursorLine = { link = "NoneBg" },
-          StatusLine = { link = "NoneBg" },
-          NormalFloat = { link = "NoneBg" },
-          FloatBorder = { link = "NoneBg" },
-          FloatTitle = { link = "NoneBg" },
+          NoneBg                             = { bg = "none" },
+          CursorLine                         = { link = "NoneBg" },
+          StatusLine                         = { link = "NoneBg" },
+          NormalFloat                        = { link = "NoneBg" },
+          FloatBorder                        = { link = "NoneBg" },
+          FloatTitle                         = { link = "NoneBg" },
 
-          CursorLineNr = { fg = palette.dragonGray2 },
+          CursorLineNr                       = { fg = palette.dragonGray2 },
 
-          FzfLuaBackdrop = { bg = theme.ui.bg },
-          FzfLuaNormal = { bg = theme.ui.bg },
+          -- FzfLuaBackdrop = { bg = theme.ui.bg },
+          -- FzfLuaNormal = { bg = theme.ui.bg },
+          FzfLuaBackdrop                     = { link = "NoneBg" },
+          FzfLuaNormal                       = { link = "NoneBg" },
 
           -- Save an hlgroup with dark background and dimmed foreground
           -- so that you can use it where your still want darker windows.
           -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
-          NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
+          NormalDark                         = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
 
           -- Popular plugins that open floats will link to NormalFloat by default;
           -- set their background accordingly if you wish to keep them dark and borderless
-          LazyNormal = { bg = theme.ui.bg, fg = theme.ui.fg_dim },
-          MasonNormal = { bg = theme.ui.bg, fg = theme.ui.fg_dim },
+          LazyNormal                         = { bg = theme.ui.bg, fg = theme.ui.fg_dim },
+          MasonNormal                        = { bg = theme.ui.bg, fg = theme.ui.fg_dim },
 
           -- Autocompletion popup
-          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg }, -- add `blend = vim.o.pumblend` to enable transparency
-          PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
-          PmenuSbar = { bg = theme.ui.bg_m1 },
-          PmenuThumb = { bg = theme.ui.bg_p2 },
+          Pmenu                              = { fg = theme.ui.shade0, bg = "NONE" }, -- add `blend = vim.o.pumblend` to enable transparency
+          PmenuSel                           = { fg = "NONE", bg = theme.ui.bg_p2 },
+          PmenuSbar                          = { bg = theme.ui.bg_m1 },
+          PmenuThumb                         = { bg = theme.ui.bg_p2 },
 
-          LspReferenceWrite = { underline = false },
+          LspReferenceWrite                  = { underline = false },
 
           -- Blink
-          BlinkCmpMenuBorder        = { link = "FloatBorder" },
+          BlinkCmpMenuBorder                 = { link = "FloatBorder" },
           -- BlinkCmpMenuSelection     = { fg = theme.syn.comment, bg = 'none' },
-          BlinkCmpDocBorder         = { link = "FloatBorder" },
+          BlinkCmpDocBorder                  = { link = "FloatBorder" },
 
           -- LspInlayHint = { bg = theme.ui.nontext, fg = theme.ui.bg_m3 },
-          LspInlayHint = { fg = theme.ui.nontext },
+          LspInlayHint                       = { fg = theme.ui.nontext },
           ["@lsp.typemod.function.readonly"] = { bold = false },
           -- Make this treesitter hl the same as lsp's semantic highlighting
           -- ["@variable"] = { link = "Constant" },
@@ -207,88 +145,64 @@ return {
           }
         }
       },
+      background = {
+        dark = "dragon",
+        light = "wave"
+      }
     },
     config = function(_, opts)
       require('kanagawa').setup(opts)
       -- Drop the priority of semantic tokens below treesitter (100)
-      -- vim.highlight.priorities.semantic_tokens = 95
-      vim.api.nvim_command("colorscheme kanagawa-dragon")
+      -- -- vim.highlight.priorities.semantic_tokens = 95
+      -- vim.api.nvim_command("colorscheme kanagawa-dragon")
     end
   },
 
-  -- {
-  --   'folke/tokyonight.nvim',
-  --   lazy = true,
-  --   priority = 1000,
-  --   opts = {
-  --     style = 'night',
-  --     styles = {
-  --       sidebars = "transparent"
-  --     },
-  --     on_highlights = function(hl, c)
-  --       hl.Normal = { ctermbg = c.none }
-  --       hl.StatusLine = { bg = c.bg }
-  --       hl.NormalFloat = { bg = c.bg }
-  --       hl.FloatBorder = { bg = c.none, fg = c.border_highlight }
-  --       -- hl.FloatBorder = { bg = c.none, fg = c.bg_highlight }
-  --       hl.CursorLineNr = { fg = c.magenta }
-  --       hl.CursorLine = { bg = c.none, bold = false }
-  --       hl.VertSplit = { fg = c.magenta }
-  --
-  --       hl.TelescopeBorder = { bg = c.none, fg = c.border_highlight }
-  --       hl.TelescopeNormal = { bg = c.none, fg = c.fg }
-  --       hl.TelescopeSelection = { bg = c.none }
-  --
-  --       -- FzfLua
-  --       hl.FzfLuaBorder = { link = "FloatBorder" }
-  --
-  --       hl.InclineNormal = { bg = c.bg }
-  --       hl.InclineNormalNC = { fg = c.bg_highlight }
-  --
-  --       hl.DiagnosticVirtualTextHint = { bg = c.none, fg = c.hint }
-  --       hl.DiagnosticVirtualTextInfo = { bg = c.none, fg = c.info }
-  --       hl.DiagnosticVirtualTextWarn = { bg = c.none, fg = c.warning }
-  --       hl.DiagnosticVirtualTextError = { bg = c.none, fg = c.error }
-  --
-  --       hl.NeoTreeNormal = { bg = c.bg }
-  --       hl.NeoTreeNormalNC = { bg = c.bg }
-  --
-  --       hl.NvimTreeNormal = { bg = c.bg }
-  --       hl.NvimTreeNormalNC = { bg = c.bg }
-  --
-  --       -- cmp
-  --       hl.CmpItemAbbrDeprecated = { bg = 'NONE', strikethrough = true, fg = '#808080' }
-  --       hl.CmpItemAbbrMatch = { bg = 'NONE', fg = '#569CD6' }
-  --       hl.CmpItemAbbrMatchFuzzy = { link = 'CmpIntemAbbrMatch' }
-  --       hl.CmpItemKindVariable = { bg = 'NONE', fg = '#9CDCFE' }
-  --       hl.CmpItemKindInterface = { link = 'CmpItemKindVariable' }
-  --       hl.CmpItemKindText = { link = 'CmpItemKindVariable' }
-  --       hl.CmpItemKindFunction = { bg = 'NONE', fg = '#C586C0' }
-  --       hl.CmpItemKindMethod = { link = 'CmpItemKindFunction' }
-  --       hl.CmpItemKindKeyword = { bg = 'NONE', fg = '#D4D4D4' }
-  --       hl.CmpItemKindProperty = { link = 'CmpItemKindKeyword' }
-  --       hl.CmpItemKindUnit = { link = 'CmpItemKindKeyword' }
-  --       hl.CmpItemKindCopilot = { fg = "#6CC644" }
-  --
-  --       hl.Folded = {
-  --         -- bg = '#15161e'
-  --         bg = c.bg_dark
-  --       }
-  --
-  --       hl.LspInlayHint = {
-  --         fg = c.comment,
-  --         italic = true
-  --       }
-  --
-  --       -- Statusline
-  --       hl.StatusLineModeNormal = { fg = c.orange }
-  --       hl.StatusLineLSPNames = { bg = c.bg, fg = c.purple }
-  --     end
-  --   },
-  --   config = function(_, opts)
-  --     require('tokyonight').setup(opts)
-  --
-  --     -- vim.api.nvim_command("colorscheme tokyonight")
-  --   end
-  -- }
+  {
+    "webhooked/kanso.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      keywordStyle = { italic = false },
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+            }
+          }
+        }
+      },
+      background = {
+        dark = "zen",
+        light = "pearl"
+      },
+      overrides = function()
+        return {
+          -- Shortcut to transparent background
+          NoneBg             = { bg = "none" },
+          FloatBorder        = { link = "NoneBg" },
+          CursorLine         = { link = "NoneBg" },
+
+          FzfLuaBackdrop     = { link = "NoneBg" },
+          FzfLuaNormal       = { link = "NoneBg" },
+
+          -- -- Autocompletion popup
+          Pmenu              = { link = "NoneBg" }, -- add `blend = vim.o.pumblend` to enable transparency
+          -- PmenuSel           = { fg = "NONE" },
+          -- PmenuSbar          = { bg = "NONE" },
+          -- PmenuThumb         = { bg = "NONE" },
+
+          -- Blink
+          BlinkCmpMenuBorder = { link = "FloatBorder" },
+          -- BlinkCmpMenuSelection     = { fg = theme.syn.comment, bg = 'none' },
+          BlinkCmpDocBorder  = { link = "FloatBorder" },
+        }
+      end
+    },
+    config = function(_, opts)
+      require('kanso').setup(opts)
+      vim.api.nvim_command("colorscheme kanso")
+    end
+  },
 }

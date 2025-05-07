@@ -45,54 +45,7 @@ M.theme = function()
 
     return kanagawa
   else
-    local Color = require('nightfox.lib.color')
-    local s = require('nightfox.spec').load('carbonfox')
-    local p = s.palette
-    local base = Color.from_hex(s.bg0)
-
-    local function fade(color, amount)
-      amount = amount or 0.5
-      return base:blend(Color.from_hex(color), amount):to_css()
-    end
-
-    return {
-      normal = {
-        a = { fg = p.blue.base, gui = "bold" },
-        b = { fg = p.blue.base },
-        c = { fg = s.fg2 },
-      },
-
-      insert = {
-        a = { fg = p.green.base, gui = "bold" },
-        b = { fg = p.green.base },
-      },
-
-      command = {
-        a = { fg = p.yellow.base, gui = "bold" },
-        b = { fg = p.yellow.base },
-      },
-
-      visual = {
-        a = { fg = p.magenta.base, gui = "bold" },
-        b = { fg = p.magenta.base },
-      },
-
-      replace = {
-        a = { fg = fade(p.red.base), gui = "bold" },
-        b = { fg = fade(p.red.base) },
-      },
-
-      terminal = {
-        a = { fg = p.orange.base, gui = "bold" },
-        b = { fg = p.orange.base },
-      },
-
-      inactive = {
-        a = { fg = p.blue.base },
-        b = { fg = s.fg3, gui = "bold" },
-        c = { fg = s.syntax.comment },
-      },
-    }
+    return vim.g.colors_name
   end
 end
 

@@ -36,7 +36,6 @@ return {
             configNamespace = "typescript",
             enableForWorkspaceTypeScriptVersions = true,
           }
-
         }
       }
     },
