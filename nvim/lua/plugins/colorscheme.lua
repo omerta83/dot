@@ -154,7 +154,7 @@ return {
       require('kanagawa').setup(opts)
       -- Drop the priority of semantic tokens below treesitter (100)
       -- -- vim.highlight.priorities.semantic_tokens = 95
-      -- vim.api.nvim_command("colorscheme kanagawa-dragon")
+      -- vim.api.nvim_command("colorscheme kanagawa")
     end
   },
 

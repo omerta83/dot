@@ -56,7 +56,7 @@ return {
         typescriptreact = biome_or_other,
         vue = biome_or_other,
         lua = { 'stylua' },
-        python = { 'ruff' },
+        python = { 'ruff_format' },
         -- https://github.com/mvdan/gofumpt (strict gofmt)
         -- https://pkg.go.dev/golang.org/x/tools/cmd/goimports (auto import)
         -- https://github.com/incu6us/goimports-reviser (organize imports)

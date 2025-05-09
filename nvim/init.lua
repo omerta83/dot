@@ -52,7 +52,6 @@ require("lazy").setup({
         "tohtml",
         -- "man",
         "rplugin",
-        -- "osc52",
         -- "spellfile",
         "tutor",
         "zipPlugin",

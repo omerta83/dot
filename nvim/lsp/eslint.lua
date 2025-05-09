@@ -4,12 +4,12 @@
 return {
   cmd = { 'vscode-eslint-language-server', '--stdio' },
   filetypes = {
-    'javascript',
-    'javascriptreact',
-    'typescript',
-    'typescriptreact',
+    -- 'javascript',
+    -- 'javascriptreact',
+    -- 'typescript',
+    -- 'typescriptreact',
     'graphql',
-    'vue',
+    -- 'vue',
   },
   root_markers = {
     '.eslintrc',
