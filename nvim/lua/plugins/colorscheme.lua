@@ -187,6 +187,8 @@ return {
           FzfLuaBackdrop     = { link = "NoneBg" },
           FzfLuaNormal       = { link = "NoneBg" },
 
+          LspReferenceWrite  = { underline = false },
+
           -- -- Autocompletion popup
           Pmenu              = { link = "NoneBg" }, -- add `blend = vim.o.pumblend` to enable transparency
           -- PmenuSel           = { fg = "NONE" },

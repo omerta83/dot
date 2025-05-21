@@ -22,6 +22,7 @@ return {
     "tailwind.config.cjs",
     "tailwind.config.mjs",
     "tailwind.config.ts",
+    "postcss.config.mjs",
   },
   -- Disable single file support so that tailwind is not attached
   -- when no root directory found

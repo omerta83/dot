@@ -16,25 +16,6 @@ local icons = require('config.icons')
 --   s = '(´ ▽｀) ',
 -- }
 
-local function getLspNames()
-  local msg = "No Active Lsp"
-  local buf_ft = vim.bo.filetype
-  local separator = icons.misc.VertSeparator
-  local clients = vim.lsp.get_clients()
-  if next(clients) == nil then
-    return msg
-  end
-  local clientNames = ''
-  for _, client in ipairs(clients) do
-    local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-      clientNames = clientNames ..
-        (clientNames == '' and '' or separator) .. client.name:gsub("[-_].*$", "") -- remove any characters after - or _
-    end
-  end
-  return clientNames ~= '' and clientNames or msg
-end
-
 local function term_str()
   return string.format(
     "%s %s %s Terminal %s %s",
@@ -114,8 +95,11 @@ local M = {
     },
   },
   lsp = {
-    getLspNames,
+    'lsp_status',
     icon = icons.misc.Gear,
+    symbols = {
+      separator = icons.misc.VertSeparator,
+    }
   },
   term = {
     term_str,
