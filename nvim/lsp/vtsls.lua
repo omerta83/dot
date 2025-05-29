@@ -15,7 +15,6 @@ return {
   filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' },
   root_markers = { 'tsconfig.json', 'jsonconfig.json', 'package.json', '.git' },
   settings = {
-    complete_function_calls = true,
     vtsls = {
       enableMoveToFileCodeAction = true,
       autoUseWorkspaceTsdk = true,

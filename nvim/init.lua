@@ -23,7 +23,7 @@ require("lazy").setup({
   defaults = { lazy = true },
   install = {
     missing = true,
-    colorscheme = { "kanagawa-dragon" }
+    colorscheme = { "kanso" }
   },
   ui = {
     border = "single",
