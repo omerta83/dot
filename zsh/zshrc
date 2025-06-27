@@ -25,12 +25,14 @@ zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down,shift-tab:toggle+up'
 
 export PNPM_HOME="$HOME/.pnpm"
 export GEM_HOME=$HOME/.gem
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-24.jdk/Contents/Home
 export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$PNPM_HOME:$HOME/.local/bin:$HOME/go/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools"
+export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$PNPM_HOME:$HOME/.local/bin:$HOME/go/bin"
 # export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH"
-# export PATH=$PATH:$ANDROID_HOME/emulator
-# export PATH=$PATH:$ANDROID_HOME/platform-tools
+PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+PATH=$PATH:$ANDROID_SDK_ROOT/tools
+PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 # ctop and colima
 export DOCKER_HOST="unix://$HOME/.config/colima/docker.sock"

@@ -2,6 +2,7 @@
 cask_args appdir: "~/Applications", require_sha: true
 
 brew "aider"
+brew "ast-grep"
 brew "basedpyright"
 brew "bat"
 brew "biome"
@@ -26,6 +27,7 @@ brew "python@3.13"
 brew "repomix"
 brew "ripgrep"
 brew "ruff"
+brew "rust-analyzer"
 brew "rustywind"
 brew "sesh"
 brew "tailwindcss-language-server"
