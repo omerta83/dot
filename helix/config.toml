@@ -1,3 +1,5 @@
+# https://www.reddit.com/r/HelixEditor/comments/1kxoi7g/what_would_be_your_preferred_helix_setup_for_helix/
+# Inspiration: https://github.com/wildestwest/dotfiles/blob/74b9746978dad9d5621c224677b586dc21837312/helix/config.toml
 theme = "kanagawa-dragon-improved"
 
 [editor]
@@ -9,10 +11,26 @@ line-number = "relative"
 insert-final-newline = false
 popup-border = 'all'
 shell = ["zsh", "-c"]
-end-of-line-diagnostics = "error"
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
 
 [editor.statusline]
-right = ["diagnostics", "version-control", "selections", "position-percentage", "file-encoding"]
+# left = ["mode", "file-name", "read-only-indicator", "file-modification-indicator", "spinner"]
+# right = ["diagnostics", "version-control", "selections", "position-percentage", "file-encoding"]
+left = ["mode", "spinner", "read-only-indicator", "file-modification-indicator"]
+center = ["file-name", "version-control"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+goto-reference-include-declaration = false
+display-inlay-hints = true
+display-progress-messages = true
 
 [editor.cursor-shape]
 insert = 'bar'
@@ -31,13 +49,25 @@ newline = ""
 
 [keys.insert]
 C-s = "signature_help"
+C-h = ["jump_view_left", "insert_mode"]
+C-l = ["jump_view_right", "insert_mode"]
+
 
 [keys.normal]
+H = ":buffer-previous"
+L = ":buffer-next"
+X = "select_line_above"
+C-h = "jump_view_left"
+C-l = "jump_view_right"
+# C-k = "page_cursor_half_up"
+# C-j = "page_cursor_half_down"
+ret = "goto_word"
 "$" = "goto_line_end"
 "0" = "goto_line_start"
 "_" = "goto_first_nonwhitespace"
 S-d = "kill_to_line_end"
 esc = ["collapse_selection", "keep_primary_selection"]
+# File browser with yazi
 C-y = [
   ':sh rm -f /tmp/unique-file',
   ':insert-output yazi "%{buffer_name}" --chooser-file=/tmp/unique-file',
@@ -45,3 +75,29 @@ C-y = [
   ':open %sh{cat /tmp/unique-file}',
   ':redraw',
 ]
+# lazygit
+C-g = [
+  ":new",
+  ":insert-output lazygit", 
+  ":buffer-close!", 
+  ":redraw", 
+  ":reload-all"
+]
+
+# Match in next instance of pair
+[keys.normal.m.n]
+"(" = "@s\\(<ret>nmim"
+"{" = "@s\\{<ret>nmim"
+"[" = "@s\\[<ret>nmim"
+'"' = '@s\"<ret>nmim'
+"'" = "@s\\'<ret>nmim"
+"<" = "@s<lt><ret>nmim"
+
+# Match in previous instance of pair
+[keys.normal.m.p]
+"(" = "@s\\)<ret>Nmmmim"
+"{" = "@s\\}<ret>Nmmmim"
+"[" = "@s\\]<ret>Nmmmim"
+'"' = '@s\"<ret>Nmmmim'
+"'" = "@s\\'<ret>Nmmmim"
+"<" = "@s<gt><ret>Nmmmim"

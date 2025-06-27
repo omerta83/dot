@@ -82,6 +82,7 @@ return {
   {
     'rebelot/kanagawa.nvim',
     lazy = false,
+    enabled = false,
     priority = 1000,
     opts = {
       compile = false,

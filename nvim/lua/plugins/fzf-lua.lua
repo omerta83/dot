@@ -40,6 +40,7 @@ return {
     { '<leader>gt', '<cmd>FzfLua git_status<cr>',                 desc = 'Git s[t]atus with FZF' },
     { '<leader>gC', '<cmd>FzfLua git_commits<cr>',                desc = 'Git project [C]ommits with FZF' },
     { '<leader>gc', '<cmd>FzfLua git_bcommits<cr>',               desc = 'Git buffer [c]ommits with FZF' },
+    { '<leader>gm', '<cmd>FzfLua git_diff<cr>',                   desc = 'Show git [m]odified files with FZF' },
   },
   opts = function()
     local actions = require "fzf-lua.actions"

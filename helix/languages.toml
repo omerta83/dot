@@ -22,22 +22,28 @@ experimental = [{ completion = { enableServerSizeFuzzyMatch = true } }]
 globalPlugins = [{ name = "@vue/typescript-plugin", location = "/usr/local/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server", languages = ["vue"], configNamespace = "typescript", enableForWorkspaceTypeScriptVersions = true }]
 
 # Volar
-[language-server.volar]
-command = "vue-language-server"
-args = ["--stdio"]
+# [language-server.volar]
+# command = "vue-language-server"
+# args = ["--stdio"]
 
-[language-server.volar.config]
-vue = { hybridMode = true }
-typescript = { tsdk = "~/.pnpm/global/5/node_modules/typescript/lib" }
+# [language-server.volar.config]
+# vue = { hybridMode = true }
+# typescript = { tsdk = "~/.pnpm/global/5/node_modules/typescript/lib" }
+
+[language-server.vuels.config.vue]
+hybridMode = true
 
 # Ruff
-[language-server.ruff]
-command = "ruff"
-args = ["server"]
+# [language-server.ruff]
+# command = "ruff"
+# args = ["server"]
 
 [language-server.tailwindcss-ls]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
+
+[language-server.basedpyright.config]
+basedpyright.analysis.diagnosticMode = "openFilesOnly"
 
 ### Languages
 

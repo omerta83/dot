@@ -54,7 +54,8 @@ return {
         javascriptreact = biome_or_other,
         typescript = biome_or_other,
         typescriptreact = biome_or_other,
-        vue = biome_or_other,
+        -- vue = biome_or_other,
+        vue = { 'prettier' },
         lua = { 'stylua' },
         python = { 'ruff_format' },
         -- https://github.com/mvdan/gofumpt (strict gofmt)

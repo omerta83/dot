@@ -9,7 +9,7 @@ return {
     -- 'typescript',
     -- 'typescriptreact',
     'graphql',
-    -- 'vue',
+    'vue',
   },
   root_markers = {
     '.eslintrc',

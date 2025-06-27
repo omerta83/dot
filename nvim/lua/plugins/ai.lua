@@ -65,5 +65,10 @@ return {
             )
       end)
     end,
+    opts = {
+      nes = {
+        move_count_threshold = 3,   -- Clear after 3 cursor movements
+      }
+    }
   }
 }

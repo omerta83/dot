@@ -2,4 +2,4 @@
 golangci-lint = "latest"
 golangci-lint-langserver = "latest"
 node = "lts"
-pnpm = "10"
+pnpm = "latest"
