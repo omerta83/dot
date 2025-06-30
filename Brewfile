@@ -40,16 +40,10 @@ brew "yt-dlp"
 brew "zoxide"
 
 cask "alt-tab"
-cask "eloston-chromium"
+cask "ungoogled-chromium"
 cask "font-jetbrains-mono-nerd-font"
 cask "font-jetbrains-mono"
 cask "kitty"
 cask "localsend"
 cask "pearcleaner"
 cask "wezterm@nightly"
-
-vscode github.copilot
-vscode github.copilot-chat
-vscode saoudrizwan.claude-dev
-vscode vscodevim.vim
-vscode vue.volar

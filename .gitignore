@@ -3,3 +3,6 @@
 /pnpm/
 /jgit/
 /.dart-cli-completion/
+/colima/
+.aider*
+.android/
