@@ -9,6 +9,14 @@ local jsts_settings = {
   },
 }
 
+local function vue_ls_location()
+  if vim.fn.system('arch') == 'arm64' then -- Apple Sillicon
+    return '/opt/homebrew/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server'
+  end
+  -- Intel Mac
+  return '/usr/local/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server'
+end
+
 ---@type vim.lsp.Config
 return {
   cmd = { 'vtsls', '--stdio' },
@@ -23,6 +31,9 @@ return {
           enableServerSideFuzzyMatch = true,
         },
       },
+      typescript = {
+        globalTsdk = '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/node_modules/typescript/lib'
+      },
       -- https://github.com/yioneko/vtsls/issues/148
       tsserver = {
         globalPlugins = {
@@ -30,7 +41,7 @@ return {
           {
             name = "@vue/typescript-plugin",
             -- vue-language-server installed with brew
-            location = '/usr/local/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server',
+            location = vue_ls_location(),
             languages = { "vue" },
             configNamespace = "typescript",
             enableForWorkspaceTypeScriptVersions = true,
