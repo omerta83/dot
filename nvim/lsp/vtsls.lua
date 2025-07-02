@@ -9,6 +9,7 @@ local jsts_settings = {
   },
 }
 
+-- vue-language-server installed with brew
 local function vue_ls_location()
   if vim.fn.system('arch') == 'arm64' then -- Apple Sillicon
     return '/opt/homebrew/opt/vue-language-server/libexec/lib/node_modules/@vue/language-server'
@@ -40,7 +41,6 @@ return {
           -- Use volar for only .vue files and tsserver for .ts and .js files.
           {
             name = "@vue/typescript-plugin",
-            -- vue-language-server installed with brew
             location = vue_ls_location(),
             languages = { "vue" },
             configNamespace = "typescript",

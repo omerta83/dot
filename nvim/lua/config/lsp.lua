@@ -10,18 +10,31 @@ local function on_attach(client, buffer)
     vim.keymap.set(mode, lhs, rhs, { buffer = buffer, desc = desc })
   end
 
-  keymap("gd", "<cmd>FzfLua lsp_definitions     jump1=true ignore_current_line=true<cr>", "[G]oto [D]efinition")
   keymap("gR", "<cmd>FzfLua lsp_references      jump1=true ignore_current_line=true<cr>", "[G]oto [R]eference")
   keymap("gI", "<cmd>FzfLua lsp_implementations jump1=true ignore_current_line=true<cr>", "[G]oto [I]mplementation")
   keymap("gy", "<cmd>FzfLua lsp_typedefs        jump1=true ignore_current_line=true<cr>", "[G]oto T[y]pe Definition")
-  keymap("<c-s>", function()
-    vim.lsp.buf.signature_help({
-      border = 'rounded',
-      focusable = false,
-      max_height = math.floor(vim.o.lines * 0.5),
-      max_width = math.floor(vim.o.columns * 0.4),
-    })
-  end, "Signature help", { "i", "n" })
+
+  if client:supports_method(methods.textDocument_definition) then
+    keymap("gd", function()
+      -- require('fzf-lua').lsp_definitions { jump1 = true }
+      vim.lsp.buf.definition()
+    end, "[G]oto [D]efinition")
+    keymap("gD", function()
+      require('fzf-lua').lsp_definitions { jump1 = false }
+    end, "Show Definitions")
+  end
+
+  if client:supports_method(methods.textDocument_signatureHelp) then
+    keymap("<c-s>", function()
+      vim.lsp.buf.signature_help({
+        border = 'rounded',
+        focusable = false,
+        max_height = math.floor(vim.o.lines * 0.5),
+        max_width = math.floor(vim.o.columns * 0.4),
+      })
+    end, "Signature help", { "i", "n" })
+  end
+
   keymap("K", function()
     vim.lsp.buf.hover({
       border = 'rounded',
@@ -160,10 +173,10 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   once = true,
   callback = function()
     local server_configs = vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
-      :map(function(file)
-        return vim.fn.fnamemodify(file, ':t:r')
-      end)
-      :totable()
+        :map(function(file)
+          return vim.fn.fnamemodify(file, ':t:r')
+        end)
+        :totable()
     vim.lsp.enable(server_configs)
   end,
 })

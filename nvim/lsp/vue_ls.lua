@@ -10,21 +10,11 @@ local function get_typescript_server_path(root_dir)
   return ''
 end
 
--- https://github.com/vuejs/language-tools/blob/master/packages/language-server/lib/types.ts
-local volar_init_options = {
-  typescript = {
-    tsdk = '',
-  },
-  vue = {
-    hybridMode = true
-  }
-}
 ---@type vim.lsp.Config
 return {
   cmd = { "vue-language-server", "--stdio" },
   filetypes = { "vue" },
   root_markers = { "package.json" },
-  -- root_markers = { 'nuxt.config.ts', 'quasar.config.js', 'quasar.config.ts', '' },
   capabilities = {
     workspace = {
       didChangeWatchedFiles = {
@@ -32,11 +22,45 @@ return {
       },
     },
   },
-  init_options = volar_init_options,
+  -- https://github.com/vuejs/language-tools/wiki/Neovim
+  on_init = function(client)
+    client.handlers['tsserver/request'] = function(_, result, context)
+      local clients = vim.lsp.get_clients({ bufnr = context.bufnr, name = 'vtsls' })
+      if #clients == 0 then
+        vim.notify('Could not found `vtsls` lsp client, vue_lsp would not work without it.', vim.log.levels.ERROR)
+        return
+      end
+      local ts_client = clients[1]
+
+      local param = unpack(result)
+      local id, command, payload = unpack(param)
+      ts_client:exec_cmd({
+        title = 'Request tsserver',
+        command = 'typescript.tsserverRequest',
+        arguments = {
+          command,
+          payload,
+        },
+      }, { bufnr = context.bufnr }, function(_, r)
+        if r ~= nil then
+          local response_data = { { id, r.body } }
+          ---@diagnostic disable-next-line: param-type-mismatch
+          client:notify('tsserver/response', response_data)
+        end
+      end)
+    end
+  end,
+  -- https://github.com/vuejs/language-tools/blob/master/packages/language-server/lib/types.ts
+  init_options = {
+    typescript = {
+      tsdk = '',
+    }
+  },
   before_init = function(_, config)
     if config.init_options and config.init_options.typescript and config.init_options.typescript.tsdk == '' then
       ---@diagnostic disable-next-line: inject-field
       config.init_options.typescript.tsdk = get_typescript_server_path(config.root_dir)
+      -- config.init_options.typescript.tsdk = '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/node_modules/typescript/lib'
     end
   end,
 }

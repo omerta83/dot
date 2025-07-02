@@ -98,7 +98,7 @@ local M = {
     'lsp_status',
     icon = icons.misc.Gear,
     symbols = {
-      separator = icons.misc.VertSeparator,
+      separator = string.format(" %s ", icons.misc.VertSeparator),
     }
   },
   term = {
