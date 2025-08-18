@@ -43,7 +43,7 @@ return {
         { "<leader>gs", group = "gitsigns" },
         { "<leader>gd", group = "diffview" },
         { "<leader>o",  group = "ops" },
-        { "<leader>G",  group = "files" },
+        { "<leader>F",  group = "files" },
         { "<leader>M",  group = "molten" },
         { "<leader>R",  group = "rest" },
         { "<leader>cx", group = "refactor" },

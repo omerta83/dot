@@ -4,6 +4,7 @@ return {
   {
     'stevearc/oil.nvim',
     cmd = "Oil",
+    enabled = true,
     keys = {
       { "-",         function() require('oil').open_float() end,                desc = "Open parent directory in float" },
       { "<leader>-", function() require('oil').open_float(vim.fn.getcwd()) end, desc = "Open working directory in float" },
@@ -36,18 +37,6 @@ return {
     },
     -- Optional dependencies
     -- dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-
-  {
-    'chrisgrieser/nvim-genghis',
-    cmd = "Genghis",
-    keys = {
-      { "<leader>Gn", "<cmd>Genghis createNewFile<CR>",         desc = "Create new file" },
-      { "<leader>Gr", "<cmd>Genghis renameFile<CR>",            desc = "Rename file or directory" },
-      { "<leader>Gc", "<cmd>Genghis copyFilepath<CR>",          desc = "Copy file path" },
-      { "<leader>GC", "<cmd>Genghis copyFilepathWithTilde<CR>", desc = "Copy filepath with ~" },
-      { "<leader>Gd", "<cmd>Genghis trashFile<CR>",             desc = "Search files" },
-    }
   },
 
   -- {

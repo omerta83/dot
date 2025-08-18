@@ -8,7 +8,7 @@ local biome_or_other = function()
 
   -- Include rustywind if tailwind.config.js or tailwind.config.ts exists
   local has_tailwind = vim.fn.filereadable(cwd .. '/tailwind.config.js') or
-    vim.fn.filereadable(cwd .. '/tailwind.config.ts')
+      vim.fn.filereadable(cwd .. '/tailwind.config.ts')
   if has_tailwind == 1 then
     table.insert(formatters, 'rustywind')
   end
@@ -18,6 +18,7 @@ end
 return {
   {
     'stevearc/conform.nvim',
+    cmd = { "ConformInfo" },
     keys = {
       {
         '<leader>cf',
@@ -43,6 +44,9 @@ return {
         lsp_format = "fallback",
       },
       formatters = {
+        prettier = {
+          require_cwd = true,
+        },
         -- fvm dart
         fdart_format = {
           command = "/usr/local/bin/fvm",
@@ -54,7 +58,6 @@ return {
         javascriptreact = biome_or_other,
         typescript = biome_or_other,
         typescriptreact = biome_or_other,
-        -- vue = biome_or_other,
         vue = { 'prettier' },
         lua = { 'stylua' },
         python = { 'ruff_format' },

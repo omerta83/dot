@@ -16,8 +16,8 @@ local function on_attach(client, buffer)
 
   if client:supports_method(methods.textDocument_definition) then
     keymap("gd", function()
-      -- require('fzf-lua').lsp_definitions { jump1 = true }
-      vim.lsp.buf.definition()
+      require('fzf-lua').lsp_definitions { jump1 = true }
+      -- vim.lsp.buf.definition()
     end, "[G]oto [D]efinition")
     keymap("gD", function()
       require('fzf-lua').lsp_definitions { jump1 = false }
@@ -42,7 +42,10 @@ local function on_attach(client, buffer)
       max_width = math.floor(vim.o.columns * 0.4),
     })
   end, "Hover")
-  keymap("<leader>ca", vim.lsp.buf.code_action, "Show code [a]ctions on Hover", { "n", "v" })
+  -- keymap("<leader>ca", vim.lsp.buf.code_action, "Show code [a]ctions on Hover", { "n", "v" })
+  keymap("<leader>ca", function()
+    require('tiny-code-action').code_action()
+  end, "Tiny code [a]ctions", { "n", "x" })
   keymap("<leader>K", vim.diagnostic.open_float, "Line Diagnostics")
   keymap("]d", function() vim.diagnostic.jump({ count = 1 }) end, "Next [d]iagnostic")
   keymap("[d", function() vim.diagnostic.jump({ count = -1 }) end, "Prev [d]iagnostic")
@@ -119,9 +122,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     on_attach(client, buffer)
 
     -- Setup vetur document formatting
-    if client.name == 'vuels' then
-      client.server_capabilities.documentFormattingProvider = true
-    end
+    -- if client.name == 'vuels' then
+    --   client.server_capabilities.documentFormattingProvider = true
+    -- end
   end,
 })
 
@@ -169,16 +172,16 @@ vim.diagnostic.config({
 })
 
 -- Set up LSP servers.
-vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
-  once = true,
-  callback = function()
-    local server_configs = vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
-        :map(function(file)
-          return vim.fn.fnamemodify(file, ':t:r')
-        end)
-        :totable()
-    vim.lsp.enable(server_configs)
-  end,
-})
+-- vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
+--   once = true,
+--   callback = function()
+--     local server_configs = vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
+--         :map(function(file)
+--           return vim.fn.fnamemodify(file, ':t:r')
+--         end)
+--         :totable()
+--     vim.lsp.enable(server_configs)
+--   end,
+-- })
 
 return M

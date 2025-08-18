@@ -17,8 +17,8 @@ map("n", "N", "Nzzzv", { desc = 'Prev result', silent = true })
 map('v', '<', '<gv', { desc = 'Indent left in visual mode' })
 map('v', '>', '>gv', { desc = 'Indent right in visual mode' })
 -- Move lines up and down in visual mode.
-map("x", "J", ":m '>+1<CR>gv=gv", { desc = 'Move lines down in visual mode' })
-map("x", "K", ":m '<-2<CR>gv=gv", { desc = 'Move lines up in visual mode' })
+-- map("x", "J", ":m '>+1<CR>gv=gv", { desc = 'Move lines down in visual mode' })
+-- map("x", "K", ":m '<-2<CR>gv=gv", { desc = 'Move lines up in visual mode' })
 -- Join lines and retain the cursor position
 map("n", "J", "mzJ`z")
 -- Paste replace text but keep pasted text in the unamed register and discard the replaced text

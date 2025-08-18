@@ -1,25 +1,37 @@
 return {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
+  dependencies = 'elanmed/fzf-lua-frecency.nvim',
   -- event = "VeryLazy",
   keys = {
-    { "<leader><space>", "<cmd>FzfLua files<CR>",          desc = "Find files" },
+    -- { "<leader><space>", "<cmd>FzfLua files<CR>",          desc = "Find files" },
+    { "<leader><space>", "<cmd>FzfLua global<CR>",          desc = "Global picker" },
     {
       "<leader>ff",
       function()
-        require 'fzf-lua'.files({ cwd = vim.fn.expand('%:p:h') })
+        -- require 'fzf-lua'.global({ cwd = vim.fn.expand('%:p:h') })
+        require('fzf-lua-frecency').frecency({
+          cwd_only = true,
+          display_score = false,
+        })
       end,
-      desc = "Find [f]iles in current folder"
+      desc = "Find [f]iles with frecency"
     },
     { "<leader>fb",      "<cmd>FzfLua buffers<CR>",        desc = "List [b]uffers" },
     { '<leader>f/',      '<cmd>FzfLua lgrep_curbuf<CR>',   desc = 'Grep current buffer' },
-    { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>", desc = "Live [g]rep --glob" },
+    { "<leader>fg",      "<CMD>FzfLua live_grep<CR>", desc = "Live [g]rep --glob" },
     { "<leader>fg",      "<CMD>FzfLua grep_visual<CR>",    desc = "Live [g]rep --glob",    mode = 'x' },
     { "<leader>fp",      "<cmd>FzfLua grep_project<CR>",   desc = "Search [p]roject Lines" },
     {
       "<leader>fr",
       function()
         require('fzf-lua').oldfiles({ include_current_session = true })
+        -- require('fzf-lua-frecency').frecency({
+        --   include_current_session = true,
+        --   cwd = vim.fn.expand('%:p:h'),
+        --   cwd_only = true,
+        --   display_score = false,
+        -- })
       end,
       desc = "[r]ecently opened files"
     },
