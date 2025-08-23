@@ -5,7 +5,7 @@ return {
     init = function()
       vim.o.timeoutlen = 300
     end,
-    enabled = true,
+    enabled = false,
     opts = {
       preset = 'helix',
       -- delay = 300,

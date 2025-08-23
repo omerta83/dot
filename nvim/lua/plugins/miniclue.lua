@@ -3,7 +3,7 @@ return {
   {
     'echasnovski/mini.clue',
     event = 'VeryLazy',
-    enabled = false,
+    enabled = true,
     opts = function()
       local miniclue = require 'mini.clue'
 
@@ -19,32 +19,32 @@ return {
         vim.list_extend(marks, vim.fn.getmarklist())
 
         return vim.iter(marks)
-          :map(function(mark)
-            local key = mark.mark:sub(2, 2)
+            :map(function(mark)
+              local key = mark.mark:sub(2, 2)
 
-            -- Just look at letter marks.
-            if not string.match(key, '^%a') then
-              return nil
-            end
-
-            -- For global marks, use the file as a description.
-            -- For local marks, use the line number and content.
-            local desc
-            if mark.file then
-              desc = vim.fn.fnamemodify(mark.file, ':p:~:.')
-            elseif mark.pos[1] and mark.pos[1] ~= 0 then
-              local line_num = mark.pos[2]
-              local lines = vim.fn.getbufline(mark.pos[1], line_num)
-              if lines and lines[1] then
-                desc = string.format('%d: %s', line_num, lines[1]:gsub('^%s*', ''))
+              -- Just look at letter marks.
+              if not string.match(key, '^%a') then
+                return nil
               end
-            end
 
-            if desc then
-              return { mode = 'n', keys = string.format('`%s', key), desc = desc }
-            end
-          end)
-          :totable()
+              -- For global marks, use the file as a description.
+              -- For local marks, use the line number and content.
+              local desc
+              if mark.file then
+                desc = vim.fn.fnamemodify(mark.file, ':p:~:.')
+              elseif mark.pos[1] and mark.pos[1] ~= 0 then
+                local line_num = mark.pos[2]
+                local lines = vim.fn.getbufline(mark.pos[1], line_num)
+                if lines and lines[1] then
+                  desc = string.format('%d: %s', line_num, lines[1]:gsub('^%s*', ''))
+                end
+              end
+
+              if desc then
+                return { mode = 'n', keys = string.format('`%s', key), desc = desc }
+              end
+            end)
+            :totable()
       end
 
       -- Clues for recorded macros.
@@ -92,17 +92,20 @@ return {
           { mode = 'x', keys = '<leader>c',  desc = '+code' },
           { mode = 'n', keys = '<leader>cx', desc = '+code refactor' },
           { mode = 'x', keys = '<leader>cx', desc = '+code refactor' },
-          -- { mode = 'n', keys = '<leader>d', desc = '+debug' },
+          { mode = 'n', keys = '<leader>d',  desc = '+debug' },
           { mode = 'n', keys = '<leader>f',  desc = '+find' },
           { mode = 'n', keys = '<leader>g',  desc = '+git' },
-          { mode = 'x', keys = '<leader>g',  desc = '+git' },
+          -- { mode = 'x', keys = '<leader>g',  desc = '+git' },
           { mode = 'n', keys = '<leader>gs', desc = '+gitsigns' },
-          { mode = 'x', keys = '<leader>gs', desc = '+gitsigns' },
+          -- { mode = 'x', keys = '<leader>gs', desc = '+gitsigns' },
+          { mode = 'n', keys = '<leader>gd', desc = '+diffview' },
           { mode = 'n', keys = '<leader>o',  desc = '+ops' },
+          -- { mode = 'n', keys = '<leader>F',  desc = '+files' },
           { mode = 'n', keys = '<leader>t',  desc = '+terminal' },
           { mode = 'n', keys = '<leader>x',  desc = '+loclist/quickfix' },
           { mode = 'n', keys = '<leader>w',  desc = '+window' },
           { mode = 'n', keys = "<leader>A",  desc = "+AI" },
+          { mode = 'n', keys = "<leader>R",  desc = "+Request" },
           { mode = 'n', keys = '[',          desc = '+prev' },
           { mode = 'n', keys = ']',          desc = '+next' },
           -- Builtins.

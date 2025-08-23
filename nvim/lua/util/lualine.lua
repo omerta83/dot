@@ -1,8 +1,8 @@
 local M = {}
 
 M.theme = function()
-  if vim.g.colors_name == 'kanagawa' then
-    local theme = require('kanagawa.colors').setup().theme
+  if vim.g.colors_name == 'kanso' then
+    local theme = require('kanso.colors').setup().theme
     local kanagawa = {}
 
     kanagawa.normal = {
@@ -22,8 +22,8 @@ M.theme = function()
     }
 
     kanagawa.visual = {
-      a = { fg = theme.syn.keyword },
-      b = { fg = theme.syn.keyword },
+      a = { fg = theme.ui.bg_search },
+      b = { fg = theme.ui.bg_search },
     }
 
     kanagawa.replace = {

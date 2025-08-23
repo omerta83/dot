@@ -7,8 +7,8 @@ return {
     copilot_model = "gpt-4o-copilot", -- Current LSP default is gpt-35-turbo, supports gpt-4o-copilot
     opts = {
       suggestion = {
-        enabled = false, -- use blink instead
-        auto_trigger = false,
+        enabled = true,
+        auto_trigger = true,
         keymap = {
           accept = '<M-CR>',
           accept_word = '<M-w>',
@@ -25,29 +25,39 @@ return {
   },
 
   {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    dependencies = {
-      { "zbirenbaum/copilot.lua" },                   -- or zbirenbaum/copilot.lua
-      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-    },
-    build = "make tiktoken",                          -- Only on MacOS or Linux
-    opts = {
-      -- See Configuration section for options
-      model = 'claude-3.7-sonnet',
-    },
-    -- See Commands section for default commands if you want to lazy load on them
-    cmd = { "CopilotChatModels" },
+    'olimorris/codecompanion.nvim',
+    cmd = { 'CodeCompanion', 'CodeCompanionActions' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     keys = {
-      { "<leader>Ac", ":CopilotChat<CR>",         desc = "Chat with Copilot" },
-      { "<leader>Ae", ":CopilotChatExplain<CR>",  mode = "v",                desc = "Explain Code" },
-      { "<leader>Ar", ":CopilotChatReview<CR>",   mode = "v",                desc = "Review Code" },
-      { "<leader>Af", ":CopilotChatFix<CR>",      mode = "v",                desc = "Fix Code Issues" },
-      { "<leader>Ao", ":CopilotChatOptimize<CR>", mode = "v",                desc = "Optimize Code" },
-      { "<leader>Ad", ":CopilotChatDocs<CR>",     mode = "v",                desc = "Generate Docs" },
-      { "<leader>At", ":CopilotChatTests<CR>",    mode = "v",                desc = "Generate Tests" },
-      { "<leader>Ag", ":CopilotChatCommit<CR>",   mode = "n",                desc = "Generate Commit Message" },
-      { "<leader>As", ":CopilotChatCommit<CR>",   mode = "v",                desc = "Generate Commit Message for Selection" },
-    }
+      { '<leader>At', '<cmd>CodeCompanionChat Toggle<cr>', desc = 'Toggle CodeCompanion chat' },
+      { '<leader>Aa', '<cmd>CodeCompanionChat Add<cr>',    desc = 'Add to CodeCompanion chat', mode = 'x' },
+    },
+    opts = function()
+      local config = require('codecompanion.config').config
+
+      local diff_opts = config.display.diff.opts
+      table.insert(diff_opts, 'context:99') -- Setting the context to a very large number disables folding.
+
+      return {
+        strategies = {
+          inline = {
+            keymaps = {
+              accept_change = {
+                modes = { n = '<leader>Ay' },
+                description = 'Accept the suggested change',
+              },
+              reject_change = {
+                modes = { n = '<leader>An' },
+                description = 'Reject the suggested change',
+              },
+            },
+          },
+        },
+        display = {
+          diff = { opts = diff_opts },
+        },
+      }
+    end,
   },
 
   -- Install with `pnpm install -g @github/copilot-language-server`
@@ -67,7 +77,7 @@ return {
     end,
     opts = {
       nes = {
-        move_count_threshold = 3,   -- Clear after 3 cursor movements
+        move_count_threshold = 3, -- Clear after 3 cursor movements
       }
     }
   }

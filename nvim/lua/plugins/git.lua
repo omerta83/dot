@@ -105,16 +105,16 @@ return {
           fold_open = icons.arrows.down,
           done = '',
         },
-        -- hooks = {
-        --   diff_buf_read = function(bufnr)
-        --     -- Register the leader group with miniclue.
-        --     vim.b[bufnr].miniclue_config = {
-        --       clues = {
-        --         { mode = 'n', keys = '<leader>G', desc = '+diffview' },
-        --       },
-        --     }
-        --   end,
-        -- },
+        hooks = {
+          diff_buf_read = function(bufnr)
+            -- Register the leader group with miniclue.
+            vim.b[bufnr].miniclue_config = {
+              clues = {
+                { mode = 'n', keys = '<leader>G', desc = '+diffview' },
+              },
+            }
+          end,
+        },
         -- stylua: ignore start
         keymaps = {
           -- Easier to just configure what I need.

@@ -3,7 +3,7 @@ return {
     'saghen/blink.cmp',
     enabled = true,
     event = "InsertEnter",
-    dependencies = { "fang2hou/blink-copilot" },
+    -- dependencies = { "fang2hou/blink-copilot" },
     version = '1.*',
     opts = {
       cmdline = {
@@ -94,7 +94,8 @@ return {
 
       sources = {
         default = function()
-          local sources = { 'lsp', 'buffer', 'copilot' }
+          -- local sources = { 'lsp', 'buffer', 'copilot' }
+          local sources = { 'lsp', 'buffer' }
           local ok, node = pcall(vim.treesitter.get_node)
 
           if ok and node then
@@ -108,22 +109,25 @@ return {
 
           return sources
         end,
+        per_filetype = {
+          codecompanion = { 'codecompanion', 'buffer' },
+        },
         -- per_filetype = { sql = { 'dadbod' } },
-        providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot",
-            score_offset = 100,
-            async = true,
-          },
+        -- providers = {
+          -- copilot = {
+          --   name = "copilot",
+          --   module = "blink-copilot",
+          --   score_offset = 100,
+          --   async = true,
+          -- },
           --   dadbod = { module = "vim_dadbod_completion.blink" },
-        }
+        -- }
       },
     },
-    config = function(_, opts)
-      require('blink.cmp').setup(opts)
-      -- Extend neovim's client capabilities with the completion ones.
-      -- vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities(nil, true) })
-    end
+    -- config = function(_, opts)
+    --   require('blink.cmp').setup(opts)
+    --   -- Extend neovim's client capabilities with the completion ones.
+    --   -- vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities(nil, true) })
+    -- end
   }
 }

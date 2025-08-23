@@ -1,5 +1,8 @@
 return {
   {
+    "mason-org/mason.nvim", cmd = "Mason", opts = {},
+  },
+  {
     "mason-org/mason-lspconfig.nvim",
     event = 'VeryLazy',
     opts = {
@@ -7,7 +10,6 @@ return {
         "basedpyright",
         "biome",
         "cssls",
-        "dartls",
         "emmet_language_server",
         "eslint",
         "golangci_lint_ls",
@@ -15,6 +17,8 @@ return {
         "html",
         "jsonls",
         "lua_ls",
+        "postgres_lsp",
+        "prismals",
         "ruff",
         "tailwindcss",
         "vtsls",
@@ -22,7 +26,7 @@ return {
       },
     },
     dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
+      "mason-org/mason.nvim",
       "neovim/nvim-lspconfig",
     },
     config = function(_, opts)
@@ -44,6 +48,12 @@ return {
           'typescriptreact',
         },
       })
+      -- vim.lsp.config('eslint', {
+      --   filetypes = {
+      --     -- Use biome for other filetypes
+      --     'vue',
+      --   },
+      -- })
       vim.lsp.config('jsonls', {
         settings = {
           json = {
@@ -99,7 +109,9 @@ return {
         },
       })
       vim.lsp.config('vtsls', {
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+        -- filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+        -- Only for vue, tsgo for typescript
+        filetypes = { 'vue' },
         settings = {
           complete_function_calls = true,
           vtsls = {
@@ -143,6 +155,10 @@ return {
           },
         }
       })
+
+      -- Not in Mason
+      vim.lsp.enable('dartls')
+      vim.lsp.enable('tsgo')
 
       -- local lspconfig = require('lspconfig')
       local mason_lspconfig = require('mason-lspconfig')
