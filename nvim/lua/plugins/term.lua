@@ -71,7 +71,9 @@ return {
   {
     'mrjones2014/smart-splits.nvim',
     -- event = "VeryLazy",
-    opts = {},
+    opts = {
+      at_edge = 'stop',
+    },
     keys = {
       {'<C-h>', desc = "Move to the left split"},
       {'<C-j>', desc = "Move to the bottom split"},

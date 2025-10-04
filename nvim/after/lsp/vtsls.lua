@@ -1,9 +1,9 @@
 local vue_language_server_path = vim.fn.expand '$MASON/packages' ..
     '/vue-language-server' .. '/node_modules/@vue/language-server'
 return {
-  -- filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+  filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
   -- Only for vue, tsgo for typescript
-  filetypes = { 'vue' },
+  -- filetypes = { 'vue' },
   settings = {
     complete_function_calls = true,
     vtsls = {
