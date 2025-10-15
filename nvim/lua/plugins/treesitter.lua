@@ -39,7 +39,7 @@ return {
         "solidity",
         "sql",
         "svelte",
-        "swift",
+        -- "swift",
         "toml",
         "tsx",
         "typescript",
