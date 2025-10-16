@@ -120,4 +120,3 @@
 
 [log]
 	date = auto:human
-helper = !/usr/bin/gh auth git-credential
