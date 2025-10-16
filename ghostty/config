@@ -1,129 +1,57 @@
-### Font
-# freetype-load-flags = no-hinting
-# freetype-load-flags = no-force-autohint
+# Font Configuration
+font-family = JetBrains Mono
+font-size = 13
 
-font-family = "JetBrainsMono NFM ExtraLight"
-font-family-bold = "JetBrainsMono NFM Light"
-font-family-italic = "JetBrainsMono NFM ExtraLight Italic"
-font-family-bold-italic = "JetBrainsMono NFM Light Italic"
+# Window Configuration
+window-decoration = false
+window-padding-x = 12
+window-padding-y = 12
+background-opacity = 0.90
+background-blur-radius = 32
 
-font-size = 15
-font-thicken = false
-window-inherit-font-size = true
-
-### Look and feel
-# theme = dark:"Kanagawa Dragon",light:"Kanagawa Wave"
-theme = dark:"kanso-zen",light:"kanso-pearl"
-#theme = nightfox
-#background = "#161616"
-#foreground = "#f2f4f8"
-adjust-cell-height = "5%"
-adjust-cell-width = "8%"
-adjust-cursor-thickness = 3
-adjust-underline-position = 3
-bold-is-bright = false
+# Cursor Configuration
 cursor-style = block
-cursor-style-blink = false
-fullscreen = false
-link-url = true
-# no titlebar
-macos-titlebar-style = hidden
-macos-non-native-fullscreen = visible-menu
-macos-window-shadow = false
+cursor-style-blink = true
+
+# Scrollback
+scrollback-limit = 3023
+
+# Theme
+theme = dark:"kanso-zen",light:"kanso-pearl"
+
+# Terminal features
 mouse-hide-while-typing = true
-window-decoration = true
-window-padding-x = 8
-window-padding-y = 0
-window-padding-balance = true
-window-width = 9999
-window-height = 999
-maximize = true
-window-save-state = always
-
-### Icon
-# macos-icon = custom-style
-# macos-icon-frame = plastic
-# macos-icon-ghost-color = #BCBEC4
-# macos-icon-screen-color = #00FF00
-
-### Other
-clipboard-read = allow
-quick-terminal-position = center
-shell-integration = zsh
-shell-integration-features = no-cursor,no-sudo,title
-macos-option-as-alt = true
+copy-on-select = false
 confirm-close-surface = false
 
-### Key bindings
-# Clear all keybindings before setting new ones
+# Disable annoying copied to clipboard
+# app-notifications = no-clipboard-copy,no-config-reload
+
+# Key bindings for common actions
 keybind = clear
-# Some default keybindings
-keybind = super+q=quit
+#keybind = ctrl+c=copy_to_clipboard
+#keybind = ctrl+v=paste_from_clipboard
+#keybind = ctrl+shift+n=new_window
+#keybind = ctrl+t=new_tab
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
+keybind = super+shift+i=inspector:toggle
 keybind = super+shift+,=reload_config
-keybind = super+n=new_window
-keybind = super+c=copy_to_clipboard
-keybind = super+v=paste_from_clipboard
-keybind = super+d=new_split:right
-keybind = super+plus=increase_font_size:1
-keybind = super+minus=decrease_font_size:1
-keybind = super+enter=toggle_fullscreen
-keybind = super+alt+i=inspector:toggle
-keybind = global:super+\=toggle_quick_terminal
 
-## Terminal app keybindings
-# nvim save buffer
-keybind = super+s=text:\x1b\x3a\x77\x0a
-# lazygit
-keybind = super+g=text:\x00\x67
-# Go to file in vim using fzf
-keybind = super+o=text:\x20\x20
+# Material 3 UI elements
+unfocused-split-opacity = 0.7
+unfocused-split-fill = #44464f
 
-## Tmux
-# Run `xxd -psg` for key codes
-# reload tmux config
-keybind = super+r=text:\x00\x72
-# tmux thumb mode
-keybind = super+shift+f=text:\x00\x43
-# tmux url capture using fzf, shortcut mimics kitty's
-keybind = ctrl+shift+e=text:\x00\x75
-# tmux copy mode
-keybind = super+shift+c=text:\x00\x5b
-# tmux paste mode
-keybind = super+shift+v=text:\x00\x5d
-# Switch to last tmux session
-keybind = super+l=text:\x00\x4c
-# tmux smart session manager
-keybind = super+p=text:\x00\x54
-# Swap tmux panes
-keybind = super+j=text:\x00\x4a
-keybind = super+k=text:\x00\x4b
-# tmux rename window
-keybind = super+,=text:\x00\x2c
-# tmux command mode
-keybind = super+;=text:\x00\x3a
-# tmux kill window
-keybind = super+w=text:\x00\x78
-# tmux split window right
-keybind = super+d=text:\x00\x25
-# tmux spit window below
-keybind = super+shift+d=text:\x00\x22
-# New tmux window
-keybind = super+t=text:\x00\x63
-# Tmux next / prev window
-keybind = super+[=text:\x00\x70
-keybind = super+]=text:\x00\x6e
-# tmux zoom
-keybind = super+z=text:\x00\x7a
-keybind = super+shift+z=text:\x00\x5a
-# Move to tmux window #
-keybind = super+1=text:\x00\x31
-keybind = super+2=text:\x00\x32
-keybind = super+3=text:\x00\x33
-keybind = super+4=text:\x00\x34
-keybind = super+5=text:\x00\x35
-keybind = super+6=text:\x00\x36
-keybind = super+7=text:\x00\x37
-keybind = super+8=text:\x00\x38
-keybind = super+9=text:\x00\x39
+# Tab configuration
+gtk-titlebar = false
 
-auto-update-channel = tip
+# Shell integration
+shell-integration = detect
+shell-integration-features = cursor,sudo,title,no-cursor
+keybind = shift+enter=text:\n
+
+# Dank color generation
+# config-file = ./config-dankcolors

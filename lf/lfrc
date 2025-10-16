@@ -43,9 +43,9 @@ map <space> quicklook
 map gh cd ~
 map gd cd ~/Downloads
 map gs cd ~/Documents
-map gw cd ~/Sites
-map ga cd /Applications
-map gv cd /Volumes
+map gw cd ~/Projects
+# map ga cd /Applications
+# map gv cd /Volumes
 map gc cd ~/.config
 
 map xz zip

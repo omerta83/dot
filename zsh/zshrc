@@ -1,6 +1,7 @@
 # Customize to your needs...
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 # Not share command history between tmux panes
 setopt noincappendhistory
@@ -25,21 +26,22 @@ zstyle ':fzf-tab:*' fzf-bindings 'tab:toggle+down,shift-tab:toggle+up'
 
 export PNPM_HOME="$HOME/.pnpm"
 export GEM_HOME=$HOME/.gem
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-24.jdk/Contents/Home
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+#export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-24.jdk/Contents/Home
+#export ANDROID_HOME=$HOME/Library/Android/sdk
+#export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
 PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$PNPM_HOME:$HOME/.local/bin:$HOME/go/bin"
+PATH=~/.npm-global/bin:$PATH
 # export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH"
-PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-PATH=$PATH:$ANDROID_SDK_ROOT/tools
-PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+#PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+#PATH=$PATH:$ANDROID_SDK_ROOT/tools
+#PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 # ctop and colima
 export DOCKER_HOST="unix://$HOME/.config/colima/docker.sock"
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall
-[[ -f /Users/omerta/.config/.dart-cli-completion/zsh-config.zsh ]] && . /Users/omerta/.config/.dart-cli-completion/zsh-config.zsh || true
+# [[ -f /Users/omerta/.config/.dart-cli-completion/zsh-config.zsh ]] && . /Users/omerta/.config/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
 
 
@@ -49,13 +51,14 @@ export DOCKER_HOST="unix://$HOME/.config/colima/docker.sock"
 # if [ $? -eq 0 ]; then
 #     eval "$__conda_setup"
 # else
-if [ -f "/Users/omerta/miniconda/etc/profile.d/conda.sh" ]; then
-    . "/Users/omerta/miniconda/etc/profile.d/conda.sh"
-else
-    export PATH="/Users/omerta/miniconda/bin:$PATH"
-fi
+# if [ -f "/Users/omerta/miniconda/etc/profile.d/conda.sh" ]; then
+#     . "/Users/omerta/miniconda/etc/profile.d/conda.sh"
+# else
+#     export PATH="/Users/omerta/miniconda/bin:$PATH"
+# fi
 # fi
 # unset __conda_setup
 # <<< conda initialize <<<
 
-eval "$(mise activate zsh)"
+#eval "$(mise activate zsh)"
+[ -f ~/.zprofile ] && source ~/.zprofile

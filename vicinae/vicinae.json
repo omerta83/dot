@@ -1,0 +1,23 @@
+{
+    "closeOnFocusLoss": false,
+    "faviconService": "twenty",
+    "font": {
+        "size": 10
+    },
+    "keybinding": "default",
+    "keybinds": {
+    },
+    "popToRootOnClose": false,
+    "rootSearch": {
+        "searchFiles": true
+    },
+    "theme": {
+        "iconTheme": "Adwaita",
+        "name": "monokai.json"
+    },
+    "window": {
+        "csd": true,
+        "opacity": 0.85,
+        "rounding": 10
+    }
+}

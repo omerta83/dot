@@ -14,6 +14,24 @@ local function on_attach(client, buffer)
   keymap("gI", "<cmd>FzfLua lsp_implementations jump1=true ignore_current_line=true<cr>", "[G]oto [I]mplementation")
   keymap("gy", "<cmd>FzfLua lsp_typedefs        jump1=true ignore_current_line=true<cr>", "[G]oto T[y]pe Definition")
 
+  -- Enable native LSP inline completion for copilot
+  vim.lsp.inline_completion.enable(true)
+  vim.keymap.set("i", "<tab>", function()
+    if not vim.lsp.inline_completion.get() then
+      return "<tab>"
+    end
+  end, {
+    expr = true,
+    replace_keycodes = true,
+    desc = "Get the current inline completion",
+  })
+  keymap("<M-]>", function()
+    vim.lsp.inline_completion.select({ count = 1 })
+  end, "Next Copilot suggestion", { "i", "n" })
+  keymap("<M-[>", function()
+    vim.lsp.inline_completion.select({ count = -1 })
+  end, "Prev Copilot suggestion", { "i", "n" })
+
   if client:supports_method(methods.textDocument_definition) then
     keymap("gd", function()
       require('fzf-lua').lsp_definitions { jump1 = true }

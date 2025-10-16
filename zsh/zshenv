@@ -34,9 +34,9 @@ fzf-conda-activate () {
 }
 
 # LLM
-export ANTHROPIC_API_KEY=$(security find-generic-password -a "anthropic-api-key" -s "Anthropic API Key" -w)
-export OPENROUTER_API_KEY=$(security find-generic-password -a "openrouter-api-key" -s "OpenRouter API Key" -w)
-export GEMINI_API_KEY=$(security find-generic-password -a "gemini-api-key" -s "Gemini API Key" -w)
+#export ANTHROPIC_API_KEY=$(security find-generic-password -a "anthropic-api-key" -s "Anthropic API Key" -w)
+#export OPENROUTER_API_KEY=$(security find-generic-password -a "openrouter-api-key" -s "OpenRouter API Key" -w)
+#export GEMINI_API_KEY=$(security find-generic-password -a "gemini-api-key" -s "Gemini API Key" -w)
 
 # Use nvim as manpager
 export MANPAGER='nvim +Man!'
@@ -50,4 +50,4 @@ export MANWIDTH=999
 # export ANDROID_HOME=$HOME/Library/Android/sdk
 # export PATH=$PATH:$ANDROID_HOME/emulator
 # export PATH=$PATH:$ANDROID_HOME/platform-tools
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"

@@ -32,6 +32,7 @@ return {
         "jsonls",
         "lua_ls",
         "postgres_lsp",
+        "copilot",
       },
     },
     dependencies = {
@@ -41,7 +42,7 @@ return {
     config = function(_, opts)
       -- Not in Mason
       vim.lsp.enable('dartls')
-      vim.lsp.enable('tsgo')
+      -- vim.lsp.enable('tsgo')
 
       -- local lspconfig = require('lspconfig')
       local mason_lspconfig = require('mason-lspconfig')

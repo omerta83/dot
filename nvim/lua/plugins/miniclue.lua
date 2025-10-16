@@ -104,7 +104,7 @@ return {
           { mode = 'n', keys = '<leader>t',  desc = '+terminal' },
           { mode = 'n', keys = '<leader>x',  desc = '+loclist/quickfix' },
           { mode = 'n', keys = '<leader>w',  desc = '+window' },
-          { mode = 'n', keys = "<leader>A",  desc = "+AI" },
+          { mode = 'n', keys = "<leader>a",  desc = "+AI" },
           { mode = 'n', keys = "<leader>R",  desc = "+Request" },
           { mode = 'n', keys = '[',          desc = '+prev' },
           { mode = 'n', keys = ']',          desc = '+next' },
