@@ -1,5 +1,6 @@
 # Font Configuration
-font-family = JetBrains Mono
+# font-family = JetBrains Mono
+font-family = Caskaydia Mono Nerd Font Mono Extra Light
 font-size = 13
 
 # Window Configuration
