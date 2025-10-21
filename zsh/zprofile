@@ -25,9 +25,11 @@ alias sed=gsed
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias lzg='lazygit'
 alias lzd='lazydocker'
-alias ls=eza
+alias ls='eza -lh --group-directories-first --icons=auto'
+alias lsa='ls -a'
 alias ll='eza -l --icons'
-alias tree='eza -l --tree --icons'
+alias lt='eza -l --long --level=2 --tree --icons'
+alias lta='lt -a'
 alias wssh='wezterm cli spawn --domain-name'
 alias wimgcat='wezterm imgcat'
 alias k='kubectl'

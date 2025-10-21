@@ -104,7 +104,7 @@
       "enabled": true
     },
     {
-      "id": "clipboard",
+      "id": "privacyIndicator",
       "enabled": true
     },
     {
@@ -136,7 +136,7 @@
   "monoFontFamily": "Monospace",
   "fontWeight": 400,
   "fontScale": 1,
-  "dankBarFontScale": 1.15,
+  "dankBarFontScale": 1.1500000000000001,
   "notepadUseMonospace": true,
   "notepadFontFamily": "",
   "notepadFontSize": 14,
@@ -165,7 +165,7 @@
   "dankBarSpacing": 4,
   "dankBarBottomGap": 0,
   "dankBarInnerPadding": 4,
-  "dankBarSquareCorners": false,
+  "dankBarSquareCorners": true,
   "dankBarNoBackground": true,
   "dankBarGothCornersEnabled": false,
   "dankBarBorderEnabled": false,

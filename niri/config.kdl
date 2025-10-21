@@ -95,16 +95,31 @@ layout {
         width 2
         // active-color   "#808080"      // Medium gray
         // inactive-color "#505050"      // Dark gray
-        active-color "#07b5ef"
-        inactive-color "#ffffff00"
-        active-gradient from="#f00f" to="#0f05" angle=45 in="oklch longer hue"
+        // active-color "#07b5ef"
+        // inactive-color "#ffffff00"
+        // active-gradient from="#f00f" to="#0f05" angle=45 in="oklch longer hue"
+        active-color   "#9ccbfb"
+        inactive-color "#8c9199"
+        urgent-color   "#ffb4ab"
+        active-gradient from="#f00f" to="#07b5ef" angle=45 in="oklch longer hue"
     }
     shadow {
         softness 30
         spread 5
         offset x=0 y=5
-        color "#0007"
+        color "#00000070"
     }
+
+    tab-indicator {
+        active-color   "#9ccbfb"
+        inactive-color "#8c9199"
+        urgent-color   "#ffb4ab"
+    }
+
+    insert-hint {
+        color "#9ccbfb80"
+    }
+
     struts {
     }  
 }
@@ -242,7 +257,7 @@ binds {
     Mod+Space hotkey-overlay-title="Application Launcher" { 
         spawn "vicinae" "toggle";
     }
-    Mod+Z hotkey-overlay-title="Open Browser" { spawn "brave"; }
+    Mod+B hotkey-overlay-title="Open Browser" { spawn "brave"; }
     Mod+V hotkey-overlay-title="Clipboard Manager" { 
         spawn "dms" "ipc" "call" "clipboard" "toggle"; 
     }
@@ -263,10 +278,10 @@ binds {
     Mod+Ctrl+Q hotkey-overlay-title="Power Menu" {
         spawn "dms" "ipc" "call" "powermenu" "toggle";
     }
-    Ctrl+Alt+Delete hotkey-overlay-title="Task Manager" { 
-        spawn "dms" "ipc" "call" "processlist" "toggle"; 
-    }
-    
+    // Ctrl+Alt+Delete hotkey-overlay-title="Task Manager" { 
+    //     spawn "dms" "ipc" "call" "processlist" "toggle"; 
+    // }
+
     // === Audio Controls ===
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "dms" "ipc" "call" "audio" "increment" "3";

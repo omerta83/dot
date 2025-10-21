@@ -37,7 +37,7 @@ PATH=~/.npm-global/bin:$PATH
 #PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
 
 # ctop and colima
-export DOCKER_HOST="unix://$HOME/.config/colima/docker.sock"
+#export DOCKER_HOST="unix://$HOME/.config/colima/docker.sock"
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall
