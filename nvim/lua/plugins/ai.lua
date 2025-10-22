@@ -68,7 +68,7 @@ return {
       cli = {
         mux = {
           backend = "tmux",
-          enabled = true,
+          enabled = false,
         },
       },
     },
@@ -78,7 +78,7 @@ return {
         function()
           -- if there is a next edit, jump to it, otherwise apply it if any
           if require("sidekick").nes_jump_or_apply() then
-            return        -- jumped or applied
+            return -- jumped or applied
           end
 
           -- if you are using Neovim's native inline completions
@@ -109,27 +109,36 @@ return {
         mode = { "n", "v" },
       },
       {
-        "<leader>ac",
-        function()
-          require("sidekick.cli").toggle({ name = "claude", focus = true })
-        end,
-        desc = "Sidekick Claude Toggle",
-        mode = { "n", "v" },
+        "<leader>as",
+        function() require("sidekick.cli").select({ filter = { installed = true } }) end,
+        desc = "Select CLI",
       },
-      -- {
-      --   "<leader>ag",
-      --   function()
-      --     require("sidekick.cli").toggle({ name = "grok", focus = true })
-      --   end,
-      --   desc = "Sidekick Grok Toggle",
-      --   mode = { "n", "v" },
-      -- },
+      {
+        "<leader>at",
+        function() require("sidekick.cli").send({ msg = "{this}" }) end,
+        mode = { "x", "n" },
+        desc = "Send This",
+      },
+      {
+        "<leader>av",
+        function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+        mode = { "x" },
+        desc = "Send Visual Selection",
+      },
       {
         "<leader>ap",
         function()
           require("sidekick.cli").select_prompt()
         end,
         desc = "Sidekick Ask Prompt",
+        mode = { "n", "v" },
+      },
+      {
+        "<leader>ac",
+        function()
+          require("sidekick.cli").toggle({ name = "claude", focus = true })
+        end,
+        desc = "Sidekick Claude Toggle",
         mode = { "n", "v" },
       },
     },
