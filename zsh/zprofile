@@ -25,11 +25,16 @@ alias sed=gsed
 alias redis='redis-server /usr/local/etc/redis.conf'
 alias lzg='lazygit'
 alias lzd='lazydocker'
-alias ls=eza
+alias ls='eza -lh --group-directories-first --icons=auto'
+alias lsa='ls -a'
 alias ll='eza -l --icons'
-alias tree='eza -l --tree --icons'
-alias wssh='wezterm cli spawn --domain-name'
-alias wimgcat='wezterm imgcat'
+alias lt='eza -l --long --level=2 --tree --icons'
+alias lta='lt -a'
+# alias ls=eza
+# alias ll='eza -l --icons'
+# alias tree='eza -l --tree --icons'
+# alias wssh='wezterm cli spawn --domain-name'
+# alias wimgcat='wezterm imgcat'
 alias k='kubectl'
 alias s='kitty +kitten ssh'
 alias t='sesh connect $(sesh list | fzf)'
@@ -40,6 +45,7 @@ alias c='clear'
 alias g=git
 alias gwa='git worktree add'
 alias gco='git checkout'
+alias claude-yolo='claude --dangerously-skip-permissions'
 
 #
 # Language

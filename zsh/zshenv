@@ -17,11 +17,11 @@ export FZF_DEFAULT_OPTS=" \
   --no-separator \
   --bind ctrl-b:preview-page-up,ctrl-f:preview-page-down,ctrl-s:jump,ctrl-l:clear-selection"
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
- --color=fg:-1,bg:-1,hl:#5f87af \
- --color=fg+:-1,bg+:-1,hl+:#5fd7ff \
- --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff \
- --color=border:#262626 \
- --color=marker:#87ff00,spinner:#af5fff,header:#87afaf"
+  --color=fg:-1,bg:-1,hl:#5f87af \
+  --color=fg+:-1,bg+:-1,hl+:#5fd7ff,gutter:#090E13 \
+  --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff \
+  --color=border:#262626 \
+  --color=marker:#87ff00,spinner:#af5fff,header:#87afaf"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
