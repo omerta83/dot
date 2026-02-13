@@ -126,4 +126,5 @@ keybind = super+7=text:\x00\x37
 keybind = super+8=text:\x00\x38
 keybind = super+9=text:\x00\x39
 
-auto-update-channel = tip
+auto-update = off
+#auto-update-channel = tip
