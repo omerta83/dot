@@ -1,5 +1,7 @@
 [tools]
+flutter = "latest"
 golangci-lint = "latest"
 golangci-lint-langserver = "latest"
-node = "lts"
+node = "24"
 pnpm = "latest"
+prettier = "latest"
