@@ -37,10 +37,10 @@ require("lazy").setup({
       enabled = true,
     },
     rtp = {
-      -- paths = {
-      --   "/usr/local/opt/fzf",    -- homebrew version of fzf for Intel Macs
+      paths = {
+        "/usr/local/opt/fzf",    -- homebrew version of fzf for Intel Macs
       --   "/opt/homebrew/opt/fzf", -- homebrew version of fzf for Apple Silicon Macs
-      -- },
+      },
       disabled_plugins = {
         "gzip",
         -- vim-matchup instead of matchit and matchparen

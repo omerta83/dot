@@ -7,6 +7,9 @@ export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export LDFLAGS="-L/usr/local/opt/ruby/lib"
 export CPPFLAGS="-I/usr/local/opt/ruby/include"
 
+# Don't let Ghostty mess up with the cursor.
+export GHOSTTY_SHELL_FEATURES="title,sudo"
+
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type file --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS=" \

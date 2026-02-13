@@ -85,9 +85,11 @@ return {
   -- Copied from https://github.com/MariaSolOs/dotfiles/blob/8cdc092c0c340f669bef33a932f235dcde3c2019/.config/nvim/lua/plugins/diffview.lua
   {
     'sindrets/diffview.nvim',
+    cmd = { 'DiffviewOpen', 'DiffviewFileHistory', 'DiffviewClose' },
     keys = {
       { '<leader>gdh', '<cmd>DiffviewFileHistory<cr>', desc = 'File history' },
-      { '<leader>gdo', '<cmd>DiffviewOpen<cr>',        desc = 'Diff view' },
+      { '<leader>gdo', '<cmd>DiffviewOpen<cr>',        desc = 'Open diff view' },
+      { '<leader>gdc', '<cmd>DiffviewClose<cr>',        desc = 'Close diff view' },
     },
     opts = function()
       local actions = require 'diffview.actions'

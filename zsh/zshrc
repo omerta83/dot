@@ -1,6 +1,7 @@
 # Customize to your needs...
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zprofile ] && source ~/.zprofile
 
 # Not share command history between tmux panes
 setopt noincappendhistory
@@ -58,4 +59,5 @@ fi
 # unset __conda_setup
 # <<< conda initialize <<<
 
-# eval "$(mise activate zsh)"
+eval "$(mise activate zsh)"
+# source <(fzf --zsh)
