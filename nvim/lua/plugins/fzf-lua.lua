@@ -1,25 +1,39 @@
+local icons = require('config.icons')
+
+-- return {
+--   'nvim-telescope/telescope.nvim',
+--   tag = 'v0.2.0',
+--   cmd = "Telescope",
+--   dependencies = { 'nvim-lua/plenary.nvim' },
+--   keys = {
+--     { "<leader><space>", "<cmd>Telescope find_files<CR>", desc = "Find files" },
+--     { "<leader>fb",      "<cmd>Telescope buffers<CR>",    desc = "List [b]uffers" },
+--     { "<leader>fg",      "<cmd>Telescope live_grep<CR>",  desc = "Live [g]rep" },
+--     { "<leader>fp",      "<cmd>Telescope grep_string<CR>",desc = "Search [p]roject Lines" },
+--     { "<leader>fr",      "<cmd>Telescope oldfiles<CR>",   desc = "[r]ecently opened files" },
+--     { "<leader>f;",      "<cmd>Telescope resume<CR>",     desc = "Resume" },
+--     { "<leader>fc",      "<cmd>Telescope commands<CR>",   desc = "List [c]ommands" },
+--     { "<leader>fh",      "<cmd>Telescope command_history<CR>", desc = "Command [h]istory" },
+--     { "<leader>f?",      "<cmd>Telescope help_tags<CR>", desc = "[?] Help tags" },
+--   }
+-- }
+
 return {
   "ibhagwan/fzf-lua",
   cmd = "FzfLua",
+  -- dependencies = 'elanmed/fzf-lua-frecency.nvim',
   -- event = "VeryLazy",
   keys = {
-    { "<leader><space>", "<cmd>FzfLua files<CR>",          desc = "Find files" },
-    {
-      "<leader>ff",
-      function()
-        require 'fzf-lua'.files({ cwd = vim.fn.expand('%:p:h') })
-      end,
-      desc = "Find [f]iles in current folder"
-    },
-    { "<leader>fb",      "<cmd>FzfLua buffers<CR>",        desc = "List [b]uffers" },
-    { '<leader>f/',      '<cmd>FzfLua lgrep_curbuf<CR>',   desc = 'Grep current buffer' },
-    { "<leader>fg",      "<CMD>FzfLua live_grep_glob<CR>", desc = "Live [g]rep --glob" },
-    { "<leader>fg",      "<CMD>FzfLua grep_visual<CR>",    desc = "Live [g]rep --glob",    mode = 'x' },
-    { "<leader>fp",      "<cmd>FzfLua grep_project<CR>",   desc = "Search [p]roject Lines" },
+    { "<leader><space>", "<cmd>FzfLua files<CR>",        desc = "Find files" },
+    { "<leader>fb",      "<cmd>FzfLua buffers<CR>",      desc = "List [b]uffers" },
+    { '<leader>f/',      '<cmd>FzfLua lgrep_curbuf<CR>', desc = 'Grep current buffer' },
+    { "<leader>fg",      "<CMD>FzfLua live_grep<CR>",    desc = "Live [g]rep --glob" },
+    { "<leader>fg",      "<CMD>FzfLua grep_visual<CR>",  desc = "Live [g]rep --glob",    mode = 'x' },
+    { "<leader>fp",      "<cmd>FzfLua grep_project<CR>", desc = "Search [p]roject Lines" },
     {
       "<leader>fr",
       function()
-        require('fzf-lua').oldfiles({ include_current_session = true })
+        require('fzf-lua').oldfiles()
       end,
       desc = "[r]ecently opened files"
     },
@@ -44,18 +58,19 @@ return {
   },
   opts = function()
     local actions = require "fzf-lua.actions"
-    local icons = require('config.icons')
 
     return {
       "fzf-native",
-      defaults = {
+      { 'border-fused', 'hide' },
+      defaults   = {
         git_icons = false,
         file_icons = 'devicons',
       },
-      fzf_opts = {
+      fzf_opts   = {
+        -- ['--info'] = 'default',
         ['--layout'] = 'reverse-list',
       },
-      keymap   = {
+      keymap     = {
         builtin = {
           -- neovim `:tmap` mappings for the fzf win
           ["<A-/>"] = "toggle-help",
@@ -63,21 +78,21 @@ return {
           ['<C-f>'] = 'preview-page-down',
           ['<C-b>'] = 'preview-page-up',
           -- Only valid with the 'builtin' previewer
-          ["<F3>"]  = "toggle-preview-wrap",
-          ["<C-/>"] = "toggle-preview",
+          -- ["<F3>"]  = "toggle-preview-wrap",
+          ["<C-i>"] = "toggle-preview",
         },
         fzf = {
-          -- fzf '--bind=' options
-          ["ctrl-z"] = "abort",
-          ["ctrl-u"] = "unix-line-discard",
-          ["ctrl-a"] = "beginning-of-line",
-          ["ctrl-e"] = "end-of-line",
+          -- ["ctrl-z"] = "abort",
+          -- ["ctrl-u"] = "unix-line-discard",
+          -- ["ctrl-a"] = "beginning-of-line",
+          -- ["ctrl-e"] = "end-of-line",
           ["alt-a"]  = "toggle-all",
-          ["ctrl-l"] = "clear-selection",
+          ["alt-s"]  = "toggle",
+          -- ["ctrl-l"] = "clear-selection",
           ['ctrl-q'] = 'select-all+accept',
           -- Only valid with fzf previewers (bat/cat/git/etc)
-          ["f3"]     = "toggle-preview-wrap",
-          ["ctrl-/"] = "toggle-preview",
+          -- ["f3"]     = "toggle-preview-wrap",
+          ["ctrl-i"] = "toggle-preview",
         },
       },
       actions  = {
@@ -95,25 +110,28 @@ return {
           ["ctrl-t"]  = actions.buf_tabedit,
         }
       },
-      winopts  = {
+      winopts    = {
         height = 0.7,
         width = 0.5,
         preview = {
           scrollbar = false,
-          delay = 100,
-          hidden = 'hidden',
+          -- delay = 100,
+          -- hidden = 'hidden',
           layout = 'vertical',
           vertical = 'up:55%',
         },
       },
+      previewers = {
+        codeaction = { toggle_behavior = 'extend' },
+      },
       -- Configuration for specific commands.
-      files    = {
+      files      = {
         cwd_prompt = false,
         winopts = {
-          preview = { hidden = 'hidden' },
+          preview = { hidden = true },
         },
       },
-      git      = {
+      git        = {
         status = {
           winopts = {
             preview = { hidden = 'nohidden' },
@@ -126,32 +144,44 @@ return {
           }
         },
       },
-      lsp      = {
+      lsp        = {
         cwd_only = true, -- LSP/diagnostics for cwd only?
         symbols = {
           symbol_icons = icons.kinds,
         },
+        code_actions = {
+          winopts = {
+            width = 70,
+            height = 20,
+            relative = 'cursor',
+            preview = {
+              hidden = true,
+              vertical = 'down:50%',
+            },
+          },
+        },
       },
-      oldfiles = {
+      oldfiles   = {
         cwd_only = true,
         include_current_session = true,
         winopts = {
-          preview = { hidden = 'hidden' },
+          preview = { hidden = true },
         },
       },
-      buffers  = {
+      buffers    = {
         cwd_only = true,
         actions = {
           ["ctrl-x"] = actions.buf_split,
           ["ctrl-d"] = { fn = actions.buf_del, reload = true },
         }
       },
-      manpages = {
+      manpages   = {
         cmd = "man -k -S 1 -M /usr/local/share/man .",
       },
     }
   end,
   config = function(_, opts)
     require('fzf-lua').setup(opts)
+    -- require("fzf-lua").setup({ winopts = { row = 1, col = 0 } })
   end
 }

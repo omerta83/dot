@@ -2,6 +2,22 @@
   name = Minh Phung
   email = phung.q.minh@gmail.com
 
+[alias]
+  st = status -sb
+  co = checkout
+  sw = switch
+  br = branch
+  c = commit --short
+  ci = commit --short
+  p = push
+  pf = push --force-with-lease
+  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
+  ll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --all
+  uncommit = reset --soft HEAD^
+  unstage = reset HEAD --
+  amend = commit --amend --no-edit
+  fixup = commit --fixup
+
 [core]
   pager = delta
 

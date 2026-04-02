@@ -3,7 +3,7 @@ return {
     'saghen/blink.cmp',
     enabled = true,
     event = "InsertEnter",
-    dependencies = { "fang2hou/blink-copilot" },
+    -- dependencies = { "fang2hou/blink-copilot" },
     version = '1.*',
     opts = {
       cmdline = {
@@ -13,29 +13,39 @@ return {
         enabled = false
       },
       keymap = {
-        preset = 'super-tab',
-        ['<C-space>'] = {},
-        ["<Tab>"] = {
-          function(cmp)
-            if vim.b[vim.api.nvim_get_current_buf()].nes_state then
-              cmp.hide()
-              return (
-                require("copilot-lsp.nes").apply_pending_nes()
-                and require("copilot-lsp.nes").walk_cursor_end_edit()
-              )
-            end
-            if cmp.snippet_active() then
-              return cmp.accept()
-            else
-              return cmp.select_and_accept()
-            end
-          end,
-          "snippet_forward",
-          "fallback",
-        },
-        ['<C-y>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<CR>'] = { 'accept', 'fallback' },
+        ['<C-e>'] = { 'hide', 'fallback' },
+        ['<C-n>'] = { 'select_next', 'show' },
+        -- ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+        ['<C-p>'] = { 'select_prev' },
+        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+        ['<C-y>'] = { 'show', 'show_documentation', 'hide_documentation' },
       },
+      -- keymap = {
+      --   preset = 'super-tab',
+      --   ['<C-space>'] = {},
+      --   ["<Tab>"] = {
+      --     function(cmp)
+      --       if vim.b[vim.api.nvim_get_current_buf()].nes_state then
+      --         cmp.hide()
+      --         return (
+      --           require("copilot-lsp.nes").apply_pending_nes()
+      --           and require("copilot-lsp.nes").walk_cursor_end_edit()
+      --         )
+      --       end
+      --       if cmp.snippet_active() then
+      --         return cmp.accept()
+      --       else
+      --         return cmp.select_and_accept()
+      --       end
+      --     end,
+      --     "snippet_forward",
+      --     "fallback",
+      --   },
+      --   ['<C-y>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      --   ['<CR>'] = { 'accept', 'fallback' },
+      -- },
       appearance = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
         -- useful for when your theme doesn't support blink.cmp
@@ -94,7 +104,8 @@ return {
 
       sources = {
         default = function()
-          local sources = { 'lsp', 'buffer', 'copilot' }
+          -- local sources = { 'lsp', 'buffer', 'copilot' }
+          local sources = { 'lsp', 'buffer' }
           local ok, node = pcall(vim.treesitter.get_node)
 
           if ok and node then
@@ -108,22 +119,25 @@ return {
 
           return sources
         end,
+        per_filetype = {
+          codecompanion = { 'codecompanion', 'buffer' },
+        },
         -- per_filetype = { sql = { 'dadbod' } },
-        providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot",
-            score_offset = 100,
-            async = true,
-          },
-          --   dadbod = { module = "vim_dadbod_completion.blink" },
-        }
+        -- providers = {
+        -- copilot = {
+        --   name = "copilot",
+        --   module = "blink-copilot",
+        --   score_offset = 100,
+        --   async = true,
+        -- },
+        --   dadbod = { module = "vim_dadbod_completion.blink" },
+        -- }
       },
     },
-    config = function(_, opts)
-      require('blink.cmp').setup(opts)
-      -- Extend neovim's client capabilities with the completion ones.
-      vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities(nil, true) })
-    end
+    -- config = function(_, opts)
+    --   require('blink.cmp').setup(opts)
+    --   -- Extend neovim's client capabilities with the completion ones.
+    --   -- vim.lsp.config('*', { capabilities = require('blink.cmp').get_lsp_capabilities(nil, true) })
+    -- end
   }
 }

@@ -1,6 +1,7 @@
 # Customize to your needs...
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zprofile ] && source ~/.zprofile
 
 # Not share command history between tmux panes
 setopt noincappendhistory
@@ -28,7 +29,7 @@ export GEM_HOME=$HOME/.gem
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-24.jdk/Contents/Home
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$PNPM_HOME:$HOME/.local/bin:$HOME/go/bin"
+PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH:$HOME/.local/flutter/bin:$HOME/.yarn/bin:$PNPM_HOME:$HOME/.local/bin"
 # export PATH="/usr/local/opt/ruby/bin:$GEM_HOME/bin:$PATH"
 PATH=$PATH:$ANDROID_SDK_ROOT/emulator
 PATH=$PATH:$ANDROID_SDK_ROOT/tools
@@ -59,3 +60,4 @@ fi
 # <<< conda initialize <<<
 
 eval "$(mise activate zsh)"
+# source <(fzf --zsh)

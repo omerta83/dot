@@ -164,6 +164,7 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
+      transparent = true,
       keywordStyle = { italic = false },
       colors = {
         theme = {
