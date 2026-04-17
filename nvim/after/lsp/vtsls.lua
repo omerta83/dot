@@ -1,5 +1,7 @@
 local vue_language_server_path = vim.fn.expand '$MASON/packages' ..
     '/vue-language-server' .. '/node_modules/@vue/language-server'
+local svelte_language_server_path = vim.fn.expand '$MASON/packages' .. '/svelte-language-server'
+
 return {
   filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
   -- Only for vue, tsgo for typescript
@@ -24,6 +26,13 @@ return {
             languages = { "vue" },
             configNamespace = "typescript",
             -- enableForWorkspaceTypescriptVersions = true,
+          },
+          {
+            name = "typescript-svelte-plugin",
+            location = svelte_language_server_path,
+            languages = { "svelte" },
+            configNamespace = "typescript",
+            enableForWorkspaceTypeScriptVersions = true,
           }
         }
       }

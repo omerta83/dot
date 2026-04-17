@@ -4,6 +4,9 @@ return {
     event = "VeryLazy",
     -- event = { 'BufReadPost', 'BufNewFile' },
     -- dependencies = { 'nvim-treesitter-textobjects' },
+    dependencies = {
+      { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
+    },
     opts = function()
       local ai = require("mini.ai")
       return {

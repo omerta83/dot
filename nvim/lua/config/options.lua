@@ -100,4 +100,7 @@ vim.bo.swapfile = false
 -- load vim plugins
 vim.cmd([[
   packadd cfilter -- enable filter for quickfix
+  packadd nvim.undotree
 ]])
+
+-- vim.cmd("packadd nvim.undotree")

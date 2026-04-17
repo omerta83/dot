@@ -88,30 +88,21 @@ vim.api.nvim_create_user_command('Todos', function()
   require('fzf-lua').grep { search = 'TODO|FIX|HACK|NOTE|PERF', no_esc = true }
 end, { desc = 'List TODOs', nargs = 0 })
 
---- Autoclear search highlights
--- vim.api.nvim_create_autocmd('CursorMoved', {
---   group = vim.api.nvim_create_augroup('omerta/auto-hlsearch', { clear = true }),
---   callback = function ()
---     if vim.v.hlsearch == 1 and vim.fn.searchcount().exact_match == 0 then
---       vim.schedule(function ()
---         vim.cmd.nohlsearch()
---         vim.cmd.stopinsert()
---       end)
---     end
---   end
--- })
+-- Start treesitter
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('omerta/treesitter', { clear = true }),
+  desc = 'Start Treesitter',
+  callback = function(args)
+    local bufnr = args.buf
 
--- https://github.dev/MariaSolOs/dotfiles/blob/f77169cd0622a5893aa47163395d4ddc5ed49290/.config/nvim/lua/commands.lua#L10-L22
-vim.api.nvim_create_user_command('Scratch', function()
-    vim.cmd 'bel 10new'
-    local buf = vim.api.nvim_get_current_buf()
-    for name, value in pairs {
-        filetype = 'scratch',
-        buftype = 'nofile',
-        bufhidden = 'wipe',
-        swapfile = false,
-        modifiable = true,
-    } do
-        vim.api.nvim_set_option_value(name, value, { buf = buf })
+    if pcall(vim.treesitter.start, bufnr) then
+      -- Enable treesitter folding if treesitter is available
+      vim.api.nvim_buf_call(bufnr, function()
+        vim.wo[0][0].foldmethod = 'expr'
+        vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.cmd.normal 'zx'
+        vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end)
     end
-end, { desc = 'Open a scratch buffer', nargs = 0 })
+  end,
+})
