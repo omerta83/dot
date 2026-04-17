@@ -96,7 +96,7 @@ vim.api.nvim_create_autocmd('FileType', {
     local bufnr = args.buf
 
     if pcall(vim.treesitter.start, bufnr) then
-      -- Enable treesitter folding if treesitter is available
+      -- Enable treesitter folding and indentation if treesitter is available
       vim.api.nvim_buf_call(bufnr, function()
         vim.wo[0][0].foldmethod = 'expr'
         vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
