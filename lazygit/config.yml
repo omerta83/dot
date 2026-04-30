@@ -1,28 +1,28 @@
 gui:
   nerdFontsVersion: "3"
   theme:
-   lightTheme: false
-   activeBorderColor:
-     - "#a6e3a1" # Green
-     - bold
-   inactiveBorderColor:
-     - "#cdd6f4" # Text
-   optionsTextColor:
-     - "#89b4fa" # Blue
-   selectedLineBgColor:
-     - "#313244" # Surface0
-   selectedRangeBgColor:
-     - "#313244" # Surface0
-   cherryPickedCommitBgColor:
-     - "#94e2d5" # Teal
-   cherryPickedCommitFgColor:
-     - "#89b4fa" # Blue
-   unstagedChangesColor:
-     - red # Red
+    lightTheme: false
+    activeBorderColor:
+      - "#a6e3a1" # Green
+      - bold
+    inactiveBorderColor:
+      - "#cdd6f4" # Text
+    optionsTextColor:
+      - "#89b4fa" # Blue
+    selectedLineBgColor:
+      - "#313244" # Surface0
+    selectedRangeBgColor:
+      - "#313244" # Surface0
+    cherryPickedCommitBgColor:
+      - "#94e2d5" # Teal
+    cherryPickedCommitFgColor:
+      - "#89b4fa" # Blue
+    unstagedChangesColor:
+      - red # Red
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --color-only --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --dark --color-only --paging=never
   log:
     showGraph: always
     showWholeGraph: true
@@ -30,10 +30,10 @@ os:
   edit: 'nvim'
   editAtLine: '{{editor}} +{{line}} -- {{filename}}'
   # editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
-customCommands:
-  - key: "C"
-    command: "git cz c"
-    description: "commit with commitizen commit tool"
-    context: "files"
-    loadingText: "Opening commitizen commit tool"
-    subprocess: true
+#customCommands:
+#  - key: "C"
+#    command: "git cz c"
+#    description: "commit with commitizen commit tool"
+#    context: "files"
+#    loadingText: "Opening commitizen commit tool"
+#    output: terminal

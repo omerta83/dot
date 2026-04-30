@@ -55,6 +55,9 @@ map("n", "<leader>z", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 map("n", "<leader>.", "<cmd>Scratch<cr>", { desc = "Toggle Scratch Buffer" })
 
+-- Undotree
+map("n", "<leader>u", require("undotree").open, { desc = "Toggle [U]ndotree" })
+
 vim.g.status_bar_enabled = true
 map("n", "<leader>S", function()
   vim.g.status_bar_enabled = not vim.g.status_bar_enabled
