@@ -56,6 +56,7 @@ return {
       formatters_by_ft = {
         javascript = biome_or_other,
         javascriptreact = biome_or_other,
+        svelte = { 'prettier', lsp_format = 'prefer' },
         typescript = biome_or_other,
         typescriptreact = biome_or_other,
         vue = { 'prettier' },

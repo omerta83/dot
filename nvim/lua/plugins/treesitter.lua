@@ -1,24 +1,127 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    version = false,
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    -- event = "VeryLazy",
-    -- lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
-    dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      {
+        'nvim-treesitter/nvim-treesitter-context',
+        opts = {
+          -- Avoid the sticky context from growing a lot.
+          max_lines = 3,
+          -- Match the context lines to the source code.
+          multiline_threshold = 1,
+          -- Disable it when the window is too small.
+          min_window_height = 20,
+        },
+        keys = {
+          {
+            '[c',
+            function()
+              -- Jump to previous change when in diffview.
+              if vim.wo.diff then
+                return '[c'
+              else
+                vim.schedule(function()
+                  require('treesitter-context').go_to_context()
+                end)
+                return '<Ignore>'
+              end
+            end,
+            desc = 'Jump to upper context',
+            expr = true,
+          },
+        },
+      }
+    },
     opts = {
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
-      ensure_installed = {
-        "comment",
+      -- highlight = {
+      --   enable = true,
+      -- },
+      -- indent = {
+      --   enable = true,
+      -- },
+      -- ensure_installed = {
+      --   "comment",
+      --   "css",
+      --   "dart",
+      --   "diff",
+      --   "gitcommit",
+      --   "gitignore",
+      --   "go",
+      --   "html",
+      --   "http",
+      --   "javascript",
+      --   "jsdoc",
+      --   "json",
+      --   "lua",
+      --   "markdown",
+      --   "markdown_inline",
+      --   "ninja",
+      --   "php",
+      --   "python",
+      --   "prisma",
+      --   "query",
+      --   "rst",
+      --   "rust",
+      --   "scss",
+      --   "solidity",
+      --   "sql",
+      --   "svelte",
+      --   "swift",
+      --   "toml",
+      --   "tsx",
+      --   "typescript",
+      --   "vue",
+      --   "vimdoc",
+      --   "yaml",
+      -- },
+      -- context_commentstring = {
+      --   enable = true,
+      --   enable_autocmd = false,
+      -- },
+      -- incremental_selection = {
+      --   enable = true,
+      --   keymaps = {
+      --     node_incremental = "v",
+      --     node_decremental = "V"
+      --   }
+      -- },
+      -- textobjects = {
+      --   select = {
+      --     enable = false, -- use mini.ai for selection
+      --   },
+      --   swap = {
+      --     enable = true,
+      --     swap_next = {
+      --       ["<leader>ta"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with next argument/parameter" },
+      --     },
+      --     swap_previous = {
+      --       ["<leader>tA"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with prev argument/parameter" }
+      --     },
+      --   },
+      --   move = {
+      --     enable = true,
+      --     set_jumps = true, -- whether to set jumps in the jumplist
+      --     -- LazyVim move keybindings
+      --     goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+      --     goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+      --     goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+      --     goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+      --   },
+      -- },
+    },
+    config = function(_, opts)
+      -- require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter").setup(opts)
+
+      require('nvim-treesitter').install {
+        -- "comment",
         "css",
         "dart",
         "diff",
+        "gitcommit",
         "gitignore",
         "go",
         "html",
@@ -31,6 +134,7 @@ return {
         "markdown_inline",
         "ninja",
         "php",
+        "python",
         "prisma",
         "query",
         "rst",
@@ -46,44 +150,7 @@ return {
         "vue",
         "vimdoc",
         "yaml",
-      },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          node_incremental = "v",
-          node_decremental = "V"
-        }
-      },
-      textobjects = {
-        select = {
-          enable = false, -- use mini.ai for selection
-        },
-        swap = {
-          enable = true,
-          swap_next = {
-            ["<leader>ta"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with next argument/parameter" },
-          },
-          swap_previous = {
-            ["<leader>tA"] = { query = "@parameter.inner", desc = "[Text Objects] Swap with prev argument/parameter" }
-          },
-        },
-        move = {
-          enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
-          -- LazyVim move keybindings
-          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-        },
-      },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter.configs").setup(opts)
+      }
     end
   },
 
