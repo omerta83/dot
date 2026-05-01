@@ -108,6 +108,7 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Ghostty progress bar for Lsp Progress
+-- Need `set-option -g allow-passthrough on` to be set for tmux
 vim.api.nvim_create_autocmd("LspProgress", {
   callback = function(ev)
     local value = ev.data.params.value or {}
