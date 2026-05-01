@@ -4,7 +4,7 @@ local biome_or_other = function()
   -- built in.
   local cwd = vim.fn.getcwd()
   local has_biome = vim.fn.filereadable(cwd .. '/biome.json')
-  local formatters = has_biome == 1 and { 'biome' } or { 'prettier' }
+  local formatters = has_biome == 1 and { 'biome-check' } or { 'prettier' }
 
   -- Include rustywind if tailwind.config.js or tailwind.config.ts exists
   local has_tailwind = vim.fn.filereadable(cwd .. '/tailwind.config.js') or
@@ -56,7 +56,7 @@ return {
       formatters_by_ft = {
         javascript = biome_or_other,
         javascriptreact = biome_or_other,
-        svelte = { 'prettier', lsp_format = 'prefer' },
+        svelte = biome_or_other,
         typescript = biome_or_other,
         typescriptreact = biome_or_other,
         vue = { 'prettier' },
