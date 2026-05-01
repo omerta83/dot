@@ -30,10 +30,3 @@ os:
   edit: 'nvim'
   editAtLine: '{{editor}} +{{line}} -- {{filename}}'
   # editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
-#customCommands:
-#  - key: "C"
-#    command: "git cz c"
-#    description: "commit with commitizen commit tool"
-#    context: "files"
-#    loadingText: "Opening commitizen commit tool"
-#    output: terminal
