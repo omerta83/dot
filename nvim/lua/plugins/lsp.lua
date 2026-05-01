@@ -23,6 +23,7 @@ return {
         "emmet_language_server",
         "eslint",
         "html",
+        "phpantom_lsp",
         "prismals",
         "svelte",
         "tailwindcss",
